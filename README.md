@@ -23,6 +23,10 @@ Sitio publicado: https://presupuesto-argentina.vercel.app
 
 - **Páginas fijas para buscadores:** una por programa u organismo (`/gasto/<slug>`, más el índice `/gasto`), una por provincia (`/provincias/<slug>`), y una por sección de la portada (`/impuestos`, `/que-me-cambia/jubilados`, …), cada una con su título, descripción, datos estructurados e imagen para redes (`og/`). Las arma `scripts/paginas.py` (llamado por `build.py`) y las imágenes `scripts/prerender.mjs`, que solo rehace las que cambiaron.
 
+- **Evolución 2020-2027 (`/evolucion`)** y una sección «¿Cómo cambió desde 2020?» en cada programa: gasto devengado de cada año (`scripts/bajar_historia.py`, workflow «Bajar serie histórica») llevado a pesos de 2026 con el IPC del INDEC (`fuentes/ipc_indec.json`).
+- **Gasto nacional por habitante en cada provincia**, con la población del Censo 2022 (`fuentes/poblacion_censo2022.json`).
+- **Glosario (`/glosario`)**: los términos del presupuesto en castellano simple (`scripts/glosario.json`).
+
 ## Otras funciones
 
 - Selector para ver los montos en billones de pesos o en pesos por habitante por mes.

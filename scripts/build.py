@@ -101,9 +101,9 @@ QUIEN = {"jubilados": "los jubilados y pensionados", "familias": "las familias c
          "discapacidad": "las personas con discapacidad", "trabajadores": "los trabajadores en relación de dependencia", "estatales": "los empleados públicos nacionales",
          "provincias": "las provincias", "servicios": "las tarifas de luz, gas y transporte", "contribuyentes": "los contribuyentes, las pymes y los productores"}
 GRUPOS = [("Para vos", [("resumen", "Resumen"), ("que-me-cambia", "¿Qué me cambia?"), ("tus-impuestos", "Tus impuestos"), ("/programas", "Buscar un gasto")]),
-          ("Los números", [("gasto", "En qué se gasta"), ("recursos", "De dónde sale la plata"), ("/provincias", "Por provincia")]),
+          ("Los números", [("gasto", "En qué se gasta"), ("/evolucion", "Qué creció y qué cayó"), ("recursos", "De dónde sale la plata"), ("/provincias", "Por provincia")]),
           ("¿Se cumple?", [("cumplimiento-2026", "2026: ¿se cumplió?"), ("realismo-2027", "2027: ¿es realista?"), ("congreso", "En el Congreso")]),
-          ("La ley", [("ley-vs-proyecto", "2026 vs. 2027"), ("articulos", "Artículos clave"), ("/cuadros", "Todos los cuadros")])]
+          ("La ley", [("ley-vs-proyecto", "2026 vs. 2027"), ("articulos", "Artículos clave"), ("/cuadros", "Todos los cuadros"), ("/glosario", "Glosario")])]
 
 
 def perfiles_seo(impacto):
@@ -164,7 +164,7 @@ def main():
         **comunes, **cab("/"), "SECNAV": secnav(), "SECCIONES_JS": json.dumps(SECCIONES, ensure_ascii=False),
         "PERFILES_JS": json.dumps(perfiles_seo(datos["impacto"]), ensure_ascii=False), "DATA": datos_js, "SITE_JS": json.dumps(SITE),
         "JSONLD": json.dumps(jsonld, ensure_ascii=False).replace("</", "<\\/")}), encoding="utf-8")
-    (RAIZ / "metodologia.html").write_text(reemplazar((RAIZ / "src/metodologia.html").read_text(encoding="utf-8"), {**comunes, **cab("/metodologia")}), encoding="utf-8")
+    (RAIZ / "metodologia.html").write_text(reemplazar((RAIZ / "src/metodologia.html").read_text(encoding="utf-8"), {**comunes, **cab("/metodologia"), "INFLP": f'{next(r for r in datos["supuestos"] if r["clave"] == "infl_prom")["proyecto2027"]:g}'.replace(".", ",")}), encoding="utf-8")
 
     # Página índice de datos abiertos
     filas = "\n".join(f'<li><a href="/datos/{k}.json">{k}.json</a> · {html.escape(DESCRIPCIONES.get(k, ""))}</li>' for k in datos)

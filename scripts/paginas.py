@@ -72,6 +72,101 @@ class Generador:
         self.corte = datos["programas"]["corte26"]
         self.infl27, self.infl26 = infl_prom27, infl26
         self.urls, self.og = [], []
+        self.ipc = self.indices_ipc()
+        self.HO = datos["programas"].get("historia_org", {})
+        self.HT = datos["programas"].get("historia_total", [])
+
+    def indices_ipc(self):
+        """IPC promedio de cada año. 2026: meses publicados + el resto interpolado hasta la inflación anual estimada;
+        2027: inflación promedio que supone el proyecto."""
+        f = json.loads((self.raiz / "fuentes" / "ipc_indec.json").read_text(encoding="utf-8"))
+        ipc = {int(k): v for k, v in f["promedio_anual"].items()}
+        m26 = [v for k, v in sorted(f["mensual_2025_2026"].items()) if k.startswith("2026")]
+        dic25 = f["mensual_2025_2026"]["2025-12"]
+        dic26 = dic25 * (1 + self.infl26 / 100)
+        faltan = 12 - len(m26)
+        if faltan:
+            paso = (dic26 / m26[-1]) ** (1 / faltan)
+            m26 += [m26[-1] * paso ** (i + 1) for i in range(faltan)]
+        ipc[2026] = sum(m26) / 12
+        ipc[2027] = ipc[2026] * (1 + self.infl27 / 100)
+        self.ipc_meses = len([k for k in f["mensual_2025_2026"] if k.startswith("2026")])
+        return ipc
+
+    def real(self, v, anio):
+        """Pesos corrientes de un año → pesos de 2026."""
+        return v * self.ipc[2026] / self.ipc[anio]
+
+    def serie(self, x):
+        """[(año, nominal, tipo)] con lo gastado 2020-2025, lo autorizado 2026 y lo pedido 2027."""
+        out = [(a, v, "gastado") for a, v in x.get("h", [])]
+        if x.get("v26"):
+            out.append((2026, x["v26"], "autorizado"))
+        if x.get("a27") is not None:
+            out.append((2027, x["a27"], "proyecto"))
+        return out
+
+    def grafico(self, serie, titulo):
+        """Barras en pesos de 2026, en SVG (sin JavaScript)."""
+        if len(serie) < 3:
+            return ""
+        vals = [(a, self.real(v, a), t) for a, v, t in serie]
+        mx = max(v for _, v, _ in vals) or 1
+        W, H, pad, base = 560, 230, 6, 192
+        bw = (W - pad * 2) / len(vals)
+        barras = []
+        for i, (a, v, t) in enumerate(vals):
+            h = max(1.5, v / mx * 150)
+            xx = pad + i * bw + bw * 0.14
+            ww = bw * 0.72
+            color = {"gastado": "var(--c1)", "autorizado": "var(--mutedbar)", "proyecto": "var(--acc)"}[t]
+            corto = plata(v).replace(" millones", " M").replace(" billones", " bn")
+            barras.append(f'<rect x="{xx:.1f}" y="{base - h:.1f}" width="{ww:.1f}" height="{h:.1f}" rx="3" fill="{color}"><title>{a}: {plata(v)} en pesos de 2026 ({t})</title></rect>'
+                          f'<text x="{xx + ww / 2:.1f}" y="{base - h - 6:.1f}" text-anchor="middle" font-size="12" fill="currentColor">{e(corto)}</text>'
+                          f'<text x="{xx + ww / 2:.1f}" y="{base + 16:.1f}" text-anchor="middle" font-size="13" fill="currentColor" opacity=".75">{a}</text>')
+        desc = "; ".join(f"{a}: {plata(v)}" for a, v, _ in vals)
+        return (f'<figure style="margin:0"><svg viewBox="0 0 {W} {H}" width="100%" role="img" aria-label="{e(titulo)}. {e(desc)}" style="max-width:720px;color:var(--fg)">{"".join(barras)}'
+                f'<line x1="{pad}" x2="{W - pad}" y1="{base}" y2="{base}" stroke="var(--axis)"/></svg>'
+                '<figcaption class="note"><span style="color:var(--c1)">■</span> gastado &nbsp; <span style="color:var(--mutedbar)">■</span> 2026: autorizado &nbsp; <span style="color:var(--acc)">■</span> 2027: proyecto · en pesos de 2026, descontada la inflación</figcaption></figure>')
+
+    def serie_org(self, x):
+        """Serie del organismo entero cuando el programa no se puede seguir en el tiempo."""
+        if not x["e"]:
+            return None
+        h = self.HO.get(re.sub(r"[^a-z0-9]+", " ", unicodedata.normalize("NFD", x["e"]).encode("ascii", "ignore").decode().lower()).strip())
+        if not h:
+            return None
+        hermanos = [p for p in self.P if p["e"] == x["e"]]
+        se = [(a, v, "gastado") for a, v in h]
+        v26 = sum(p.get("v26") or 0 for p in hermanos)
+        a27 = sum(p.get("a27") or 0 for p in hermanos)
+        if v26:
+            se.append((2026, v26, "autorizado"))
+        if a27:
+            se.append((2027, a27, "proyecto"))
+        return se
+
+    def seccion_historia(self, x):
+        se = self.serie(x)
+        sujeto = ""
+        if len(se) < 4:
+            so = self.serie_org(x)
+            if so and len(so) >= 4:
+                se, sujeto = so, x["e"]
+        if len(se) < 3:
+            return ""
+        filas = [[str(a), plata(v), plata(self.real(v, a)), {"gastado": "Gastado (devengado)", "autorizado": "Autorizado (crédito vigente)", "proyecto": "Proyecto de ley"}[t]] for a, v, t in se]
+        d = {a: self.real(v, a) for a, v, _ in se}
+        frase = ""
+        ult = 2027 if 2027 in d else 2026 if 2026 in d else None
+        base = 2023 if 2023 in d else min(d)
+        if ult and base < ult and d[base] > 0:
+            cambio = (d[ult] / d[base] - 1) * 100
+            frase = (f'<p class="respuesta" style="font-size:19px">{("Este programa cambió de nombre o se reorganizó en estos años, así que se muestra el gasto de todo el organismo (" + e(sujeto) + "). ") if sujeto else ""}Descontada la inflación, {"lo pedido para 2027" if ult == 2027 else "lo autorizado para 2026"} {"para todo el organismo " if sujeto else ""}es '
+                     f'<strong>{miles(abs(cambio))}% {"más" if cambio >= 0 else "menos"}</strong> que lo que se gastó en {base}.</p>')
+        return (f'<section class="card"><h2>¿Cómo cambió desde 2020?</h2>{frase}{self.grafico(se, "Gasto por año en pesos de 2026")}'
+                f'<details><summary class="note">Ver los números</summary>{tabla(["Año", "Pesos de cada año", "En pesos de 2026", "Qué es"], filas)}</details>'
+                f'<p class="note">Para comparar años se descuenta la inflación con el IPC del INDEC (promedio anual). 2026 usa lo autorizado hoy y estima los meses que faltan con la inflación prevista; 2027, la inflación que supone el proyecto. Si un año no aparece, el programa no existía con ese nombre o no se pudo emparejar. <a href="/metodologia#evolucion">Cómo se calcula</a>.</p></section>')
 
     # ---------- envoltorio común ----------
     def pagina(self, ruta, titulo, descripcion, cuerpo, migas, og_img=None, ld_extra=None, h1=None):
@@ -119,7 +214,7 @@ class Generador:
 </main>
 <footer class="src">
 <p>Sitio independiente, sin relación con el Gobierno nacional ni con partidos políticos. Montos en pesos corrientes. Fuentes: Proyecto de Presupuesto 2027 y sus datasets (Oficina Nacional de Presupuesto), Ley 27.798 y Presupuesto Abierto (Ministerio de Economía). Datos al {self.fecha_sitio}.</p>
-<nav><a href="/">Inicio</a><a href="/programas">Buscar un gasto</a><a href="/gasto">Todos los programas</a><a href="/provincias">Por provincia</a><a href="/metodologia#programas">Cómo se calcula</a><a href="{self.repo}/issues/new" target="_blank" rel="noopener">Avisar un error</a></nav>
+<nav><a href="/">Inicio</a><a href="/programas">Buscar un gasto</a><a href="/gasto">Todos los programas</a><a href="/provincias">Por provincia</a><a href="/glosario">Glosario</a><a href="/metodologia#programas">Cómo se calcula</a><a href="{self.repo}/issues/new" target="_blank" rel="noopener">Avisar un error</a></nav>
 </footer>
 </div>
 </body>
@@ -169,6 +264,7 @@ class Generador:
         cuerpo.append(f'<div class="stats">{"".join(stats)}</div>')
         if real is not None:
             cuerpo.append(f'<p><span class="etq{" warn" if real < 0 else ""}">Variación real 2027 contra lo autorizado en 2026: {"+" if real >= 0 else "−"}{miles(abs(real))}%</span></p>')
+        cuerpo.append(self.seccion_historia(x))
         if x.get("act27"):
             filas = [[e(n), plata(v), pct(v, x["a27"]) if x["a27"] else "—"] for n, v in x["act27"]]
             cuerpo.append(f'<section class="card"><h2>¿En qué se gasta en 2027?</h2><p class="note">Cada actividad u obra del programa en el proyecto 2027 ({len(filas)}).</p>{tabla(["Actividad u obra", "Pedido 2027", "% del programa"], filas)}</section>')
@@ -241,29 +337,37 @@ class Generador:
                 por[p].append((x, v, d))
         geo = sum(v for p, xs in por.items() if p not in ESPECIALES for _, v, _ in xs)
         lista = sorted(((p, sum(v for _, v, _ in xs), sum(d for _, _, d in xs)) for p, xs in por.items() if p not in ESPECIALES), key=lambda z: -z[1])
+        pobf = json.loads((self.raiz / "fuentes" / "poblacion_censo2022.json").read_text(encoding="utf-8"))
+        pob = pobf["provincias"]
+        hab = {p: tv * 1e6 / pob[p] for p, tv, _ in lista if p in pob}
+        rank = {p: i + 1 for i, p in enumerate(sorted(hab, key=lambda q: -hab[q]))}
         for p, tv, td in lista:
             ruta = f"/provincias/{slug(p)}"
             xs = sorted(por[p], key=lambda z: -z[1])
             frases = [f"En 2026 el Estado nacional tiene <strong>{plata(tv)}</strong> autorizados para gastar en {e(p)} y lleva gastado {plata(td)} ({pct(td, tv)}) hasta el {fecha(self.corte)}.",
-                      f"Es el {miles(tv / geo * 100, 1)}% de lo que la Nación asigna a alguna provincia."]
+                      f"Es el {miles(tv / geo * 100, 1)}% de lo que la Nación asigna a alguna provincia"
+                      + (f" y equivale a <strong>${miles(hab[p])} por habitante</strong> en el año, el {rank[p]}.º puesto entre las 24 jurisdicciones." if p in hab else ".")]
             filas = [[f'<a href="/gasto/{x["s"]}">{e(x["n"])}</a><br><span class="note">{e(x["e"] or x["j"])}</span>', plata(v), plata(d), pct(d, v)] for x, v, d in xs[:60]]
             cuerpo = [f'<p class="respuesta">{" ".join(frases)}</p>',
-                      f'<div class="stats">{stat("Autorizado 2026", plata(tv), "gasto nacional con ubicación en la provincia", ink=True)}{stat("Gastado", plata(td), pct(td, tv) + " al " + fecha(self.corte), barra=td / tv * 100 if tv else 0)}{stat("Programas con gasto en la provincia", miles(len(xs)))}</div>',
+                      f'<div class="stats">{stat("Autorizado 2026", plata(tv), "gasto nacional con ubicación en la provincia", ink=True)}{stat("Gastado", plata(td), pct(td, tv) + " al " + fecha(self.corte), barra=td / tv * 100 if tv else 0)}{stat("Por habitante en 2026", "$" + miles(hab[p]) if p in hab else "—", f"puesto {rank[p]} de 24 · {miles(pob[p])} habitantes (Censo 2022)" if p in hab else "")}{stat("Programas con gasto en la provincia", miles(len(xs)))}</div>',
                       '<div class="caveat">Cuenta solo el gasto que el Estado nacional ubica en esta provincia. Una parte grande del gasto, como muchas jubilaciones y asignaciones o las transferencias a fondos, figura como «Nacional» o «No clasificado», así que lo que llega a la gente de la provincia es más que esto. Tampoco incluye la coparticipación, que no es gasto del presupuesto nacional.' + (' En la Ciudad de Buenos Aires, además, figura mucho gasto de organismos nacionales que tienen ahí su sede.' if p.startswith('Ciudad') else '') + '</div>',
                       f'<section class="card"><h2>¿En qué gasta la Nación en {e(p)}?</h2><p class="note">Los {min(60, len(xs))} programas con más gasto en la provincia en 2026.</p>{tabla(["Programa", "Autorizado 2026", "Gastado", "%"], filas)}</section>',
                       f'<div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn primary" href="/programas?provincia={e(p)}">Buscar dentro de {e(p)}</a><a class="btn" href="/provincias">Ver todas las provincias</a></div>']
             n1, u1 = plata_og(tv)
             img = self.og_trabajo(f"provincias/{slug(p)}.jpg", kicker="Presupuesto nacional 2026", titulo=f"¿Cuánto gasta la Nación en {p}?", org="",
-                                  l1="Autorizado 2026", n1=n1, u1=u1, l2="Gastado hasta ahora", n2=pct(td, tv), u2="", fuente="Fuente: Presupuesto Abierto (Ministerio de Economía)")
+                                  l1="Autorizado 2026", n1=n1, u1=u1, l2="Por habitante", n2=("$" + miles(hab[p])) if p in hab else pct(td, tv), u2=(f"puesto {rank[p]} de 24") if p in hab else "", fuente="Fuentes: Presupuesto Abierto y Censo 2022")
             titulo = f"¿Cuánto gasta la Nación en {p}? Presupuesto 2026 por provincia"
-            desc = f"El Estado nacional tiene {plata(tv)} autorizados para gastar en {p} en 2026 y lleva gastado el {pct(td, tv)}. Programa por programa: obras, rutas, salud, educación y más."
+            desc = f"El Estado nacional tiene {plata(tv)} autorizados para gastar en {p} en 2026" + (f" (${miles(hab[p])} por habitante, puesto {rank[p]} de 24)" if p in hab else "") + f" y lleva gastado el {pct(td, tv)}. Programa por programa."
             self.pagina(ruta, titulo, desc, "\n".join(cuerpo), [("Inicio", "/"), ("Por provincia", "/provincias"), (p, ruta)], img, self.dataset(titulo, desc, ruta), h1=f"¿Cuánto gasta la Nación en {p}?")
-        filas = [[f'<a href="/provincias/{slug(p)}">{e(p)}</a>', plata(tv), plata(td), pct(td, tv), f"{miles(tv / geo * 100, 1)}%"] for p, tv, td in lista]
+        filas = [[f'<a href="/provincias/{slug(p)}">{e(p)}</a>', "$" + miles(hab[p]) if p in hab else "—", plata(tv), plata(td), pct(td, tv), f"{miles(tv / geo * 100, 1)}%"] for p, tv, td in sorted(lista, key=lambda z: -hab.get(z[0], 0))]
         esp = [[e(p), plata(sum(v for _, v, _ in por[p])), plata(sum(d for _, _, d in por[p]))] for p in ESPECIALES if p in por]
-        cuerpo = ['<p class="sub">Lo que el Estado nacional asignó en 2026 a cada provincia en su presupuesto, y cuánto lleva gastado. Tocá una provincia para ver en qué se gasta, programa por programa.</p>',
-                  tabla(["Provincia", "Autorizado 2026", "Gastado", "%", "Parte del total con provincia"], filas),
+        prov_solo = {q: v for q, v in hab.items() if not q.startswith("Ciudad")}
+        mx, mn = max(prov_solo, key=prov_solo.get), min(prov_solo, key=prov_solo.get)
+        cuerpo = [f'<p class="respuesta">Por habitante, la Nación asigna en 2026 entre <strong>${miles(hab[mn])}</strong> en {e(mn)} y <strong>${miles(hab[mx])}</strong> en {e(mx)}. La Ciudad de Buenos Aires queda arriba de todas porque ahí se registra el gasto de muchos organismos nacionales. Tocá una provincia para ver en qué se gasta, programa por programa.</p>',
+                  '<div class="caveat">Solo cuenta el gasto que el presupuesto nacional ubica en cada provincia: no incluye lo clasificado como «Nacional» o «No clasificado» (como buena parte de las jubilaciones y asignaciones) ni la coparticipación. En la Ciudad de Buenos Aires figura además mucho gasto de organismos que tienen ahí su sede. Población: Censo 2022 (INDEC, resultados provisionales).</div>',
+                  tabla(["Provincia", "Por habitante", "Autorizado 2026", "Gastado", "%", "Parte del total con provincia"], filas),
                   '<section class="card"><h2>Gasto sin provincia asignada</h2><p class="note">Este gasto no se puede atribuir a una provincia en el presupuesto, aunque llegue a personas de todo el país.</p>' + tabla(["Ubicación", "Autorizado 2026", "Gastado"], esp) + "</section>"]
-        self.pagina("/provincias", "¿Cuánto gasta la Nación en cada provincia? Presupuesto 2026", "El gasto del Estado nacional en cada provincia argentina en 2026: autorizado y gastado, programa por programa.",
+        self.pagina("/provincias", "¿Cuánto gasta la Nación en cada provincia? Ranking por habitante 2026", "Ranking del gasto del Estado nacional por habitante en cada provincia argentina en 2026, con lo autorizado y lo gastado, programa por programa.",
                     "\n".join(cuerpo), [("Inicio", "/"), ("Por provincia", "/provincias")], h1="¿Cuánto gasta la Nación en cada provincia?")
 
     # ---------- índice de todo el gasto ----------
@@ -287,6 +391,69 @@ class Generador:
         self.pagina("/gasto", "Todos los programas del Presupuesto 2027, ministerio por ministerio", f"Los {len(self.P)} programas del presupuesto nacional y {len(self.E)} universidades, fondos, entes y empresas públicas, con lo pedido para 2027 y lo gastado en 2026.",
                     "\n".join(partes), [("Inicio", "/"), ("Todos los programas", "/gasto")], h1="Todos los programas del presupuesto")
 
+    # ---------- evolución 2020-2027 ----------
+    def evolucion(self):
+        tot = [(a, v, "gastado") for a, v in self.HT]
+        tot.append((2026, sum(x.get("v26") or 0 for x in self.P), "autorizado"))
+        tot.append((2027, sum(x.get("a27") or 0 for x in self.P), "proyecto"))
+        d = {a: self.real(v, a) for a, v, _ in tot}
+        cambios = []
+        for x in self.P:
+            h = dict(x.get("h", []))
+            if 2023 in h and x.get("a27") and x["a27"] >= 50000 and h[2023] > 0:
+                r23, r27 = self.real(h[2023], 2023), self.real(x["a27"], 2027)
+                if r23 >= 50000:  # sin bases chiquitas, que dan porcentajes engañosos
+                    cambios.append((x, r23, r27, (r27 / r23 - 1) * 100))
+        orgs = []
+        por_e = defaultdict(list)
+        for x in self.P:
+            if x["e"]:
+                por_e[x["e"]].append(x)
+        for org, xs in por_e.items():
+            so = self.serie_org(xs[0])
+            if not so:
+                continue
+            m = {a: v for a, v, _ in so}
+            if 2023 in m and 2027 in m and m[2027] >= 50000:
+                orgs.append((org, xs[0]["j"], self.real(m[2023], 2023), self.real(m[2027], 2027)))
+        def fila(x, r23, r27, c):
+            return [f'<a href="/gasto/{x["s"]}">{e(x["n"])}</a><br><span class="note">{e(x["e"] or x["j"])}</span>', plata(r23), plata(r27), f'{"+" if c >= 0 else "−"}{miles(abs(c))}%']
+        sube = sorted(cambios, key=lambda z: -z[3])[:20]
+        baja = sorted(cambios, key=lambda z: z[3])[:20]
+        grandes = sorted(cambios, key=lambda z: -z[2])[:30]
+        c_tot = (d[2027] / d[2023] - 1) * 100
+        cab = ["Programa", "2023 (gastado)", "2027 (proyecto)", "Cambio real"]
+        cuerpo = [f'<p class="respuesta">Descontada la inflación, el gasto total que pide el proyecto para 2027 es <strong>{miles(abs(c_tot))}% {"más" if c_tot >= 0 else "menos"}</strong> que lo gastado en 2023. Pero no todo se movió igual: acá está qué creció y qué se achicó, programa por programa.</p>',
+                  f'<section class="card"><h2>Gasto total del Estado nacional, 2020-2027</h2>{self.grafico(tot, "Gasto total por año en pesos de 2026")}</section>',
+                  f'<section class="card"><h2>Los que más cayeron desde 2023</h2><p class="note">Programas con más de $50.000 millones (en pesos de 2026) tanto en 2023 como en 2027.</p>{tabla(cab, [fila(*z) for z in baja])}</section>',
+                  f'<section class="card"><h2>Los que más crecieron desde 2023</h2><p class="note">Programas con más de $50.000 millones (en pesos de 2026) tanto en 2023 como en 2027.</p>{tabla(cab, [fila(*z) for z in sube])}</section>',
+                  f'<section class="card"><h2>Los 30 programas más grandes</h2>{tabla(cab, [fila(*z) for z in grandes])}</section>']
+        if orgs:
+            fo = [[e(o), plata(a), plata(b), f'{"+" if b >= a else "−"}{miles(abs((b / a - 1) * 100))}%'] for o, j, a, b in sorted(orgs, key=lambda z: z[3] / z[2] - 1)]
+            cuerpo.append(f'<section class="card"><h2>Organismo por organismo</h2><p class="note">Sirve cuando los programas cambiaron de nombre (por ejemplo, en Vialidad). Montos en pesos de 2026.</p>{tabla(["Organismo", "2023 (gastado)", "2027 (proyecto)", "Cambio real"], fo)}</section>')
+        cuerpo.append('<div class="caveat">2020 a 2025: gasto devengado de cada año (Presupuesto Abierto). 2027: lo que pide el proyecto, que todavía puede cambiar en el Congreso y en la ejecución. Se descuenta la inflación con el IPC promedio del INDEC; para 2027, con la que supone el proyecto. Si la inflación de 2027 es mayor, la caída real será más grande. <a href="/metodologia#evolucion">Cómo se calcula</a>.</div>')
+        n1, u1 = (f"{'+' if c_tot >= 0 else '−'}{miles(abs(c_tot))}%", "real")
+        img = self.og_trabajo("evolucion.jpg", kicker="Presupuesto nacional 2020-2027", titulo="¿Qué creció y qué se achicó desde 2023?", org="Descontada la inflación, programa por programa",
+                              l1="Gasto total 2027 contra 2023", n1=n1, u1=u1, fuente="Fuentes: Presupuesto Abierto, Proyecto 2027 e IPC del INDEC")
+        desc = f"Cuánto cambió en términos reales el gasto de cada programa del Estado nacional entre 2020 y el Presupuesto 2027: universidades, jubilaciones, obra pública, CONICET y más."
+        self.pagina("/evolucion", "Qué creció y qué se achicó en el presupuesto nacional, 2020-2027", desc, "\n".join(cuerpo),
+                    [("Inicio", "/"), ("Evolución 2020-2027", "/evolucion")], img, self.dataset("Evolución real del gasto nacional por programa, 2020-2027", desc, "/evolucion"),
+                    h1="¿Qué creció y qué se achicó desde 2023?")
+
+    # ---------- glosario ----------
+    def glosario(self):
+        T = json.loads((self.raiz / "scripts" / "glosario.json").read_text(encoding="utf-8"))
+        indice = '<nav class="chips" aria-label="Términos">' + "".join(f'<a href="#{t["id"]}">{e(t["t"])}</a>' for t in T) + "</nav>"
+        items = "".join(f'<section class="card" id="{t["id"]}"><h2>{e(t["t"])}</h2><p>{e(t["d"])}</p>'
+                        + (f'<p class="note">{e(t["ej"])}</p>' if t.get("ej") else "")
+                        + (f'<p class="note"><a href="{t["link"]}">Verlo en el sitio</a></p>' if t.get("link") else "") + "</section>" for t in T)
+        ld = {"@context": "https://schema.org", "@type": "DefinedTermSet", "name": "Glosario del presupuesto nacional", "url": self.site + "/glosario", "inLanguage": "es-AR",
+              "hasDefinedTerm": [{"@type": "DefinedTerm", "name": t["t"], "description": t["d"], "url": f'{self.site}/glosario#{t["id"]}'} for t in T]}
+        self.pagina("/glosario", "Glosario del presupuesto: qué es el devengado, el crédito vigente, el superávit primario y más",
+                    "Los términos del presupuesto nacional explicados en castellano simple: devengado, crédito vigente, superávit primario, coparticipación, gasto tributario, fondos fiduciarios y más.",
+                    '<p class="sub">Las palabras que aparecen en el presupuesto, explicadas en castellano simple y con un ejemplo de este presupuesto.</p>' + indice + items,
+                    [("Inicio", "/"), ("Glosario", "/glosario")], ld_extra=ld, h1="Glosario del presupuesto")
+
     def todo(self):
         org = defaultdict(list)
         for x in self.P:
@@ -301,5 +468,8 @@ class Generador:
             self.ente(x, sorted((h for h in tipo[x["tipo"]] if h is not x), key=lambda h: -h["g27"]))
         self.provincias()
         self.indice()
+        if self.HT:
+            self.evolucion()
+        self.glosario()
         (self.raiz / "scripts" / ".og-paginas.json").write_text(json.dumps(self.og, ensure_ascii=False), encoding="utf-8")
         return self.urls

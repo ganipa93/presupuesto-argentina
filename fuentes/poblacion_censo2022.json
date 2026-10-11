@@ -1,0 +1,31 @@
+{
+ "fuente": "INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados provisionales (cuadro 1).",
+ "url": "https://www.indec.gob.ar/ftp/cuadros/poblacion/cnphv2022_resultados_provisionales.pdf",
+ "total": 46044703,
+ "provincias": {
+  "Ciudad Autónoma de Buenos Aires": 3120612,
+  "Buenos Aires": 17569053,
+  "Catamarca": 429556,
+  "Chaco": 1142963,
+  "Chubut": 603120,
+  "Córdoba": 3978984,
+  "Corrientes": 1197553,
+  "Entre Ríos": 1426426,
+  "Formosa": 606041,
+  "Jujuy": 797955,
+  "La Pampa": 366022,
+  "La Rioja": 384607,
+  "Mendoza": 2014533,
+  "Misiones": 1280960,
+  "Neuquén": 726590,
+  "Río Negro": 762067,
+  "Salta": 1440672,
+  "San Juan": 818234,
+  "San Luis": 540905,
+  "Santa Cruz": 333473,
+  "Santa Fe": 3556522,
+  "Santiago del Estero": 1054028,
+  "Tierra del Fuego, Antártida e Islas del Atlántico Sur": 190641,
+  "Tucumán": 1703186
+ }
+}

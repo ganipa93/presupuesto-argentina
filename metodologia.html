@@ -30,6 +30,7 @@
 <h2>Quién hace este sitio</h2>
 <p>Es un sitio independiente, sin relación con el Gobierno nacional ni con partidos políticos. El objetivo es explicar el presupuesto con los documentos oficiales y mostrar tanto lo que mejora como lo que empeora. El código y los datos son públicos en <a href="https://github.com/ganipa93/presupuesto-argentina" target="_blank" rel="noopener">GitHub</a>.</p>
 
+<p class="note">Los términos técnicos están explicados en el <a href="/glosario">glosario</a>.</p>
 <h2>Fuentes</h2>
 <ul>
 <li><strong>Proyecto de Ley de Presupuesto 2027</strong> (mensaje MEN-2026-43-APN-JGM, 15 de septiembre de 2026). Es la fuente principal. Hay una copia en este sitio: <a href="/fuentes/proyecto-presupuesto-2027.pdf">proyecto-presupuesto-2027.pdf</a> (251 páginas). Las páginas citadas abajo son las del PDF.</li>
@@ -81,6 +82,9 @@
 
 <h3>Páginas por programa y por provincia</h3>
 <p>Cada programa, universidad, fondo, ente y empresa tiene su propia página en <a href="/gasto">/gasto</a>, con sus actividades y obras, metas, gasto por tipo y por provincia. Cada provincia tiene la suya en <a href="/provincias">/provincias</a>, con lo que el Estado nacional ubica en ella según Presupuesto Abierto: no incluye el gasto clasificado como «Nacional» o «No clasificado» (por ejemplo, buena parte de las jubilaciones) ni la coparticipación. Las bases 2027 de la Oficina Nacional de Presupuesto vienen sin tildes: se reponen con las palabras de las bases que sí las tienen, y las explicaciones en castellano simple de los programas más grandes son propias.</p>
+
+<h2 id="evolucion">Evolución 2020-2027 en términos reales</h2>
+<p>Las páginas de cada programa y la página <a href="/evolucion">Qué creció y qué cayó</a> comparan años distintos descontando la inflación. Para 2020 a 2025 se usa el gasto devengado de cada año según la API de Presupuesto Abierto; para 2026, el crédito vigente (lo autorizado hoy); para 2027, lo que pide el proyecto. Todo se lleva a pesos de 2026 con el promedio anual del IPC nacional del INDEC. El promedio de 2026 usa los meses publicados y completa los que faltan con la inflación anual estimada para 2026; el de 2027 suma la inflación promedio que supone el proyecto (21,1%). Los programas se emparejan por organismo y nombre; si un programa cambió de nombre o se reorganizó (como en Vialidad Nacional), se muestra la serie del organismo entero. En los rankings solo entran programas con más de $50.000 millones en 2023 y en 2027, para evitar porcentajes engañosos sobre bases chicas.</p>
 
 <h2>Todos los cuadros</h2>
 <p>La página <a href="/cuadros">Todos los cuadros</a> muestra cada página del proyecto como imagen fiel del original, más el texto extraído para el buscador y, cuando la estructura lo permite, una tabla descargable en CSV. La extracción es automática (<code>scripts/extraer_cuadros.py</code>): ante cualquier diferencia entre el texto o la tabla y la imagen, vale la imagen.</p>

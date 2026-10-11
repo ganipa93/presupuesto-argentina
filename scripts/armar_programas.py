@@ -171,6 +171,7 @@ def main():
 
     entes = universidades() + entes_fuera()
     poner_slugs(salida, entes)
+    agregar_historia(salida)
     ley26 = json.loads((RAIZ / "fuentes" / "ley2026_planillas.json").read_text(encoding="utf-8"))
     for e in entes:
         x = ley26["universidades"].get(e["n"]) or ley26["entes"].get(e["n"])
@@ -190,6 +191,8 @@ def main():
         },
         "totales": {"a27": r1(t27), "l26": r1(t26[0]), "v26": r1(t26[1]), "d26": r1(t26[2])},
         "programas": salida,
+        "historia_org": historia_organismos(salida),
+        "historia_total": totales_historicos(),
         "entes": entes,
     }
     DESTINO.write_text(json.dumps(datos, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
@@ -247,6 +250,60 @@ def poner_slugs(programas, entes):
     for x in sorted(programas, key=lambda x: -max(x["a27"] or 0, x.get("v26", 0))):
         nom = re.sub(r"^asistencia financiera a empresas publicas y otros entes (dependientes )?(de la |del |de )?", "asistencia financiera ", norm(x["n"]))
         x["s"] = unico(slug(nom, 14)[:70].rstrip("-") + "-" + org_corto(x))
+
+
+def historia_organismos(programas):
+    """Gasto devengado 2020-2025 de cada organismo descentralizado (Vialidad, CONICET, ANSES…), para cuando el
+    programa cambió de nombre y no se puede seguir solo."""
+    orgs = {norm(x["e"]) for x in programas if x["e"]}
+    out = defaultdict(list)
+    for f in sorted(DS.glob("historia-*.csv")):
+        anio = int(f.stem.split("-")[1])
+        if anio >= 2026:
+            continue
+        tot = defaultdict(float)
+        with open(f, encoding="utf-8-sig") as fh:
+            for r in csv.DictReader(fh):
+                if norm(r["entidad_desc"]) != norm(r["jurisdiccion_desc"]):
+                    tot[norm(r["entidad_desc"])] += float(r["credito_devengado"] or 0)
+        for k, v in tot.items():
+            if k in orgs and v > 0:
+                out[k].append([anio, r1(v)])
+    return dict(out)
+
+
+def totales_historicos():
+    out = []
+    for f in sorted(DS.glob("historia-*.csv")):
+        anio = int(f.stem.split("-")[1])
+        if anio < 2026:
+            with open(f, encoding="utf-8-sig") as fh:
+                out.append([anio, r1(sum(float(r["credito_devengado"] or 0) for r in csv.DictReader(fh)))])
+    return out
+
+
+def agregar_historia(programas):
+    """Serie 2020-2025 del gasto devengado de cada programa (Presupuesto Abierto), en millones de pesos corrientes.
+    Se empareja por organismo y nombre del programa; si el organismo cambió, por el nombre solo cuando hay uno igual ese año."""
+    for f in sorted(DS.glob("historia-*.csv")):
+        anio = int(f.stem.split("-")[1])
+        if anio >= 2026:
+            continue  # 2026 y 2027 ya están con más detalle
+        por_clave, por_nombre = defaultdict(float), defaultdict(lambda: defaultdict(float))
+        with open(f, encoding="utf-8-sig") as fh:
+            for r in csv.DictReader(fh):
+                d = float(r["credito_devengado"] or 0)
+                por_clave[(norm(r["entidad_desc"]), norm(r["programa_desc"]))] += d
+                por_nombre[norm(r["programa_desc"])][norm(r["entidad_desc"])] += d
+        for x in programas:
+            n = norm(x["n"])
+            v = por_clave.get((norm(x["e"] or x["j"]), n))
+            if v is None and n not in ("actividades centrales", "actividades comunes") and not n.startswith("actividades comunes"):
+                cand = por_nombre.get(n, {})
+                if len(cand) == 1:
+                    v = next(iter(cand.values()))
+            if v is not None and v > 0:
+                x.setdefault("h", []).append([anio, r1(v)])
 
 
 def fecha_csv():
