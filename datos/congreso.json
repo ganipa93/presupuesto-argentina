@@ -1,0 +1,95 @@
+{
+ "actualizado": "2026-10-10",
+ "etapas": [
+  {
+   "id": "envio",
+   "fecha": "2026-09-15",
+   "fecha_texto": "15 de septiembre",
+   "estado": "hecho",
+   "titulo": "El gobierno envía el proyecto a Diputados",
+   "detalle": "Entró en los últimos minutos del 15 de septiembre, el plazo que fija la Ley de Administración Financiera.",
+   "fuente": {
+    "nombre": "Infobae",
+    "url": "https://www.infobae.com/politica/2026/09/16/el-presupuesto-2027-entro-a-diputados-comenzara-a-debatirse-en-octubre-y-condicionara-otras-negociaciones/"
+   }
+  },
+  {
+   "id": "discapacidad",
+   "fecha": "2026-09-18",
+   "fecha_texto": "18 de septiembre",
+   "estado": "hecho",
+   "titulo": "El gobierno anuncia cambios en el capítulo de discapacidad",
+   "detalle": "Según Infobae, el oficialismo acordaría con sus aliados retirar los artículos originales: la pensión podría cobrarse junto con un empleo registrado y el nomenclador seguiría siendo universal, con actualización por inflación. Es un anuncio: el texto se definiría en el dictamen.",
+   "fuente": {
+    "nombre": "Infobae",
+    "url": "https://www.infobae.com/politica/2026/09/18/presupuesto-2027-el-gobierno-cede-en-parte-del-recorte-a-discapacidad-y-hara-un-ajuste-consensuado-con-los-aliados/"
+   }
+  },
+  {
+   "id": "comision",
+   "fecha": "2026-10-13",
+   "fecha_texto": "13 de octubre",
+   "estado": "proximo",
+   "titulo": "Arranca el debate en la Comisión de Presupuesto y Hacienda de Diputados",
+   "detalle": "Preside Alberto Benegas Lynch. Expone el secretario de Hacienda, Carlos Guberman. Hay reuniones previstas también el 14, 20, 21 y 27 de octubre.",
+   "fuente": {
+    "nombre": "Parlamentario",
+    "url": "https://www.parlamentario.com/2026/10/10/arranca-el-debate-del-presupuesto-2027/"
+   }
+  },
+  {
+   "id": "dictamen",
+   "fecha": "2026-10-28",
+   "fecha_texto": "28 de octubre (tentativo)",
+   "estado": "pendiente",
+   "titulo": "Dictamen de comisión",
+   "detalle": "Es la fecha tentativa. En el dictamen se definirían los cambios al proyecto, como el capítulo de discapacidad.",
+   "fuente": {
+    "nombre": "Parlamentario",
+    "url": "https://www.parlamentario.com/2026/10/10/arranca-el-debate-del-presupuesto-2027/"
+   }
+  },
+  {
+   "id": "diputados",
+   "fecha": "2026-11-04",
+   "fecha_texto": "Noviembre (a confirmar)",
+   "estado": "pendiente",
+   "titulo": "Sesión en la Cámara de Diputados",
+   "detalle": "Se había hablado del 4 de noviembre, pero el oficialismo evalúa una fecha más avanzada del mes.",
+   "fuente": {
+    "nombre": "Parlamentario",
+    "url": "https://www.parlamentario.com/2026/10/10/arranca-el-debate-del-presupuesto-2027/"
+   }
+  },
+  {
+   "id": "senado",
+   "fecha": null,
+   "fecha_texto": "A definir",
+   "estado": "pendiente",
+   "titulo": "Tratamiento en el Senado",
+   "detalle": "Si Diputados lo aprueba, pasa al Senado para su revisión.",
+   "fuente": null
+  },
+  {
+   "id": "ley",
+   "fecha": null,
+   "fecha_texto": "A definir",
+   "estado": "pendiente",
+   "titulo": "Sanción y promulgación",
+   "detalle": "Con la aprobación de las dos cámaras, el Poder Ejecutivo lo promulga y se publica en el Boletín Oficial.",
+   "fuente": null
+  }
+ ],
+ "cambios": [
+  {
+   "fecha": "2026-09-18",
+   "tema": "Discapacidad (arts. 36 a 41)",
+   "estado": "Anunciado, sin texto formal",
+   "detalle": "Retiro de los artículos originales; compatibilidad de la pensión con un empleo registrado; nomenclador universal actualizado por inflación.",
+   "fuente": {
+    "nombre": "Infobae",
+    "url": "https://www.infobae.com/politica/2026/09/18/presupuesto-2027-el-gobierno-cede-en-parte-del-recorte-a-discapacidad-y-hara-un-ajuste-consensuado-con-los-aliados/"
+   }
+  }
+ ]
+}

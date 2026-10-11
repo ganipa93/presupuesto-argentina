@@ -29,6 +29,8 @@ DESCRIPCIONES = {
     "veredictos": "Semáforo de cumplimiento 2026 y realismo 2027. Evaluación propia, con el dato que la respalda.",
     "impacto": "Qué cambia el proyecto 2027 para cada grupo de personas. Elaboración propia.",
     "claves": "Las tres conclusiones principales. Elaboración propia.",
+    "congreso": "Etapas del Presupuesto 2027 en el Congreso y cambios anunciados, con fuentes.",
+    "ejecucion_ministerios": "Ejecución mensual por jurisdicción desde la API de Presupuesto Abierto (actualización automática).",
     "referencias": "Población (INDEC), haber mínimo (Res. ANSES 284/2026), reparto de la recaudación (pág. 41) y supuestos de la calculadora de impuestos.",
 }
 

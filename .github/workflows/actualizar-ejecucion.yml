@@ -1,0 +1,61 @@
+name: Actualizar ejecución mensual
+
+# Corre el día 12 de cada mes (los datos del mes anterior ya suelen estar cargados)
+# y también se puede correr a mano desde la pestaña Actions.
+on:
+  schedule:
+    - cron: "0 13 12 * *"
+  workflow_dispatch:
+    inputs:
+      ejercicio:
+        description: "Año a actualizar (vacío = año en curso)"
+        required: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: actualizar-ejecucion
+  cancel-in-progress: false
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Bajar la ejecución de Presupuesto Abierto
+        env:
+          PRESUPUESTO_ABIERTO_TOKEN: ${{ secrets.PRESUPUESTO_ABIERTO_TOKEN }}
+        run: python3 scripts/actualizar_ejecucion.py ${{ github.event.inputs.ejercicio }}
+
+      - name: Ver si cambió algo
+        id: cambios
+        run: |
+          if git diff --quiet -- datos/; then echo "hay=no" >> "$GITHUB_OUTPUT"; else echo "hay=si" >> "$GITHUB_OUTPUT"; fi
+
+      - uses: actions/setup-node@v4
+        if: steps.cambios.outputs.hay == 'si'
+        with:
+          node-version: "20"
+
+      - name: Rearmar el sitio
+        if: steps.cambios.outputs.hay == 'si'
+        run: |
+          python3 scripts/build.py
+          cd scripts && npm ci && npx playwright install --with-deps chromium && cd ..
+          node scripts/prerender.mjs
+
+      - name: Publicar
+        if: steps.cambios.outputs.hay == 'si'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A datos index.html sitemap.xml
+          git commit -m "Actualizar ejecución mensual desde Presupuesto Abierto"
+          git push

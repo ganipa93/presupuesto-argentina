@@ -57,6 +57,7 @@
 <button role="tab" id="tab-recursos" data-tab="recursos" aria-controls="sec-recursos" aria-selected="false">De dónde sale</button>
 <button role="tab" id="tab-cumplimiento-2026" data-tab="cumplimiento-2026" aria-controls="sec-cumplimiento-2026" aria-selected="false">2026: ¿se cumplió?</button>
 <button role="tab" id="tab-realismo-2027" data-tab="realismo-2027" aria-controls="sec-realismo-2027" aria-selected="false">2027: ¿se cumplirá?</button>
+<button role="tab" id="tab-congreso" data-tab="congreso" aria-controls="sec-congreso" aria-selected="false">En el Congreso</button>
 <button role="tab" id="tab-ley-vs-proyecto" data-tab="ley-vs-proyecto" aria-controls="sec-ley-vs-proyecto" aria-selected="false">Ley 2026 vs proyecto 2027</button>
 <button role="tab" id="tab-articulos" data-tab="articulos" aria-controls="sec-articulos" aria-selected="false">Artículos clave</button>
 </nav>
@@ -64,6 +65,7 @@
 <section id="sec-resumen" data-panel="resumen" role="tabpanel" aria-labelledby="tab-resumen">
 <h2 class="vh">Lo principal en tres frases</h2>
 <div class="claves" id="claves"></div>
+<div class="aviso" id="cg-proximo"></div>
 <div class="cta"><div><h2>¿Qué te cambia a vos?</h2><p class="note">Elegí tu caso: jubilado, familia con AUH, estudiante, trabajador, provincia, tarifas y más.</p></div><a class="btn primary" href="#que-me-cambia">Ver mi caso</a></div>
 <div class="tiles">
 <div class="tile"><span class="lab" id="k-gasto-lab">Gasto previsto para 2027 (billones de $)</span><span class="big" id="k-gasto">—</span></div>
@@ -159,6 +161,10 @@
 <p class="note">Porcentaje del total previsto para el año que ya se gastó. La línea punteada marca 7 de 12 meses: lo que correspondería con un gasto parejo.</p>
 <div id="ej-chart"></div>
 <div class="tw"><table id="t-ej" data-row-key="concepto"><caption>Ejecución en millones de pesos</caption><thead><tr><th class="t" scope="col">Concepto</th><th scope="col">Ejec. julio 2025</th><th scope="col">Estimado 2026</th><th scope="col">Ejec. julio 2026</th><th scope="col">Var. nominal</th><th scope="col">% ejecutado</th></tr></thead><tbody></tbody></table></div></div>
+<div class="card" id="em-card" hidden><h2>Ejecución por ministerio, actualizada cada mes</h2>
+<p class="note" id="em-nota"></p>
+<div id="em-chart"></div>
+<div class="tw"><table id="t-em" data-row-key="jurisdiccion"><caption>Millones de pesos</caption><thead><tr><th class="t" scope="col">Jurisdicción</th><th scope="col">Crédito inicial</th><th scope="col">Crédito vigente</th><th scope="col">Gastado (devengado)</th><th scope="col">% gastado</th></tr></thead><tbody></tbody></table></div></div>
 <div class="card"><h2>Variación real hasta agosto (ASAP)</h2>
 <p class="note">Gasto de enero a agosto de 2026 contra el mismo período de 2025, descontada la inflación. En rojo, lo que cae.</p>
 <div id="asap-chart"></div></div>
@@ -182,6 +188,15 @@
 <div id="sim-chart"></div>
 <div class="caveat">Es un ejercicio de sensibilidad, no una proyección: con más inflación también sube la recaudación, y las jubilaciones se ajustan con 2 meses de rezago. Sirve para ver qué partidas son frágiles.</div>
 </div>
+</section>
+
+<section id="sec-congreso" data-panel="congreso" role="tabpanel" aria-labelledby="tab-congreso" hidden>
+<div class="card"><h2>El proyecto en el Congreso</h2>
+<p class="note" id="cg-act"></p>
+<ol class="timeline" id="cg-etapas"></ol></div>
+<div class="card"><h2>Cambios al proyecto</h2>
+<p class="note">Lo que se anunció o se modificó respecto del texto que envió el gobierno. Mientras no haya dictamen, el sitio analiza el texto original.</p>
+<div id="cg-cambios" class="vgrid"></div></div>
 </section>
 
 <section id="sec-ley-vs-proyecto" data-panel="ley-vs-proyecto" role="tabpanel" aria-labelledby="tab-ley-vs-proyecto" hidden>
@@ -308,6 +323,38 @@ function render() {
   fill('#t-nor', DATA.normas, [['articulo'], ['tema', null, 't'], ['efecto', null, 't']]);
   calcular();
   marcarUnidad();
+  renderCongreso();
+  renderEjecMin();
+}
+const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+const fechaLarga = (iso) => { const [a, m, d] = iso.split('-').map(Number); return d + ' de ' + MESES[m - 1] + ' de ' + a; };
+const ESTADO_CG = {hecho: 'Hecho', proximo: 'Próximo paso', pendiente: 'Pendiente'};
+function fuenteLink(f) { return f ? el('a', {href: f.url, target: '_blank', rel: 'noopener', textContent: 'Fuente: ' + f.nombre}) : ''; }
+function renderCongreso() {
+  const C = DATA.congreso;
+  $('#cg-act').textContent = 'Actualizado al ' + fechaLarga(C.actualizado) + '. Las fechas futuras son las que informan los bloques y pueden cambiar.';
+  $('#cg-etapas').replaceChildren(...C.etapas.map((e) => el('li', {className: e.estado},
+    el('span', {className: 'cg-fecha', textContent: e.fecha_texto + ' · ' + ESTADO_CG[e.estado]}),
+    el('h3', {textContent: e.titulo}), el('p', {className: 'note', textContent: e.detalle}), fuenteLink(e.fuente))));
+  $('#cg-cambios').replaceChildren(...C.cambios.map((c) => el('div', {className: 'v'},
+    el('h3', {textContent: c.tema}), el('span', {className: 'pill warn', textContent: c.estado}),
+    el('p', {className: 'dato', textContent: fechaLarga(c.fecha)}), el('p', {textContent: c.detalle}), fuenteLink(c.fuente))));
+  const prox = C.etapas.find((e) => e.estado === 'proximo');
+  const av = $('#cg-proximo');
+  if (prox) {
+    const a = el('a', {href: '#congreso', textContent: 'Ver el seguimiento'});
+    av.replaceChildren(el('span', {className: 'lab', textContent: 'En el Congreso · ' + prox.fecha_texto}), el('span', {textContent: prox.titulo + '. '}), a);
+    av.hidden = false;
+  } else av.hidden = true;
+}
+function renderEjecMin() {
+  const E = DATA.ejecucion_ministerios;
+  if (!E || !E.filas || !E.filas.length) { $('#em-card').hidden = true; return; }
+  $('#em-card').hidden = false;
+  const mes = E.ultimo_mes;
+  $('#em-nota').textContent = 'Gastado hasta ' + MESES[mes - 1] + ' de ' + E.ejercicio + ' contra el crédito vigente (el presupuesto ya modificado durante el año). La línea punteada marca ' + mes + ' de 12 meses. Fuente: Presupuesto Abierto, actualizado automáticamente el ' + fechaLarga(E.actualizado) + '.';
+  hb($('#em-chart'), [...E.filas].sort((x, y) => x.pct_ejecutado - y.pct_ejecutado), {label: (x) => x.jurisdiccion, value: (x) => x.pct_ejecutado, fmt: (v) => nf1.format(v) + '%', ref: mes / 12 * 100, color: (x, v) => v < mes / 12 * 100 * 0.85 ? MUTED : C1});
+  fill('#t-em', E.filas, [['jurisdiccion'], ['credito_inicial', fmt0], ['credito_vigente', fmt0], ['devengado', fmt0], ['pct_ejecutado', (v) => nf1.format(v) + '%']]);
 }
 
 const TAG = {'+': ['A favor', 'mas'], '-': ['En contra', 'menos'], '~': ['A tener en cuenta', 'ojo']};
@@ -360,6 +407,7 @@ const TEXTO = {
   'recursos': 'De dónde sale la plata del Presupuesto 2027: impuestos y deuda.',
   'cumplimiento-2026': '¿Se cumplió el Presupuesto 2026? Lo que decía la ley contra lo que pasó.',
   'realismo-2027': '¿Es realista el Presupuesto 2027? Semáforo y simulador de inflación y dólar.',
+  'congreso': 'El Presupuesto 2027 en el Congreso: fechas, etapas y cambios al proyecto.',
   'ley-vs-proyecto': 'Presupuesto 2026 contra 2027, partida por partida.',
   'articulos': 'Los artículos del Presupuesto 2027 que más afectan a la gente.'
 };

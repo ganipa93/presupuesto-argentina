@@ -70,6 +70,12 @@
 <li><strong>Semáforo.</strong> Para 2026, verde es cumplido, amarillo es cumplido a medias o con ajuste real, y rojo es no cumplido, comparando la ley contra lo ejecutado. Para 2027, verde es probable, amarillo depende de algo incierto y rojo es muy difícil. Es una lectura propia y cada punto muestra el dato en el que se basa.</li>
 </ul>
 
+<h2>Seguimiento en el Congreso</h2>
+<p>La sección "En el Congreso" se arma con la información pública del trámite: fechas de comisión y sesiones que informan los bloques y la prensa parlamentaria, y anuncios de cambios al proyecto. Cada etapa enlaza su fuente. Las fechas futuras son tentativas. Mientras no haya un dictamen con texto nuevo, el análisis del sitio se basa en el proyecto original.</p>
+
+<h2>Actualización automática de la ejecución</h2>
+<p>Una vez por mes, un proceso automático en GitHub consulta la <a href="https://presupuesto-abierto.argentina.apidocs.ar/" target="_blank" rel="noopener">API de Presupuesto Abierto</a> del Ministerio de Economía, baja el crédito inicial, el crédito vigente y lo devengado por jurisdicción, y vuelve a publicar el sitio. El porcentaje gastado se calcula contra el crédito vigente, que incluye las modificaciones hechas durante el año. El código está en <code>scripts/actualizar_ejecucion.py</code>.</p>
+
 <h2>Limitaciones</h2>
 <ul>
 <li>El proyecto no trae el detalle de cada programa en los cuadros generales; por eso el gasto se muestra por ministerio, por función y por tipo de gasto.</li>

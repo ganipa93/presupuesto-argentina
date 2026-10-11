@@ -21,6 +21,8 @@ Sitio publicado: https://presupuesto-argentina.vercel.app
 - Selector para ver los montos en billones de pesos o en pesos por habitante por mes.
 - Imágenes para compartir en redes de cada punto del semáforo, cada perfil y el resultado de la calculadora, generadas en el navegador.
 - Links directos a cada sección y perfil.
+- Seguimiento del proyecto en el Congreso (`datos/congreso.json`).
+- Ejecución por ministerio actualizada todos los meses desde Presupuesto Abierto.
 
 ## Estructura
 
@@ -51,6 +53,14 @@ Los archivos generados se suben al repositorio, así Vercel solo publica archivo
 El detalle, con links y páginas, está en [metodologia.html](https://presupuesto-argentina.vercel.app/metodologia).
 
 Los porcentajes en términos reales y el semáforo de cumplimiento son estimaciones propias, no datos oficiales. Datos actualizados al 10/10/2026.
+
+## Actualización automática
+
+El workflow `.github/workflows/actualizar-ejecucion.yml` corre el día 12 de cada mes (y a mano desde la pestaña **Actions**). Baja la ejecución por jurisdicción de la API de Presupuesto Abierto con `scripts/actualizar_ejecucion.py`, rearma el sitio y hace push, lo que dispara la publicación en Vercel.
+
+Necesita un token gratuito de Presupuesto Abierto (se pide en https://www.presupuestoabierto.gob.ar/sici/api-pac) guardado en el repositorio como secreto `PRESUPUESTO_ABIERTO_TOKEN` (Settings → Secrets and variables → Actions).
+
+El seguimiento del Congreso se actualiza editando `datos/congreso.json`.
 
 ## Publicación
 

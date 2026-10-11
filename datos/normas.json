@@ -1,87 +1,87 @@
 [
-{
-"articulo": "Art. 1",
-"tema": "Equilibrio fiscal",
-"efecto": "Exige resultado equilibrado o superavitario. Si la recaudación no alcanza, el ajuste cae en el gasto corriente."
-},
-{
-"articulo": "Art. 5",
-"tema": "Reasignaciones",
-"efecto": "El Jefe de Gabinete distribuye los créditos y puede reestructurarlos por decisión administrativa."
-},
-{
-"articulo": "Art. 7",
-"tema": "Vacantes",
-"efecto": "Las vacantes del Estado quedan congeladas, salvo autorización del Jefe de Gabinete."
-},
-{
-"articulo": "Art. 12",
-"tema": "Universidades",
-"efecto": "$7,35 billones. Capital Humano puede interrumpir transferencias si no se informa. Los aumentos salariales aplican a las plantas de noviembre 2026."
-},
-{
-"articulo": "Art. 13",
-"tema": "Educación en provincias",
-"efecto": "Mantiene el reparto automático de recursos educativos (art. 7 de la Ley 26.075)."
-},
-{
-"articulo": "Art. 15",
-"tema": "Fondo Nacional de Empleo",
-"efecto": "$15.000 millones."
-},
-{
-"articulo": "Arts. 32-33",
-"tema": "Deudas previsionales",
-"efecto": "$1,361 billones para ANSES y $475.766 millones para Fuerzas Armadas y de Seguridad (sentencias)."
-},
-{
-"articulo": "Art. 35",
-"tema": "Pensiones graciables",
-"efecto": "Se prorrogan 10 años, con tope de un haber mínimo."
-},
-{
-"articulo": "Arts. 36-41",
-"tema": "Discapacidad",
-"efecto": "Modifican la Ley 27.793. Pensión por invalidez laboral en 70% de la mínima, incompatible con empleo formal o inscripción como contribuyente. El nomenclador no tendrá valores universales y la Secretaría de Discapacidad los fija trimestralmente. Se derogan los arts. 5, 8, 9 y 14 de la ley."
-},
-{
-"articulo": "Art. 42",
-"tema": "Deuda en moneda extranjera",
-"efecto": "Hasta 18% de la emisión puede ser en moneda y jurisdicción extranjera."
-},
-{
-"articulo": "Art. 43",
-"tema": "Letras del Tesoro",
-"efecto": "Hasta $72 billones."
-},
-{
-"articulo": "Art. 49",
-"tema": "Laudos internacionales",
-"efecto": "Hasta USD 1.030 millones para pagar sentencias arbitrales."
-},
-{
-"articulo": "Art. 56",
-"tema": "Deudas reconocidas",
-"efecto": "Se pueden pagar con bonos las deudas impagas reconocidas al 31/12/2025."
-},
-{
-"articulo": "Art. 60",
-"tema": "Cajas provinciales",
-"efecto": "$503.326 millones en transferencias de ANSES."
-},
-{
-"articulo": "Arts. 63-64",
-"tema": "Importaciones",
-"efecto": "Exenciones para INVAP, VENG, DIOXITEK y material ferroviario."
-},
-{
-"articulo": "Art. 66",
-"tema": "Gasoil",
-"efecto": "Importación de 1.000.000 m³ exentos de impuestos a los combustibles."
-},
-{
-"articulo": "Art. 67",
-"tema": "Rutas",
-"efecto": "Beneficios fiscales para concesionarias viales."
-}
+ {
+  "articulo": "Art. 1",
+  "tema": "Equilibrio fiscal",
+  "efecto": "Exige resultado equilibrado o superavitario. Si la recaudación no alcanza, el ajuste cae en el gasto corriente."
+ },
+ {
+  "articulo": "Art. 5",
+  "tema": "Reasignaciones",
+  "efecto": "El Jefe de Gabinete distribuye los créditos y puede reestructurarlos por decisión administrativa."
+ },
+ {
+  "articulo": "Art. 7",
+  "tema": "Vacantes",
+  "efecto": "Las vacantes del Estado quedan congeladas, salvo autorización del Jefe de Gabinete."
+ },
+ {
+  "articulo": "Art. 12",
+  "tema": "Universidades",
+  "efecto": "$7,35 billones. Capital Humano puede interrumpir transferencias si no se informa. Los aumentos salariales aplican a las plantas de noviembre 2026."
+ },
+ {
+  "articulo": "Art. 13",
+  "tema": "Educación en provincias",
+  "efecto": "Mantiene el reparto automático de recursos educativos (art. 7 de la Ley 26.075)."
+ },
+ {
+  "articulo": "Art. 15",
+  "tema": "Fondo Nacional de Empleo",
+  "efecto": "$15.000 millones."
+ },
+ {
+  "articulo": "Arts. 32-33",
+  "tema": "Deudas previsionales",
+  "efecto": "$1,361 billones para ANSES y $475.766 millones para Fuerzas Armadas y de Seguridad (sentencias)."
+ },
+ {
+  "articulo": "Art. 35",
+  "tema": "Pensiones graciables",
+  "efecto": "Se prorrogan 10 años, con tope de un haber mínimo."
+ },
+ {
+  "articulo": "Arts. 36-41",
+  "tema": "Discapacidad",
+  "efecto": "Modifican la Ley 27.793. Pensión por invalidez laboral en 70% de la mínima, incompatible con empleo formal o inscripción como contribuyente. El nomenclador no tendrá valores universales y la Secretaría de Discapacidad los fija trimestralmente. Se derogan los arts. 5, 8, 9 y 14 de la ley. El gobierno anunció que cambiaría este capítulo en el dictamen (ver \"En el Congreso\")."
+ },
+ {
+  "articulo": "Art. 42",
+  "tema": "Deuda en moneda extranjera",
+  "efecto": "Hasta 18% de la emisión puede ser en moneda y jurisdicción extranjera."
+ },
+ {
+  "articulo": "Art. 43",
+  "tema": "Letras del Tesoro",
+  "efecto": "Hasta $72 billones."
+ },
+ {
+  "articulo": "Art. 49",
+  "tema": "Laudos internacionales",
+  "efecto": "Hasta USD 1.030 millones para pagar sentencias arbitrales."
+ },
+ {
+  "articulo": "Art. 56",
+  "tema": "Deudas reconocidas",
+  "efecto": "Se pueden pagar con bonos las deudas impagas reconocidas al 31/12/2025."
+ },
+ {
+  "articulo": "Art. 60",
+  "tema": "Cajas provinciales",
+  "efecto": "$503.326 millones en transferencias de ANSES."
+ },
+ {
+  "articulo": "Arts. 63-64",
+  "tema": "Importaciones",
+  "efecto": "Exenciones para INVAP, VENG, DIOXITEK y material ferroviario."
+ },
+ {
+  "articulo": "Art. 66",
+  "tema": "Gasoil",
+  "efecto": "Importación de 1.000.000 m³ exentos de impuestos a los combustibles."
+ },
+ {
+  "articulo": "Art. 67",
+  "tema": "Rutas",
+  "efecto": "Beneficios fiscales para concesionarias viales."
+ }
 ]

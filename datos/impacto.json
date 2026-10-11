@@ -70,6 +70,10 @@
   "perfil": "Personas con discapacidad",
   "puntos": [
    {
+    "signo": "~",
+    "texto": "Ojo: el 18 de septiembre el gobierno anunció que cambiaría este capítulo en el Congreso, para permitir cobrar la pensión con un empleo registrado y mantener el nomenclador universal (Infobae). Hasta que haya dictamen, lo que sigue es el texto original del proyecto."
+   },
+   {
     "signo": "-",
     "texto": "La pensión por invalidez laboral pasa a ser incompatible con un empleo formal o con estar inscripto como monotributista o autónomo. La ley vigente (27.793) permitía cobrarla junto con un trabajo hasta 2 salarios mínimos."
    },

@@ -98,3 +98,13 @@ tbody th{position:static;background:none;font-weight:inherit;text-align:left;z-i
 .calc label{font-size:var(--fs-cap)}
 .calc input{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:var(--r);background:var(--bg);color:var(--fg);width:100%;font-variant-numeric:tabular-nums}
 @media (max-width:560px){.calc{grid-template-columns:1fr}.calc input{margin-bottom:var(--g-xs)}}
+.aviso{display:flex;flex-wrap:wrap;gap:6px;align-items:baseline;border-left:3px solid var(--c1);padding:6px 12px;background:var(--panel);border-radius:0 var(--r) var(--r) 0}
+.aviso .lab{font-weight:var(--fw-m);color:var(--c1);margin-right:4px}
+.timeline{list-style:none;margin:0;padding:0 0 0 22px;border-left:2px solid var(--line);display:flex;flex-direction:column;gap:var(--g-md)}
+.timeline li{position:relative;display:flex;flex-direction:column;gap:4px;max-width:72ch}
+.timeline li::before{content:"";position:absolute;left:-30px;top:4px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:2px solid var(--mutedbar)}
+.timeline li.hecho::before{background:var(--ok);border-color:var(--ok)}
+.timeline li.proximo::before{background:var(--c1);border-color:var(--c1);box-shadow:0 0 0 4px var(--c1soft)}
+.timeline .cg-fecha{font-size:var(--fs-cap);color:var(--muted);font-weight:var(--fw-m)}
+.timeline li.proximo .cg-fecha{color:var(--c1)}
+.timeline a,.v a{font-size:var(--fs-cap)}
