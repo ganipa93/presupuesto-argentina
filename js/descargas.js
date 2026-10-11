@@ -43,8 +43,9 @@
   document.addEventListener('click', async (ev) => {
     const b = ev.target.closest('[data-copiar]'); if (!b) return;
     const t = document.getElementById(b.dataset.copiar);
-    try { await navigator.clipboard.writeText(t.value); b.textContent = 'Código copiado'; } catch (e) { t.select(); document.execCommand('copy'); b.textContent = 'Código copiado'; }
-    if (window.va) window.va('event', {name: 'insertar', data: {pagina: location.pathname}});
+    const ok = b.dataset.ok || 'Código copiado';
+    try { await navigator.clipboard.writeText(t.value); b.textContent = ok; } catch (e) { t.select(); document.execCommand('copy'); b.textContent = ok; }
+    if (window.va) window.va('event', {name: b.dataset.evento || 'insertar', data: {pagina: location.pathname}});
   });
   const iniciar = () => { preparar(); new MutationObserver(() => { clearTimeout(iniciar.t); iniciar.t = setTimeout(preparar, 200); }).observe(document.body, {childList: true, subtree: true}); };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar); else iniciar();

@@ -620,8 +620,21 @@ a.t{{display:flex;flex-direction:column;gap:10px;padding:14px 16px;border:1px so
         import email.utils, datetime
         lista = sorted(lista, key=lambda n: n["fecha"], reverse=True)
         items = "".join(f'<li class="card"><span class="note">{fecha(n["fecha"])}</span><h2><a href="{n["link"]}">{e(n["titulo"])}</a></h2><p>{e(n["texto"])}</p></li>' for n in lista)
-        cuerpo = ('<p class="sub">Lo nuevo del sitio y cada actualización de los datos. Para enterarte sin entrar, suscribite al <a href="/novedades.xml">canal RSS</a> desde tu lector de noticias (Feedly, Inoreader o el de tu navegador).</p>'
-                  f'<ol style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--g-sm)">{items}</ol>')
+        from urllib.parse import quote
+        feed = self.site + "/novedades.xml"
+        suscribir = ('<section class="card prose" id="suscribirse"><h2>Enterate sin tener que entrar</h2>'
+                     '<p>Podés seguir las novedades con un lector de noticias (RSS): te avisa solo cuando hay algo nuevo, sin registrarte en este sitio ni dejar tu mail. '
+                     'Elegí uno y tocá el botón; si no usás ninguno, Feedly e Inoreader son gratis.</p>'
+                     '<div style="display:flex;flex-wrap:wrap;gap:8px;margin:var(--g-sm) 0">'
+                     f'<a class="btn" href="https://feedly.com/i/subscription/feed/{quote(feed, safe="")}" target="_blank" rel="noopener">Seguir en Feedly</a>'
+                     f'<a class="btn" href="https://www.inoreader.com/?add_feed={quote(feed, safe="")}" target="_blank" rel="noopener">Seguir en Inoreader</a>'
+                     '<button class="btn" type="button" data-copiar="feed-url" data-ok="Link copiado" data-evento="rss">Copiar el link del canal</button></div>'
+                     f'<label class="note" for="feed-url">Si usás otro lector, pegale este link:</label>'
+                     f'<input id="feed-url" readonly value="{e(feed)}" style="font:inherit;width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:var(--r);background:var(--panel);color:var(--fg)" onclick="this.select()">'
+                     '</section>')
+        cuerpo = ('<p class="sub">Lo nuevo del sitio y cada actualización de los datos. <a href="#suscribirse">¿Querés que te avise cuando haya algo nuevo?</a></p>'
+                  f'<ol style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--g-sm)">{items}</ol>'
+                  + suscribir)
         self.pagina("/novedades", "Novedades: lo nuevo del sitio y las actualizaciones del presupuesto", "Las últimas novedades de Presupuesto Argentina: nuevas secciones y la actualización mensual de la ejecución del presupuesto nacional.",
                     cuerpo, [("Inicio", "/"), ("Novedades", "/novedades")], h1="Novedades")
         def rfc(f):
