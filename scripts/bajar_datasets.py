@@ -6,9 +6,10 @@
 - Presupuesto Abierto (API de crédito): crédito y gasto 2026 por organismo, programa,
   actividad y provincia. Necesita PRESUPUESTO_ABIERTO_TOKEN.
 
-Uso: python3 scripts/bajar_datasets.py
+Uso: python3 scripts/bajar_datasets.py            (todo)
+     python3 scripts/bajar_datasets.py --solo-api  (solo la ejecución 2026, para la actualización mensual)
 """
-import json, os, pathlib, sys, urllib.request
+import json, os, pathlib, sys, urllib.error, urllib.request
 
 RAIZ = pathlib.Path(__file__).resolve().parent.parent
 DEST = RAIZ / "fuentes" / "datasets"
@@ -35,7 +36,8 @@ def bajar(url, destino):
 def main():
     DEST.mkdir(parents=True, exist_ok=True)
     fallas = []
-    for nombre, archivo in ARCHIVOS.items():
+    solo_api = "--solo-api" in sys.argv
+    for nombre, archivo in ({} if solo_api else ARCHIVOS).items():
         try:
             bajar(BASE + archivo, DEST / nombre)
         except Exception as e:  # noqa: BLE001
@@ -58,6 +60,8 @@ def main():
             except urllib.error.HTTPError as e:
                 if e.code not in (401, 403):
                     fallas.append(f"API: {e}"); print("FALLÓ API", e); break
+    if solo_api and (not token or fallas):
+        sys.exit("No se pudo bajar la ejecución por programa.")
     if fallas and len(fallas) == len(ARCHIVOS) + (1 if token else 0):
         sys.exit("No se pudo bajar nada.")
 

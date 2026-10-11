@@ -16,6 +16,11 @@ Sitio publicado: https://presupuesto-argentina.vercel.app
 - **Ley 2026 vs proyecto 2027:** cambios en los montos fijados en artículos.
 - **Artículos clave:** los artículos del proyecto con efecto directo en la gente.
 
+## Otras páginas
+
+- **¿Cuánto se gasta en…? (`/programas`):** buscador con los programas del presupuesto, cada actividad y obra, lo pedido para 2027, lo autorizado y gastado en 2026 (también por provincia), las metas físicas, y además universidades, fondos fiduciarios, otros entes (INCAA, PAMI, ARCA) y empresas públicas.
+- **Todos los cuadros (`/cuadros`):** las 248 páginas del proyecto como imagen, con buscador de texto y tablas en CSV.
+
 ## Otras funciones
 
 - Selector para ver los montos en billones de pesos o en pesos por habitante por mes.
@@ -30,7 +35,10 @@ Sitio publicado: https://presupuesto-argentina.vercel.app
 - `src/`: plantillas de la página principal, de metodología y de la imagen para redes.
 - `scripts/build.py`: arma `index.html`, `metodologia.html`, `datos/index.html`, `sitemap.xml` y `robots.txt` a partir de los datos.
 - `scripts/prerender.mjs`: deja el contenido escrito en `index.html` (para buscadores y vistas previas) y genera `og.png`.
-- `fuentes/`: copia del Proyecto de Ley de Presupuesto 2027.
+- `fuentes/`: copia del Proyecto de Ley de Presupuesto 2027 y, en `fuentes/datasets/`, los datasets oficiales por programa.
+- `scripts/extraer_cuadros.py`: genera `cuadros/` (imágenes, texto y tablas de cada página del PDF).
+- `scripts/bajar_datasets.py`: baja los datasets del Presupuesto Ciudadano 2027/2026 (ONP) y la ejecución 2026 por programa (API de Presupuesto Abierto).
+- `scripts/armar_programas.py`: arma `datos/programas.json` para el buscador, a partir de los datasets y de las planillas del PDF. `datos/programas.json` no se incrusta en `index.html`: la página `/programas` lo carga aparte.
 - `tipografias/`: Source Sans 3 y Source Serif 4 (licencia SIL OFL).
 
 Los archivos generados se suben al repositorio, así Vercel solo publica archivos estáticos.
@@ -56,7 +64,9 @@ Los porcentajes en términos reales y el semáforo de cumplimiento son estimacio
 
 ## Actualización automática
 
-El workflow `.github/workflows/actualizar-ejecucion.yml` corre el día 12 de cada mes (y a mano desde la pestaña **Actions**). Baja la ejecución por jurisdicción de la API de Presupuesto Abierto con `scripts/actualizar_ejecucion.py`, rearma el sitio y hace push, lo que dispara la publicación en Vercel.
+El workflow `.github/workflows/actualizar-ejecucion.yml` corre el día 12 de cada mes (y a mano desde la pestaña **Actions**). Baja la ejecución por jurisdicción de la API de Presupuesto Abierto con `scripts/actualizar_ejecucion.py`, también la ejecución 2026 por programa, actividad y provincia (`scripts/bajar_datasets.py --solo-api` y `scripts/armar_programas.py`), rearma el sitio y hace push, lo que dispara la publicación en Vercel.
+
+El workflow `.github/workflows/bajar-datasets.yml` se corre a mano para bajar de nuevo todos los datasets (por ejemplo, cuando se apruebe la ley 2027 y la ONP publique los definitivos).
 
 Necesita un token gratuito de Presupuesto Abierto (se pide en https://www.presupuestoabierto.gob.ar/sici/api-pac) guardado en el repositorio como secreto `PRESUPUESTO_ABIERTO_TOKEN` (Settings → Secrets and variables → Actions).
 

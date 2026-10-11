@@ -22,7 +22,7 @@
 </head>
 <body>
 <div class="wrap">
-<div class="top"><a class="brand" href="/">Presupuesto Argentina</a><nav><a href="/">Volver al sitio</a><a href="/cuadros">Todos los cuadros</a><a href="/datos/">Datos abiertos</a></nav></div>
+<div class="top"><a class="brand" href="/">Presupuesto Argentina</a><nav><a href="/">Volver al sitio</a><a href="/programas">¿Cuánto se gasta en…?</a><a href="/cuadros">Todos los cuadros</a></nav></div>
 <main class="prose">
 <h1>Metodología y fuentes</h1>
 <p class="sub">Qué es dato oficial, qué es cálculo propio y dónde verificar cada número. Datos actualizados al {{FECHA}}.</p>
@@ -70,6 +70,15 @@
 <li><strong>Semáforo.</strong> Para 2026, verde es cumplido, amarillo es cumplido a medias o con ajuste real, y rojo es no cumplido, comparando la ley contra lo ejecutado. Para 2027, verde es probable, amarillo depende de algo incierto y rojo es muy difícil. Es una lectura propia y cada punto muestra el dato en el que se basa.</li>
 </ul>
 
+<h2 id="programas">Buscador por programa</h2>
+<p>La página <a href="/programas">¿Cuánto se gasta en…?</a> junta tres fuentes oficiales, programa por programa:</p>
+<ul>
+<li><strong>2027:</strong> los datasets del Presupuesto Ciudadano que publica la Oficina Nacional de Presupuesto junto con el proyecto: apertura programática hasta cada actividad y obra, gasto por inciso (sueldos, transferencias, obras, etc.) y metas físicas. Suman $202,1 billones, el total del artículo 1 del proyecto. El resto del sitio usa $198,7 billones porque, como el cuadro de la pág. 86, descuenta $3,38 billones de intereses que se pagan entre organismos de la propia Administración Nacional.</li>
+<li><strong>2026:</strong> la API de <a href="https://www.presupuestoabierto.gob.ar/" target="_blank" rel="noopener">Presupuesto Abierto</a>, con crédito de la ley, crédito vigente y gasto devengado por programa, actividad, tipo de gasto y provincia. El crédito inicial suma $148,07 billones, igual que el artículo 1 de la Ley 27.798. Se actualiza todos los meses.</li>
+<li><strong>Fuera de los programas:</strong> las universidades nacionales (planilla anexa al art. 12, pág. 198), los fondos fiduciarios (pág. 206), otros entes como el INCAA, el PAMI y ARCA (págs. 124 y 207) y las empresas públicas (págs. 127-129), con su gasto total 2027. Tienen presupuesto propio y en parte se financian con transferencias que ya cuentan en los programas, por eso no se suman con ellos.</li>
+</ul>
+<p>Los programas de 2027 y 2026 se emparejan por organismo y nombre del programa; si el organismo cambió de nombre o de ministerio, por nombre del programa cuando hay uno solo igual. Los que no tienen pareja figuran como nuevos o como «no sigue en 2027», en general porque se reorganizaron. La variación real compara lo pedido para 2027 con lo vigente en 2026, descontando la inflación promedio que supone el proyecto. El código está en <code>scripts/armar_programas.py</code> y los datos en <a href="/datos/programas.json">programas.json</a>.</p>
+
 <h2>Todos los cuadros</h2>
 <p>La página <a href="/cuadros">Todos los cuadros</a> muestra cada página del proyecto como imagen fiel del original, más el texto extraído para el buscador y, cuando la estructura lo permite, una tabla descargable en CSV. La extracción es automática (<code>scripts/extraer_cuadros.py</code>): ante cualquier diferencia entre el texto o la tabla y la imagen, vale la imagen.</p>
 
@@ -77,11 +86,11 @@
 <p>La sección "En el Congreso" se arma con la información pública del trámite: fechas de comisión y sesiones que informan los bloques y la prensa parlamentaria, y anuncios de cambios al proyecto. Cada etapa enlaza su fuente. Las fechas futuras son tentativas. Mientras no haya un dictamen con texto nuevo, el análisis del sitio se basa en el proyecto original.</p>
 
 <h2>Actualización automática de la ejecución</h2>
-<p>Una vez por mes, un proceso automático en GitHub consulta la <a href="https://presupuesto-abierto.argentina.apidocs.ar/" target="_blank" rel="noopener">API de Presupuesto Abierto</a> del Ministerio de Economía, baja el crédito inicial, el crédito vigente y lo devengado por jurisdicción, y vuelve a publicar el sitio. El porcentaje gastado se calcula contra el crédito vigente, que incluye las modificaciones hechas durante el año. El código está en <code>scripts/actualizar_ejecucion.py</code>.</p>
+<p>Una vez por mes, un proceso automático en GitHub consulta la <a href="https://presupuesto-abierto.argentina.apidocs.ar/" target="_blank" rel="noopener">API de Presupuesto Abierto</a> del Ministerio de Economía, baja el crédito inicial, el crédito vigente y lo devengado por jurisdicción, y vuelve a publicar el sitio. También baja el detalle por programa, actividad y provincia para el buscador. El porcentaje gastado se calcula contra el crédito vigente, que incluye las modificaciones hechas durante el año. El código está en <code>scripts/actualizar_ejecucion.py</code>.</p>
 
 <h2>Limitaciones</h2>
 <ul>
-<li>El proyecto no trae el detalle de cada programa en los cuadros generales; por eso el gasto se muestra por ministerio, por función y por tipo de gasto.</li>
+<li>El detalle por programa, actividad y obra está en el <a href="/programas">buscador</a>; el análisis principal muestra el gasto por ministerio, por función y por tipo de gasto.</li>
 <li>La ejecución 2026 que publica el proyecto llega al 31 de julio y está por tipo de gasto y función, no por ministerio. ASAP llega hasta agosto.</li>
 <li>Las proyecciones del FMI son de abril de 2026 y pueden actualizarse.</li>
 <li>El proyecto puede cambiar durante el debate en el Congreso.</li>

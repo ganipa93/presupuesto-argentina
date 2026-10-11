@@ -31,8 +31,12 @@ DESCRIPCIONES = {
     "claves": "Las tres conclusiones principales. Elaboración propia.",
     "congreso": "Etapas del Presupuesto 2027 en el Congreso y cambios anunciados, con fuentes.",
     "ejecucion_ministerios": "Ejecución mensual por jurisdicción desde la API de Presupuesto Abierto (actualización automática).",
+    "programas": "Cada programa con sus actividades y obras: proyecto 2027, ley, vigente y gastado 2026 por provincia, metas físicas, más universidades, entes y empresas (millones de $). Lo arma scripts/armar_programas.py.",
     "referencias": "Población (INDEC), haber mínimo (Res. ANSES 284/2026), reparto de la recaudación (pág. 41) y supuestos de la calculadora de impuestos.",
 }
+
+GRANDES = {"programas"}  # se cargan aparte (fetch), no van dentro de index.html
+
 
 def leer_datos():
     return {p.stem: json.loads(p.read_text(encoding="utf-8")) for p in sorted((RAIZ / "datos").glob("*.json"))}
@@ -45,7 +49,7 @@ def reemplazar(texto, valores):
 
 def main():
     datos = leer_datos()
-    datos_js = json.dumps(datos, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+    datos_js = json.dumps({k: v for k, v in datos.items() if k not in GRANDES}, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
     jsonld = {
         "@context": "https://schema.org",
         "@graph": [
@@ -90,8 +94,14 @@ def main():
             **comunes, "SITE_JS": json.dumps(SITE), "N": str(len(indice)), "LISTA": lista,
             "INDICE": json.dumps(indice, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")}), encoding="utf-8")
 
+    # Buscador por programa (datos/programas.json, lo arma scripts/armar_programas.py)
+    sup = {r["clave"]: r for r in datos["supuestos"]}
+    if "programas" in datos:
+        (RAIZ / "programas.html").write_text(reemplazar((RAIZ / "src/programas.html").read_text(encoding="utf-8"), {
+            **comunes, "SITE_JS": json.dumps(SITE), "NPROG": str(len(datos["programas"]["programas"])), "INFL": f'{sup["inflacion"]["proyecto2027"]:g}', "INFLP": f'{sup["infl_prom"]["proyecto2027"]:g}'}), encoding="utf-8")
+
     (RAIZ / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n", encoding="utf-8")
-    urls = ["/", "/cuadros", "/metodologia", "/datos/"]
+    urls = ["/", "/programas", "/cuadros", "/metodologia", "/datos/"]
     (RAIZ / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
         "".join(f"  <url><loc>{SITE}{u}</loc><lastmod>{FECHA_ISO}</lastmod></url>\n" for u in urls) + "</urlset>\n", encoding="utf-8")
 

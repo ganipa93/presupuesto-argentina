@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>¿Cuánto se gasta en…? Buscador del Presupuesto · Presupuesto Argentina</title>
+<meta name="description" content="Buscá cuánto gasta el Estado nacional en lo que te interesa: rutas, cine, universidades, PAMI, trenes, hospitales. {{NPROG}} programas, cada obra y actividad, con lo pedido para 2027 y lo gastado en 2026, por provincia.">
+<link rel="canonical" href="{{SITE}}/programas">
+<meta name="theme-color" content="#2f6fb3">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_AR">
+<meta property="og:title" content="¿Cuánto se gasta en…? Buscador del Presupuesto nacional">
+<meta property="og:description" content="Rutas, cine, universidades, PAMI, trenes: cada programa, obra y actividad, con lo pedido para 2027 y lo gastado en 2026.">
+<meta property="og:url" content="{{SITE}}/programas">
+<meta property="og:image" content="{{SITE}}/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="/tipografias/source-sans-3-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/estilos.css">
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<style>
+.buscar{display:flex;flex-direction:column;gap:var(--g-sm)}
+.buscar input,.buscar select{font:inherit;font-size:17px;padding:10px 14px;border:1px solid var(--line);border-radius:var(--r);background:var(--bg);color:var(--fg);width:100%}
+.buscar .fila{display:grid;grid-template-columns:minmax(0,1fr) minmax(10rem,16rem);gap:var(--g-sm)}
+@media (max-width:640px){.buscar .fila{grid-template-columns:1fr}}
+.atajos{display:flex;flex-wrap:wrap;gap:6px}
+.atajos button{font:inherit;font-size:var(--fs-cap);border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:999px;padding:4px 12px;cursor:pointer}
+.atajos button:hover{border-color:var(--c1)}
+.suma{display:flex;flex-wrap:wrap;gap:var(--g-md);align-items:baseline}
+.suma .big{font-size:1.6rem;font-weight:var(--fw-b);font-variant-numeric:tabular-nums}
+.res{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--g-sm)}
+.item{border:1px solid var(--line);border-radius:var(--r);background:var(--bg);padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.item h3{margin:0;font-size:1.05rem}
+.item .org{font-size:var(--fs-cap);color:var(--muted)}
+.cifras{display:grid;grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr));gap:8px}
+.cifra{background:var(--panel);border-radius:var(--r);padding:6px 10px}
+.cifra .ck{font-size:var(--fs-cap);color:var(--muted)}
+.cifra .cv{font-weight:var(--fw-b);font-variant-numeric:tabular-nums}
+.barra-ej{height:6px;border-radius:3px;background:var(--line);overflow:hidden;margin-top:4px}
+.barra-ej span{display:block;height:100%;background:var(--c1)}
+.hojas{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:2px;font-size:var(--fs-cap)}
+.hojas li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;padding:3px 0;border-bottom:1px dashed var(--line)}
+.hojas li span:last-child{font-variant-numeric:tabular-nums;white-space:nowrap}
+mark{background:#ffe08a;color:#1b1f24;border-radius:2px}
+.det{display:flex;flex-direction:column;gap:8px}
+.det summary{cursor:pointer;font-weight:var(--fw-m)}
+.tabla{width:100%;border-collapse:collapse;font-size:var(--fs-cap)}
+.tabla th,.tabla td{padding:4px 6px;border-bottom:1px solid var(--line);text-align:right;font-variant-numeric:tabular-nums;vertical-align:top}
+.tabla th:first-child,.tabla td:first-child{text-align:left}
+.tabla td:not(:first-child){white-space:nowrap}
+.tabla-scroll{overflow-x:auto}
+.etq{display:inline-block;font-size:12px;border-radius:999px;padding:1px 8px;background:var(--c1soft);color:var(--fg)}
+.etq.warn{background:#fdecc8}
+.acciones{display:flex;flex-wrap:wrap;gap:6px}
+.mas{align-self:flex-start}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><a class="brand" href="/">Presupuesto Argentina</a><nav><a href="/">Volver al análisis</a><a href="/cuadros">Todos los cuadros</a><a href="/metodologia">Metodología y fuentes</a></nav></div>
+<header style="display:flex;flex-direction:column;gap:var(--g-sm)">
+<h1>¿Cuánto se gasta en…?</h1>
+<p class="sub">Los {{NPROG}} programas del presupuesto nacional, con cada obra y actividad: lo que el gobierno pide para 2027 y lo que se autorizó y se gastó en 2026, también por provincia. Además, las universidades una por una, el INCAA, el PAMI, los fondos fiduciarios y las empresas públicas.</p>
+</header>
+
+<div class="buscar card">
+<div class="fila">
+<div><label for="q"><strong>¿Qué querés buscar?</strong></label>
+<input id="q" type="search" placeholder="Ej.: rutas, cine, universidad, PAMI, trenes, hospital, Ruta 40…" autocomplete="off"></div>
+<div><label for="prov"><strong>Provincia (gasto 2026)</strong></label>
+<select id="prov"><option value="">Todo el país</option></select></div>
+</div>
+<div class="atajos" id="atajos">
+<button type="button" data-q="rutas">Rutas</button>
+<button type="button" data-q="cine">Cine (INCAA)</button>
+<button type="button" data-q="universidades">Universidades</button>
+<button type="button" data-q="pami">PAMI</button>
+<button type="button" data-q="jubilaciones">Jubilaciones</button>
+<button type="button" data-q="asignaciones">AUH y asignaciones</button>
+<button type="button" data-q="trenes">Trenes</button>
+<button type="button" data-q="hospital">Hospitales</button>
+<button type="button" data-q="discapacidad">Discapacidad</button>
+<button type="button" data-q="ciencia">Ciencia (CONICET)</button>
+<button type="button" data-q="seguridad">Fuerzas de seguridad</button>
+<button type="button" data-q="energia">Energía y subsidios</button>
+<button type="button" data-q="agua">Agua y cloacas</button>
+<button type="button" data-q="deporte">Deporte</button>
+<button type="button" data-q="cultura">Cultura</button>
+<button type="button" data-q="deuda">Deuda</button>
+</div>
+<p class="note" id="estado">Cargando los datos…</p>
+</div>
+
+<section id="resumen" class="card suma" hidden></section>
+<ol class="res" id="res" aria-live="polite"></ol>
+<button class="btn mas" type="button" id="mas" hidden>Ver más resultados</button>
+
+<section class="card prose" style="margin-top:var(--g-lg)">
+<h2>Cómo leer estos números</h2>
+<ul>
+<li><strong>2027 (proyecto):</strong> lo que el gobierno pide gastar en 2027 en el proyecto de ley que está en el Congreso. Puede cambiar en el debate.</li>
+<li><strong>2026 ley:</strong> lo que aprobó el Congreso en la Ley 27.798. <strong>2026 vigente:</strong> lo autorizado hoy, después de las modificaciones que hizo el gobierno durante el año. <strong>2026 gastado:</strong> lo devengado (gasto ya comprometido y recibido) hasta el <span id="corte"></span>; el año todavía no terminó.</li>
+<li>Los pesos de 2027 valen menos que los de 2026: el proyecto supone precios en promedio {{INFLP}}% más altos en 2027 que en 2026 ({{INFL}}% de diciembre a diciembre). La etiqueta «real» compara lo pedido para 2027 con lo vigente en 2026 descontando esa inflación: si es negativa, el programa tiene menos recursos de verdad.</li>
+<li>Las <strong>universidades, el INCAA, el PAMI, los fondos fiduciarios y las empresas públicas</strong> tienen presupuesto propio, fuera de los programas. Muestran el gasto total que el proyecto les estima para 2027; una parte de ese dinero sale de transferencias que ya cuentan en los programas, así que no se suman con ellos.</li>
+<li>La provincia es la que asigna el propio Estado a cada gasto. Mucho gasto figura como «Nacional», «Interprovincial» o «No clasificado» (por ejemplo, gran parte de las jubilaciones), así que la suma de una provincia no es todo lo que llega a sus habitantes.</li>
+</ul>
+<p class="note">Fuentes: datasets del Presupuesto Ciudadano 2027 de la Oficina Nacional de Presupuesto, API de Presupuesto Abierto (Ministerio de Economía) y planillas anexas del proyecto. Detalle en <a href="/metodologia#programas">Metodología</a>. Datos: <a href="/datos/programas.json">programas.json</a>.</p>
+</section>
+
+<footer class="src">
+<p>Sitio independiente, sin relación con el Gobierno nacional. Montos en pesos corrientes.</p>
+<nav><a href="/">Volver al análisis</a><a href="/cuadros">Todos los cuadros</a><a href="/metodologia">Metodología y fuentes</a><a href="{{REPO}}/issues/new" target="_blank" rel="noopener">Avisar un error</a></nav>
+</footer>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<script>
+const SITE = {{SITE_JS}};
+const $ = (s) => document.querySelector(s);
+const el = (tag, attrs, ...hijos) => { const e = document.createElement(tag); for (const [k, v] of Object.entries(attrs || {})) { if (k === 'class') e.className = v; else if (k === 'text') e.textContent = v; else e.setAttribute(k, v); } e.append(...hijos.filter((h) => h != null)); return e; };
+const norm = (s) => ' ' + String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim() + ' ';
+const nf = (d) => new Intl.NumberFormat('es-AR', {maximumFractionDigits: d, minimumFractionDigits: d});
+function plata(m) {
+  if (m == null) return '—';
+  const a = Math.abs(m);
+  if (a >= 1e6) return '$ ' + nf(2).format(m / 1e6) + ' billones';
+  if (a >= 1000) return '$ ' + nf(0).format(m) + ' millones';
+  if (a >= 1) return '$ ' + nf(1).format(m) + ' millones';
+  if (a > 0) return '$ ' + nf(0).format(m * 1e6) + '';
+  return '$ 0';
+}
+const pct = (a, b) => (b ? nf(0).format(a / b * 100) + '%' : '—');
+function toast(m) { const t = $('#toast'); t.textContent = m; t.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(() => { t.hidden = true; }, 2000); }
+
+// Sinónimos: lo que la gente escribe → cómo aparece en el presupuesto
+const SINONIMOS = {
+  cine: ['cine', 'cinemat', 'incaa'], peliculas: ['cinemat', 'incaa'], incaa: ['incaa', 'cinemat'],
+  ruta: ['ruta', 'vialidad', 'vial', 'corredores viales'], vialidad: ['vialidad', 'vial'],
+  tren: ['tren', 'ferrocarril', 'ferroviari'], ferrocarril: ['ferrocarril', 'ferroviari', 'tren'],
+  universidad: ['universidad', 'universitari', 'educacion superior'], facultad: ['universidad', 'universitari'],
+  pami: ['pami', 'inssjp', 'jubilados y pensionados'],
+  jubilacion: ['prestaciones previsionales', 'jubilac', 'previsional'], jubilado: ['prestaciones previsionales', 'jubilad', 'pami'],
+  asignacion: ['asignaciones familiares', 'asignacion universal', 'asignacion'], auh: ['asignaciones familiares', 'asignacion universal'],
+  hospital: ['hospital', 'atencion medica', 'sanitari'], salud: ['salud', 'hospital', 'sanitari', 'medic'],
+  discapacidad: ['discapacidad', 'invalidez'],
+  ciencia: ['ciencia', 'conicet', 'cientific', 'investigacion'], conicet: ['conicet'],
+  seguridad: ['seguridad', 'gendarmeria', 'prefectura', 'policia', 'aeroportuaria'], policia: ['policia'],
+  energia: ['energ', 'electric', 'enarsa', 'combustible', ' gas '], subsidio: ['subsidio', 'asistencia financiera'], luz: ['electric', 'energia electrica'],
+  agua: ['agua', 'aysa', 'hidric', 'saneamiento', 'cloaca'],
+  deporte: ['deport'], futbol: ['futbol', 'deport'], cultura: ['cultura', 'cultural', 'teatro', 'museo', 'biblioteca', 'inamu', 'incaa'],
+  musica: ['music', 'inamu'], teatro: ['teatro'], museo: ['museo'],
+  deuda: ['deuda', 'intereses', 'servicio de la deuda'], escuela: ['escuela', 'escolar', 'educacion', 'educativ'], educacion: ['educacion', 'educativ', 'escuela'],
+  vivienda: ['vivienda', 'habitat', 'barrios populares'], obras: ['obra', 'construccion', 'infraestructura'],
+  defensa: ['defensa', 'armada', 'ejercito', 'fuerza aerea', 'militar'], ejercito: ['ejercito'],
+  avion: ['aerolineas', 'aeronavegacion', 'aviacion', 'aerea', 'fadea', 'eana'], aerolineas: ['aerolineas'],
+  correo: ['correo'], comedores: ['comedor', 'alimentari'], alimentos: ['alimentari', 'comedor', 'alimento'],
+  carceles: ['penitenciari', 'carcel'], justicia: ['justicia', 'judicial'], congreso: ['legislativ', 'diputados', 'senado'],
+  medicamentos: ['medicamento', 'remedio', 'farmac'], vacunas: ['vacuna', 'inmunizacion'],
+};
+
+let D = null, items = [], mostrados = 30, ultimo = [];
+
+function raiz(w) { return w.length >= 5 ? w.replace(/(es|s)$/, '') : w; }
+function variantes(q) {
+  const n = norm(q).trim();
+  if (!n) return [];
+  const palabras = n.split(' ');
+  if (palabras.length === 1) { const r = raiz(n); return (SINONIMOS[n] || SINONIMOS[r] || [r]).map((v) => v.trim().split(' ')); }
+  // varias palabras: frase completa (sin palabras vacías), cada palabra con su raíz
+  const VACIAS = new Set(['de', 'del', 'la', 'las', 'los', 'el', 'y', 'en', 'para', 'por', 'con', 'que', 'a', 'al', 'n', 'nro', 'no', 'nacional']);
+  const ps = palabras.filter((w) => !VACIAS.has(w) && (w.length >= 2 || /\d/.test(w))).map(raiz);
+  if (!ps.length) return [];
+  // "ruta 40" también figura como "RN 40" o "RN N° 40"
+  const k = ps.indexOf('ruta');
+  if (k >= 0 && /^\d+$/.test(ps[k + 1] || '')) return [ps, ps.map((w, i) => (i === k ? 'rn' : w))];
+  return [ps];
+}
+// una "variante" es una lista de palabras: todas tienen que aparecer (al inicio de palabra)
+// los números tienen que coincidir enteros ("3" no encuentra "34"); las palabras, desde el inicio
+const esta = (texto, w) => texto.includes(' ' + w + (/^\d+$/.test(w) ? ' ' : ''));
+const tiene = (texto, ps) => ps.every((p) => esta(texto, p));
+const algunaEn = (texto, vs) => vs.some((ps) => tiene(texto, ps));
+
+function preparar() {
+  for (const p of D.programas) {
+    p.ctx = norm([p.j, p.e, p.n].join(' '));
+    p.h27 = (p.act27 || []).map((a) => norm(a[0]));
+    p.h26 = (p.act26 || []).map((a) => norm(a[0]));
+    p.hm = (p.metas || []).map((m) => norm(m[0]));
+    p.tipo = 'p';
+    items.push(p);
+  }
+  for (const e of D.entes) { e.ctx = norm(e.n + ' ' + e.tipo); e.tipo2 = e.tipo; e.tipo = 'e'; items.push(e); }
+  const provs = new Set();
+  D.programas.forEach((p) => (p.prov26 || []).forEach((r) => provs.add(r[0])));
+  const orden = [...provs].sort((a, b) => {
+    const esp = (x) => /^(Nacional|Interprovincial|No Clasificado|Binacional|Exterior)$/.test(x);
+    return esp(a) - esp(b) || a.localeCompare(b, 'es');
+  });
+  $('#prov').append(...orden.map((p) => el('option', {value: p, text: p})));
+  $('#corte').textContent = new Date(D.corte26 + 'T12:00:00').toLocaleDateString('es-AR', {day: 'numeric', month: 'long', year: 'numeric'});
+}
+
+function buscar() {
+  const q = $('#q').value, prov = $('#prov').value;
+  const vs = variantes(q);
+  const res = [];
+  if (!vs.length) {
+    // sin búsqueda: los programas más grandes (o los de la provincia)
+    for (const p of D.programas) res.push({x: p, nivel: 'todo'});
+  } else {
+    for (const x of items) {
+      if (x.tipo === 'e') { if (algunaEn(x.ctx, vs)) res.push({x, nivel: 'todo'}); continue; }
+      if (algunaEn(x.ctx, vs)) { res.push({x, nivel: 'todo'}); continue; }
+      // coincidencia en obras/actividades: la palabra tiene que estar en la actividad (el contexto completa)
+      const enHoja = (h) => vs.some((ps) => ps.some((w) => esta(h, w)) && tiene(h + x.ctx, ps));
+      const i27 = x.h27.map((h, i) => (enHoja(h) ? i : -1)).filter((i) => i >= 0);
+      const i26 = x.h26.map((h, i) => (enHoja(h) ? i : -1)).filter((i) => i >= 0);
+      const im = x.hm.map((h, i) => (enHoja(h) ? i : -1)).filter((i) => i >= 0);
+      if (i27.length || i26.length) res.push({x, nivel: 'hojas', i27, i26});
+      else if (im.length) res.push({x, nivel: 'metas', im});
+    }
+  }
+  const montoProv = (p) => { const r = (p.prov26 || []).find((z) => z[0] === prov); return r ? r : null; };
+  let lista = res;
+  if (prov) lista = res.filter((r) => r.x.tipo === 'p' && montoProv(r.x));
+  const peso = (r) => {
+    if (prov) return montoProv(r.x)[1];
+    if (r.x.tipo === 'e') return r.x.g27 * 0.999;
+    if (r.nivel === 'hojas') return Math.max(sumaHojas(r, 27), sumaHojas(r, 26, 2));
+    return Math.max(r.x.a27 || 0, r.x.v26 || 0);
+  };
+  lista.sort((a, b) => (b.nivel === 'todo') - (a.nivel === 'todo') || peso(b) - peso(a));
+  if (!vs.length && !prov) lista = lista.slice(0, 60);
+  ultimo = lista; mostrados = 30;
+  resumen(lista, vs, q, prov, montoProv);
+  pintar();
+  try { const u = new URL(location.href); if (q) u.searchParams.set('q', q); else u.searchParams.delete('q'); if (prov) u.searchParams.set('provincia', prov); else u.searchParams.delete('provincia'); history.replaceState(null, '', u); } catch (e) {}
+}
+function sumaHojas(r, anio, col) {
+  const p = r.x;
+  if (anio === 27) return (r.i27 || []).reduce((s, i) => s + p.act27[i][1], 0);
+  return (r.i26 || []).reduce((s, i) => s + p.act26[i][col || 1], 0);
+}
+
+function resumen(lista, vs, q, prov, montoProv) {
+  const box = $('#resumen'), est = $('#estado');
+  const progs = lista.filter((r) => r.x.tipo === 'p'), entes = lista.filter((r) => r.x.tipo === 'e');
+  if (!vs.length && !prov) {
+    est.textContent = 'Escribí lo que te interese o tocá un atajo. Abajo, los programas más grandes del presupuesto.';
+    box.hidden = true; return;
+  }
+  if (!lista.length) {
+    est.replaceChildren('No encontré «' + q + '» en los programas. Probá con otra palabra o con el nombre del organismo, o ', el('a', {href: '/cuadros?q=' + encodeURIComponent(q), text: 'buscalo en los cuadros del PDF'}), '.');
+    box.hidden = true; return;
+  }
+  const s = {a27: 0, v26: 0, d26: 0};
+  for (const r of progs) {
+    if (prov) { const m = montoProv(r.x); s.v26 += m[1]; s.d26 += m[2]; continue; }
+    if (r.nivel === 'todo') { s.a27 += r.x.a27 || 0; s.v26 += r.x.v26 || 0; s.d26 += r.x.d26 || 0; }
+    else if (r.nivel === 'hojas') { s.a27 += sumaHojas(r, 27); s.v26 += sumaHojas(r, 26, 2); s.d26 += sumaHojas(r, 26, 3); }
+  }
+  const tot = progs.length, partes = [];
+  if (tot) partes.push(tot + (tot === 1 ? ' programa' : ' programas'));
+  if (entes.length) partes.push(entes.length + (entes.length === 1 ? ' organismo con presupuesto propio' : ' organismos con presupuesto propio'));
+  est.replaceChildren((q ? 'Para «' + q + '»' : 'Todo') + (prov ? ' en ' + prov : '') + ': ' + partes.join(' y ') + '. ', el('a', {href: '/cuadros?q=' + encodeURIComponent(q || prov), text: 'Ver también en los cuadros del PDF'}), '.');
+  const cif = [];
+  if (progs.length) {
+    if (!prov) cif.push(cifra('Pedido para 2027', plata(s.a27)));
+    cif.push(cifra('2026 vigente' + (prov ? ' en ' + prov : ''), plata(s.v26)), cifra('2026 gastado hasta ahora', plata(s.d26) + ' (' + pct(s.d26, s.v26) + ')'));
+  }
+  if (entes.length) cif.push(cifra('Presupuesto propio 2027 (aparte)', plata(entes.reduce((a, r) => a + r.x.g27, 0))));
+  box.replaceChildren(
+    el('div', {style: 'flex:1 1 100%'}, el('strong', {text: 'Suma de los resultados'}), el('p', {class: 'note', text: prov
+      ? 'Lo que el Estado nacional asignó a ' + prov + ' en 2026 en los programas encontrados. No incluye el gasto clasificado como nacional o interprovincial.'
+      : 'Suma de los programas y de las obras o actividades que coinciden con la búsqueda. El presupuesto propio de universidades, entes y empresas va aparte porque en parte se financia con esos mismos programas.'})),
+    el('div', {class: 'cifras', style: 'flex:1 1 100%'}, ...cif));
+  box.hidden = false;
+}
+function cifra(k, v, barra) { return el('div', {class: 'cifra'}, el('div', {class: 'ck', text: k}), el('div', {class: 'cv', text: v}), barra || null); }
+
+function marcar(texto, vs) {
+  // resalta las palabras buscadas sin tocar el texto original
+  const n = texto.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+  const rangos = [];
+  for (const ps of vs) for (const w of ps) { const re = new RegExp('(^|[^a-z0-9])(' + w.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')' + (/^\d+$/.test(w) ? '(?![0-9])' : ''), 'g'); let m; while ((m = re.exec(n))) rangos.push([m.index + m[1].length, m.index + m[1].length + m[2].length]); }
+  if (!rangos.length) return [texto];
+  rangos.sort((a, b) => a[0] - b[0]);
+  const out = []; let i = 0;
+  for (const [a, b] of rangos) { if (a < i) continue; out.push(texto.slice(i, a), el('mark', {text: texto.slice(a, b)})); i = b; }
+  out.push(texto.slice(i));
+  return out;
+}
+
+function pintar() {
+  const vs = variantes($('#q').value), prov = $('#prov').value;
+  $('#res').replaceChildren(...ultimo.slice(0, mostrados).map((r) => el('li', {}, r.x.tipo === 'e' ? tarjetaEnte(r.x, vs) : tarjeta(r, vs, prov))));
+  $('#mas').hidden = ultimo.length <= mostrados;
+  $('#mas').textContent = 'Ver más resultados (' + (ultimo.length - mostrados) + ' más)';
+}
+
+function tarjeta(r, vs, prov) {
+  const p = r.x;
+  const org = [p.j, p.e].filter(Boolean).join(' › ');
+  const cif = [];
+  const var27 = p.a27 != null && p.v26 > 0 ? (p.a27 / p.v26 / (1 + {{INFLP}} / 100) - 1) * 100 : null;
+  cif.push(cifra('Pedido para 2027', p.a27 == null ? 'No sigue en 2027' : plata(p.a27)));
+  if (p.v26 != null) {
+    cif.push(cifra('2026 ley', plata(p.l26)), cifra('2026 vigente', plata(p.v26)));
+    const ej = p.v26 ? Math.min(100, Math.max(0, p.d26 / p.v26 * 100)) : 0;
+    cif.push(cifra('2026 gastado', plata(p.d26) + ' (' + pct(p.d26, p.v26) + ')', el('div', {class: 'barra-ej'}, el('span', {style: 'width:' + ej.toFixed(1) + '%'}))));
+  } else cif.push(cifra('2026', 'Programa nuevo o reorganizado'));
+  if (prov) { const m = p.prov26.find((z) => z[0] === prov); cif.push(cifra('2026 en ' + prov, plata(m[1]) + ' · gastado ' + plata(m[2]))); }
+  const etq = [];
+  if (var27 != null && p.a27 != null) etq.push(el('span', {class: 'etq' + (var27 < 0 ? ' warn' : ''), text: 'Real 2027 vs. 2026 vigente: ' + (var27 >= 0 ? '+' : '') + nf(0).format(var27) + '%', title: 'Descontando la inflación promedio de {{INFLP}}% que supone el proyecto.'}));
+  const cuerpo = [el('div', {class: 'org', text: org}), el('h3', {}, ...marcar(p.n, vs)), etq.length ? el('div', {}, ...etq) : null, el('div', {class: 'cifras'}, ...cif)];
+  if (r.nivel === 'hojas') {
+    const filas = [];
+    for (const i of r.i27) filas.push(el('li', {}, el('span', {}, ...marcar(p.act27[i][0], vs)), el('span', {text: '2027: ' + plata(p.act27[i][1])})));
+    for (const i of r.i26) { const a = p.act26[i]; filas.push(el('li', {}, el('span', {}, ...marcar(a[0], vs)), el('span', {text: '2026: vigente ' + plata(a[2]) + ' · gastado ' + plata(a[3])}))); }
+    const n = filas.length;
+    cuerpo.push(el('div', {}, el('strong', {style: 'font-size:var(--fs-cap)', text: n + (n === 1 ? ' obra o actividad coincide' : ' obras o actividades coinciden') + ' (suma 2027: ' + plata(sumaHojas(r, 27)) + ')'}), el('ul', {class: 'hojas'}, ...filas.slice(0, 12))));
+    if (n > 12) cuerpo.push(el('p', {class: 'note', text: 'Y ' + (n - 12) + ' más: abrí el detalle para verlas todas.'}));
+  }
+  if (r.nivel === 'metas') cuerpo.push(el('p', {class: 'note'}, 'Coincide en una meta física: ', ...marcar(p.metas[r.im[0]][0], vs)));
+  cuerpo.push(detalle(p, vs));
+  return el('article', {class: 'item'}, ...cuerpo);
+}
+
+function tabla(cab, filas) {
+  return el('div', {class: 'tabla-scroll'}, el('table', {class: 'tabla'}, el('thead', {}, el('tr', {}, ...cab.map((c) => el('th', {text: c})))), el('tbody', {}, ...filas.map((f) => el('tr', {}, ...f.map((c) => (c instanceof Node || Array.isArray(c) ? el('td', {}, ...[].concat(c)) : el('td', {text: c}))))))));
+}
+function detalle(p, vs) {
+  const d = el('details', {class: 'det'}, el('summary', {text: 'Ver el detalle completo'}));
+  d.addEventListener('toggle', () => {
+    if (!d.open || d.dataset.ok) return; d.dataset.ok = 1;
+    const partes = [];
+    if (p.act27 && p.act27.length) partes.push(el('h4', {text: '2027: en qué se gasta (' + p.act27.length + ' actividades y obras)'}), tabla(['Actividad u obra', 'Pedido 2027'], p.act27.map((a) => [marcar(a[0], vs), plata(a[1])])));
+    if (p.inc27 && p.inc27.length) partes.push(el('h4', {text: '2027: por tipo de gasto'}), tabla(['Tipo de gasto', 'Pedido 2027', '% del programa'], p.inc27.map((a) => [a[0], plata(a[1]), pct(a[1], p.a27)])));
+    if (p.metas && p.metas.length) partes.push(el('h4', {text: '2027: metas físicas (qué promete hacer)'}), tabla(['Meta o indicador', 'Unidad', 'Cantidad 2027'], p.metas.map((m) => [marcar(m[0], vs), m[1] || '', nf(Number.isInteger(m[2]) ? 0 : 2).format(m[2])])));
+    if (p.act26 && p.act26.length) partes.push(el('h4', {text: '2026: autorizado y gastado por actividad'}), tabla(['Actividad u obra', 'Ley', 'Vigente', 'Gastado', '%'], p.act26.map((a) => [marcar(a[0], vs), plata(a[1]), plata(a[2]), plata(a[3]), pct(a[3], a[2])])));
+    if (p.prov26 && p.prov26.length) partes.push(el('h4', {text: '2026: por provincia'}), tabla(['Provincia', 'Vigente', 'Gastado', '%'], p.prov26.map((a) => [a[0], plata(a[1]), plata(a[2]), pct(a[2], a[1])])));
+    const link = el('button', {class: 'btn', type: 'button', text: 'Copiar link a este programa'});
+    link.addEventListener('click', async () => { const u = SITE + '/programas?q=' + encodeURIComponent(p.n); try { await navigator.clipboard.writeText(u); toast('Link copiado'); } catch (e) { prompt('Copiá el link:', u); } });
+    partes.push(el('div', {class: 'acciones'}, link, el('a', {class: 'btn', href: '/cuadros?q=' + encodeURIComponent(p.e || p.j), text: 'Buscar el organismo en los cuadros'})));
+    d.append(...partes);
+    if (window.va) window.va('event', {name: 'programa', data: {n: p.n.slice(0, 60)}});
+  });
+  return d;
+}
+
+function tarjetaEnte(e, vs) {
+  const cif = [cifra('Gasto total 2027', plata(e.g27)), ...(e.det || []).map((d) => cifra(d[0], plata(d[1])))];
+  return el('article', {class: 'item'},
+    el('div', {class: 'org', text: e.tipo2 + ' · presupuesto propio, fuera de los programas'}),
+    el('h3', {}, ...marcar(e.n, vs)),
+    el('div', {class: 'cifras'}, ...cif),
+    e.nota ? el('p', {class: 'note', text: e.nota}) : null,
+    el('div', {class: 'acciones'}, el('a', {class: 'btn', href: '/cuadros#p' + e.pag, text: 'Ver el cuadro original (pág. ' + e.pag + ')'})));
+}
+
+let espera;
+$('#q').addEventListener('input', () => { clearTimeout(espera); espera = setTimeout(buscar, 200); });
+$('#prov').addEventListener('change', buscar);
+$('#mas').addEventListener('click', () => { mostrados += 30; pintar(); });
+$('#atajos').addEventListener('click', (e) => { const b = e.target.closest('button[data-q]'); if (!b) return; $('#q').value = b.dataset.q; buscar(); if (window.va) window.va('event', {name: 'atajo_programas', data: {q: b.dataset.q}}); });
+
+fetch('/datos/programas.json').then((r) => r.json()).then((d) => {
+  D = d; preparar();
+  const u = new URL(location.href);
+  if (u.searchParams.get('q')) $('#q').value = u.searchParams.get('q');
+  if (u.searchParams.get('provincia')) $('#prov').value = u.searchParams.get('provincia');
+  buscar();
+}).catch(() => { $('#estado').textContent = 'No se pudieron cargar los datos. Recargá la página.'; });
+</script>
+</body>
+</html>

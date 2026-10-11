@@ -51,10 +51,11 @@
 </head>
 <body>
 <div class="wrap">
-<div class="top"><a class="brand" href="/">Presupuesto Argentina</a><nav><a href="/">Volver al análisis</a><a href="/metodologia">Metodología y fuentes</a><a href="/datos/">Datos abiertos</a></nav></div>
+<div class="top"><a class="brand" href="/">Presupuesto Argentina</a><nav><a href="/">Volver al análisis</a><a href="/programas">¿Cuánto se gasta en…?</a><a href="/metodologia">Metodología y fuentes</a></nav></div>
 <header style="display:flex;flex-direction:column;gap:var(--g-sm)">
 <h1>Todos los cuadros del Presupuesto 2027</h1>
 <p class="sub">Las {{N}} páginas del proyecto que el gobierno mandó al Congreso, tal cual, con un buscador. Buscá un organismo, una empresa o un tema y vas a ver cada cuadro donde aparece, con sus montos y estimaciones.</p>
+<p class="note">¿Querés el monto directo de un programa, una obra o tu provincia? Probá <a href="/programas">¿Cuánto se gasta en…?</a>, con cada programa, actividad y obra de 2027 y lo gastado en 2026.</p>
 </header>
 
 <div class="buscar card">
@@ -207,6 +208,7 @@ $('#atajos').addEventListener('click', (e) => { const b = e.target.closest('butt
 const desdeHash = () => { const h = location.hash.match(/^#p(\d+)$/); return h ? Number(h[1]) : null; };
 window.addEventListener('hashchange', () => { const n = desdeHash(); if (n && (!actual || actual.p !== n)) mostrar(n, false); });
 mostrar(desdeHash() || 93, false);
+try { const q0 = new URL(location.href).searchParams.get('q'); if (q0) { $('#q').value = q0; buscar(q0); } } catch (e) {}
 </script>
 </body>
 </html>
