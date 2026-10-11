@@ -351,8 +351,9 @@ function renderEjecMin() {
   const E = DATA.ejecucion_ministerios;
   if (!E || !E.filas || !E.filas.length) { $('#em-card').hidden = true; return; }
   $('#em-card').hidden = false;
-  const mes = E.ultimo_mes;
-  $('#em-nota').textContent = 'Gastado hasta ' + MESES[mes - 1] + ' de ' + E.ejercicio + ' contra el crédito vigente (el presupuesto ya modificado durante el año). La línea punteada marca ' + mes + ' de 12 meses. Fuente: Presupuesto Abierto, actualizado automáticamente el ' + fechaLarga(E.actualizado) + '.';
+  const mes = E.ultimo_mes_completo || E.ultimo_mes;
+  const hasta = E.mes_parcial ? MESES[mes - 1] + ' completo y lo que va de ' + MESES[E.ultimo_mes - 1] : MESES[mes - 1];
+  $('#em-nota').textContent = 'Gastado hasta ' + hasta + ' de ' + E.ejercicio + ' contra el crédito vigente (el presupuesto ya modificado durante el año). La línea punteada marca ' + mes + ' de 12 meses. Fuente: Presupuesto Abierto, actualizado automáticamente el ' + fechaLarga(E.actualizado) + '.';
   hb($('#em-chart'), [...E.filas].sort((x, y) => x.pct_ejecutado - y.pct_ejecutado), {label: (x) => x.jurisdiccion, value: (x) => x.pct_ejecutado, fmt: (v) => nf1.format(v) + '%', ref: mes / 12 * 100, color: (x, v) => v < mes / 12 * 100 * 0.85 ? MUTED : C1});
   fill('#t-em', E.filas, [['jurisdiccion'], ['credito_inicial', fmt0], ['credito_vigente', fmt0], ['devengado', fmt0], ['pct_ejecutado', (v) => nf1.format(v) + '%']]);
 }

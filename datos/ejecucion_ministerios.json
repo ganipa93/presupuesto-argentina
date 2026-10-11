@@ -1,6 +1,8 @@
 {
  "ejercicio": 2026,
  "ultimo_mes": 10,
+ "ultimo_mes_completo": 9,
+ "mes_parcial": true,
  "fuente": "Presupuesto Abierto (Ministerio de Economía), API de crédito",
  "unidad": "millones de pesos",
  "filas": [

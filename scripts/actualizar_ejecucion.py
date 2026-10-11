@@ -88,9 +88,15 @@ def main():
     if not con_gasto:
         sys.exit("No hay meses con gasto devengado.")
 
+    ultimo = max(con_gasto)
+    previos = sorted(meses[m] for m in con_gasto if m < ultimo)
+    mediana = previos[len(previos) // 2] if previos else 0
+    parcial = bool(previos) and meses[ultimo] < 0.5 * mediana  # el mes en curso todavía se está cargando
     salida = {
         "ejercicio": ejercicio,
-        "ultimo_mes": max(con_gasto),
+        "ultimo_mes": ultimo,
+        "ultimo_mes_completo": ultimo - 1 if parcial else ultimo,
+        "mes_parcial": parcial,
         "fuente": "Presupuesto Abierto (Ministerio de Economía), API de crédito",
         "unidad": "millones de pesos",
         "filas": sorted(({
