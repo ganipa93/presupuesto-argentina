@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Todos los cuadros del Presupuesto 2027 · Presupuesto Argentina</title>
+<meta name="description" content="Las {{N}} páginas del Proyecto de Presupuesto 2027, con buscador: INCAA, Vialidad, universidades, PAMI, empresas públicas, cargos por organismo, obras, deuda y todos los cuadros oficiales.">
+<link rel="canonical" href="{{SITE}}/cuadros">
+<meta name="theme-color" content="#2f6fb3">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_AR">
+<meta property="og:title" content="Todos los cuadros del Presupuesto 2027, con buscador">
+<meta property="og:description" content="Buscá cuánto se gasta en lo que te interesa: cine, rutas, universidades, PAMI, empresas públicas y más.">
+<meta property="og:url" content="{{SITE}}/cuadros">
+<meta property="og:image" content="{{SITE}}/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="/tipografias/source-sans-3-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/estilos.css">
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<style>
+.cx{display:grid;grid-template-columns:minmax(16rem,22rem) minmax(0,1fr);gap:var(--g-lg);align-items:start}
+@media (max-width:860px){.cx{grid-template-columns:1fr}}
+.indice{position:sticky;top:12px;max-height:calc(100vh - 24px);overflow:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--panel)}
+@media (max-width:860px){.indice{position:static;max-height:24rem}}
+.indice details{border-bottom:1px solid var(--line)}
+.indice summary{cursor:pointer;padding:8px 12px;font-weight:var(--fw-m);font-size:var(--fs-cap)}
+.indice ol{list-style:none;margin:0;padding:0 0 6px}
+.indice a{display:grid;grid-template-columns:3.2rem 1fr;gap:6px;padding:4px 12px;font-size:var(--fs-cap);color:var(--fg);text-decoration:none}
+.indice a:hover,.indice a[aria-current=true]{background:var(--c1soft)}
+.indice a .n{color:var(--muted);font-variant-numeric:tabular-nums}
+.indice a.txt{color:var(--muted)}
+.solo-cuadros .indice a.txt{display:none}
+.buscar{display:flex;flex-direction:column;gap:var(--g-sm)}
+.buscar input{font:inherit;font-size:17px;padding:10px 14px;border:1px solid var(--line);border-radius:var(--r);background:var(--bg);color:var(--fg);width:100%}
+.atajos{display:flex;flex-wrap:wrap;gap:6px}
+.atajos button{font:inherit;font-size:var(--fs-cap);border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:999px;padding:4px 12px;cursor:pointer}
+.resultados{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.resultados a{display:block;padding:8px 12px;border:1px solid var(--line);border-radius:var(--r);text-decoration:none;color:var(--fg);background:var(--bg)}
+.resultados a:hover{border-color:var(--c1)}
+.resultados .meta{font-size:var(--fs-cap);color:var(--muted)}
+.resultados mark{background:#ffe08a;color:#1b1f24;border-radius:2px}
+.visor{display:flex;flex-direction:column;gap:var(--g-sm);min-width:0}
+.visor .barra{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.visor .lienzo{overflow:auto;border:1px solid var(--line);border-radius:var(--r);background:#fff}
+.visor img{display:block;width:100%;height:auto}
+.visor.zoom img{width:auto;max-width:none}
+.visor pre{white-space:pre;overflow:auto;font-size:12px;line-height:1.35;border:1px solid var(--line);border-radius:var(--r);padding:10px;background:var(--panel);max-height:36rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><a class="brand" href="/">Presupuesto Argentina</a><nav><a href="/">Volver al análisis</a><a href="/metodologia">Metodología y fuentes</a><a href="/datos/">Datos abiertos</a></nav></div>
+<header style="display:flex;flex-direction:column;gap:var(--g-sm)">
+<h1>Todos los cuadros del Presupuesto 2027</h1>
+<p class="sub">Las {{N}} páginas del proyecto que el gobierno mandó al Congreso, tal cual, con un buscador. Buscá un organismo, una empresa o un tema y vas a ver cada cuadro donde aparece, con sus montos y estimaciones.</p>
+</header>
+
+<div class="buscar card">
+<label for="q"><h2>¿Qué querés buscar?</h2></label>
+<input id="q" type="search" placeholder="Ej.: cine, INCAA, rutas, Vialidad, universidad, PAMI, Aerolíneas…" autocomplete="off">
+<div class="atajos" id="atajos">
+<button type="button" data-q="cine">Cine (INCAA)</button>
+<button type="button" data-q="rutas">Rutas (Vialidad)</button>
+<button type="button" data-q="universidad">Universidades</button>
+<button type="button" data-q="PAMI">PAMI</button>
+<button type="button" data-q="Aerolíneas">Aerolíneas</button>
+<button type="button" data-q="empresas">Empresas públicas</button>
+<button type="button" data-q="cargos">Empleados por organismo</button>
+<button type="button" data-q="obras de inversión">Obras plurianuales</button>
+<button type="button" data-q="gasto tributario">Lo que no se cobra</button>
+<button type="button" data-q="subsidios">Subsidios</button>
+</div>
+<p class="note" id="estado">Escribí al menos 3 letras. Busca en el texto de todas las páginas, sin importar tildes ni mayúsculas.</p>
+<ol class="resultados" id="resultados"></ol>
+</div>
+
+<div class="cx" id="cx">
+<nav class="indice" aria-label="Índice del proyecto">
+<div style="padding:8px 12px;display:flex;gap:8px;align-items:center;font-size:var(--fs-cap)"><input type="checkbox" id="solo" checked><label for="solo">Mostrar solo páginas con cuadros</label></div>
+{{LISTA}}
+</nav>
+<section class="visor" id="visor" aria-live="polite">
+<div class="barra">
+<button class="btn" type="button" id="ant">← Anterior</button>
+<button class="btn" type="button" id="sig">Siguiente →</button>
+<button class="btn" type="button" id="zoom">Ampliar</button>
+<button class="btn" type="button" id="vertexto">Ver texto</button>
+<button class="btn" type="button" id="csv" hidden>Descargar tabla (CSV)</button>
+<a class="btn" id="pdf" href="/fuentes/proyecto-presupuesto-2027.pdf" target="_blank" rel="noopener">Abrir en el PDF</a>
+<button class="btn" type="button" id="link">Copiar link</button>
+</div>
+<p class="note" id="vmeta"></p>
+<h2 id="vtitulo">Elegí una página o buscá un tema</h2>
+<div class="lienzo"><img id="vimg" alt="" width="1287" height="910" src="/cuadros/img/p093.webp"></div>
+<pre id="vtexto" hidden></pre>
+<p class="note">La imagen es la página original del proyecto. El texto y la tabla en CSV se extraen automáticamente: ante cualquier diferencia, vale la imagen.</p>
+</section>
+</div>
+
+<footer class="src">
+<p>Fuente: Proyecto de Ley de Presupuesto General de la Administración Nacional 2027 (MEN-2026-43-APN-JGM), enviado al Congreso el 15/9/2026. Sitio independiente, sin relación con el Gobierno nacional.</p>
+<nav><a href="/">Volver al análisis</a><a href="/metodologia">Metodología y fuentes</a><a href="{{REPO}}/issues/new" target="_blank" rel="noopener">Avisar un error</a></nav>
+</footer>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<script>
+const IDX = {{INDICE}};
+const SITE = {{SITE_JS}};
+const $ = (s) => document.querySelector(s);
+const pad = (n) => String(n).padStart(3, '0');
+const norm = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+const SINONIMOS = {cine: ['cine', 'cinemato', 'incaa', 'audiovisual'], rutas: ['ruta', 'vialidad', 'vial', 'corredores viales'], universidad: ['universidad'],
+  pami: ['inssjp', 'pami', 'jubilados y pensionados'], empresas: ['empresas del estado', 'empresas y sociedades'], cargos: ['recursos humanos'],
+  subsidios: ['subsidio'], trenes: ['ferrocarril', 'ferroviari', 'trenes'], musica: ['musica', 'inamu'], teatro: ['teatro'], futbol: ['futbol', 'deporte']};
+let actual = null, datos = null, textos = null;
+function toast(m) { const t = $('#toast'); t.textContent = m; t.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(() => { t.hidden = true; }, 2000); }
+
+async function mostrar(p, desplazar) {
+  const x = IDX.find((i) => i.p === p); if (!x) return;
+  actual = x;
+  $('#vtitulo').textContent = x.t;
+  $('#vmeta').textContent = x.s + ' · Página ' + x.p + ' del PDF';
+  const img = $('#vimg');
+  img.width = x.w; img.height = x.h; img.alt = 'Página ' + x.p + ' del proyecto: ' + x.t;
+  img.src = '/cuadros/img/p' + pad(x.p) + '.webp';
+  $('#pdf').href = '/fuentes/proyecto-presupuesto-2027.pdf#page=' + x.p;
+  document.querySelectorAll('.indice a').forEach((a) => a.setAttribute('aria-current', String(a.dataset.p == x.p)));
+  const enlace = document.querySelector('.indice a[data-p="' + x.p + '"]');
+  if (enlace) { enlace.closest('details').open = true; }
+  try { history.replaceState(null, '', '#p' + x.p); } catch (e) {}
+  $('#vtexto').hidden = true; $('#vertexto').textContent = 'Ver texto';
+  datos = null; $('#csv').hidden = true;
+  try { datos = await (await fetch('/cuadros/paginas/p' + pad(x.p) + '.json')).json(); } catch (e) {}
+  if (datos && actual === x) { $('#vtexto').textContent = datos.texto; $('#csv').hidden = !datos.tabla; }
+  if (desplazar) $('#visor').scrollIntoView({behavior: 'smooth', block: 'start'});
+  if (window.va) window.va('event', {name: 'cuadro', data: {pagina: x.p}});
+}
+function mover(d) {
+  if (!actual) return;
+  const lista = IDX.filter((i) => !$('#solo').checked || i.c);
+  const k = lista.findIndex((i) => i.p === actual.p);
+  const n = lista[Math.min(lista.length - 1, Math.max(0, (k < 0 ? 0 : k) + d))];
+  if (n) mostrar(n.p, false);
+}
+$('#ant').addEventListener('click', () => mover(-1));
+$('#sig').addEventListener('click', () => mover(1));
+$('#zoom').addEventListener('click', () => { const v = $('#visor').classList.toggle('zoom'); $('#zoom').textContent = v ? 'Ajustar al ancho' : 'Ampliar'; });
+$('#vertexto').addEventListener('click', () => { const t = $('#vtexto'); t.hidden = !t.hidden; $('#vertexto').textContent = t.hidden ? 'Ver texto' : 'Ocultar texto'; });
+$('#link').addEventListener('click', async () => { const u = SITE + '/cuadros#p' + (actual ? actual.p : ''); try { await navigator.clipboard.writeText(u); toast('Link copiado'); } catch (e) { prompt('Copiá el link:', u); } });
+$('#csv').addEventListener('click', () => {
+  if (!datos || !datos.tabla) return;
+  const csv = datos.tabla.map((r) => r.map((c) => '"' + String(c).replace(/"/g, '""') + '"').join(';')).join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob(['﻿' + csv], {type: 'text/csv;charset=utf-8'}));
+  a.download = 'presupuesto-2027-pagina-' + datos.pagina + '.csv'; document.body.append(a); a.click(); a.remove();
+});
+document.querySelector('.indice').addEventListener('click', (e) => { const a = e.target.closest('a[data-p]'); if (!a) return; e.preventDefault(); mostrar(Number(a.dataset.p), window.innerWidth < 860); });
+$('#solo').addEventListener('change', () => document.body.classList.toggle('solo-cuadros', $('#solo').checked));
+document.body.classList.add('solo-cuadros');
+
+async function buscar(q) {
+  const res = $('#resultados'), est = $('#estado');
+  q = q.trim();
+  if (norm(q).length < 3) { res.replaceChildren(); est.textContent = 'Escribí al menos 3 letras. Busca en el texto de todas las páginas, sin importar tildes ni mayúsculas.'; return; }
+  if (!textos) { est.textContent = 'Cargando el texto de las páginas…'; try { const t = await (await fetch('/cuadros/texto.json')).json(); textos = Object.entries(t).map(([p, s]) => [Number(p), s, norm(s)]); } catch (e) { est.textContent = 'No se pudo cargar el buscador. Probá de nuevo.'; return; } }
+  const nq = norm(q);
+  let variantes = SINONIMOS[nq] || [nq];
+  const contar = (vs, todas) => {
+    const out = [];
+    for (const [p, s, n] of textos) {
+      let cuenta = 0, pos = -1, presentes = 0;
+      for (const v of vs) { let i = n.indexOf(v); if (i >= 0) { presentes++; if (pos < 0 || i < pos) pos = i; } while (i >= 0) { cuenta++; i = n.indexOf(v, i + v.length); } }
+      if (cuenta && (!todas || presentes === vs.length)) out.push({p, s, pos, cuenta});
+    }
+    return out;
+  };
+  let hallados = contar(variantes, false);
+  if (!hallados.length && nq.includes(' ')) {
+    // si la frase exacta no aparece, se buscan todas las palabras en la misma página
+    const VACIAS = new Set(['de', 'del', 'la', 'las', 'los', 'el', 'y', 'en', 'para', 'por', 'con', 'que', 'a', 'al']);
+    variantes = nq.split(/\s+/).filter((w) => w.length >= 3 && !VACIAS.has(w));
+    if (variantes.length) hallados = contar(variantes, true);
+  }
+  hallados.sort((a, b) => b.cuenta - a.cuenta || a.p - b.p);
+  est.textContent = hallados.length ? 'Aparece en ' + hallados.length + ' página' + (hallados.length > 1 ? 's' : '') + (variantes.length > 1 ? ' (también busqué: ' + variantes.join(', ') + ')' : '') + '. Tocá una para verla.' : 'No aparece en el proyecto. Probá con otra palabra o con el nombre del organismo.';
+  res.replaceChildren(...hallados.slice(0, 40).map((h) => {
+    const x = IDX.find((i) => i.p === h.p) || {t: '', s: ''};
+    const a = document.createElement('a'); a.href = '#p' + h.p; a.dataset.p = h.p;
+    const tt = document.createElement('strong'); tt.textContent = x.t;
+    const meta = document.createElement('div'); meta.className = 'meta'; meta.textContent = 'Página ' + h.p + ' · ' + x.s + ' · ' + h.cuenta + (h.cuenta > 1 ? ' coincidencias' : ' coincidencia');
+    const sn = document.createElement('div'); sn.className = 'meta';
+    const ini = Math.max(0, h.pos - 70), fin = Math.min(h.s.length, h.pos + 110);
+    const largo = variantes.find((v) => norm(h.s).indexOf(v) === h.pos)?.length || nq.length;
+    sn.append((ini ? '…' : '') + h.s.slice(ini, h.pos));
+    const m = document.createElement('mark'); m.textContent = h.s.slice(h.pos, h.pos + largo); sn.append(m, h.s.slice(h.pos + largo, fin) + (fin < h.s.length ? '…' : ''));
+    a.append(tt, meta, sn);
+    a.addEventListener('click', (e) => { e.preventDefault(); mostrar(h.p, true); });
+    const li = document.createElement('li'); li.append(a); return li;
+  }));
+  if (window.va) window.va('event', {name: 'busqueda', data: {q: nq.slice(0, 40)}});
+}
+let espera;
+$('#q').addEventListener('input', (e) => { clearTimeout(espera); espera = setTimeout(() => buscar(e.target.value), 250); });
+$('#atajos').addEventListener('click', (e) => { const b = e.target.closest('button[data-q]'); if (!b) return; $('#q').value = b.dataset.q; buscar(b.dataset.q); });
+const desdeHash = () => { const h = location.hash.match(/^#p(\d+)$/); return h ? Number(h[1]) : null; };
+window.addEventListener('hashchange', () => { const n = desdeHash(); if (n && (!actual || actual.p !== n)) mostrar(n, false); });
+mostrar(desdeHash() || 93, false);
+</script>
+</body>
+</html>

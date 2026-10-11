@@ -75,8 +75,23 @@ def main():
 </ul></main></div></body></html>
 """, encoding="utf-8")
 
+    # Explorador de todos los cuadros del PDF (los genera scripts/extraer_cuadros.py)
+    ind_path = RAIZ / "cuadros/indice.json"
+    if ind_path.exists():
+        indice = json.loads(ind_path.read_text(encoding="utf-8"))
+        secciones = {}
+        for x in indice:
+            secciones.setdefault(x["s"], []).append(x)
+        lista = "\n".join(
+            "<details" + (" open" if i == 0 else "") + "><summary>" + html.escape(sec) + f" ({sum(1 for x in xs if x['c'])})</summary><ol>" +
+            "".join(f'<li><a href="#p{x["p"]}" data-p="{x["p"]}"' + ("" if x["c"] else ' class="txt"') + f'><span class="n">p. {x["p"]}</span><span>{html.escape(x["t"])}</span></a></li>' for x in xs) +
+            "</ol></details>" for i, (sec, xs) in enumerate(secciones.items()))
+        (RAIZ / "cuadros.html").write_text(reemplazar((RAIZ / "src/cuadros.html").read_text(encoding="utf-8"), {
+            **comunes, "SITE_JS": json.dumps(SITE), "N": str(len(indice)), "LISTA": lista,
+            "INDICE": json.dumps(indice, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")}), encoding="utf-8")
+
     (RAIZ / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n", encoding="utf-8")
-    urls = ["/", "/metodologia", "/datos/"]
+    urls = ["/", "/cuadros", "/metodologia", "/datos/"]
     (RAIZ / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
         "".join(f"  <url><loc>{SITE}{u}</loc><lastmod>{FECHA_ISO}</lastmod></url>\n" for u in urls) + "</urlset>\n", encoding="utf-8")
 
