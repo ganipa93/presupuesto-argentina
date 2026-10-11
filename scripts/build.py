@@ -3,7 +3,7 @@
 
 Uso:  python3 scripts/build.py      (después: node scripts/prerender.mjs)
 """
-import json, html, pathlib, datetime, shutil, sys
+import json, html, pathlib, datetime, shutil, sys, hashlib
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from paginas import Generador
 
@@ -135,6 +135,17 @@ def cabecera(actual=""):
     return f'<header class="top"><a class="brand" href="/">{LOGO}<span>Presupuesto Argentina</span></a><nav aria-label="Principal">{links}</nav></header>'
 
 
+def copiar_js():
+    """Copia src/js/*.js a js/ y devuelve su versión (hash) para que el navegador no use una copia vieja."""
+    (RAIZ / "js").mkdir(exist_ok=True)
+    versiones = {}
+    for f in sorted((RAIZ / "src" / "js").glob("*.js")):
+        datos = f.read_bytes()
+        (RAIZ / "js" / f.name).write_bytes(datos)
+        versiones["V_" + f.stem.upper()] = hashlib.sha1(datos).hexdigest()[:10]
+    return versiones
+
+
 def leer_datos():
     return {p.stem: json.loads(p.read_text(encoding="utf-8")) for p in sorted((RAIZ / "datos").glob("*.json"))}
 
@@ -158,7 +169,7 @@ def main():
              "spatialCoverage": "Argentina", "temporalCoverage": "2026/2027",
              "creator": {"@type": "Organization", "name": "Presupuesto Argentina", "url": SITE + "/"},
              "distribution": [{"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": f"{SITE}/datos/{k}.json"} for k in datos]}]}
-    comunes = {"SITE": SITE, "REPO": REPO, "FECHA": FECHA}
+    comunes = {"SITE": SITE, "REPO": REPO, "FECHA": FECHA, **copiar_js()}
     cab = lambda u: {"CABECERA": cabecera(u)}
     (RAIZ / "index.html").write_text(reemplazar((RAIZ / "src/plantilla.html").read_text(encoding="utf-8"), {
         **comunes, **cab("/"), "SECNAV": secnav(), "SECCIONES_JS": json.dumps(SECCIONES, ensure_ascii=False),

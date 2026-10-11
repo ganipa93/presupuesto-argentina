@@ -360,7 +360,7 @@ class Generador:
             desc = f"El Estado nacional tiene {plata(tv)} autorizados para gastar en {p} en 2026" + (f" (${miles(hab[p])} por habitante, puesto {rank[p]} de 24)" if p in hab else "") + f" y lleva gastado el {pct(td, tv)}. Programa por programa."
             self.pagina(ruta, titulo, desc, "\n".join(cuerpo), [("Inicio", "/"), ("Por provincia", "/provincias"), (p, ruta)], img, self.dataset(titulo, desc, ruta), h1=f"¿Cuánto gasta la Nación en {p}?")
         filas = [[f'<a href="/provincias/{slug(p)}">{e(p)}</a>', "$" + miles(hab[p]) if p in hab else "—", plata(tv), plata(td), pct(td, tv), f"{miles(tv / geo * 100, 1)}%"] for p, tv, td in sorted(lista, key=lambda z: -hab.get(z[0], 0))]
-        esp = [[e(p), plata(sum(v for _, v, _ in por[p])), plata(sum(d for _, _, d in por[p]))] for p in ESPECIALES if p in por]
+        esp = [[e(p), plata(sum(v for _, v, _ in por[p])), plata(sum(d for _, _, d in por[p]))] for p in sorted(ESPECIALES) if p in por]
         prov_solo = {q: v for q, v in hab.items() if not q.startswith("Ciudad")}
         mx, mn = max(prov_solo, key=prov_solo.get), min(prov_solo, key=prov_solo.get)
         cuerpo = [f'<p class="respuesta">Por habitante, la Nación asigna en 2026 entre <strong>${miles(hab[mn])}</strong> en {e(mn)} y <strong>${miles(hab[mx])}</strong> en {e(mx)}. La Ciudad de Buenos Aires queda arriba de todas porque ahí se registra el gasto de muchos organismos nacionales. Tocá una provincia para ver en qué se gasta, programa por programa.</p>',

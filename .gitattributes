@@ -1,0 +1,16 @@
+# Archivos que arma el programa (scripts/build.py, prerender.mjs, extraer_*.py):
+# no cuentan para las estadísticas de lenguajes de GitHub y sus cambios se muestran plegados.
+/*.html                 linguist-generated=true
+/que-me-cambia/**       linguist-generated=true
+/gasto/**               linguist-generated=true
+/provincias/**          linguist-generated=true
+/cuadros/**             linguist-generated=true
+/og/**                  linguist-generated=true
+/js/**                  linguist-generated=true
+/datos/index.html       linguist-generated=true
+/datos/programas.json   linguist-generated=true
+/sitemap.xml            linguist-generated=true
+/robots.txt             linguist-generated=true
+/fuentes/**             linguist-vendored=true
+# Las plantillas son HTML, pero son código fuente
+/src/*.html             linguist-detectable=true

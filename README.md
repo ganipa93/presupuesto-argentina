@@ -1,84 +1,55 @@
-# Presupuesto Argentina 2026 y 2027
+# Presupuesto Argentina
 
-Sitio interactivo que compara la Ley de Presupuesto 2026 (Ley 27.798) con el Proyecto de Ley de Presupuesto 2027: en qué se gasta, de dónde sale el dinero y qué tan probable es que se cumpla.
+El Presupuesto nacional 2026 y el proyecto 2027, explicados en lenguaje simple: qué le cambia a cada persona, en qué se gasta la plata, de dónde sale y si se cumple.
 
-Sitio publicado: https://presupuesto-argentina.vercel.app
+**Sitio:** https://presupuesto-argentina.vercel.app
 
-## Secciones
+## Qué vas a encontrar
 
-- **Resumen:** las tres conclusiones principales, gasto total 2027, variación real por función y semáforo de cumplimiento.
-- **¿Qué me cambia a mí?:** qué dice el proyecto para jubilados, familias con AUH, estudiantes, personas con discapacidad, trabajadores, empleados públicos, provincias, usuarios de servicios y contribuyentes.
-- **¿A dónde van tus impuestos?:** calculadora que estima cuánto pagás por mes en impuestos y aportes nacionales y cómo se reparte según el Presupuesto 2027.
-- **En qué se gasta:** por ministerio, por función y por tipo de gasto, más personas alcanzadas.
-- **De dónde sale:** recaudación por impuesto, cuenta ahorro-inversión, fuentes de financiamiento y gasto tributario.
-- **2026: ¿se cumplió?:** ejecución a julio de 2026, variación real a agosto y supuestos de la ley contra lo que pasó.
-- **2027: ¿se cumplirá?:** evaluación de los supuestos y un simulador de inflación y dólar.
-- **Ley 2026 vs proyecto 2027:** cambios en los montos fijados en artículos.
-- **Artículos clave:** los artículos del proyecto con efecto directo en la gente.
+- **Qué te cambia:** jubilados, familias con AUH, estudiantes, trabajadores, provincias, tarifas y más.
+- **¿A dónde van tus impuestos?:** una calculadora con tu sueldo y tus gastos.
+- **Buscar un gasto:** cualquier programa, obra u organismo, con lo pedido para 2027 y lo gastado en 2026. Cada uno tiene su página.
+- **Por provincia:** cuánto gasta la Nación en cada una y cuánto es por habitante.
+- **Qué creció y qué cayó:** la evolución de cada programa desde 2020, descontada la inflación.
+- **¿Se cumple?:** la ley 2026 contra lo que pasó, el realismo del 2027 y el debate en el Congreso.
+- **Todos los cuadros:** las páginas completas del proyecto 2027 y de la Ley 27.798, con buscador.
+- **Glosario:** los términos del presupuesto en castellano simple.
 
-## Otras páginas
+## De dónde salen los datos
 
-- **¿Cuánto se gasta en…? (`/programas`):** buscador con los programas del presupuesto, cada actividad y obra, lo pedido para 2027, lo autorizado y gastado en 2026 (también por provincia), las metas físicas, y además universidades, fondos fiduciarios, otros entes (INCAA, PAMI, ARCA) y empresas públicas.
-- **Todos los cuadros (`/cuadros`):** las 248 páginas del proyecto 2027 y las 125 de la Ley 27.798 (2026) como imagen, con buscador de texto en los dos documentos y tablas en CSV.
+Todo sale de fuentes oficiales y públicas:
 
-- **Páginas fijas para buscadores:** una por programa u organismo (`/gasto/<slug>`, más el índice `/gasto`), una por provincia (`/provincias/<slug>`), y una por sección de la portada (`/impuestos`, `/que-me-cambia/jubilados`, …), cada una con su título, descripción, datos estructurados e imagen para redes (`og/`). Las arma `scripts/paginas.py` (llamado por `build.py`) y las imágenes `scripts/prerender.mjs`, que solo rehace las que cambiaron.
-
-- **Evolución 2020-2027 (`/evolucion`)** y una sección «¿Cómo cambió desde 2020?» en cada programa: gasto devengado de cada año (`scripts/bajar_historia.py`, workflow «Bajar serie histórica») llevado a pesos de 2026 con el IPC del INDEC (`fuentes/ipc_indec.json`).
-- **Gasto nacional por habitante en cada provincia**, con la población del Censo 2022 (`fuentes/poblacion_censo2022.json`).
-- **Glosario (`/glosario`)**: los términos del presupuesto en castellano simple (`scripts/glosario.json`).
-
-## Otras funciones
-
-- Selector para ver los montos en billones de pesos o en pesos por habitante por mes.
-- Imágenes para compartir en redes de cada punto del semáforo, cada perfil y el resultado de la calculadora, generadas en el navegador.
-- Links directos a cada sección y perfil.
-- Seguimiento del proyecto en el Congreso (`datos/congreso.json`).
-- Ejecución por ministerio actualizada todos los meses desde Presupuesto Abierto.
-
-## Estructura
-
-- `datos/*.json`: la fuente de verdad. Un archivo por tabla, con las páginas del PDF en `metodologia.html`.
-- `src/`: plantillas de la página principal, de metodología y de la imagen para redes.
-- `scripts/build.py`: arma `index.html`, `metodologia.html`, `datos/index.html`, `sitemap.xml` y `robots.txt` a partir de los datos.
-- `scripts/prerender.mjs`: deja el contenido escrito en `index.html` (para buscadores y vistas previas) y genera `og.png`.
-- `fuentes/`: copia del Proyecto de Ley de Presupuesto 2027 y, en `fuentes/datasets/`, los datasets oficiales por programa.
-- `scripts/extraer_cuadros.py`: genera `cuadros/` (imágenes, texto y tablas de cada página del PDF).
-- `scripts/extraer_ley2026.py`: genera `cuadros/2026/` a partir del escaneo de la Ley 27.798 (endereza las páginas y hace OCR en castellano; necesita tesseract con `spa`). Títulos en `scripts/titulos_ley2026.json`.
-- `scripts/bajar_datasets.py`: baja los datasets del Presupuesto Ciudadano 2027/2026 (ONP) y la ejecución 2026 por programa (API de Presupuesto Abierto).
-- `scripts/armar_programas.py`: arma `datos/programas.json` para el buscador, a partir de los datasets y de las planillas del PDF. `datos/programas.json` no se incrusta en `index.html`: la página `/programas` lo carga aparte.
-- `tipografias/`: Source Sans 3 y Source Serif 4 (licencia SIL OFL).
-
-Los archivos generados se suben al repositorio, así Vercel solo publica archivos estáticos.
-
-## Cómo actualizar
-
-1. Editar los JSON de `datos/` (y la fecha en `scripts/build.py`).
-2. `python3 scripts/build.py`
-3. `cd scripts && npm install && cd .. && node scripts/prerender.mjs`
-4. Opcional: `node scripts/test-local.mjs <carpeta>` prueba el sitio en un navegador y guarda capturas.
-5. Commit y push a `main`.
-
-## Fuentes
-
-- Proyecto de Ley de Presupuesto 2027 (MEN-2026-43-APN-JGM, 15/9/2026).
+- Proyecto de Ley de Presupuesto 2027 y sus datasets (Oficina Nacional de Presupuesto).
 - Ley 27.798 de Presupuesto 2026.
-- ASAP (Asociación Argentina de Presupuesto), ejecución a agosto de 2026.
-- INDEC (inflación), BCRA (Relevamiento de Expectativas de Mercado) y FMI (proyecciones de abril 2026).
+- Presupuesto Abierto (Ministerio de Economía), para lo gastado mes a mes.
+- INDEC (inflación y Censo 2022), BCRA, FMI y ASAP.
 
-El detalle, con links y páginas, está en [metodologia.html](https://presupuesto-argentina.vercel.app/metodologia).
+Los cálculos en términos reales y el semáforo de cumplimiento son estimaciones propias. El detalle está en [Metodología y fuentes](https://presupuesto-argentina.vercel.app/metodologia).
 
-Los porcentajes en términos reales y el semáforo de cumplimiento son estimaciones propias, no datos oficiales. Datos actualizados al 10/10/2026.
+## Actualización
 
-## Actualización automática
+- **Automática, todos los meses (día 12):** se baja lo gastado de Presupuesto Abierto, se rearma el sitio, se prueba y se publica.
+- **A mano, cuando haga falta** (desde la pestaña *Actions* de GitHub):
+  - *Bajar datasets oficiales*: cuando se publiquen nuevos datos del presupuesto (por ejemplo, la ley 2027 aprobada).
+  - *Bajar serie histórica*: para sumar un año nuevo a la evolución.
+- El seguimiento del Congreso se actualiza editando `datos/congreso.json`.
 
-El workflow `.github/workflows/actualizar-ejecucion.yml` corre el día 12 de cada mes (y a mano desde la pestaña **Actions**). Baja la ejecución por jurisdicción de la API de Presupuesto Abierto con `scripts/actualizar_ejecucion.py`, también la ejecución 2026 por programa, actividad y provincia (`scripts/bajar_datasets.py --solo-api` y `scripts/armar_programas.py`), rearma el sitio y hace push, lo que dispara la publicación en Vercel.
+## Avisar un error
 
-El workflow `.github/workflows/bajar-datasets.yml` se corre a mano para bajar de nuevo todos los datasets (por ejemplo, cuando se apruebe la ley 2027 y la ONP publique los definitivos).
+Si encontrás un dato mal, [abrí un aviso acá](https://github.com/ganipa93/presupuesto-argentina/issues/new). Los datos se pueden reutilizar citando la fuente (licencia CC BY 4.0).
 
-Necesita un token gratuito de Presupuesto Abierto (se pide en https://www.presupuestoabierto.gob.ar/sici/api-pac) guardado en el repositorio como secreto `PRESUPUESTO_ABIERTO_TOKEN` (Settings → Secrets and variables → Actions).
+---
 
-El seguimiento del Congreso se actualiza editando `datos/congreso.json`.
+### Para quien quiera modificar el sitio
 
-## Publicación
+Es un sitio estático: los datos están en `datos/` y `fuentes/`, las plantillas en `src/` y los programas que arman todo en `scripts/`. Las páginas `.html` del repositorio se generan solas; no se editan a mano.
 
-El proyecto está conectado a Vercel: cada push a `main` publica una nueva versión.
+```bash
+python3 scripts/build.py                 # arma el sitio
+cd scripts && npm install && cd ..
+node scripts/prerender.mjs               # deja el contenido escrito e imágenes para redes
+python3 scripts/revisar_sitio.py         # links y datos estructurados
+node scripts/test-local.mjs capturas     # pruebas en un navegador
+```
+
+Cada cambio en `main` se prueba automáticamente y se publica en Vercel. Para bajar datos de Presupuesto Abierto hace falta el secreto `PRESUPUESTO_ABIERTO_TOKEN`.

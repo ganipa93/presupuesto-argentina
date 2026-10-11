@@ -62,6 +62,12 @@ jobs:
           cd scripts && npm ci && npx playwright install --with-deps chromium && cd ..
           node scripts/prerender.mjs
 
+      - name: Probar antes de publicar
+        if: steps.cambios.outputs.hay == 'si'
+        run: |
+          python3 scripts/revisar_sitio.py
+          mkdir -p /tmp/capturas && node scripts/test-local.mjs /tmp/capturas && node scripts/test-programas.mjs /tmp/capturas
+
       - name: Publicar
         if: steps.cambios.outputs.hay == 'si'
         run: |

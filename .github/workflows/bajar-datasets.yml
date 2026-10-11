@@ -34,6 +34,10 @@ jobs:
         run: |
           cd scripts && npm ci && npx playwright install --with-deps chromium && cd ..
           node scripts/prerender.mjs
+      - name: Probar antes de publicar
+        run: |
+          python3 scripts/revisar_sitio.py
+          mkdir -p /tmp/capturas && node scripts/test-local.mjs /tmp/capturas && node scripts/test-programas.mjs /tmp/capturas
       - name: Guardar en el repositorio
         run: |
           git config user.name "github-actions[bot]"

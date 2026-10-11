@@ -1,0 +1,36 @@
+name: Probar el sitio
+
+# Revisa el sitio en cada cambio: links rotos, datos estructurados y pruebas en un navegador
+# (portada, calculadora, navegación, buscador y cuadros). Si algo falla, avisa por mail.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  probar:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+      - name: Links, títulos y datos estructurados
+        run: python3 scripts/revisar_sitio.py
+      - name: Instalar el navegador de prueba
+        run: cd scripts && npm ci && npx playwright install --with-deps chromium
+      - name: Pruebas de la portada
+        run: mkdir -p capturas && node scripts/test-local.mjs capturas
+      - name: Pruebas del buscador y los cuadros
+        run: node scripts/test-programas.mjs capturas
+      - name: Guardar capturas si algo falló
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: capturas
+          path: capturas

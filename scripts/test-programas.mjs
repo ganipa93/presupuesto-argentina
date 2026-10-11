@@ -1,7 +1,7 @@
 // Prueba del buscador por programa. Uso: CHROME_PATH=... node scripts/test-programas.mjs <carpeta-capturas>
 import http from 'node:http'; import { readFile } from 'node:fs/promises'; import path from 'node:path'; import { chromium } from 'playwright';
 const raiz = process.cwd(), out = process.argv[2] || '.';
-const tipos = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.json': 'application/json', '.svg': 'image/svg+xml', '.woff2': 'font/woff2', '.png': 'image/png', '.webp': 'image/webp' };
+const tipos = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript', '.jpg': 'image/jpeg', '.webp': 'image/webp', '.json': 'application/json', '.svg': 'image/svg+xml', '.woff2': 'font/woff2', '.png': 'image/png', '.webp': 'image/webp' };
 const server = http.createServer(async (req, res) => { let p = decodeURIComponent(new URL(req.url, 'http://x').pathname); if (p.endsWith('/')) p += 'index.html'; if (!path.extname(p)) p += '.html';
   try { const b = await readFile(path.join(raiz, p)); res.writeHead(200, { 'content-type': tipos[path.extname(p)] || 'application/octet-stream' }); res.end(b); } catch { res.writeHead(404); res.end(); } });
 await new Promise((r) => server.listen(0, r)); const base = `http://127.0.0.1:${server.address().port}`;
@@ -26,4 +26,4 @@ console.log('ley 2026:', await p.evaluate(() => [document.querySelector('#vmeta'
 await p.screenshot({ path: out + '/cuadros-2026.png' });
 await p.click('#sig'); await p.waitForTimeout(500); console.log('siguiente:', await p.evaluate(() => [document.querySelector('#vtitulo').innerText, location.hash]));
 await p.click('.docs button[data-doc="2027"]'); await p.waitForTimeout(500); console.log('volver 2027:', await p.evaluate(() => [document.querySelector('#vmeta').innerText, location.hash]));
-console.log('ERRORES', JSON.stringify(errs.filter((e) => !e.includes('404')))); await b.close(); server.close();
+const reales = errs.filter((e) => !e.includes('404')); console.log('ERRORES', JSON.stringify(reales)); await b.close(); server.close(); if (reales.length) process.exit(1);
