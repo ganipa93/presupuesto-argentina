@@ -58,6 +58,25 @@ def consulta(columnas, ejercicio, nombre):
     sys.exit(f"La API rechazó el token ({ultimo.code}). Revisá el secreto PRESUPUESTO_ABIERTO_TOKEN.")
 
 
+MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
+
+
+def agregar_novedad(salida):
+    """Deja constancia de la actualización en datos/novedades.json (sale en /novedades y en el RSS)."""
+    f = RAIZ / "datos" / "novedades.json"
+    lista = json.loads(f.read_text(encoding="utf-8")) if f.exists() else []
+    mes = MESES[salida["ultimo_mes_completo"] - 1]
+    titulo = f"Ejecución {salida['ejercicio']} actualizada con datos de {mes}"
+    if any(n["titulo"] == titulo for n in lista):
+        return
+    vig = sum(r["credito_vigente"] for r in salida["filas"])
+    dev = sum(r["devengado"] for r in salida["filas"])
+    lista.append({"fecha": salida["actualizado"], "titulo": titulo,
+                  "texto": f"Con datos de Presupuesto Abierto, el Estado nacional lleva gastado el {dev / vig * 100:.0f}% de lo autorizado para {salida['ejercicio']}. Mirá qué programas van más atrasados.".replace(".", ",", 0),
+                  "link": f"/ejecucion-{salida['ejercicio']}" if salida["ejercicio"] == 2026 else "/cumplimiento-2026"})
+    f.write_text(json.dumps(lista, ensure_ascii=False, indent=1), encoding="utf-8")
+
+
 def main():
     ejercicio = int(sys.argv[1]) if len(sys.argv) > 1 else datetime.date.today().year
     filas = consulta(["jurisdiccion_desc", "credito_presupuestado", "credito_vigente", "credito_devengado"], ejercicio, "jurisdicciones")
@@ -115,6 +134,7 @@ def main():
         return
     salida["actualizado"] = datetime.date.today().isoformat()
     DESTINO.write_text(json.dumps(salida, ensure_ascii=False, indent=1), encoding="utf-8")
+    agregar_novedad(salida)
     print(f"Actualizado: {len(salida['filas'])} jurisdicciones, hasta el mes {salida['ultimo_mes']}.")
 
 

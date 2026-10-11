@@ -35,10 +35,12 @@ DESCRIPCIONES = {
     "ejecucion_ministerios": "Ejecución mensual por jurisdicción desde la API de Presupuesto Abierto (actualización automática).",
     "programas": "Cada programa con sus actividades y obras: proyecto 2027, ley, vigente y gastado 2026 por provincia, metas físicas, más universidades, entes y empresas (millones de $). Lo arma scripts/armar_programas.py.",
     "obras_provincias": "Por provincia: obras y actividades 2027 que la nombran y la inversión 2026 (bienes de uso) que el Estado ubica en ella (millones de $).",
+    "comparar": "Datos del comparador: cada programa, organismo y provincia con sus montos 2026-2027 y la serie real 2020-2027 en millones de pesos de 2026.",
+    "novedades": "Novedades del sitio y actualizaciones de datos (también en /novedades.xml).",
     "referencias": "Población (INDEC), haber mínimo (Res. ANSES 284/2026), reparto de la recaudación (pág. 41) y supuestos de la calculadora de impuestos.",
 }
 
-GRANDES = {"programas", "obras_provincias"}  # se cargan aparte (fetch), no van dentro de index.html
+GRANDES = {"programas", "obras_provincias", "comparar"}  # se cargan aparte (fetch), no van dentro de index.html
 
 
 LOGO = '<svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#13294b"/><rect x="7" y="17" width="4" height="8" rx="1" fill="#9cc3ef"/><rect x="14" y="12" width="4" height="13" rx="1" fill="#9cc3ef"/><rect x="21" y="7" width="4" height="18" rx="1" fill="#f2b632"/></svg>'
@@ -102,7 +104,7 @@ QUIEN = {"jubilados": "los jubilados y pensionados", "familias": "las familias c
          "discapacidad": "las personas con discapacidad", "trabajadores": "los trabajadores en relación de dependencia", "estatales": "los empleados públicos nacionales",
          "provincias": "las provincias", "servicios": "las tarifas de luz, gas y transporte", "contribuyentes": "los contribuyentes, las pymes y los productores"}
 GRUPOS = [("Para vos", [("resumen", "Resumen"), ("que-me-cambia", "¿Qué me cambia?"), ("tus-impuestos", "Tus impuestos"), ("/programas", "Buscar un gasto")]),
-          ("Los números", [("gasto", "En qué se gasta"), ("/evolucion", "Qué creció y qué cayó"), ("recursos", "De dónde sale la plata"), ("/provincias", "Por provincia")]),
+          ("Los números", [("gasto", "En qué se gasta"), ("/comparar", "Comparar"), ("/evolucion", "Qué creció y qué cayó"), ("recursos", "De dónde sale la plata"), ("/provincias", "Por provincia")]),
           ("¿Se cumple?", [("cumplimiento-2026", "2026: ¿se cumplió?"), ("/ejecucion-2026", "Lo que no se está gastando"), ("realismo-2027", "2027: ¿es realista?"), ("congreso", "En el Congreso")]),
           ("La ley", [("ley-vs-proyecto", "2026 vs. 2027"), ("articulos", "Artículos clave"), ("/cuadros", "Todos los cuadros"), ("/glosario", "Glosario")])]
 

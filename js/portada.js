@@ -110,6 +110,9 @@ function render() {
   marcarUnidad();
   renderCongreso();
   renderEjecMin();
+  const NOV = [...(DATA.novedades || [])].sort((a, b) => b.fecha.localeCompare(a.fecha)).slice(0, 3);
+  $('#nov-card').hidden = !NOV.length;
+  $('#nov-lista').replaceChildren(...NOV.map((n) => el('li', {}, el('a', {href: n.link, textContent: n.titulo}), el('span', {textContent: fechaLarga(n.fecha)}))));
 }
 const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
 const fechaLarga = (iso) => { const [a, m, d] = iso.split('-').map(Number); return d + ' de ' + MESES[m - 1] + ' de ' + a; };

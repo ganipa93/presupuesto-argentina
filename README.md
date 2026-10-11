@@ -13,7 +13,11 @@ El Presupuesto nacional 2026 y el proyecto 2027, explicados en lenguaje simple: 
 - **Qué creció y qué cayó:** la evolución de cada programa desde 2020, descontada la inflación.
 - **¿Se cumple?:** la ley 2026 contra lo que pasó, qué programas se están dejando de gastar (se actualiza cada mes), el realismo del 2027 y el debate en el Congreso.
 - **Todos los cuadros:** las páginas completas del proyecto 2027 y de la Ley 27.798, con buscador.
+- **Comparar:** hasta tres programas, organismos o provincias lado a lado.
 - **Glosario:** los términos del presupuesto en castellano simple.
+- **Novedades:** lo nuevo del sitio, también por RSS (`/novedades.xml`).
+
+Todas las tablas se pueden descargar en Excel (CSV).
 
 ## De dónde salen los datos
 

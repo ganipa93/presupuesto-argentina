@@ -1,0 +1,8 @@
+[
+ {"fecha": "2026-10-11", "titulo": "Nuevo comparador y descargas en Excel", "texto": "Ahora se pueden comparar lado a lado hasta tres programas, organismos o provincias, con su evolución desde 2020. Todas las tablas del sitio se pueden descargar en Excel (CSV) con los montos exactos.", "link": "/comparar"},
+ {"fecha": "2026-10-11", "titulo": "Qué se está dejando de gastar en 2026", "texto": "Ranking de los programas más atrasados en su ejecución y de los que más plata tienen sin usar respecto del ritmo del año. Se actualiza todos los meses.", "link": "/ejecucion-2026"},
+ {"fecha": "2026-10-11", "titulo": "Obras por provincia", "texto": "Cada provincia muestra las obras y actividades que pide el proyecto 2027 con su nombre y la inversión directa de la Nación en 2026.", "link": "/provincias"},
+ {"fecha": "2026-10-11", "titulo": "Evolución 2020-2027, gasto por habitante y glosario", "texto": "Cada programa muestra cómo cambió desde 2020 descontada la inflación; las provincias, cuánto gasta la Nación por habitante; y un glosario explica los términos del presupuesto.", "link": "/evolucion"},
+ {"fecha": "2026-10-10", "titulo": "La Ley 27.798 de Presupuesto 2026, completa", "texto": "Las 125 páginas del texto sancionado, con sus planillas anexas, se suman al buscador de cuadros junto al proyecto 2027.", "link": "/cuadros"},
+ {"fecha": "2026-10-10", "titulo": "Buscador: ¿cuánto se gasta en…?", "texto": "Todos los programas del presupuesto, con cada obra y actividad, lo pedido para 2027 y lo gastado en 2026, también por provincia.", "link": "/programas"}
+]

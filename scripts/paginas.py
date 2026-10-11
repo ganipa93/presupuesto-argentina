@@ -39,6 +39,11 @@ def plata_og(m):
     return (f"${miles(m * 1e6)}", "pesos")
 
 
+def dn(m):
+    """Monto para una celda de tabla: el texto corto y el valor exacto (millones) para descargar."""
+    return plata(m) if m is None else f'<span data-n="{round(m, 1)}">{plata(m)}</span>'
+
+
 def pct(a, b):
     return f"{miles(a / b * 100)}%" if b else "—"
 
@@ -72,6 +77,8 @@ class Generador:
         self.corte = datos["programas"]["corte26"]
         self.infl27, self.infl26 = infl_prom27, infl26
         self.urls, self.og = [], []
+        self.v_desc = __import__("hashlib").sha1((raiz / "src" / "js" / "descargas.js").read_bytes()).hexdigest()[:10]
+        self.datos = datos
         self.ipc = self.indices_ipc()
         self.HO = datos["programas"].get("historia_org", {})
         self.OB = datos.get("obras_provincias", {})
@@ -156,7 +163,7 @@ class Generador:
                 se, sujeto = so, x["e"]
         if len(se) < 3:
             return ""
-        filas = [[str(a), plata(v), plata(self.real(v, a)), {"gastado": "Gastado (devengado)", "autorizado": "Autorizado (crédito vigente)", "proyecto": "Proyecto de ley"}[t]] for a, v, t in se]
+        filas = [[str(a), dn(v), dn(self.real(v, a)), {"gastado": "Gastado (devengado)", "autorizado": "Autorizado (crédito vigente)", "proyecto": "Proyecto de ley"}[t]] for a, v, t in se]
         d = {a: self.real(v, a) for a, v, _ in se}
         frase = ""
         ult = 2027 if 2027 in d else 2026 if 2026 in d else None
@@ -201,9 +208,11 @@ class Generador:
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="/tipografias/source-sans-3-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/estilos.css">
+<link rel="alternate" type="application/rss+xml" title="Presupuesto Argentina: novedades" href="/novedades.xml">
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False).replace("</", "<\\/")}</script>
 <script>window.va = window.va || function () {{ (window.vaq = window.vaq || []).push(arguments); }};</script>
 <script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/js/descargas.js?v={self.v_desc}"></script>
 </head>
 <body>
 <div class="wrap">
@@ -215,7 +224,7 @@ class Generador:
 </main>
 <footer class="src">
 <p>Sitio independiente, sin relación con el Gobierno nacional ni con partidos políticos. Montos en pesos corrientes. Fuentes: Proyecto de Presupuesto 2027 y sus datasets (Oficina Nacional de Presupuesto), Ley 27.798 y Presupuesto Abierto (Ministerio de Economía). Datos al {self.fecha_sitio}.</p>
-<nav><a href="/">Inicio</a><a href="/programas">Buscar un gasto</a><a href="/gasto">Todos los programas</a><a href="/provincias">Por provincia</a><a href="/glosario">Glosario</a><a href="/metodologia#programas">Cómo se calcula</a><a href="{self.repo}/issues/new" target="_blank" rel="noopener">Avisar un error</a></nav>
+<nav><a href="/">Inicio</a><a href="/programas">Buscar un gasto</a><a href="/gasto">Todos los programas</a><a href="/provincias">Por provincia</a><a href="/glosario">Glosario</a><a href="/novedades">Novedades</a><a href="/metodologia#programas">Cómo se calcula</a><a href="{self.repo}/issues/new" target="_blank" rel="noopener">Avisar un error</a></nav>
 </footer>
 </div>
 </body>
@@ -267,21 +276,21 @@ class Generador:
             cuerpo.append(f'<p><span class="etq{" warn" if real < 0 else ""}">Variación real 2027 contra lo autorizado en 2026: {"+" if real >= 0 else "−"}{miles(abs(real))}%</span></p>')
         cuerpo.append(self.seccion_historia(x))
         if x.get("act27"):
-            filas = [[e(n), plata(v), pct(v, x["a27"]) if x["a27"] else "—"] for n, v in x["act27"]]
+            filas = [[e(n), dn(v), pct(v, x["a27"]) if x["a27"] else "—"] for n, v in x["act27"]]
             cuerpo.append(f'<section class="card"><h2>¿En qué se gasta en 2027?</h2><p class="note">Cada actividad u obra del programa en el proyecto 2027 ({len(filas)}).</p>{tabla(["Actividad u obra", "Pedido 2027", "% del programa"], filas)}</section>')
         if x.get("inc27"):
-            cuerpo.append(f'<section class="card"><h2>¿Qué tipo de gasto es?</h2>{tabla(["Tipo de gasto", "Pedido 2027", "% del programa"], [[e(n), plata(v), pct(v, x["a27"])] for n, v in x["inc27"]])}</section>')
+            cuerpo.append(f'<section class="card"><h2>¿Qué tipo de gasto es?</h2>{tabla(["Tipo de gasto", "Pedido 2027", "% del programa"], [[e(n), dn(v), pct(v, x["a27"])] for n, v in x["inc27"]])}</section>')
         if x.get("metas"):
             filas = [[e(m[0]), e(str(m[1] or "")), miles(m[2], 0 if float(m[2]).is_integer() else 2)] for m in x["metas"]]
             cuerpo.append(f'<section class="card"><h2>¿Qué promete hacer en 2027?</h2><p class="note">Metas físicas e indicadores del proyecto.</p>{tabla(["Meta o indicador", "Unidad", "Cantidad 2027"], filas)}</section>')
         if x.get("act26"):
-            filas = [[e(a[0]), plata(a[1]), plata(a[2]), plata(a[3]), pct(a[3], a[2])] for a in x["act26"]]
+            filas = [[e(a[0]), dn(a[1]), dn(a[2]), dn(a[3]), pct(a[3], a[2])] for a in x["act26"]]
             cuerpo.append(f'<section class="card"><h2>¿Cuánto se gastó en 2026?</h2><p class="note">Por actividad: lo aprobado por ley, lo autorizado hoy y lo gastado (devengado) hasta el {fecha(self.corte)}.</p>{tabla(["Actividad u obra", "Ley", "Autorizado hoy", "Gastado", "%"], filas)}</section>')
         if x.get("prov26"):
             filas = []
             for p, v, d in x["prov26"]:
                 nom = f'<a href="/provincias/{slug(p)}">{e(p)}</a>' if p not in ESPECIALES else e(p)
-                filas.append([nom, plata(v), plata(d), pct(d, v)])
+                filas.append([nom, dn(v), dn(d), pct(d, v)])
             cuerpo.append(f'<section class="card"><h2>¿En qué provincias se gasta?</h2><p class="note">Gasto 2026 según la ubicación que le asigna el Estado. «Nacional» o «No clasificado» es gasto sin provincia asignada.</p>{tabla(["Provincia", "Autorizado 2026", "Gastado", "%"], filas)}</section>')
         if hermanos:
             lis = "".join(f'<li><a href="/gasto/{h["s"]}">{e(h["n"])}</a><span>{plata(h["a27"] if h["a27"] is not None else h.get("v26"))}</span></li>' for h in hermanos[:40])
@@ -348,7 +357,7 @@ class Generador:
             frases = [f"En 2026 el Estado nacional tiene <strong>{plata(tv)}</strong> autorizados para gastar en {e(p)} y lleva gastado {plata(td)} ({pct(td, tv)}) hasta el {fecha(self.corte)}.",
                       f"Es el {miles(tv / geo * 100, 1)}% de lo que la Nación asigna a alguna provincia"
                       + (f" y equivale a <strong>${miles(hab[p])} por habitante</strong> en el año, el {rank[p]}.º puesto entre las 24 jurisdicciones." if p in hab else ".")]
-            filas = [[f'<a href="/gasto/{x["s"]}">{e(x["n"])}</a><br><span class="note">{e(x["e"] or x["j"])}</span>', plata(v), plata(d), pct(d, v)] for x, v, d in xs[:60]]
+            filas = [[f'<a href="/gasto/{x["s"]}">{e(x["n"])}</a><br><span class="note">{e(x["e"] or x["j"])}</span>', dn(v), dn(d), pct(d, v)] for x, v, d in xs[:60]]
             cuerpo = [f'<p class="respuesta">{" ".join(frases)}</p>',
                       f'<div class="stats">{stat("Autorizado 2026", plata(tv), "gasto nacional con ubicación en la provincia", ink=True)}{stat("Gastado", plata(td), pct(td, tv) + " al " + fecha(self.corte), barra=td / tv * 100 if tv else 0)}{stat("Por habitante en 2026", "$" + miles(hab[p]) if p in hab else "—", f"puesto {rank[p]} de 24 · {miles(pob[p])} habitantes (Censo 2022)" if p in hab else "")}{stat("Programas con gasto en la provincia", miles(len(xs)))}</div>',
                       '<div class="caveat">Cuenta solo el gasto que el Estado nacional ubica en esta provincia. Una parte grande del gasto, como muchas jubilaciones y asignaciones o las transferencias a fondos, figura como «Nacional» o «No clasificado», así que lo que llega a la gente de la provincia es más que esto. Tampoco incluye la coparticipación, que no es gasto del presupuesto nacional.' + (' En la Ciudad de Buenos Aires, además, figura mucho gasto de organismos nacionales que tienen ahí su sede.' if p.startswith('Ciudad') else '') + '</div>',
@@ -361,7 +370,7 @@ class Generador:
             titulo = f"¿Cuánto gasta la Nación en {p}? Presupuesto 2026 por provincia"
             desc = f"El Estado nacional tiene {plata(tv)} autorizados para gastar en {p} en 2026" + (f" (${miles(hab[p])} por habitante, puesto {rank[p]} de 24)" if p in hab else "") + f" y lleva gastado el {pct(td, tv)}. Programa por programa."
             self.pagina(ruta, titulo, desc, "\n".join(cuerpo), [("Inicio", "/"), ("Por provincia", "/provincias"), (p, ruta)], img, self.dataset(titulo, desc, ruta), h1=f"¿Cuánto gasta la Nación en {p}?")
-        filas = [[f'<a href="/provincias/{slug(p)}">{e(p)}</a>', "$" + miles(hab[p]) if p in hab else "—", plata(tv), plata(td), pct(td, tv), f"{miles(tv / geo * 100, 1)}%"] for p, tv, td in sorted(lista, key=lambda z: -hab.get(z[0], 0))]
+        filas = [[f'<a href="/provincias/{slug(p)}">{e(p)}</a>', "$" + miles(hab[p]) if p in hab else "—", dn(tv), dn(td), pct(td, tv), f"{miles(tv / geo * 100, 1)}%"] for p, tv, td in sorted(lista, key=lambda z: -hab.get(z[0], 0))]
         esp = [[e(p), plata(sum(v for _, v, _ in por[p])), plata(sum(d for _, _, d in por[p]))] for p in sorted(ESPECIALES) if p in por]
         prov_solo = {q: v for q, v in hab.items() if not q.startswith("Ciudad")}
         mx, mn = max(prov_solo, key=prov_solo.get), min(prov_solo, key=prov_solo.get)
@@ -389,7 +398,7 @@ class Generador:
         i = ob.get("i26", [])
         if i:
             tv, td = sum(z[3] for z in i), sum(z[4] for z in i)
-            filas = [[e(z[0]), (f'<a href="/gasto/{z[2]}">{e(z[1])}</a>' if z[2] else e(z[1])), plata(z[3]), plata(z[4]), pct(z[4], z[3])] for z in i[:50]]
+            filas = [[e(z[0]), (f'<a href="/gasto/{z[2]}">{e(z[1])}</a>' if z[2] else e(z[1])), dn(z[3]), dn(z[4]), pct(z[4], z[3])] for z in i[:50]]
             partes.append(f'<section class="card"><h2>Obras y equipamiento de la Nación en {e(p)} en 2026</h2>'
                           f'<p class="respuesta" style="font-size:19px">En 2026 la Nación tiene <strong>{plata(tv)}</strong> autorizados para obras y equipamiento propios en {e(p)} y lleva gastado {plata(td)} ({pct(td, tv)}).</p>'
                           f'{tabla(["Actividad u obra", "Programa", "Autorizado 2026", "Gastado", "%"], filas)}'
@@ -443,7 +452,7 @@ class Generador:
             if 2023 in m and 2027 in m and m[2027] >= 50000:
                 orgs.append((org, xs[0]["j"], self.real(m[2023], 2023), self.real(m[2027], 2027)))
         def fila(x, r23, r27, c):
-            return [f'<a href="/gasto/{x["s"]}">{e(x["n"])}</a><br><span class="note">{e(x["e"] or x["j"])}</span>', plata(r23), plata(r27), f'{"+" if c >= 0 else "−"}{miles(abs(c))}%']
+            return [f'<a href="/gasto/{x["s"]}">{e(x["n"])}</a><br><span class="note">{e(x["e"] or x["j"])}</span>', dn(r23), dn(r27), f'{"+" if c >= 0 else "−"}{miles(abs(c))}%']
         sube = sorted(cambios, key=lambda z: -z[3])[:20]
         baja = sorted(cambios, key=lambda z: z[3])[:20]
         grandes = sorted(cambios, key=lambda z: -z[2])[:30]
@@ -455,7 +464,7 @@ class Generador:
                   f'<section class="card"><h2>Los que más crecieron desde 2023</h2><p class="note">Programas con más de $50.000 millones (en pesos de 2026) tanto en 2023 como en 2027.</p>{tabla(cab, [fila(*z) for z in sube])}</section>',
                   f'<section class="card"><h2>Los 30 programas más grandes</h2>{tabla(cab, [fila(*z) for z in grandes])}</section>']
         if orgs:
-            fo = [[e(o), plata(a), plata(b), f'{"+" if b >= a else "−"}{miles(abs((b / a - 1) * 100))}%'] for o, j, a, b in sorted(orgs, key=lambda z: z[3] / z[2] - 1)]
+            fo = [[e(o), dn(a), dn(b), f'{"+" if b >= a else "−"}{miles(abs((b / a - 1) * 100))}%'] for o, j, a, b in sorted(orgs, key=lambda z: z[3] / z[2] - 1)]
             cuerpo.append(f'<section class="card"><h2>Organismo por organismo</h2><p class="note">Sirve cuando los programas cambiaron de nombre (por ejemplo, en Vialidad). Montos en pesos de 2026.</p>{tabla(["Organismo", "2023 (gastado)", "2027 (proyecto)", "Cambio real"], fo)}</section>')
         cuerpo.append('<div class="caveat">2020 a 2025: gasto devengado de cada año (Presupuesto Abierto). 2027: lo que pide el proyecto, que todavía puede cambiar en el Congreso y en la ejecución. Se descuenta la inflación con el IPC promedio del INDEC; para 2027, con la que supone el proyecto. Si la inflación de 2027 es mayor, la caída real será más grande. <a href="/metodologia#evolucion">Cómo se calcula</a>.</div>')
         n1, u1 = (f"{'+' if c_tot >= 0 else '−'}{miles(abs(c_tot))}%", "real")
@@ -482,7 +491,7 @@ class Generador:
         cab = ["Programa", "Autorizado 2026", "Gastado", "% gastado", "Sin gastar respecto del ritmo"]
         def fila(z):
             x, v, d, ej, atr, plata_ = z
-            return [f'<a href="/gasto/{x["s"]}">{e(x["n"])}</a><br><span class="note">{e(x["e"] or x["j"])}</span>', plata(v), plata(d), f"{miles(ej * 100)}%", plata(max(0, plata_))]
+            return [f'<a href="/gasto/{x["s"]}">{e(x["n"])}</a><br><span class="note">{e(x["e"] or x["j"])}</span>', dn(v), dn(d), f"{miles(ej * 100)}%", dn(max(0, plata_))]
         atrasados = sorted(filas, key=lambda z: -z[4])[:30]
         plata_quieta = sorted(filas, key=lambda z: -z[5])[:20]
         adelantados = sorted(filas, key=lambda z: z[4])[:15]
@@ -490,7 +499,7 @@ class Generador:
         for x in self.P:
             if x.get("v26"):
                 por_j[x["j"]][0] += x["v26"]; por_j[x["j"]][1] += x.get("d26") or 0
-        fj = [[e(j), plata(v), plata(d), f"{miles(d / v * 100)}%"] for j, (v, d) in sorted(por_j.items(), key=lambda z: z[1][1] / z[1][0] if z[1][0] else 1) if v >= 50000]
+        fj = [[e(j), dn(v), dn(d), f"{miles(d / v * 100)}%"] for j, (v, d) in sorted(por_j.items(), key=lambda z: z[1][1] / z[1][0] if z[1][0] else 1) if v >= 50000]
         cuerpo = [f'<p class="respuesta">Al {fecha(self.corte)} pasó el <strong>{miles(avance * 100)}% del año</strong>, y el Estado nacional lleva gastado el {pct(td, tv)} de lo autorizado en sus programas grandes. Estos son los que van más atrasados y los que más plata tienen sin usar respecto de ese ritmo.</p>',
                   f'<div class="stats">{stat("Parte del año transcurrida", miles(avance * 100) + "%", "al " + fecha(self.corte), ink=True)}{stat("Gastado de lo autorizado", pct(td, tv), plata(td) + " de " + plata(tv), barra=td / tv * 100)}{stat("Programas analizados", miles(len(filas)), "con más de $20.000 millones autorizados")}</div>',
                   f'<section class="card"><h2>Los que más plata tienen sin gastar</h2><p class="note">Diferencia entre lo que habrían gastado a ritmo parejo ({miles(avance * 100)}% de lo autorizado) y lo que gastaron.</p>{tabla(cab, [fila(z) for z in plata_quieta])}</section>',
@@ -504,6 +513,88 @@ class Generador:
         self.pagina("/ejecucion-2026", "¿Qué se está dejando de gastar del Presupuesto 2026? Programas atrasados", desc, "\n".join(cuerpo),
                     [("Inicio", "/"), ("2026: ¿se cumplió?", "/cumplimiento-2026"), ("Qué se está dejando de gastar", "/ejecucion-2026")], img,
                     self.dataset("Ejecución del Presupuesto 2026 por programa", desc, "/ejecucion-2026"), h1="¿Qué se está dejando de gastar en 2026?")
+
+    # ---------- comparador ----------
+    def comparar(self):
+        items = []
+        for x in self.P:
+            se = self.serie(x)
+            org = False
+            if len(se) < 4:
+                so = self.serie_org(x)
+                if so and len(so) >= 4:
+                    se, org = so, True
+            items.append({"id": x["s"], "t": "p", "n": x["n"], "o": x["e"] or x["j"], "a27": x.get("a27"), "l26": x.get("l26"), "v26": x.get("v26"), "d26": x.get("d26"),
+                          "r": [[a, round(self.real(v, a), 1), t[0]] for a, v, t in se], "so": org})
+        for x in self.E:
+            items.append({"id": x["s"], "t": "e", "n": x["n"], "o": x["tipo"], "g27": x["g27"], "g26": x.get("g26")})
+        por = defaultdict(lambda: [0.0, 0.0])
+        for x in self.P:
+            for p, v, d in x.get("prov26", []):
+                por[p][0] += v; por[p][1] += d
+        pob = json.loads((self.raiz / "fuentes" / "poblacion_censo2022.json").read_text(encoding="utf-8"))["provincias"]
+        for p, (v, d) in por.items():
+            if p in pob:
+                items.append({"id": "provincia-" + slug(p), "t": "v", "n": p, "o": "Provincia", "v26": round(v, 1), "d26": round(d, 1), "pob": pob[p], "hab": round(v * 1e6 / pob[p])})
+        (self.raiz / "datos" / "comparar.json").write_text(json.dumps({"corte": self.corte, "items": items}, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+        buscar = lambda pre: next((x["s"] for x in self.P if x["n"].startswith(pre)), None)
+        ente = lambda pre: next((x["s"] for x in self.E if x["n"].startswith(pre)), None)
+        ejemplos = [("Universidades vs. Policía Federal", [buscar("Desarrollo de la Educación Superior"), buscar("Seguridad Federal")]),
+                    ("Jubilaciones vs. intereses de la deuda", [buscar("Prestaciones Previsionales"), buscar("Deudas Directas")]),
+                    ("Córdoba vs. Santa Fe vs. Mendoza", ["provincia-cordoba", "provincia-santa-fe", "provincia-mendoza"]),
+                    ("Rutas: construcción vs. mantenimiento", [buscar("Construcciones Viales"), buscar("Mantenimiento en Rutas Nacionales")]),
+                    ("INCAA vs. INAMU", [ente("Instituto Nacional de Cine"), ente("Instituto Nacional de la Música")]),
+                    ("UBA vs. Universidad de Córdoba", [ente("Universidad de Buenos Aires"), ente("Universidad Nacional de Córdoba")])]
+        chips = "".join(f'<a href="/comparar?c={",".join(i for i in ids if i)}">{e(t)}</a>' for t, ids in ejemplos if all(ids))
+        cuerpo = f"""<p class="sub">Elegí hasta tres programas, organismos o provincias y miralos lado a lado: lo que pide el proyecto 2027, lo que se autorizó y gastó en 2026, y cómo cambió desde 2020 descontada la inflación.</p>
+<div class="card" id="cmp-elegir">
+<div class="cmp-slots" id="slots"></div>
+<div class="chips" aria-label="Ejemplos"><span class="note" style="align-self:center">Ejemplos:</span>{chips}</div>
+</div>
+<div id="cmp-res" aria-live="polite"></div>
+<p class="note">Montos en pesos corrientes salvo donde dice «pesos de 2026». La evolución usa lo gastado de 2020 a 2025, lo autorizado en 2026 y lo pedido para 2027, con el IPC del INDEC. Universidades, entes y empresas tienen presupuesto propio y no se pueden seguir año por año. <a href="/metodologia#evolucion">Cómo se calcula</a>.</p>
+<style>
+.cmp-slots{{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--g-sm)}}
+@media (max-width:760px){{.cmp-slots{{grid-template-columns:1fr}}}}
+.slot{{position:relative;display:flex;flex-direction:column;gap:4px}}
+.slot label{{font-size:var(--fs-cap);font-weight:600;display:flex;align-items:center;gap:6px}}
+.slot label i{{display:inline-block;width:12px;height:12px;border-radius:3px}}
+.slot input{{font:inherit;min-height:44px;padding:8px 12px;border:1.5px solid var(--line);border-radius:var(--r);background:var(--card);color:var(--fg);width:100%}}
+.slot ul{{position:absolute;z-index:40;top:100%;left:0;right:0;margin:4px 0 0;padding:4px;list-style:none;background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:0 8px 24px rgba(0,0,0,.12);max-height:20rem;overflow:auto}}
+.slot li button{{all:unset;display:block;width:100%;box-sizing:border-box;padding:8px 10px;border-radius:6px;cursor:pointer;font-size:var(--fs-cap)}}
+.slot li button:hover,.slot li button:focus{{background:var(--panel)}}
+.slot li small{{display:block;color:var(--muted)}}
+.cmp-tabla th[scope=col] i{{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px}}
+</style>
+<script>window.CMP_SITE = {json.dumps(self.site)};</script>
+<script defer src="/js/comparar.js?v={__import__("hashlib").sha1((self.raiz / "src" / "js" / "comparar.js").read_bytes()).hexdigest()[:10]}"></script>"""
+        desc = "Compará lado a lado programas, organismos y provincias del presupuesto nacional: universidades, jubilaciones, rutas, INCAA, PAMI y más, con su evolución desde 2020."
+        img = self.og_trabajo("comparar.jpg", kicker="Presupuesto nacional", titulo="Compará programas, organismos y provincias", org="Lado a lado, con la evolución desde 2020",
+                              l1="Programas y organismos", n1=miles(len(self.P) + len(self.E)), u1="", l2="Provincias", n2="24", u2="")
+        self.pagina("/comparar", "Comparador del presupuesto: programas, organismos y provincias lado a lado", desc, cuerpo,
+                    [("Inicio", "/"), ("Comparar", "/comparar")], img, h1="Comparar programas, organismos y provincias")
+
+    # ---------- novedades y RSS ----------
+    def novedades(self, lista):
+        import email.utils, datetime
+        lista = sorted(lista, key=lambda n: n["fecha"], reverse=True)
+        items = "".join(f'<li class="card"><span class="note">{fecha(n["fecha"])}</span><h2><a href="{n["link"]}">{e(n["titulo"])}</a></h2><p>{e(n["texto"])}</p></li>' for n in lista)
+        cuerpo = ('<p class="sub">Lo nuevo del sitio y cada actualización de los datos. Para enterarte sin entrar, suscribite al <a href="/novedades.xml">canal RSS</a> desde tu lector de noticias (Feedly, Inoreader o el de tu navegador).</p>'
+                  f'<ol style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--g-sm)">{items}</ol>')
+        self.pagina("/novedades", "Novedades: lo nuevo del sitio y las actualizaciones del presupuesto", "Las últimas novedades de Presupuesto Argentina: nuevas secciones y la actualización mensual de la ejecución del presupuesto nacional.",
+                    cuerpo, [("Inicio", "/"), ("Novedades", "/novedades")], h1="Novedades")
+        def rfc(f):
+            d = datetime.datetime.fromisoformat(f + "T12:00:00-03:00")
+            return email.utils.format_datetime(d)
+        rss = ['<?xml version="1.0" encoding="UTF-8"?>', '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel>',
+               "<title>Presupuesto Argentina: novedades</title>", f"<link>{self.site}/novedades</link>",
+               f'<atom:link href="{self.site}/novedades.xml" rel="self" type="application/rss+xml"/>',
+               "<description>Nuevas secciones y actualizaciones del sitio Presupuesto Argentina.</description>", "<language>es-AR</language>"]
+        for n in lista[:30]:
+            u = self.site + n["link"]
+            rss.append(f'<item><title>{e(n["titulo"])}</title><link>{e(u)}</link><guid isPermaLink="false">{e(n["fecha"] + "-" + slug(n["titulo"]))}</guid><pubDate>{rfc(n["fecha"])}</pubDate><description>{e(n["texto"])}</description></item>')
+        rss.append("</channel></rss>")
+        (self.raiz / "novedades.xml").write_text("\n".join(rss), encoding="utf-8")
 
     # ---------- glosario ----------
     def glosario(self):
@@ -537,5 +628,7 @@ class Generador:
             self.evolucion()
         self.glosario()
         self.ejecucion()
+        self.comparar()
+        self.novedades(self.datos.get("novedades", []))
         (self.raiz / "scripts" / ".og-paginas.json").write_text(json.dumps(self.og, ensure_ascii=False), encoding="utf-8")
         return self.urls
