@@ -74,6 +74,7 @@ class Generador:
         self.urls, self.og = [], []
         self.ipc = self.indices_ipc()
         self.HO = datos["programas"].get("historia_org", {})
+        self.OB = datos.get("obras_provincias", {})
         self.HT = datos["programas"].get("historia_total", [])
 
     def indices_ipc(self):
@@ -351,6 +352,7 @@ class Generador:
             cuerpo = [f'<p class="respuesta">{" ".join(frases)}</p>',
                       f'<div class="stats">{stat("Autorizado 2026", plata(tv), "gasto nacional con ubicación en la provincia", ink=True)}{stat("Gastado", plata(td), pct(td, tv) + " al " + fecha(self.corte), barra=td / tv * 100 if tv else 0)}{stat("Por habitante en 2026", "$" + miles(hab[p]) if p in hab else "—", f"puesto {rank[p]} de 24 · {miles(pob[p])} habitantes (Censo 2022)" if p in hab else "")}{stat("Programas con gasto en la provincia", miles(len(xs)))}</div>',
                       '<div class="caveat">Cuenta solo el gasto que el Estado nacional ubica en esta provincia. Una parte grande del gasto, como muchas jubilaciones y asignaciones o las transferencias a fondos, figura como «Nacional» o «No clasificado», así que lo que llega a la gente de la provincia es más que esto. Tampoco incluye la coparticipación, que no es gasto del presupuesto nacional.' + (' En la Ciudad de Buenos Aires, además, figura mucho gasto de organismos nacionales que tienen ahí su sede.' if p.startswith('Ciudad') else '') + '</div>',
+                      self.obras_provincia(p),
                       f'<section class="card"><h2>¿En qué gasta la Nación en {e(p)}?</h2><p class="note">Los {min(60, len(xs))} programas con más gasto en la provincia en 2026.</p>{tabla(["Programa", "Autorizado 2026", "Gastado", "%"], filas)}</section>',
                       f'<div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn primary" href="/programas?provincia={e(p)}">Buscar dentro de {e(p)}</a><a class="btn" href="/provincias">Ver todas las provincias</a></div>']
             n1, u1 = plata_og(tv)
@@ -369,6 +371,30 @@ class Generador:
                   '<section class="card"><h2>Gasto sin provincia asignada</h2><p class="note">Este gasto no se puede atribuir a una provincia en el presupuesto, aunque llegue a personas de todo el país.</p>' + tabla(["Ubicación", "Autorizado 2026", "Gastado"], esp) + "</section>"]
         self.pagina("/provincias", "¿Cuánto gasta la Nación en cada provincia? Ranking por habitante 2026", "Ranking del gasto del Estado nacional por habitante en cada provincia argentina en 2026, con lo autorizado y lo gastado, programa por programa.",
                     "\n".join(cuerpo), [("Inicio", "/"), ("Por provincia", "/provincias")], h1="¿Cuánto gasta la Nación en cada provincia?")
+
+    def obras_provincia(self, p):
+        ob = self.OB.get(p)
+        if not ob:
+            return ""
+        partes = []
+        o = ob.get("o27", [])
+        if o:
+            tot = sum(z[3] for z in o)
+            filas = [[e(z[0]) + (' <span class="note">(compartida con otra provincia)</span>' if z[4] else ""),
+                      (f'<a href="/gasto/{z[2]}">{e(z[1])}</a>' if z[2] else e(z[1])), plata(z[3])] for z in o[:80]]
+            partes.append(f'<section class="card"><h2>¿Qué obras pide el proyecto 2027 para {e(p)}?</h2>'
+                          f'<p class="respuesta" style="font-size:19px">El proyecto 2027 tiene <strong>{len(o)} obras y actividades</strong> que nombran a {e(p)}, por <strong>{plata(tot)}</strong>.</p>'
+                          f'{tabla(["Obra o actividad", "Programa", "Pedido 2027"], filas)}'
+                          '<p class="note">Son las actividades y obras del proyecto (datasets de la Oficina Nacional de Presupuesto) cuyo nombre menciona la provincia, por ejemplo «Ruta Nacional 40, Provincia de…» o «Distrito…». Incluye también juzgados, parques nacionales y otros gastos con nombre provincial. Muchas obras no dicen dónde están en su nombre, así que la lista no es completa.</p></section>')
+        i = ob.get("i26", [])
+        if i:
+            tv, td = sum(z[3] for z in i), sum(z[4] for z in i)
+            filas = [[e(z[0]), (f'<a href="/gasto/{z[2]}">{e(z[1])}</a>' if z[2] else e(z[1])), plata(z[3]), plata(z[4]), pct(z[4], z[3])] for z in i[:50]]
+            partes.append(f'<section class="card"><h2>Obras y equipamiento de la Nación en {e(p)} en 2026</h2>'
+                          f'<p class="respuesta" style="font-size:19px">En 2026 la Nación tiene <strong>{plata(tv)}</strong> autorizados para obras y equipamiento propios en {e(p)} y lleva gastado {plata(td)} ({pct(td, tv)}).</p>'
+                          f'{tabla(["Actividad u obra", "Programa", "Autorizado 2026", "Gastado", "%"], filas)}'
+                          '<p class="note">Inversión directa del Estado nacional (bienes de uso: obras, maquinaria y equipos) ubicada en la provincia, según Presupuesto Abierto. No incluye las transferencias a la provincia o a municipios para que ellos hagan obras.</p></section>')
+        return "\n".join(partes)
 
     # ---------- índice de todo el gasto ----------
     def indice(self):
@@ -440,6 +466,45 @@ class Generador:
                     [("Inicio", "/"), ("Evolución 2020-2027", "/evolucion")], img, self.dataset("Evolución real del gasto nacional por programa, 2020-2027", desc, "/evolucion"),
                     h1="¿Qué creció y qué se achicó desde 2023?")
 
+    # ---------- ejecución 2026: lo que va atrasado ----------
+    def ejecucion(self):
+        import datetime
+        f = datetime.date.fromisoformat(self.corte)
+        avance = (f - datetime.date(f.year, 1, 1)).days / 365
+        filas = []
+        for x in self.P:
+            v, d = x.get("v26") or 0, x.get("d26") or 0
+            if v >= 20000 and not x["n"].startswith("Otras Asistencias Financieras"):  # fondo de reserva que se reparte durante el año
+                filas.append((x, v, d, d / v, avance - d / v, v * avance - d))
+        if not filas:
+            return
+        tv, td = sum(z[1] for z in filas), sum(z[2] for z in filas)
+        cab = ["Programa", "Autorizado 2026", "Gastado", "% gastado", "Sin gastar respecto del ritmo"]
+        def fila(z):
+            x, v, d, ej, atr, plata_ = z
+            return [f'<a href="/gasto/{x["s"]}">{e(x["n"])}</a><br><span class="note">{e(x["e"] or x["j"])}</span>', plata(v), plata(d), f"{miles(ej * 100)}%", plata(max(0, plata_))]
+        atrasados = sorted(filas, key=lambda z: -z[4])[:30]
+        plata_quieta = sorted(filas, key=lambda z: -z[5])[:20]
+        adelantados = sorted(filas, key=lambda z: z[4])[:15]
+        por_j = defaultdict(lambda: [0.0, 0.0])
+        for x in self.P:
+            if x.get("v26"):
+                por_j[x["j"]][0] += x["v26"]; por_j[x["j"]][1] += x.get("d26") or 0
+        fj = [[e(j), plata(v), plata(d), f"{miles(d / v * 100)}%"] for j, (v, d) in sorted(por_j.items(), key=lambda z: z[1][1] / z[1][0] if z[1][0] else 1) if v >= 50000]
+        cuerpo = [f'<p class="respuesta">Al {fecha(self.corte)} pasó el <strong>{miles(avance * 100)}% del año</strong>, y el Estado nacional lleva gastado el {pct(td, tv)} de lo autorizado en sus programas grandes. Estos son los que van más atrasados y los que más plata tienen sin usar respecto de ese ritmo.</p>',
+                  f'<div class="stats">{stat("Parte del año transcurrida", miles(avance * 100) + "%", "al " + fecha(self.corte), ink=True)}{stat("Gastado de lo autorizado", pct(td, tv), plata(td) + " de " + plata(tv), barra=td / tv * 100)}{stat("Programas analizados", miles(len(filas)), "con más de $20.000 millones autorizados")}</div>',
+                  f'<section class="card"><h2>Los que más plata tienen sin gastar</h2><p class="note">Diferencia entre lo que habrían gastado a ritmo parejo ({miles(avance * 100)}% de lo autorizado) y lo que gastaron.</p>{tabla(cab, [fila(z) for z in plata_quieta])}</section>',
+                  f'<section class="card"><h2>Los más atrasados</h2><p class="note">Ordenados por la distancia entre el porcentaje gastado y el {miles(avance * 100)}% del año que ya pasó.</p>{tabla(cab, [fila(z) for z in atrasados])}</section>',
+                  f'<section class="card"><h2>Los que van más adelantados</h2>{tabla(cab, [fila(z) for z in adelantados])}</section>',
+                  f'<section class="card"><h2>Ministerio por ministerio</h2>{tabla(["Jurisdicción", "Autorizado 2026", "Gastado", "% gastado"], fj)}</section>',
+                  '<div class="caveat">Atrasado no siempre quiere decir recortado: hay gastos que se concentran a fin de año (aguinaldo, certificados de obra, transferencias trimestrales) y créditos que se van a reasignar. Se deja afuera «Otras Asistencias Financieras» (Obligaciones a Cargo del Tesoro), un fondo de reserva que se reparte a otros programas durante el año. Pero un programa que a esta altura gastó muy poco difícilmente use todo lo autorizado. Datos: Presupuesto Abierto (Ministerio de Economía), gasto devengado; se actualizan solos todos los meses.</div>']
+        img = self.og_trabajo("ejecucion-2026.jpg", kicker="Presupuesto 2026 · ejecución", titulo="¿Qué se está dejando de gastar?", org=f"Al {fecha(self.corte)}",
+                              l1="Pasó del año", n1=f"{miles(avance * 100)}%", u1="", l2="Gastado de lo autorizado", n2=pct(td, tv), u2="", fuente="Fuente: Presupuesto Abierto (Ministerio de Economía)")
+        desc = f"Qué programas del Presupuesto 2026 van más atrasados en su ejecución y cuánta plata tienen sin gastar, al {fecha(self.corte)}. Se actualiza todos los meses."
+        self.pagina("/ejecucion-2026", "¿Qué se está dejando de gastar del Presupuesto 2026? Programas atrasados", desc, "\n".join(cuerpo),
+                    [("Inicio", "/"), ("2026: ¿se cumplió?", "/cumplimiento-2026"), ("Qué se está dejando de gastar", "/ejecucion-2026")], img,
+                    self.dataset("Ejecución del Presupuesto 2026 por programa", desc, "/ejecucion-2026"), h1="¿Qué se está dejando de gastar en 2026?")
+
     # ---------- glosario ----------
     def glosario(self):
         T = json.loads((self.raiz / "scripts" / "glosario.json").read_text(encoding="utf-8"))
@@ -471,5 +536,6 @@ class Generador:
         if self.HT:
             self.evolucion()
         self.glosario()
+        self.ejecucion()
         (self.raiz / "scripts" / ".og-paginas.json").write_text(json.dumps(self.og, ensure_ascii=False), encoding="utf-8")
         return self.urls

@@ -172,6 +172,7 @@ def main():
     entes = universidades() + entes_fuera()
     poner_slugs(salida, entes)
     agregar_historia(salida)
+    obras_por_provincia(salida)
     ley26 = json.loads((RAIZ / "fuentes" / "ley2026_planillas.json").read_text(encoding="utf-8"))
     for e in entes:
         x = ley26["universidades"].get(e["n"]) or ley26["entes"].get(e["n"])
@@ -250,6 +251,74 @@ def poner_slugs(programas, entes):
     for x in sorted(programas, key=lambda x: -max(x["a27"] or 0, x.get("v26", 0))):
         nom = re.sub(r"^asistencia financiera a empresas publicas y otros entes (dependientes )?(de la |del |de )?", "asistencia financiera ", norm(x["n"]))
         x["s"] = unico(slug(nom, 14)[:70].rstrip("-") + "-" + org_corto(x))
+
+
+PROVINCIAS = ["Buenos Aires", "Catamarca", "Chaco", "Chubut", "Córdoba", "Corrientes", "Entre Ríos", "Formosa", "Jujuy", "La Pampa", "La Rioja",
+              "Mendoza", "Misiones", "Neuquén", "Río Negro", "Salta", "San Juan", "San Luis", "Santa Cruz", "Santa Fe", "Santiago del Estero",
+              "Tierra del Fuego, Antártida e Islas del Atlántico Sur", "Tucumán", "Ciudad Autónoma de Buenos Aires"]
+_BASE = {p: norm(p.split(",")[0]) for p in PROVINCIAS}
+_BASE["Ciudad Autónoma de Buenos Aires"] = "ciudad autonoma de buenos aires"
+
+
+def provincias_en(texto):
+    """Provincias que nombra una obra. Primero las menciones explícitas («Provincia de Salta», «Distrito Salta»);
+    si no hay, el nombre suelto, salvo cuando es un límite («límite con Chaco»)."""
+    t = " " + norm(texto) + " "
+    t = t.replace(" pcia ", " provincia ").replace(" prov ", " provincia ").replace(" bs as ", " buenos aires ").replace(" pba ", " provincia de buenos aires ")
+    caba = any(k in t for k in (" ciudad autonoma de buenos aires ", " caba ", " c a b a "))
+    if caba:
+        t = t.replace(" ciudad autonoma de buenos aires ", " ").replace(" caba ", " ").replace(" c a b a ", " ")
+    t = t.replace(" san juan bosco ", " ").replace(" universidad nacional de ", " ")
+    for b in _BASE.values():  # «límite con la provincia de Chaco» no es una obra en Chaco
+        t = re.sub(rf" (limite|lte|lim|limites) (con )?(la )?(provincia |pcia )?(de |del )?{b} ", " ", t)
+    explicitas, sueltas = set(), set()
+    for p, b in _BASE.items():
+        if p.startswith("Ciudad"):
+            continue
+        if re.search(rf" (provincia|provincias|distrito|distritos|prov) (de |del )?{b} ", t) or (b == "buenos aires" and " provincia de buenos aires " in t):
+            explicitas.add(p)
+        elif re.search(rf" {b} ", t) and not re.search(rf" (limite|lte|lim) (con )?(la )?(provincia )?(de )?{b} ", t):
+            sueltas.add(p)
+    out = explicitas or sueltas
+    if caba:
+        out = set(out) | {"Ciudad Autónoma de Buenos Aires"}
+    return sorted(out)
+
+
+def obras_por_provincia(programas):
+    """Obras y actividades 2027 que nombran una provincia, y la inversión 2026 (bienes de uso) que el Estado ubica en cada una."""
+    out = {p: {"o27": [], "i26": []} for p in PROVINCIAS}
+    for x in programas:
+        for etiqueta, monto in x.get("act27", []):
+            if monto <= 0 or norm(etiqueta).startswith(("conduccion", "actividades centrales")):
+                continue
+            ps = provincias_en(etiqueta)
+            for p in ps:
+                out[p]["o27"].append([etiqueta, x["n"], x["s"], monto, len(ps) > 1])
+    clave = {(norm(x["e"] or x["j"]), norm(x["n"])): x for x in programas}
+    inv = defaultdict(lambda: [0.0, 0.0])
+    nombres = {}
+    with open(DS / "2026-credito-por-programa.csv", encoding="utf-8-sig") as fh:
+        for r in csv.DictReader(fh):
+            if r["inciso_desc"] != "Bienes de uso":
+                continue
+            prov = r["ubicacion_geografica_desc"].replace("Provincia de ", "").replace("Provincia del ", "")
+            prov = next((p for p in PROVINCIAS if p.split(",")[0] == prov.split(",")[0]), None)
+            if not prov:
+                continue
+            x = clave.get((norm(r["entidad_desc"]), norm(r["programa_desc"])))
+            k = (prov, tildes(r["actividad_desc"]), x["s"] if x else "", x["n"] if x else tildes(r["programa_desc"]))
+            inv[k][0] += float(r["credito_vigente"] or 0)
+            inv[k][1] += float(r["credito_devengado"] or 0)
+    for (prov, act, slug_, prog), (v, d) in inv.items():
+        if v >= 1 or d >= 1:
+            out[prov]["i26"].append([act, prog, slug_, r1(v), r1(d)])
+    for p in out:
+        out[p]["o27"].sort(key=lambda z: -z[3])
+        out[p]["i26"].sort(key=lambda z: -z[3])
+        out[p]["o27"] = [z[:3] + [r1(z[3]), z[4]] for z in out[p]["o27"]]
+    (RAIZ / "datos" / "obras_provincias.json").write_text(json.dumps(out, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    return out
 
 
 def historia_organismos(programas):
