@@ -1,0 +1,188 @@
+[
+ {
+  "id": "jubilados",
+  "perfil": "Jubilados y pensionados",
+  "puntos": [
+   {
+    "signo": "+",
+    "texto": "Los haberes siguen ajustando todos los meses por inflación (fórmula de movilidad, con 2 meses de rezago). El gasto en seguridad social crece 27% nominal, cerca de 5% real con la inflación que supone el proyecto."
+   },
+   {
+    "signo": "-",
+    "texto": "El bono de $70.000 está congelado desde marzo de 2024 y el proyecto no incluye una actualización. Entre enero y agosto de 2026 perdió 25,6% de su valor real (ASAP)."
+   },
+   {
+    "signo": "+",
+    "texto": "Hay $1,361 billones para pagar juicios previsionales (art. 32), contra $212.288 millones que fijaba la ley 2026."
+   },
+   {
+    "signo": "~",
+    "texto": "Las metas prevén unas 105.000 jubilaciones de ANSES menos que en 2026 (de 5,59 a 5,49 millones)."
+   },
+   {
+    "signo": "~",
+    "texto": "Si la inflación supera lo previsto, el crédito queda corto y habrá que ampliarlo por decisión administrativa o recortar otros gastos."
+   }
+  ]
+ },
+ {
+  "id": "familias",
+  "perfil": "Familias con hijos (AUH y asignaciones)",
+  "puntos": [
+   {
+    "signo": "+",
+    "texto": "La AUH y las asignaciones siguen atadas a la movilidad. La AUH ganó 4,7% real entre enero y agosto de 2026 (ASAP) y, según el gobierno, 109,8% real desde diciembre de 2023."
+   },
+   {
+    "signo": "+",
+    "texto": "El proyecto prevé 4,14 millones de chicos con AUH y 2,6 millones de prestaciones de la Tarjeta Alimentar. Sigue el Plan 1000 Días."
+   },
+   {
+    "signo": "~",
+    "texto": "En agosto de 2026 la AUH era de $150.848 por hijo (se cobra el 80% por mes y el resto al presentar la libreta). La Prestación Alimentar: $72.250 con un hijo, $113.299 con dos y $149.425 con tres o más."
+   },
+   {
+    "signo": "-",
+    "texto": "Los subsidios de contención familiar bajan de 92.117 a 80.120 beneficios previstos."
+   }
+  ]
+ },
+ {
+  "id": "estudiantes",
+  "perfil": "Estudiantes y universidades",
+  "puntos": [
+   {
+    "signo": "+",
+    "texto": "Las universidades reciben $7,35 billones (art. 12), cerca de 4% más en términos reales que lo estimado para 2026. El proyecto prevé más de 1 millón de becas."
+   },
+   {
+    "signo": "-",
+    "texto": "En 2026 las transferencias a universidades cayeron 12,6% real hasta agosto (ASAP) y a julio solo se había ejecutado el 44,1% de lo previsto."
+   },
+   {
+    "signo": "-",
+    "texto": "El art. 12 permite cortar los fondos a la universidad que no entregue la información que pide Capital Humano. La misma cláusula ya estaba en la ley 2026."
+   }
+  ]
+ },
+ {
+  "id": "discapacidad",
+  "perfil": "Personas con discapacidad",
+  "puntos": [
+   {
+    "signo": "-",
+    "texto": "La pensión por invalidez laboral pasa a ser incompatible con un empleo formal o con estar inscripto como monotributista o autónomo. La ley vigente (27.793) permitía cobrarla junto con un trabajo hasta 2 salarios mínimos."
+   },
+   {
+    "signo": "~",
+    "texto": "El monto sigue en 70% de la jubilación mínima, igual que en la ley vigente. Las metas prevén 1,14 millones de pensiones, casi las mismas que en 2026."
+   },
+   {
+    "signo": "-",
+    "texto": "Los valores de las prestaciones (nomenclador) dejan de ser iguales para todos y los fija la Secretaría de Discapacidad cada tres meses. Se deroga la regla que los actualizaba por movilidad."
+   },
+   {
+    "signo": "-",
+    "texto": "Se derogan los artículos de la Ley 27.793 que garantizaban un programa médico para los titulares y la conversión automática de las pensiones anteriores."
+   }
+  ]
+ },
+ {
+  "id": "trabajadores",
+  "perfil": "Trabajadores en relación de dependencia",
+  "puntos": [
+   {
+    "signo": "~",
+    "texto": "Desde noviembre de 2026 funciona el Fondo de Asistencia Laboral (Ley 27.802): las empresas aportan 1% (grandes) o 2,5% (pymes) de los sueldos, que se descuenta de sus contribuciones a la seguridad social."
+   },
+   {
+    "signo": "~",
+    "texto": "El seguro de desempleo prevé 130.324 beneficiarios, 10% más que en 2026."
+   },
+   {
+    "signo": "-",
+    "texto": "La función Trabajo (programas de empleo y capacitación) cae cerca de 3% real."
+   },
+   {
+    "signo": "~",
+    "texto": "Según el propio proyecto, el empleo registrado creció solo 0,1% en lo que va de 2026."
+   }
+  ]
+ },
+ {
+  "id": "estatales",
+  "perfil": "Empleados públicos nacionales",
+  "puntos": [
+   {
+    "signo": "-",
+    "texto": "Las vacantes quedan congeladas salvo autorización del Jefe de Gabinete (art. 7). El gobierno informa unos 72.000 puestos eliminados en el Sector Público."
+   },
+   {
+    "signo": "~",
+    "texto": "El gasto en sueldos crece 26,1% nominal, alrededor de 4% real con la inflación supuesta. No dice cómo se reparte entre paritarias y cantidad de empleados."
+   }
+  ]
+ },
+ {
+  "id": "provincias",
+  "perfil": "Si vivís en una provincia: obras y fondos",
+  "puntos": [
+   {
+    "signo": "-",
+    "texto": "Las transferencias a provincias y municipios crecen 20,3% nominal, casi nada en términos reales. En 2026 cayeron 64,6% real hasta agosto (ASAP)."
+   },
+   {
+    "signo": "-",
+    "texto": "De 2.339 obras públicas nacionales, 1.683 están canceladas o en rescisión, 457 pasaron a las provincias y 199 siguen a cargo de la Nación."
+   },
+   {
+    "signo": "+",
+    "texto": "Las cajas previsionales provinciales no transferidas reciben $503.326 millones (art. 60), cuatro veces lo que fijaba la ley 2026."
+   },
+   {
+    "signo": "~",
+    "texto": "21 jurisdicciones firmaron acuerdos para cancelar deudas cruzadas con la Nación (REOR) y retiraron 37 juicios."
+   }
+  ]
+ },
+ {
+  "id": "servicios",
+  "perfil": "Luz, gas, transporte y combustibles",
+  "puntos": [
+   {
+    "signo": "-",
+    "texto": "El gasto en energía crece 0,7% nominal: cerca de 17% menos en términos reales. Menos subsidios suele significar tarifas más altas."
+   },
+   {
+    "signo": "~",
+    "texto": "Los subsidios quedan focalizados: 8,8 millones de usuarios de electricidad, 5,2 millones de gas por red y 3 millones de garrafa."
+   },
+   {
+    "signo": "~",
+    "texto": "Transporte crece 20% nominal, apenas por debajo de la inflación supuesta."
+   },
+   {
+    "signo": "-",
+    "texto": "Lo que se recauda por el impuesto a los combustibles sube 59,3% por la actualización de los montos fijos, algo que suele trasladarse al precio de la nafta."
+   }
+  ]
+ },
+ {
+  "id": "contribuyentes",
+  "perfil": "Contribuyentes, pymes y productores",
+  "puntos": [
+   {
+    "signo": "+",
+    "texto": "Baja la alícuota máxima de Bienes Personales de 1% a 0,75%, y sigue la baja gradual de derechos de exportación (decretos 423/26 y 566/26)."
+   },
+   {
+    "signo": "-",
+    "texto": "La presión tributaria nacional sube de 21,06% a 21,70% del PBI, por más actividad, importaciones y planes de pago según el gobierno."
+   },
+   {
+    "signo": "~",
+    "texto": "Lo que el Estado deja de cobrar por exenciones (gasto tributario) suma $51,9 billones, 3,67% del PBI. El monotributo es el segundo régimen más grande, después del IVA."
+   }
+  ]
+ }
+]

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Metodología y fuentes · Presupuesto Argentina</title>
+<meta name="description" content="De dónde salen los datos del sitio Presupuesto Argentina, cómo se calculan las variaciones reales, el simulador y el semáforo de cumplimiento.">
+<link rel="canonical" href="{{SITE}}/metodologia">
+<meta name="theme-color" content="#2f6fb3">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="es_AR">
+<meta property="og:title" content="Metodología y fuentes · Presupuesto Argentina">
+<meta property="og:description" content="De dónde salen los datos y cómo se calculan.">
+<meta property="og:url" content="{{SITE}}/metodologia">
+<meta property="og:image" content="{{SITE}}/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="/tipografias/source-sans-3-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/estilos.css">
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><a class="brand" href="/">Presupuesto Argentina</a><nav><a href="/">Volver al sitio</a><a href="/datos/">Datos abiertos</a></nav></div>
+<main class="prose">
+<h1>Metodología y fuentes</h1>
+<p class="sub">Qué es dato oficial, qué es cálculo propio y dónde verificar cada número. Datos actualizados al {{FECHA}}.</p>
+
+<h2>Quién hace este sitio</h2>
+<p>Es un sitio independiente, sin relación con el Gobierno nacional ni con partidos políticos. El objetivo es explicar el presupuesto con los documentos oficiales y mostrar tanto lo que mejora como lo que empeora. El código y los datos son públicos en <a href="{{REPO}}" target="_blank" rel="noopener">GitHub</a>.</p>
+
+<h2>Fuentes</h2>
+<ul>
+<li><strong>Proyecto de Ley de Presupuesto 2027</strong> (mensaje MEN-2026-43-APN-JGM, 15 de septiembre de 2026). Es la fuente principal. Hay una copia en este sitio: <a href="/fuentes/proyecto-presupuesto-2027.pdf">proyecto-presupuesto-2027.pdf</a> (251 páginas). Las páginas citadas abajo son las del PDF.</li>
+<li><strong>Ley 27.798 de Presupuesto 2026</strong>: <a href="https://www.argentina.gob.ar/normativa/nacional/ley-27798-2025-422000/texto" target="_blank" rel="noopener">texto oficial en argentina.gob.ar</a>.</li>
+<li><strong>Ley 27.793 de Emergencia en Discapacidad</strong>, para comparar con los cambios de los arts. 36 a 41 del proyecto: <a href="https://cijur.mpba.gov.ar/files/auctions/resolutions/ley27793.pdf" target="_blank" rel="noopener">copia publicada por el Ministerio Público bonaerense</a>.</li>
+<li><strong>ASAP</strong> (Asociación Argentina de Presupuesto), ejecución acumulada enero-agosto 2026 en términos reales: <a href="https://www.asap.org.ar/img_informes/09301319_EjecucinFinancieradelPresupuestodelaAPN-Agosto2026.pdf" target="_blank" rel="noopener">informe de agosto 2026</a>.</li>
+<li><strong>INDEC</strong>, inflación de agosto 2026 (1,7% mensual, 21,3% acumulada, 33,5% interanual), según <a href="https://www.lanacion.com.ar/economia/inflacion-de-agosto-cual-fue-el-ipc-acumulado-y-que-proyectan-las-consultoras-para-este-ano-nid10092026/" target="_blank" rel="noopener">La Nación</a>.</li>
+<li><strong>BCRA, Relevamiento de Expectativas de Mercado</strong> de septiembre 2026 (crecimiento 2026 de 1,5% y dólar de $1.614 a diciembre): <a href="https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/informes/relevamiento-expectativas-mercado-2026-09.pdf" target="_blank" rel="noopener">informe del REM</a>.</li>
+<li><strong>FMI</strong>, proyecciones de abril 2026 (crecimiento de 4% e inflación de 15,7% en 2027), según <a href="https://www.lacapitalmdp.com/el-fmi-recorta-la-prevision-de-crecimiento-para-la-argentina-y-eleva-la-estimacion-de-inflacion/" target="_blank" rel="noopener">La Capital de Mar del Plata</a>.</li>
+<li>Para profundizar: el <a href="https://opc.gob.ar/ejecucion-presupuestaria/analisis-de-la-ejecucion-presupuestaria-de-la-administracion-nacional-agosto-2026/" target="_blank" rel="noopener">análisis de la ejecución a agosto 2026</a> de la Oficina de Presupuesto del Congreso.</li>
+</ul>
+
+<h2>Dónde está cada dato en el proyecto</h2>
+<ul>
+<li>AUH, Prestación Alimentar, Plan 1000 Días: pág. 10. Puestos eliminados en el Sector Público: pág. 18.</li>
+<li>Supuestos macroeconómicos (crecimiento, inflación, dólar, comercio exterior): págs. 33 y 34.</li>
+<li>Ejecución 2026 al 31 de julio: págs. 35 a 38.</li>
+<li>Recaudación y presión tributaria: págs. 40 y 41. Gasto tributario: págs. 46 a 51.</li>
+<li>Financiamiento y deuda: págs. 52 y 53, y fuentes financieras 2027: pág. 90.</li>
+<li>Obra pública (2.339 obras): pág. 59. Acuerdos con provincias (REOR): págs. 63 a 65.</li>
+<li>Cuenta ahorro-inversión en % del PBI: pág. 92. Gasto por jurisdicción: pág. 93. Gasto por finalidad y función: pág. 94.</li>
+<li>Metas físicas (jubilaciones, AUH, PUAM, seguro de desempleo): pág. 96. Subsidios a la energía: pág. 107.</li>
+<li>Presupuesto de divisas (intereses en moneda extranjera): pág. 102.</li>
+<li>Articulado: págs. 140 a 160 (art. 12 en pág. 144, art. 32 en pág. 148, arts. 36 a 41 en págs. 150 y 151, art. 42 en pág. 152, art. 60 en pág. 157, art. 67 en pág. 159).</li>
+<li>Gasto por jurisdicción y tipo de gasto (planilla 5): pág. 168.</li>
+</ul>
+
+<h2>Cómo se calculan los números</h2>
+<ul>
+<li><strong>Unidades.</strong> Los cuadros están en millones de pesos. Un billón son un millón de millones (10<sup>12</sup>).</li>
+<li><strong>Base 2026.</strong> Cuando se compara 2027 contra 2026 se usa el gasto que el gobierno estima para 2026 en el propio proyecto, no la ley original. La ley quedó desactualizada porque suponía 10,1% de inflación.</li>
+<li><strong>Gasto total.</strong> $198,7 billones es el gasto neto de los intereses que se pagan organismos del mismo Estado (principalmente el FGS). El art. 1 fija $202,1 billones incluyéndolos.</li>
+<li><strong>Variación real.</strong> Se calcula como (1 + variación nominal) ÷ (1 + 21,1%) − 1, donde 21,1% es la inflación promedio de 2027 que supone el proyecto. Por ejemplo, salud crece 39,8%: 1,398 ÷ 1,211 − 1 = +15,4% real. Si la inflación es otra, el resultado cambia; por eso existe el simulador.</li>
+<li><strong>Simulador.</strong> La plata extra para la seguridad social es el crédito 2027 de esa función multiplicado por la diferencia entre la inflación elegida y la supuesta. Los intereses extra son el 10% de los intereses en moneda extranjera previstos para 2027 ($14,08 billones, pág. 102) por cada 10% de suba del dólar. Ambos se comparan con el superávit primario previsto ($15,36 billones). No incluye que con más inflación también sube la recaudación, ni el rezago de 2 meses de la movilidad.</li>
+<li><strong>Semáforo.</strong> Para 2026, verde es cumplido, amarillo es cumplido a medias o con ajuste real, y rojo es no cumplido, comparando la ley contra lo ejecutado. Para 2027, verde es probable, amarillo depende de algo incierto y rojo es muy difícil. Es una lectura propia y cada punto muestra el dato en el que se basa.</li>
+</ul>
+
+<h2>Limitaciones</h2>
+<ul>
+<li>El proyecto no trae el detalle de cada programa en los cuadros generales; por eso el gasto se muestra por ministerio, por función y por tipo de gasto.</li>
+<li>La ejecución 2026 que publica el proyecto llega al 31 de julio y está por tipo de gasto y función, no por ministerio. ASAP llega hasta agosto.</li>
+<li>Las proyecciones del FMI son de abril de 2026 y pueden actualizarse.</li>
+<li>El proyecto puede cambiar durante el debate en el Congreso.</li>
+</ul>
+
+<h2>Correcciones</h2>
+<p>Si encontrás un error, <a href="{{REPO}}/issues/new" target="_blank" rel="noopener">avisalo en GitHub</a> con el dato y la fuente. Las correcciones quedan registradas en el historial del repositorio.</p>
+</main>
+<footer class="src"><nav><a href="/">Volver al sitio</a><a href="/datos/">Datos abiertos (JSON)</a><a href="{{REPO}}" target="_blank" rel="noopener">Código en GitHub</a></nav></footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "name": "presupuesto-argentina-scripts",
+  "private": true,
+  "type": "module",
+  "description": "Herramientas de build: prerender del HTML e imagen para redes",
+  "dependencies": {
+    "@fontsource/source-sans-3": "5.0.12",
+    "@fontsource/source-serif-4": "5.0.19",
+    "playwright": "1.47.2"
+  }
+}

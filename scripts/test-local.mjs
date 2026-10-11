@@ -1,0 +1,31 @@
+import http from 'node:http'; import { readFile } from 'node:fs/promises'; import path from 'node:path'; import { chromium } from 'playwright';
+const raiz = process.cwd(), out = process.argv[2];
+const tipos = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.json': 'application/json', '.svg': 'image/svg+xml', '.woff2': 'font/woff2', '.png': 'image/png' };
+const server = http.createServer(async (req, res) => { let p = decodeURIComponent(new URL(req.url, 'http://x').pathname); if (p.endsWith('/')) p += 'index.html'; if (!path.extname(p)) p += '.html';
+  try { const b = await readFile(path.join(raiz, p)); res.writeHead(200, { 'content-type': tipos[path.extname(p)] || 'application/octet-stream' }); res.end(b); } catch { res.writeHead(404); res.end(); } });
+await new Promise((r) => server.listen(0, r)); const base = `http://127.0.0.1:${server.address().port}`;
+const b = await chromium.launch({ executablePath: process.env.CHROME_PATH });
+const p = await b.newPage({ viewport: { width: 1200, height: 900 } }); const errs = [];
+p.on('pageerror', (e) => errs.push(e.message)); p.on('console', (m) => { if (m.type() === 'error' && !m.text().includes('insights')) errs.push(m.text()); });
+// sin JS: el contenido debe estar escrito
+const nojs = await b.newContext({ javaScriptEnabled: false }); const pn = await nojs.newPage(); await pn.goto(base + '/');
+console.log('sin JS:', await pn.evaluate(() => ({ claves: document.querySelectorAll('#claves .clave').length, filasMin: document.querySelectorAll('#t-min tbody tr').length, perfiles: document.querySelectorAll('#perfil-detalle .perfil').length, gasto: document.querySelector('#k-gasto').textContent })));
+await p.goto(base + '/#que-me-cambia-discapacidad');
+console.log('deep link:', await p.evaluate(() => [document.querySelector('[data-panel="que-me-cambia"]').hidden, document.querySelector('#perfil-discapacidad').hidden, document.querySelector('#sh-wa').href.slice(0, 120)]));
+await p.click('#perfiles button[data-perfil=jubilados]');
+console.log('perfil:', await p.evaluate(() => [location.hash, document.querySelector('#perfil-jubilados').hidden, document.querySelectorAll('#perfil-jubilados li').length]));
+for (const t of ['resumen','gasto','recursos','cumplimiento-2026','realismo-2027','ley-vs-proyecto','articulos']) { await p.click(`button[data-tab="${t}"]`); const v = await p.evaluate(() => [...document.querySelectorAll('[data-panel]')].filter((s) => !s.hidden).map((s) => s.dataset.panel + ':' + s.innerText.length)); console.log(t, v.join(','), await p.evaluate(() => location.hash)); }
+await p.click('button[data-tab="resumen"]'); await p.focus('#tab-resumen'); await p.keyboard.press('ArrowRight');
+console.log('teclado:', await p.evaluate(() => document.activeElement.id));
+await p.click('button[data-tab="resumen"]'); await p.click('.cta a'); console.log('cta:', await p.evaluate(() => location.hash));
+await p.click('button[data-tab="realismo-2027"]'); await p.fill('#s-inf', '30'); await p.dispatchEvent('#s-inf', 'input');
+console.log('sim:', await p.evaluate(() => ['#o-inf', '#r-ss', '#r-int', '#r-pct'].map((s) => document.querySelector(s).textContent).join(' | ')));
+await p.screenshot({ path: out + '/d-2027.png' });
+await p.click('button[data-tab="que-me-cambia"]'); await p.screenshot({ path: out + '/d-impacto.png', fullPage: true });
+await p.setViewportSize({ width: 390, height: 800 }); await p.goto(base + '/');
+console.log('ancho movil:', await p.evaluate(() => document.documentElement.scrollWidth));
+await p.screenshot({ path: out + '/m-resumen.png', fullPage: true });
+await p.goto(base + '/#que-me-cambia-provincias'); await p.screenshot({ path: out + '/m-impacto.png' });
+await p.emulateMedia({ colorScheme: 'dark' }); await p.goto(base + '/metodologia'); console.log('metodologia ancho:', await p.evaluate(() => document.documentElement.scrollWidth)); await p.screenshot({ path: out + '/m-metodo-dark.png' });
+const r = await p.goto(base + '/datos/'); console.log('datos:', r.status(), await p.evaluate(() => document.querySelectorAll('li').length));
+console.log('ERRORES', JSON.stringify(errs)); await b.close(); server.close();

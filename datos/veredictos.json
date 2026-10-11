@@ -1,200 +1,200 @@
 [
-{
-"id": "1",
-"periodo": "2026",
-"tema": "Inflación del presupuesto",
-"estado": "No cumplido",
-"semaforo": "bad",
-"dato": "Ley: 10,1% dic/dic. Hoy se estima 29% y el IPC interanual de agosto fue 33,5%.",
-"lectura": "El presupuesto nació con precios muy por debajo de lo que pasó. Los créditos en pesos perdieron valor real durante el año."
-},
-{
-"id": "2",
-"periodo": "2026",
-"tema": "Crecimiento",
-"estado": "No cumplido",
-"semaforo": "bad",
-"dato": "Ley: +5,0%. Estimación actual: +3,0%.",
-"lectura": "La economía crece menos de lo previsto, y eso condiciona la recaudación."
-},
-{
-"id": "3",
-"periodo": "2026",
-"tema": "Dólar",
-"estado": "No cumplido",
-"semaforo": "bad",
-"dato": "Ley: $1.423. Estimado a diciembre: $1.600.",
-"lectura": "El tipo de cambio quedó por encima de lo presupuestado."
-},
-{
-"id": "4",
-"periodo": "2026",
-"tema": "Superávit fiscal",
-"estado": "Cumplido",
-"semaforo": "ok",
-"dato": "A julio: resultado primario $8,95 billones (68,5% de lo previsto para todo el año) y financiero $1,45 billones. Sin la venta de centrales hidroeléctricas ($1,04 billones), el primario es $7,91 billones.",
-"lectura": "La meta de superávit se cumple, con ayuda de un ingreso extraordinario."
-},
-{
-"id": "5",
-"periodo": "2026",
-"tema": "Nivel total de gasto",
-"estado": "Cumplido con ajuste real",
-"semaforo": "warn",
-"dato": "Gasto a julio: $85,26 billones, 53,7% del estimado anual (lineal serían 58,3%). ASAP: −1,0% real a agosto.",
-"lectura": "Se gastó menos en términos reales. Parte del equilibrio viene de que la inflación licuó partidas nominales."
-},
-{
-"id": "6",
-"periodo": "2026",
-"tema": "Jubilaciones y pensiones",
-"estado": "Parcial",
-"semaforo": "warn",
-"dato": "Prestaciones de la seguridad social +36,4% nominal a julio. El bono de $70.000 sigue congelado desde marzo de 2024 (−25,6% real).",
-"lectura": "La movilidad se aplicó. El bono, que pesa mucho para la mínima, perdió un cuarto de su valor."
-},
-{
-"id": "7",
-"periodo": "2026",
-"tema": "AUH y asignaciones",
-"estado": "Cumplido",
-"semaforo": "ok",
-"dato": "Asignaciones familiares +33,8% nominal a julio. ASAP: AUH +4,7% real a agosto.",
-"lectura": "Se actualizaron por fórmula y ganaron algo de poder de compra."
-},
-{
-"id": "8",
-"periodo": "2026",
-"tema": "Universidades",
-"estado": "No cumplido",
-"semaforo": "bad",
-"dato": "Ley: $4,79 billones. A julio, 44,1% del estimado ejecutado. ASAP: −12,6% real a agosto.",
-"lectura": "La transferencia perdió valor real frente a lo que decía el presupuesto."
-},
-{
-"id": "9",
-"periodo": "2026",
-"tema": "Transferencias a provincias",
-"estado": "No cumplido",
-"semaforo": "bad",
-"dato": "−50,5% nominal a julio (36,6% ejecutado). ASAP: −64,6% real a agosto.",
-"lectura": "El mayor recorte entre los rubros grandes. Parte se explica por el fallo de la Corte a favor de CABA y por obras traspasadas."
-},
-{
-"id": "10",
-"periodo": "2026",
-"tema": "Obra pública",
-"estado": "No cumplido",
-"semaforo": "bad",
-"dato": "Inversión real directa: 22,7% ejecutado, −19,0% nominal. ASAP: −27,9% real. Capital total: 26,7% ejecutado.",
-"lectura": "La obra nacional casi no se ejecuta."
-},
-{
-"id": "11",
-"periodo": "2026",
-"tema": "Intereses de la deuda",
-"estado": "Superado",
-"semaforo": "warn",
-"dato": "+47,8% nominal a julio. ASAP: +31,7% real a agosto.",
-"lectura": "Es el rubro que más creció, a pesar del superávit."
-},
-{
-"id": "12",
-"periodo": "2027",
-"tema": "Inflación de 18% dic/dic",
-"estado": "Difícil",
-"semaforo": "bad",
-"dato": "2026 cierra cerca de 29% y en 2026 el desvío contra la ley fue de unos 19 puntos. Para 2027 el proyecto pide bajar a 18%.",
-"lectura": "Es el supuesto más importante y el más frágil. De él depende el valor real de casi todo."
-},
-{
-"id": "13",
-"periodo": "2027",
-"tema": "Crecimiento de 4%",
-"estado": "Optimista",
-"semaforo": "warn",
-"dato": "Consultoras locales, por debajo de 3%. FMI, 4%.",
-"lectura": "Está en el tramo alto del rango. Si no llega, cae la recaudación."
-},
-{
-"id": "14",
-"periodo": "2027",
-"tema": "Dólar a $1.847,6 (+15,5%)",
-"estado": "Posible",
-"semaforo": "warn",
-"dato": "Sube menos que la inflación, así que el peso se aprecia 1,2% en términos reales después de 6,7% en 2026.",
-"lectura": "Sostenible mientras se mantengan los dólares disponibles. Un salto del dólar rompe los números de intereses."
-},
-{
-"id": "15",
-"periodo": "2027",
-"tema": "Recaudación de 21,70% del PBI",
-"estado": "Exigente",
-"semaforo": "warn",
-"dato": "Sube 0,64 puntos del PBI. Depende de actividad, importaciones, tipo de cambio y regímenes de facilidades de pago.",
-"lectura": "Pide más recaudación mientras se anuncian bajas de impuestos."
-},
-{
-"id": "16",
-"periodo": "2027",
-"tema": "Superávit primario de $15,36 billones",
-"estado": "Posible",
-"semaforo": "warn",
-"dato": "Los intereses (neto) suman $15,22 billones. Cada +10% en el dólar agrega unos $1,7 billones.",
-"lectura": "El colchón es mínimo. El art. 1 manda recortar gasto corriente si falla la recaudación."
-},
-{
-"id": "17",
-"periodo": "2027",
-"tema": "Haberes previsionales",
-"estado": "Se van a ampliar",
-"semaforo": "warn",
-"dato": "El crédito es fijo en pesos y la fórmula ajusta por IPC con 2 meses de rezago.",
-"lectura": "Si la inflación supera el 21,1% promedio, hay que ampliar el crédito por decisión administrativa o recortar otro rubro."
-},
-{
-"id": "18",
-"periodo": "2027",
-"tema": "Salud (+39,8% nominal)",
-"estado": "Probable",
-"semaforo": "ok",
-"dato": "Cerca de +15% real con inflación promedio de 21,1%.",
-"lectura": "Se cumple si el crédito no se reasigna a otros destinos (art. 5)."
-},
-{
-"id": "19",
-"periodo": "2027",
-"tema": "Obligaciones a cargo del Tesoro (+162,6%)",
-"estado": "A vigilar",
-"semaforo": "warn",
-"dato": "Pasa de $5,64 a $14,81 billones.",
-"lectura": "Es la partida que más crece y el cuadro por jurisdicción no la abre. Conviene preguntar en el Congreso cuál es su destino."
-},
-{
-"id": "20",
-"periodo": "2027",
-"tema": "Obra pública",
-"estado": "Baja prioridad",
-"semaforo": "warn",
-"dato": "1.683 de 2.339 obras canceladas o en rescisión. 457 pasaron a las provincias. 199 siguen a cargo de la Nación.",
-"lectura": "La inversión sube menos que la inflación. No hay señal de que la obra nacional se recupere."
-},
-{
-"id": "21",
-"periodo": "2027",
-"tema": "Refinanciación de la deuda",
-"estado": "Probable",
-"semaforo": "ok",
-"dato": "45% de los vencimientos en pesos queda después de octubre de 2027 (era 15% en enero). Reservas del Tesoro: USD 8.200 millones.",
-"lectura": "La parte financiera se ve más ordenada que hace un año."
-},
-{
-"id": "22",
-"periodo": "2027",
-"tema": "Discapacidad (arts. 36-41)",
-"estado": "Incierto",
-"semaforo": "warn",
-"dato": "Cambian la pensión por invalidez laboral y la forma de fijar los valores de prestaciones.",
-"lectura": "El impacto depende de cómo se reglamente. Es lo que más conviene seguir en el Congreso."
-}
+ {
+  "id": "1",
+  "periodo": "2026",
+  "tema": "Inflación del presupuesto",
+  "estado": "No cumplido",
+  "semaforo": "bad",
+  "dato": "Ley: 10,1% dic/dic. INDEC: 21,3% acumulado a agosto y 33,5% interanual. El gobierno estima 29% para el año.",
+  "lectura": "El presupuesto nació con precios muy por debajo de lo que pasó. Los créditos en pesos perdieron valor real durante el año."
+ },
+ {
+  "id": "2",
+  "periodo": "2026",
+  "tema": "Crecimiento",
+  "estado": "No cumplido",
+  "semaforo": "bad",
+  "dato": "Ley: +5,0%. El gobierno estima ahora +3,0%. Las consultoras del REM (BCRA, septiembre 2026): +1,5%.",
+  "lectura": "La economía crece bastante menos de lo previsto, y eso condiciona la recaudación."
+ },
+ {
+  "id": "3",
+  "periodo": "2026",
+  "tema": "Dólar",
+  "estado": "No cumplido",
+  "semaforo": "bad",
+  "dato": "Ley: $1.423. Gobierno: $1.600 a diciembre. Consultoras del REM: $1.614.",
+  "lectura": "El tipo de cambio quedó por encima de lo presupuestado."
+ },
+ {
+  "id": "4",
+  "periodo": "2026",
+  "tema": "Superávit fiscal",
+  "estado": "Cumplido",
+  "semaforo": "ok",
+  "dato": "A julio: resultado primario $8,95 billones (68,5% de lo previsto para todo el año) y financiero $1,45 billones. Sin la venta de centrales hidroeléctricas ($1,04 billones), el primario es $7,91 billones.",
+  "lectura": "La meta de superávit se cumple, con ayuda de un ingreso extraordinario."
+ },
+ {
+  "id": "5",
+  "periodo": "2026",
+  "tema": "Nivel total de gasto",
+  "estado": "Cumplido con ajuste real",
+  "semaforo": "warn",
+  "dato": "Gasto a julio: $85,26 billones, 53,7% del estimado anual (lineal serían 58,3%). ASAP: −1,0% real a agosto.",
+  "lectura": "Se gastó menos en términos reales. Parte del equilibrio viene de que la inflación licuó partidas nominales."
+ },
+ {
+  "id": "6",
+  "periodo": "2026",
+  "tema": "Jubilaciones y pensiones",
+  "estado": "Parcial",
+  "semaforo": "warn",
+  "dato": "Prestaciones de la seguridad social +36,4% nominal a julio. El bono de $70.000 sigue congelado desde marzo de 2024 (−25,6% real).",
+  "lectura": "La movilidad se aplicó. El bono, que pesa mucho para la mínima, perdió un cuarto de su valor."
+ },
+ {
+  "id": "7",
+  "periodo": "2026",
+  "tema": "AUH y asignaciones",
+  "estado": "Cumplido",
+  "semaforo": "ok",
+  "dato": "Asignaciones familiares +33,8% nominal a julio. ASAP: AUH +4,7% real a agosto.",
+  "lectura": "Se actualizaron por fórmula y ganaron algo de poder de compra."
+ },
+ {
+  "id": "8",
+  "periodo": "2026",
+  "tema": "Universidades",
+  "estado": "No cumplido",
+  "semaforo": "bad",
+  "dato": "Ley: $4,79 billones. A julio, 44,1% del estimado ejecutado. ASAP: −12,6% real a agosto.",
+  "lectura": "La transferencia perdió valor real frente a lo que decía el presupuesto."
+ },
+ {
+  "id": "9",
+  "periodo": "2026",
+  "tema": "Transferencias a provincias",
+  "estado": "No cumplido",
+  "semaforo": "bad",
+  "dato": "−50,5% nominal a julio (36,6% ejecutado). ASAP: −64,6% real a agosto.",
+  "lectura": "El mayor recorte entre los rubros grandes. Parte se explica por el fallo de la Corte a favor de CABA y por obras traspasadas."
+ },
+ {
+  "id": "10",
+  "periodo": "2026",
+  "tema": "Obra pública",
+  "estado": "No cumplido",
+  "semaforo": "bad",
+  "dato": "Inversión real directa: 22,7% ejecutado, −19,0% nominal. ASAP: −27,9% real. Capital total: 26,7% ejecutado.",
+  "lectura": "La obra nacional casi no se ejecuta."
+ },
+ {
+  "id": "11",
+  "periodo": "2026",
+  "tema": "Intereses de la deuda",
+  "estado": "Superado",
+  "semaforo": "warn",
+  "dato": "+47,8% nominal a julio. ASAP: +31,7% real a agosto.",
+  "lectura": "Es el rubro que más creció, a pesar del superávit."
+ },
+ {
+  "id": "12",
+  "periodo": "2027",
+  "tema": "Inflación de 18% dic/dic",
+  "estado": "Exigente",
+  "semaforo": "warn",
+  "dato": "2026 cerraría cerca de 29-30% (gobierno y REM) y el desvío contra la ley fue de unos 19 puntos. El FMI (abril 2026) proyectaba 15,7% para 2027, algo más optimista que el proyecto.",
+  "lectura": "Es el supuesto más importante: de él depende el valor real de casi todo. Hay que bajar unos 11 puntos en un año."
+ },
+ {
+  "id": "13",
+  "periodo": "2027",
+  "tema": "Crecimiento de 4%",
+  "estado": "Optimista",
+  "semaforo": "warn",
+  "dato": "FMI (abril 2026): 4% para 2027. Para 2026 el gobierno estima 3% y las consultoras del REM, 1,5%.",
+  "lectura": "Coincide con el FMI, pero las consultoras locales vienen recortando sus estimaciones. Si no llega, cae la recaudación."
+ },
+ {
+  "id": "14",
+  "periodo": "2027",
+  "tema": "Dólar a $1.847,6 (+15,5%)",
+  "estado": "Posible",
+  "semaforo": "warn",
+  "dato": "Sube menos que la inflación, así que el peso se aprecia 1,2% en términos reales después de 6,7% en 2026.",
+  "lectura": "Sostenible mientras se mantengan los dólares disponibles. Un salto del dólar rompe los números de intereses."
+ },
+ {
+  "id": "15",
+  "periodo": "2027",
+  "tema": "Recaudación de 21,70% del PBI",
+  "estado": "Exigente",
+  "semaforo": "warn",
+  "dato": "Sube 0,64 puntos del PBI. Depende de actividad, importaciones, tipo de cambio y regímenes de facilidades de pago.",
+  "lectura": "Pide más recaudación mientras se anuncian bajas de impuestos."
+ },
+ {
+  "id": "16",
+  "periodo": "2027",
+  "tema": "Superávit primario de $15,36 billones",
+  "estado": "Posible",
+  "semaforo": "warn",
+  "dato": "Los intereses (netos) suman $15,22 billones y casi todos están en moneda extranjera ($14,08 billones). Cada 10% de suba del dólar agrega unos $1,4 billones.",
+  "lectura": "El colchón es mínimo. El art. 1 manda recortar gasto corriente si falla la recaudación."
+ },
+ {
+  "id": "17",
+  "periodo": "2027",
+  "tema": "Haberes previsionales",
+  "estado": "Se van a ampliar",
+  "semaforo": "warn",
+  "dato": "El crédito es fijo en pesos y la fórmula ajusta por IPC con 2 meses de rezago.",
+  "lectura": "Si la inflación supera el 21,1% promedio, hay que ampliar el crédito por decisión administrativa o recortar otro rubro."
+ },
+ {
+  "id": "18",
+  "periodo": "2027",
+  "tema": "Salud (+39,8% nominal)",
+  "estado": "Probable",
+  "semaforo": "ok",
+  "dato": "Cerca de +15% real con inflación promedio de 21,1%.",
+  "lectura": "Se cumple si el crédito no se reasigna a otros destinos (art. 5)."
+ },
+ {
+  "id": "19",
+  "periodo": "2027",
+  "tema": "Obligaciones a cargo del Tesoro (+162,6%)",
+  "estado": "A vigilar",
+  "semaforo": "warn",
+  "dato": "Pasa de $5,64 a $14,81 billones.",
+  "lectura": "Es la partida que más crece y el cuadro por jurisdicción no la abre. Conviene preguntar en el Congreso cuál es su destino."
+ },
+ {
+  "id": "20",
+  "periodo": "2027",
+  "tema": "Obra pública",
+  "estado": "Baja prioridad",
+  "semaforo": "warn",
+  "dato": "1.683 de 2.339 obras canceladas o en rescisión. 457 pasaron a las provincias. 199 siguen a cargo de la Nación.",
+  "lectura": "La inversión sube menos que la inflación. No hay señal de que la obra nacional se recupere."
+ },
+ {
+  "id": "21",
+  "periodo": "2027",
+  "tema": "Refinanciación de la deuda",
+  "estado": "Probable",
+  "semaforo": "ok",
+  "dato": "45% de los vencimientos en pesos queda después de octubre de 2027 (era 15% en enero). Reservas del Tesoro: USD 8.200 millones.",
+  "lectura": "La parte financiera se ve más ordenada que hace un año."
+ },
+ {
+  "id": "22",
+  "periodo": "2027",
+  "tema": "Discapacidad (arts. 36-41)",
+  "estado": "Incierto",
+  "semaforo": "warn",
+  "dato": "Cambian la pensión por invalidez laboral y la forma de fijar los valores de prestaciones.",
+  "lectura": "El impacto depende de cómo se reglamente. Es lo que más conviene seguir en el Congreso."
+ }
 ]

@@ -1,58 +1,90 @@
 [
-{
-"variable": "Crecimiento del PBI real",
-"unidad": "%",
-"ley2026": 5.0,
-"estimado2026": 3.0,
-"proyecto2027": 4.0
-},
-{
-"variable": "Inflación diciembre/diciembre",
-"unidad": "%",
-"ley2026": 10.1,
-"estimado2026": 29.0,
-"proyecto2027": 18.0
-},
-{
-"variable": "Tipo de cambio (fin de año)",
-"unidad": "$ por USD",
-"ley2026": 1423.0,
-"estimado2026": 1600.0,
-"proyecto2027": 1847.6
-},
-{
-"variable": "Presión tributaria",
-"unidad": "% del PBI",
-"ley2026": null,
-"estimado2026": 21.06,
-"proyecto2027": 21.7
-},
-{
-"variable": "Inflación promedio 2027 (base del cálculo real)",
-"unidad": "%",
-"ley2026": null,
-"estimado2026": null,
-"proyecto2027": 21.1
-},
-{
-"variable": "IPC interanual de agosto 2026",
-"unidad": "%",
-"ley2026": null,
-"estimado2026": 33.5,
-"proyecto2027": null
-},
-{
-"variable": "Costo de intereses por +10% de dólar",
-"unidad": "billones $",
-"ley2026": null,
-"estimado2026": null,
-"proyecto2027": 1.7
-},
-{
-"variable": "Superávit primario de la Administración Nacional",
-"unidad": "billones $",
-"ley2026": null,
-"estimado2026": 13.06,
-"proyecto2027": 15.36
-}
+ {
+  "variable": "Crecimiento del PBI real",
+  "unidad": "%",
+  "ley2026": 5.0,
+  "estimado2026": 3.0,
+  "proyecto2027": 4.0,
+  "clave": "pbi"
+ },
+ {
+  "variable": "Inflación diciembre/diciembre",
+  "unidad": "%",
+  "ley2026": 10.1,
+  "estimado2026": 29.0,
+  "proyecto2027": 18.0,
+  "clave": "inflacion"
+ },
+ {
+  "variable": "Tipo de cambio (fin de año)",
+  "unidad": "$ por USD",
+  "ley2026": 1423.0,
+  "estimado2026": 1600.0,
+  "proyecto2027": 1847.6,
+  "clave": "tc"
+ },
+ {
+  "variable": "Presión tributaria",
+  "unidad": "% del PBI",
+  "ley2026": null,
+  "estimado2026": 21.06,
+  "proyecto2027": 21.7,
+  "clave": "presion"
+ },
+ {
+  "variable": "Inflación promedio 2027 (base del cálculo real)",
+  "unidad": "%",
+  "ley2026": null,
+  "estimado2026": null,
+  "proyecto2027": 21.1,
+  "clave": "infl_prom"
+ },
+ {
+  "variable": "IPC interanual de agosto 2026",
+  "unidad": "%",
+  "ley2026": null,
+  "estimado2026": 33.5,
+  "proyecto2027": null,
+  "clave": "ipc_ago"
+ },
+ {
+  "variable": "Costo de intereses por +10% de dólar",
+  "unidad": "billones $",
+  "ley2026": null,
+  "estimado2026": null,
+  "proyecto2027": 1.41,
+  "clave": "costo_usd10"
+ },
+ {
+  "variable": "Superávit primario de la Administración Nacional",
+  "unidad": "billones $",
+  "ley2026": null,
+  "estimado2026": 13.06,
+  "proyecto2027": 15.36,
+  "clave": "superavit"
+ },
+ {
+  "variable": "Crecimiento 2026 según consultoras (REM del BCRA, sept. 2026)",
+  "unidad": "%",
+  "ley2026": null,
+  "estimado2026": 1.5,
+  "proyecto2027": null,
+  "clave": "pbi_rem"
+ },
+ {
+  "variable": "Inflación acumulada enero-agosto 2026 (INDEC)",
+  "unidad": "%",
+  "ley2026": null,
+  "estimado2026": 21.3,
+  "proyecto2027": null,
+  "clave": "ipc_acum"
+ },
+ {
+  "variable": "Inflación 2027 según el FMI (abril 2026)",
+  "unidad": "%",
+  "ley2026": null,
+  "estimado2026": null,
+  "proyecto2027": 15.7,
+  "clave": "ipc_fmi"
+ }
 ]
