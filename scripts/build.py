@@ -98,7 +98,8 @@ def main():
     sup = {r["clave"]: r for r in datos["supuestos"]}
     if "programas" in datos:
         (RAIZ / "programas.html").write_text(reemplazar((RAIZ / "src/programas.html").read_text(encoding="utf-8"), {
-            **comunes, "SITE_JS": json.dumps(SITE), "NPROG": str(len(datos["programas"]["programas"])), "INFL": f'{sup["inflacion"]["proyecto2027"]:g}', "INFLP": f'{sup["infl_prom"]["proyecto2027"]:g}'}), encoding="utf-8")
+            **comunes, "SITE_JS": json.dumps(SITE), "NPROG": str(len(datos["programas"]["programas"])), "INFL": f'{sup["inflacion"]["proyecto2027"]:g}', "INFLP": f'{sup["infl_prom"]["proyecto2027"]:g}'.replace(".", ","),
+            "INFLP_JS": f'{sup["infl_prom"]["proyecto2027"]:g}'}), encoding="utf-8")
 
     (RAIZ / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n", encoding="utf-8")
     urls = ["/", "/programas", "/cuadros", "/metodologia", "/datos/"]

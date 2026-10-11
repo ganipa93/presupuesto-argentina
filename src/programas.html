@@ -303,7 +303,7 @@ function tarjeta(r, vs, prov) {
   const p = r.x;
   const org = [p.j, p.e].filter(Boolean).join(' › ');
   const cif = [];
-  const var27 = p.a27 != null && p.v26 > 0 ? (p.a27 / p.v26 / (1 + {{INFLP}} / 100) - 1) * 100 : null;
+  const var27 = p.a27 != null && p.v26 > 0 ? (p.a27 / p.v26 / (1 + {{INFLP_JS}} / 100) - 1) * 100 : null;
   cif.push(cifra('Pedido para 2027', p.a27 == null ? 'No sigue en 2027' : plata(p.a27)));
   if (p.v26 != null) {
     cif.push(cifra('2026 ley', plata(p.l26)), cifra('2026 vigente', plata(p.v26)));
