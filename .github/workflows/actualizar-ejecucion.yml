@@ -37,7 +37,8 @@ jobs:
       - name: Ver si cambió algo
         id: cambios
         run: |
-          if git diff --quiet -- datos/; then echo "hay=no" >> "$GITHUB_OUTPUT"; else echo "hay=si" >> "$GITHUB_OUTPUT"; fi
+          git status --porcelain -- datos/
+          if [ -z "$(git status --porcelain -- datos/)" ]; then echo "hay=no" >> "$GITHUB_OUTPUT"; else echo "hay=si" >> "$GITHUB_OUTPUT"; fi
 
       - uses: actions/setup-node@v5
         if: steps.cambios.outputs.hay == 'si'
