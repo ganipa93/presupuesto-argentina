@@ -42,11 +42,17 @@
 <a class="btn" id="sh-x" href="https://twitter.com/intent/tweet" target="_blank" rel="noopener">X</a>
 <button class="btn" id="sh-copy" type="button">Copiar link</button>
 </div>
+<div class="share" role="group" aria-label="Cómo ver los montos">
+<span class="lab">Ver montos en:</span>
+<button class="btn" type="button" data-unidad="bn" aria-pressed="true">Billones de pesos</button>
+<button class="btn" type="button" data-unidad="hab" aria-pressed="false">Pesos por habitante por mes</button>
+</div>
 </header>
 
 <nav class="tabs" role="tablist" aria-label="Secciones">
 <button role="tab" id="tab-resumen" data-tab="resumen" aria-controls="sec-resumen" aria-selected="true">Resumen</button>
 <button role="tab" id="tab-que-me-cambia" data-tab="que-me-cambia" aria-controls="sec-que-me-cambia" aria-selected="false" class="hl">¿Qué me cambia a mí?</button>
+<button role="tab" id="tab-tus-impuestos" data-tab="tus-impuestos" aria-controls="sec-tus-impuestos" aria-selected="false" class="hl">¿A dónde van tus impuestos?</button>
 <button role="tab" id="tab-gasto" data-tab="gasto" aria-controls="sec-gasto" aria-selected="false">En qué se gasta</button>
 <button role="tab" id="tab-recursos" data-tab="recursos" aria-controls="sec-recursos" aria-selected="false">De dónde sale</button>
 <button role="tab" id="tab-cumplimiento-2026" data-tab="cumplimiento-2026" aria-controls="sec-cumplimiento-2026" aria-selected="false">2026: ¿se cumplió?</button>
@@ -60,7 +66,7 @@
 <div class="claves" id="claves"></div>
 <div class="cta"><div><h2>¿Qué te cambia a vos?</h2><p class="note">Elegí tu caso: jubilado, familia con AUH, estudiante, trabajador, provincia, tarifas y más.</p></div><a class="btn primary" href="#que-me-cambia">Ver mi caso</a></div>
 <div class="tiles">
-<div class="tile"><span class="lab">Gasto previsto para 2027 (billones de $)</span><span class="big" id="k-gasto">—</span></div>
+<div class="tile"><span class="lab" id="k-gasto-lab">Gasto previsto para 2027 (billones de $)</span><span class="big" id="k-gasto">—</span></div>
 <div class="tile"><span class="lab">Aumento contra 2026, sin descontar inflación</span><span class="big" id="k-var">—</span></div>
 <div class="tile"><span class="lab">Inflación que supone el proyecto (dic. a dic.)</span><span class="big" id="k-infl">—</span></div>
 <div class="tile"><span class="lab">Aumento real aproximado, descontando inflación</span><span class="big" id="k-real">—</span></div>
@@ -69,7 +75,7 @@
 <div class="card"><h2>Semáforo de cumplimiento</h2>
 <p class="note">Cuántos de los puntos evaluados están en verde, amarillo o rojo. Es una lectura propia, con los datos a la vista en las pestañas de 2026 y 2027.</p>
 <div id="score"></div></div>
-<div class="card"><h2>Gasto 2027 por gran área</h2><p class="note">Billones de pesos.</p><div id="r-final"></div></div>
+<div class="card"><h2>Gasto 2027 por gran área</h2><p class="note" data-unidad-nota>Billones de pesos.</p><div id="r-final"></div></div>
 </div>
 <div class="card"><h2>Qué crece más que la inflación y qué no</h2>
 <p class="note">Variación real aproximada por área en 2027: el aumento del crédito descontada la inflación promedio que supone el proyecto. En rojo, lo que pierde contra los precios.</p>
@@ -85,9 +91,32 @@
 <div id="perfil-detalle"></div>
 </section>
 
+<section id="sec-tus-impuestos" data-panel="tus-impuestos" role="tabpanel" aria-labelledby="tab-tus-impuestos" hidden>
+<div class="card"><h2>¿A dónde van tus impuestos?</h2>
+<p class="note">Poné tus números y te mostramos cuánto pagás por mes en impuestos y aportes nacionales y en qué se gastarían según el Presupuesto 2027. Los valores que aparecen son un ejemplo. Nada de lo que escribas sale de tu navegador.</p>
+<div class="calc">
+<label for="c-sueldo">Sueldo bruto mensual, si sos empleado en relación de dependencia</label><input id="c-sueldo" type="number" min="0" step="1000" inputmode="numeric" value="1200000">
+<label for="c-gasto">Lo que gastás por mes en compras y servicios</label><input id="c-gasto" type="number" min="0" step="1000" inputmode="numeric" value="900000">
+<label for="c-gan">Ganancias que te retienen por mes (si no sabés, dejalo en 0)</label><input id="c-gan" type="number" min="0" step="1000" inputmode="numeric" value="0">
+<label for="c-mono">Cuota de monotributo por mes (si sos monotributista)</label><input id="c-mono" type="number" min="0" step="1000" inputmode="numeric" value="0">
+</div>
+</div>
+<div class="read">
+<div class="tile"><span class="lab">Pagás por mes en impuestos y aportes nacionales (aprox.)</span><span class="big" id="c-total">—</span></div>
+<div class="tile"><span class="lab">Equivale a</span><span class="big" id="c-dias">—</span></div>
+<div class="tile"><span class="lab">De eso, a jubilaciones, pensiones y asignaciones</span><span class="big" id="c-ss">—</span></div>
+</div>
+<div class="card"><h2>Así se repartiría tu plata</h2>
+<p class="note">Primero, el reparto oficial de lo que recauda la Nación entre el Estado nacional, las provincias y otros organismos. Después, lo que queda en la Nación repartido según el gasto 2027 de cada área.</p>
+<div id="c-reparto"></div>
+<div class="share"><button class="btn primary" type="button" id="c-placa">Crear imagen para compartir</button></div>
+</div>
+<div class="caveat">Es una estimación. Incluye aportes jubilatorios y de PAMI (14% del sueldo bruto), el IVA de tus compras (estimado en 16% de lo que gastás), Ganancias y monotributo. No incluye impuestos provinciales ni municipales, el impuesto al cheque, combustibles, internos ni las contribuciones que paga tu empleador. Detalles en <a href="/metodologia">metodología</a>.</div>
+</section>
+
 <section id="sec-gasto" data-panel="gasto" role="tabpanel" aria-labelledby="tab-gasto" hidden>
 <div class="card"><h2>Por ministerio y poder del Estado</h2>
-<p class="note">Millones de pesos. La columna 2026 es el gasto que el gobierno estima para este año, no la ley original. Capital Humano concentra jubilaciones, AUH y universidades.</p>
+<p class="note">Gráfico: <span data-unidad-nota>Billones de pesos.</span> Tabla: millones de pesos. La columna 2026 es el gasto que el gobierno estima para este año, no la ley original. Capital Humano concentra jubilaciones, AUH y universidades.</p>
 <div id="g-min"></div>
 <div class="tw"><table id="t-min" data-row-key="jurisdiccion"><caption>Gasto por jurisdicción, en millones de pesos</caption><thead><tr><th class="t" scope="col">Jurisdicción</th><th scope="col">2026 estimado</th><th scope="col">2027</th><th scope="col">Variación</th></tr></thead><tbody></tbody></table></div>
 </div>
@@ -98,7 +127,7 @@
 <div class="tw"><table id="t-fun" data-row-key="codigo"><caption>Gasto por finalidad y función, en millones de pesos</caption><thead><tr><th class="t" scope="col">Código</th><th class="t" scope="col">Función</th><th scope="col">2026 estimado</th><th scope="col">2027</th><th scope="col">Variación</th></tr></thead><tbody></tbody></table></div>
 </div>
 <div class="card"><h2>Por tipo de gasto (2027)</h2>
-<p class="note">Millones de pesos, incluidos los intereses entre organismos del Estado.</p>
+<p class="note">Incluye los intereses entre organismos del Estado. <span data-unidad-nota>Billones de pesos.</span></p>
 <div id="g-car"></div></div>
 <div class="card"><h2>Cada ministerio, por tipo de gasto (2027)</h2>
 <div class="tw"><table id="t-carmin" data-row-key="jurisdiccion"><caption>Millones de pesos</caption><thead><tr><th class="t" scope="col">Jurisdicción</th><th scope="col">Sueldos</th><th scope="col">Bienes y servicios</th><th scope="col">Intereses</th><th scope="col">Prestaciones sociales</th><th scope="col">Transf. corrientes</th><th scope="col">Inversión real</th><th scope="col">Transf. de capital</th><th scope="col">Total</th></tr></thead><tbody></tbody></table></div></div>
@@ -109,17 +138,17 @@
 
 <section id="sec-recursos" data-panel="recursos" role="tabpanel" aria-labelledby="tab-recursos" hidden>
 <div class="card"><h2>Recaudación nacional 2027 por impuesto</h2>
-<p class="note">Billones de pesos. Incluye lo que se reparte a las provincias por coparticipación.</p>
+<p class="note">Incluye lo que se reparte a las provincias por coparticipación. <span data-unidad-nota>Billones de pesos.</span></p>
 <div id="rc-chart"></div>
 <div class="tw"><table id="t-rec" data-row-key="concepto"><caption>Recaudación en millones de pesos y en % del PBI</caption><thead><tr><th class="t" scope="col">Concepto</th><th scope="col">2026</th><th scope="col">2027</th><th scope="col">% PBI 2026</th><th scope="col">% PBI 2027</th></tr></thead><tbody></tbody></table></div></div>
 <div class="grid">
 <div class="card"><h2>Cuentas del Estado nacional (% del PBI)</h2><p class="note">Cuenta ahorro-inversión de la Administración Nacional.</p>
 <div class="tw"><table id="t-cpib" data-row-key="concepto"><thead><tr><th class="t" scope="col">Concepto</th><th scope="col">2026</th><th scope="col">2027</th></tr></thead><tbody></tbody></table></div></div>
-<div class="card"><h2>Cómo se financia en 2027</h2><p class="note">Billones de pesos. Casi todo es deuda nueva para pagar vencimientos de deuda en pesos.</p>
+<div class="card"><h2>Cómo se financia en 2027</h2><p class="note">Casi todo es deuda nueva para pagar vencimientos de deuda en pesos. <span data-unidad-nota>Billones de pesos.</span></p>
 <div id="fu-chart"></div></div>
 </div>
 <div class="card"><h2>Lo que el Estado deja de cobrar</h2>
-<p class="note">Gasto tributario 2027: exenciones y regímenes especiales, en millones de pesos.</p>
+<p class="note">Gasto tributario 2027: exenciones y regímenes especiales. <span data-unidad-nota>Billones de pesos.</span></p>
 <div id="gt-chart"></div></div>
 </section>
 
@@ -219,16 +248,29 @@ function fill(sel, rows, cols, rowCls) {
   }));
 }
 function cards(box, rows) {
-  box.replaceChildren(...rows.map((r) => el('div', {className: 'v'},
-    el('h3', {textContent: r.tema}), el('span', {className: 'pill ' + r.semaforo, textContent: r.estado}),
-    el('p', {className: 'dato', textContent: r.dato}), el('p', {textContent: r.lectura}))));
+  box.replaceChildren(...rows.map((r) => {
+    const b = el('button', {type: 'button', className: 'btn mini', textContent: 'Imagen para compartir'});
+    b.dataset.placaV = r.id;
+    return el('div', {className: 'v'}, el('h3', {textContent: r.tema}), el('span', {className: 'pill ' + r.semaforo, textContent: r.estado}),
+      el('p', {className: 'dato', textContent: r.dato}), el('p', {textContent: r.lectura}), b);
+  }));
 }
 const fmt0 = (v) => nf0.format(v), fmt1 = (v) => nf1.format(v), bn = (v) => nf1.format(v / 1e6);
+const REF = DATA.referencias, POB = REF.poblacion;
+let UNIDAD = 'bn';
+try { if (localStorage.getItem('unidad') === 'hab') UNIDAD = 'hab'; } catch (e) {}
+/* v en millones de pesos */
+function money(v, corto) {
+  if (UNIDAD === 'hab') return '$' + nf0.format(v * 1e6 / POB / 12) + (corto ? '' : ' por mes');
+  return nf1.format(v / 1e6) + (corto ? '' : ' bn');
+}
 
 function render() {
   const M = DATA.ministerios, F = DATA.funciones, V = DATA.veredictos;
   const a = M.reduce((s, r) => s + r.y2026, 0), b = M.reduce((s, r) => s + r.y2027, 0);
-  $('#k-gasto').textContent = bn(b);
+  $('#k-gasto').textContent = money(b, true);
+  $('#k-gasto-lab').textContent = UNIDAD === 'hab' ? 'Gasto previsto para 2027, por habitante por mes' : 'Gasto previsto para 2027 (billones de $)';
+  document.querySelectorAll('[data-unidad-nota]').forEach((n) => { n.textContent = UNIDAD === 'hab' ? 'Pesos por habitante por mes.' : 'Billones de pesos.'; });
   $('#k-var').textContent = pct((b / a - 1) * 100);
   $('#k-infl').textContent = nf1.format(S('inflacion').proyecto2027) + '%';
   $('#k-real').textContent = pct(((b / a) / (1 + INFL / 100) - 1) * 100);
@@ -237,21 +279,21 @@ function render() {
     const n = (s) => V.filter((r) => r.periodo === p && r.semaforo === s).length;
     return el('p', {textContent: p + ': ' + n('ok') + ' en verde, ' + n('warn') + ' en amarillo, ' + n('bad') + ' en rojo.'});
   }));
-  hb($('#r-final'), F.filter((x) => x.nivel === 'finalidad').sort((x, y) => y.y2027 - x.y2027), {label: (x) => x.nombre, value: (x) => x.y2027 / 1e6, fmt: fmt1});
+  hb($('#r-final'), F.filter((x) => x.nivel === 'finalidad').sort((x, y) => y.y2027 - x.y2027), {label: (x) => x.nombre, value: (x) => x.y2027, fmt: (v) => money(v)});
   hb($('#r-real'), F.filter((x) => x.nivel === 'función').map((x) => ({...x, real: realOf(x, INFL)})).sort((x, y) => y.real - x.real), {label: (x) => x.nombre, value: (x) => x.real, fmt: pct});
   renderPerfiles();
-  hb($('#g-min'), [...M].sort((x, y) => y.y2027 - x.y2027), {label: (x) => x.jurisdiccion, value: (x) => x.y2027 / 1e6, fmt: (v) => nf1.format(v) + ' bn'});
+  hb($('#g-min'), [...M].sort((x, y) => y.y2027 - x.y2027), {label: (x) => x.jurisdiccion, value: (x) => x.y2027, fmt: (v) => money(v)});
   fill('#t-min', M, [['jurisdiccion'], ['y2026', fmt0], ['y2027', fmt0], ['var_pct', pct, 'pn']]);
   drawFun();
   fill('#t-fun', F, [['codigo'], ['nombre', null, 't'], ['y2026', fmt0], ['y2027', fmt0], ['var_pct', pct, 'pn']], (x) => x.nivel === 'finalidad' ? 'fin' : 'sub');
-  hb($('#g-car'), DATA.caracter_total, {label: (x) => x.concepto, value: (x) => x.y2027, fmt: fmt0});
+  hb($('#g-car'), DATA.caracter_total, {label: (x) => x.concepto, value: (x) => x.y2027, fmt: (v) => money(v)});
   fill('#t-carmin', DATA.caracter_ministerio, ['jurisdiccion', 'remuneraciones', 'bienes_servicios', 'intereses', 'prestaciones_ss', 'transf_corrientes', 'inversion_real', 'transf_capital', 'total'].map((f, i) => i === 0 ? [f] : [f, fmt0]));
   fill('#t-ben', DATA.beneficiarios, [['concepto'], ['tipo', null, 't'], ['y2026', fmt0], ['y2027', fmt0]]);
-  hb($('#rc-chart'), [...DATA.recursos].sort((x, y) => y.y2027 - x.y2027), {label: (x) => x.concepto, value: (x) => x.y2027 / 1e6, fmt: (v) => nf1.format(v) + ' bn'});
+  hb($('#rc-chart'), [...DATA.recursos].sort((x, y) => y.y2027 - x.y2027), {label: (x) => x.concepto, value: (x) => x.y2027, fmt: (v) => money(v)});
   fill('#t-rec', DATA.recursos, [['concepto'], ['y2026', fmt0], ['y2027', fmt0], ['pib2026', (v) => nf2.format(v)], ['pib2027', (v) => nf2.format(v)]]);
   fill('#t-cpib', DATA.cuenta_pib, [['concepto'], ['pib2026', fmt1], ['pib2027', fmt1]]);
-  hb($('#fu-chart'), DATA.fuentes_2027, {label: (x) => x.fuente, value: (x) => x.billones, fmt: (v) => nf1.format(v) + ' bn'});
-  hb($('#gt-chart'), DATA.gasto_tributario, {label: (x) => x.concepto, value: (x) => x.monto, fmt: fmt0, color: (x) => x.concepto.startsWith('Total') ? MUTED : C1});
+  hb($('#fu-chart'), DATA.fuentes_2027, {label: (x) => x.fuente, value: (x) => x.billones * 1e6, fmt: (v) => money(v)});
+  hb($('#gt-chart'), DATA.gasto_tributario, {label: (x) => x.concepto, value: (x) => x.monto, fmt: (v) => money(v), color: (x) => x.concepto.startsWith('Total') ? MUTED : C1});
   const E = DATA.ejecucion;
   hb($('#ej-chart'), E.filter((x) => x.tipo !== 'resultado' && x.pct_ejec != null), {label: (x) => x.concepto, value: (x) => x.pct_ejec, fmt: (v) => nf1.format(v) + '%', ref: 7 / 12 * 100, color: (x, v) => v < 50 ? MUTED : C1});
   fill('#t-ej', E, [['concepto'], ['ejec2025', fmt0], ['estimado2026', fmt0], ['ejec2026', fmt0], ['var_pct', pct, 'pn'], ['pct_ejec', (v) => nf1.format(v) + '%']], (x) => x.tipo === 'total' ? 'fin' : '');
@@ -264,6 +306,8 @@ function render() {
   hb($('#lv-chart'), LV, {label: (x) => x.concepto, value: (x) => x.var_pct, fmt: pct, color: () => C1});
   fill('#t-lvp', DATA.ley_vs_proyecto, [['concepto'], ['ley2026', fmt0], ['proyecto2027', fmt0], ['nota', null, 't']]);
   fill('#t-nor', DATA.normas, [['articulo'], ['tema', null, 't'], ['efecto', null, 't']]);
+  calcular();
+  marcarUnidad();
 }
 
 const TAG = {'+': ['A favor', 'mas'], '-': ['En contra', 'menos'], '~': ['A tener en cuenta', 'ojo']};
@@ -281,13 +325,16 @@ function renderPerfiles() {
     box.hidden = p.id !== perfilActual;
     box.append(el('h2', {textContent: p.perfil}),
       el('ul', {className: 'puntos'}, ...p.puntos.map((pt) => el('li', {}, el('span', {className: 'tag ' + TAG[pt.signo][1], textContent: TAG[pt.signo][0]}), el('span', {textContent: pt.texto})))));
+    const bp = el('button', {type: 'button', className: 'btn primary', textContent: 'Crear imagen de este caso para compartir'});
+    bp.dataset.placaP = p.id;
+    box.append(el('div', {className: 'share'}, bp));
     return box;
   }));
 }
 function drawFun() {
   const m = $('#metric').value;
   const rows = DATA.funciones.filter((x) => x.nivel === 'función').map((x) => ({...x, real: realOf(x, INFL)})).sort((x, y) => y[m] - x[m]);
-  hb($('#g-fun'), rows, {label: (x) => x.nombre, value: (x) => m === 'y2027' ? x.y2027 / 1e6 : x[m], fmt: (v) => m === 'y2027' ? nf1.format(v) + ' bn' : pct(v), color: (x, v) => m === 'y2027' || v >= 0 ? C1 : CRIT});
+  hb($('#g-fun'), rows, {label: (x) => x.nombre, value: (x) => x[m], fmt: (v) => m === 'y2027' ? money(v) : pct(v), color: (x, v) => m === 'y2027' || v >= 0 ? C1 : CRIT});
 }
 function drawSim() {
   const infl = Number($('#s-inf').value), usd = Number($('#s-usd').value);
@@ -308,6 +355,7 @@ const SITE = {{SITE_JS}};
 const TEXTO = {
   'resumen': 'El Presupuesto 2027 explicado: qué te cambia, en qué se gasta la plata y si se cumple.',
   'que-me-cambia': '¿Qué te cambia el Presupuesto 2027? Elegí tu caso y fijate.',
+  'tus-impuestos': '¿A dónde van tus impuestos? Calculá cuánto pagás y en qué se gasta según el Presupuesto 2027.',
   'gasto': 'En qué se gasta el Presupuesto 2027, ministerio por ministerio.',
   'recursos': 'De dónde sale la plata del Presupuesto 2027: impuestos y deuda.',
   'cumplimiento-2026': '¿Se cumplió el Presupuesto 2026? Lo que decía la ley contra lo que pasó.',
@@ -363,6 +411,121 @@ if (navigator.share) {
 $('#s-inf').addEventListener('input', drawSim);
 $('#s-usd').addEventListener('input', drawSim);
 $('#metric').addEventListener('change', drawFun);
+/* Selector de unidades */
+function marcarUnidad() { document.querySelectorAll('[data-unidad]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.unidad === UNIDAD))); }
+document.querySelectorAll('[data-unidad]').forEach((b) => b.addEventListener('click', () => {
+  UNIDAD = b.dataset.unidad;
+  try { localStorage.setItem('unidad', UNIDAD); } catch (e) {}
+  render(); show(tabActual, false);
+  if (window.va) window.va('event', {name: 'unidad', data: {unidad: UNIDAD}});
+}));
+
+/* Calculadora: ¿a dónde van tus impuestos? */
+let ULTIMO = null;
+const pesos = (v) => '$' + nf0.format(Math.round(v));
+function calcular() {
+  const n = (id) => Math.max(0, Number($(id).value) || 0);
+  const sueldo = n('#c-sueldo'), gasto = n('#c-gasto'), gan = n('#c-gan'), mono = n('#c-mono');
+  const total = sueldo * REF.aportes_pct / 100 + gasto * REF.iva_efectivo_pct / 100 + gan + mono;
+  const [nac, prov, otros] = REF.reparto.map((r) => total * r.pct / 100);
+  const F = DATA.funciones;
+  const totalGasto = F.filter((x) => x.nivel === 'finalidad').reduce((s, x) => s + x.y2027, 0);
+  const areas = F.filter((x) => x.nivel === 'función' || x.codigo === '5')
+    .map((x) => ({nombre: x.codigo === '5' ? 'Intereses de la deuda' : x.nombre, monto: nac * x.y2027 / totalGasto, codigo: x.codigo}))
+    .sort((a, b) => b.monto - a.monto);
+  const top = areas.slice(0, 8), resto = areas.slice(8).reduce((s, x) => s + x.monto, 0);
+  const filas = [{nombre: REF.reparto[1].destino, monto: prov, tipo: 'fuera'}, {nombre: REF.reparto[2].destino, monto: otros, tipo: 'fuera'},
+    ...top.map((x) => ({nombre: 'Nación: ' + x.nombre.charAt(0).toLowerCase() + x.nombre.slice(1), monto: x.monto})), {nombre: 'Nación: resto de las áreas', monto: resto}];
+  hb($('#c-reparto'), filas, {label: (x) => x.nombre, value: (x) => x.monto, fmt: pesos, color: (x) => x.tipo === 'fuera' ? MUTED : C1});
+  const ss = (areas.find((x) => x.codigo === '3.3') || {monto: 0}).monto;
+  $('#c-total').textContent = pesos(total);
+  $('#c-dias').textContent = sueldo > 0 ? nf1.format(total / sueldo * 30) + ' días de sueldo' : '—';
+  $('#c-ss').textContent = pesos(ss);
+  ULTIMO = {total, filas};
+}
+['#c-sueldo', '#c-gasto', '#c-gan', '#c-mono'].forEach((id) => $(id).addEventListener('input', calcular));
+
+/* Placas para compartir en redes */
+const PL = {w: 1080, h: 1350, m: 84, bg: '#12263f', fg: '#ffffff', muted: '#c9d6e6', acc: '#9cc3ef', ok: '#7ddc9a', warn: '#f2c26b', bad: '#ff9b8f'};
+const SERIF = '"Source Serif 4", Georgia, serif', SANS = '"Source Sans 3", system-ui, sans-serif';
+function lineas(ctx, texto, ancho) {
+  const out = []; let l = '';
+  for (const w of String(texto).split(/\s+/)) { const t = l ? l + ' ' + w : w; if (ctx.measureText(t).width > ancho && l) { out.push(l); l = w; } else l = t; }
+  if (l) out.push(l); return out;
+}
+async function placa(o) {
+  try { await Promise.all([document.fonts.load('400 60px "Source Serif 4"'), document.fonts.load('600 30px "Source Sans 3"'), document.fonts.load('400 30px "Source Sans 3"')]); } catch (e) {}
+  const c = document.createElement('canvas'); c.width = PL.w; c.height = PL.h;
+  const ctx = c.getContext('2d'), W = PL.w - PL.m * 2;
+  const pie = 150;
+  const dibujar = (esc, off) => {
+    ctx.fillStyle = PL.bg; ctx.fillRect(0, 0, PL.w, PL.h);
+    let y = PL.m + 10 + off;
+    ctx.textBaseline = 'top';
+    ctx.fillStyle = PL.acc; ctx.font = '600 28px ' + SANS;
+    ctx.fillText(o.kicker.toUpperCase(), PL.m, y); y += 64;
+    const tf = Math.round(66 * esc); ctx.font = '400 ' + tf + 'px ' + SERIF; ctx.fillStyle = PL.fg;
+    for (const l of lineas(ctx, o.titulo, W)) { ctx.fillText(l, PL.m, y); y += tf * 1.15; }
+    y += 18 * esc;
+    if (o.estado) {
+      ctx.font = '600 ' + Math.round(30 * esc) + 'px ' + SANS;
+      const pw = ctx.measureText(o.estado).width + 40, ph = Math.round(50 * esc);
+      ctx.strokeStyle = PL[o.color] || PL.acc; ctx.lineWidth = 3; ctx.beginPath(); if (ctx.roundRect) ctx.roundRect(PL.m, y, pw, ph, ph / 2); else ctx.rect(PL.m, y, pw, ph); ctx.stroke();
+      ctx.fillStyle = PL[o.color] || PL.acc; ctx.fillText(o.estado, PL.m + 20, y + (ph - 30 * esc) / 2); y += ph + 30 * esc;
+    }
+    for (const b of o.bloques) {
+      if (b.tag) { ctx.font = '600 ' + Math.round(26 * esc) + 'px ' + SANS; ctx.fillStyle = PL[b.color] || PL.acc; ctx.fillText(b.tag.toUpperCase(), PL.m, y); y += 38 * esc; }
+      const f = Math.round((b.grande ? 40 : 32) * esc); ctx.font = (b.fuerte ? '600 ' : '400 ') + f + 'px ' + SANS; ctx.fillStyle = b.tenue ? PL.muted : PL.fg;
+      for (const l of lineas(ctx, b.texto, W - (b.valor ? 220 : 0))) { ctx.fillText(l, PL.m, y); y += f * 1.32; }
+      if (b.valor) { ctx.font = '600 ' + f + 'px ' + SANS; ctx.fillStyle = PL.fg; ctx.textAlign = 'right'; ctx.fillText(b.valor, PL.w - PL.m, y - f * 1.32); ctx.textAlign = 'left'; }
+      y += (b.sep == null ? 26 : b.sep) * esc;
+    }
+    return y - off;
+  };
+  let esc = 1, alto = dibujar(1, 0);
+  while (alto > PL.h - pie && esc > 0.55) { esc -= 0.05; alto = dibujar(esc, 0); }
+  const libre = PL.h - pie - alto;
+  if (libre > 60) dibujar(esc, libre * 0.4);
+  ctx.fillStyle = '#6ea8e6'; ctx.fillRect(PL.m, PL.h - pie + 20, W, 3);
+  ctx.font = '600 30px ' + SANS; ctx.fillStyle = PL.fg; ctx.textBaseline = 'top';
+  ctx.fillText(SITE.replace('https://', ''), PL.m, PL.h - pie + 48);
+  ctx.font = '400 24px ' + SANS; ctx.fillStyle = PL.muted;
+  ctx.fillText(o.fuente || 'Fuentes: Proyecto de Presupuesto 2027, Ley 27.798, INDEC, BCRA, FMI y ASAP', PL.m, PL.h - pie + 92);
+  return c;
+}
+async function compartirPlaca(o, nombre) {
+  const c = await placa(o);
+  const blob = await new Promise((r) => c.toBlob(r, 'image/png'));
+  const file = new File([blob], nombre + '.png', {type: 'image/png'});
+  if (window.va) window.va('event', {name: 'placa', data: {placa: nombre}});
+  if (navigator.canShare && navigator.canShare({files: [file]})) {
+    try { await navigator.share({files: [file], text: o.titulo + ' ' + SITE}); return; } catch (e) { if (e.name === 'AbortError') return; }
+  }
+  const a = el('a', {href: URL.createObjectURL(blob), download: nombre + '.png'});
+  document.body.append(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  toast('Imagen descargada');
+}
+const COLOR_TAG = {'+': 'ok', '-': 'bad', '~': 'warn'};
+document.addEventListener('click', (e) => {
+  const bv = e.target.closest('[data-placa-v]'), bp = e.target.closest('[data-placa-p]');
+  if (bv) {
+    const v = DATA.veredictos.find((x) => x.id === bv.dataset.placaV);
+    compartirPlaca({kicker: v.periodo === '2026' ? 'Presupuesto 2026: ¿se cumplió?' : 'Presupuesto 2027: ¿se cumplirá?', titulo: v.tema, estado: v.estado, color: v.semaforo,
+      bloques: [{texto: v.dato, tenue: true}, {texto: v.lectura, grande: true}]}, 'presupuesto-' + v.periodo + '-' + v.id);
+  }
+  if (bp) {
+    const p = DATA.impacto.find((x) => x.id === bp.dataset.placaP);
+    compartirPlaca({kicker: '¿Qué te cambia el Presupuesto 2027?', titulo: p.perfil,
+      bloques: p.puntos.map((pt) => ({tag: TAG[pt.signo][0], color: COLOR_TAG[pt.signo], texto: pt.texto}))}, 'presupuesto-2027-' + p.id);
+  }
+});
+$('#c-placa').addEventListener('click', () => {
+  if (!ULTIMO) return;
+  compartirPlaca({kicker: '¿A dónde van mis impuestos?', titulo: 'Pago unos ' + pesos(ULTIMO.total) + ' por mes en impuestos y aportes nacionales',
+    bloques: ULTIMO.filas.slice(0, 8).map((f) => ({texto: f.nombre, valor: pesos(f.monto), sep: 8})),
+    fuente: 'Estimación según el Presupuesto 2027. Calculá la tuya en el sitio.'}, 'mis-impuestos-2027');
+});
 render();
 route();
 </script>

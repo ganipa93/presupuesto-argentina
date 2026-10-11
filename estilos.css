@@ -92,3 +92,9 @@ footer.src nav{display:flex;gap:var(--g-md);flex-wrap:wrap}
 .toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:8px 14px;border-radius:var(--r);font-size:var(--fs-cap)}
 tbody th{position:static;background:none;font-weight:inherit;text-align:left;z-index:auto}
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.btn.mini{align-self:flex-start;padding:4px 10px;margin-top:4px}
+.btn[aria-pressed=true]{background:var(--c1soft);border-color:var(--c1);color:var(--fg);font-weight:var(--fw-m)}
+.calc{display:grid;grid-template-columns:minmax(0,1fr) 12rem;gap:var(--g-sm) var(--g-md);align-items:center;max-width:46rem}
+.calc label{font-size:var(--fs-cap)}
+.calc input{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:var(--r);background:var(--bg);color:var(--fg);width:100%;font-variant-numeric:tabular-nums}
+@media (max-width:560px){.calc{grid-template-columns:1fr}.calc input{margin-bottom:var(--g-xs)}}

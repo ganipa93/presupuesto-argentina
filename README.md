@@ -8,12 +8,19 @@ Sitio publicado: https://presupuesto-argentina.vercel.app
 
 - **Resumen:** las tres conclusiones principales, gasto total 2027, variación real por función y semáforo de cumplimiento.
 - **¿Qué me cambia a mí?:** qué dice el proyecto para jubilados, familias con AUH, estudiantes, personas con discapacidad, trabajadores, empleados públicos, provincias, usuarios de servicios y contribuyentes.
+- **¿A dónde van tus impuestos?:** calculadora que estima cuánto pagás por mes en impuestos y aportes nacionales y cómo se reparte según el Presupuesto 2027.
 - **En qué se gasta:** por ministerio, por función y por tipo de gasto, más personas alcanzadas.
 - **De dónde sale:** recaudación por impuesto, cuenta ahorro-inversión, fuentes de financiamiento y gasto tributario.
 - **2026: ¿se cumplió?:** ejecución a julio de 2026, variación real a agosto y supuestos de la ley contra lo que pasó.
 - **2027: ¿se cumplirá?:** evaluación de los supuestos y un simulador de inflación y dólar.
 - **Ley 2026 vs proyecto 2027:** cambios en los montos fijados en artículos.
 - **Artículos clave:** los artículos del proyecto con efecto directo en la gente.
+
+## Otras funciones
+
+- Selector para ver los montos en billones de pesos o en pesos por habitante por mes.
+- Imágenes para compartir en redes de cada punto del semáforo, cada perfil y el resultado de la calculadora, generadas en el navegador.
+- Links directos a cada sección y perfil.
 
 ## Estructura
 
@@ -31,7 +38,8 @@ Los archivos generados se suben al repositorio, así Vercel solo publica archivo
 1. Editar los JSON de `datos/` (y la fecha en `scripts/build.py`).
 2. `python3 scripts/build.py`
 3. `cd scripts && npm install && cd .. && node scripts/prerender.mjs`
-4. Commit y push a `main`.
+4. Opcional: `node scripts/test-local.mjs <carpeta>` prueba el sitio en un navegador y guarda capturas.
+5. Commit y push a `main`.
 
 ## Fuentes
 

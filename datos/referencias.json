@@ -1,0 +1,25 @@
+{
+ "poblacion": 47067641,
+ "poblacion_fuente": "INDEC, población estimada al 1/7/2024",
+ "haber_minimo": 435748.51,
+ "haber_minimo_fuente": "Resolución ANSES 284/2026 (Boletín Oficial, 23/9/2026), octubre 2026",
+ "reparto": [
+  {
+   "destino": "Administración Nacional",
+   "pct": 60.2
+  },
+  {
+   "destino": "Provincias (coparticipación)",
+   "pct": 33.7
+  },
+  {
+   "destino": "Otros organismos nacionales (PAMI, fondos y empresas)",
+   "pct": 6.1
+  }
+ ],
+ "reparto_fuente": "Proyecto de Presupuesto 2027, pág. 41",
+ "aportes_pct": 14,
+ "aportes_detalle": "11% jubilación + 3% PAMI (no incluye el 3% de obra social, que no pasa por el presupuesto nacional)",
+ "iva_efectivo_pct": 16,
+ "iva_detalle": "Supuesto propio: un precio con IVA de 21% incluye 17,4% de impuesto; con alimentos al 10,5% y servicios exentos, se toma 16% como promedio."
+}
