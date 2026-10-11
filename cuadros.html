@@ -6,7 +6,7 @@
 <title>Todos los cuadros del Presupuesto 2026 y 2027 · Presupuesto Argentina</title>
 <meta name="description" content="Las 248 páginas del Proyecto de Presupuesto 2027 y las 125 de la Ley 27.798 de Presupuesto 2026, con buscador: INCAA, Vialidad, universidades, PAMI, empresas públicas, cargos por organismo, obras, deuda y todos los cuadros oficiales.">
 <link rel="canonical" href="https://presupuesto-argentina.vercel.app/cuadros">
-<meta name="theme-color" content="#2f6fb3">
+<meta name="theme-color" content="#13294b">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_AR">
@@ -33,22 +33,22 @@
 .indice a.txt{color:var(--muted)}
 .solo-cuadros .indice a.txt{display:none}
 .buscar{display:flex;flex-direction:column;gap:var(--g-sm)}
-.buscar input{font:inherit;font-size:17px;padding:10px 14px;border:1px solid var(--line);border-radius:var(--r);background:var(--bg);color:var(--fg);width:100%}
+.buscar input{font:inherit;font-size:17px;padding:10px 14px;border:1px solid var(--line);border-radius:var(--r);background:var(--card);color:var(--fg);width:100%;min-height:48px}
 .atajos{display:flex;flex-wrap:wrap;gap:6px}
-.atajos button{font:inherit;font-size:var(--fs-cap);border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:999px;padding:4px 12px;cursor:pointer}
+.atajos button{font:inherit;font-size:var(--fs-cap);border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;padding:4px 12px;min-height:36px;cursor:pointer}
 .resultados{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
-.resultados a{display:block;padding:8px 12px;border:1px solid var(--line);border-radius:var(--r);text-decoration:none;color:var(--fg);background:var(--bg)}
+.resultados a{display:block;padding:8px 12px;border:1px solid var(--line);border-radius:var(--r);text-decoration:none;color:var(--fg);background:var(--card)}
 .resultados a:hover{border-color:var(--c1)}
 .resultados .meta{font-size:var(--fs-cap);color:var(--muted)}
-.resultados mark{background:#ffe08a;color:#1b1f24;border-radius:2px}
+
 .visor{display:flex;flex-direction:column;gap:var(--g-sm);min-width:0}
 .visor .barra{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .visor .lienzo{overflow:auto;border:1px solid var(--line);border-radius:var(--r);background:#fff}
 .visor img{display:block;width:100%;height:auto}
 .visor.zoom img{width:auto;max-width:none}
 .docs{display:flex;gap:6px;flex-wrap:wrap}
-.docs button{font:inherit;border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:999px;padding:6px 14px;cursor:pointer}
-.docs button[aria-pressed=true]{background:var(--c1);border-color:var(--c1);color:#fff}
+.docs button{font:inherit;min-height:36px;border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;padding:6px 14px;cursor:pointer}
+.docs button[aria-pressed=true]{background:var(--c1);border-color:var(--c1);color:#fff;font-weight:600}
 .indice .lista[hidden]{display:none}
 .resultados .doc{display:inline-block;font-size:12px;border-radius:999px;padding:0 8px;background:var(--c1soft);margin-right:6px}
 .visor pre{white-space:pre;overflow:auto;font-size:12px;line-height:1.35;border:1px solid var(--line);border-radius:var(--r);padding:10px;background:var(--panel);max-height:36rem}
@@ -56,7 +56,7 @@
 </head>
 <body>
 <div class="wrap">
-<div class="top"><a class="brand" href="/">Presupuesto Argentina</a><nav><a href="/">Volver al análisis</a><a href="/programas">¿Cuánto se gasta en…?</a><a href="/metodologia">Metodología y fuentes</a></nav></div>
+<header class="top"><a class="brand" href="/"><svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#13294b"/><rect x="7" y="17" width="4" height="8" rx="1" fill="#9cc3ef"/><rect x="14" y="12" width="4" height="13" rx="1" fill="#9cc3ef"/><rect x="21" y="7" width="4" height="18" rx="1" fill="#f2b632"/></svg><span>Presupuesto Argentina</span></a><nav aria-label="Principal"><a href="/">Inicio</a><a href="/programas">Buscar un gasto</a><a href="/provincias">Por provincia</a><a href="/cuadros" aria-current="page">Todos los cuadros</a><a href="/metodologia">Metodología</a></nav></header>
 <header style="display:flex;flex-direction:column;gap:var(--g-sm)">
 <h1>Todos los cuadros del Presupuesto 2026 y 2027</h1>
 <p class="sub">Las 248 páginas del proyecto 2027 que el gobierno mandó al Congreso y las 125 de la Ley 27.798 de Presupuesto 2026 tal como la sancionó el Congreso, con sus planillas anexas. Buscá un organismo, una empresa o un tema y vas a ver cada cuadro donde aparece, en los dos años.</p>

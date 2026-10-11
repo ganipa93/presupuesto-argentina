@@ -6,7 +6,7 @@
 <title>Presupuesto 2027 explicado: qué te cambia, en qué se gasta y si se cumple</title>
 <meta name="description" content="El Presupuesto 2027 de Argentina comparado con el de 2026, en lenguaje simple: qué le cambia a jubilados, familias, estudiantes y trabajadores, en qué se gasta, de dónde sale la plata y si se cumple.">
 <link rel="canonical" href="{{SITE}}/">
-<meta name="theme-color" content="#2f6fb3">
+<meta name="theme-color" content="#13294b">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_AR">
@@ -30,44 +30,52 @@
 </head>
 <body>
 <div class="wrap">
-<div class="top"><a class="brand" href="/">Presupuesto Argentina</a><nav><a href="/programas">¿Cuánto se gasta en…?</a><a href="/cuadros">Todos los cuadros</a><a href="/metodologia">Metodología y fuentes</a></nav></div>
+{{CABECERA}}
 
-<header style="display:flex;flex-direction:column;gap:var(--g-sm)">
-<h1>Presupuesto 2027: qué te cambia, en qué se gasta y si se cumple</h1>
-<p class="sub">El proyecto que el gobierno mandó al Congreso, comparado con la ley de 2026 y con lo que realmente se gastó este año. Hecho con los documentos oficiales y explicado en criollo.</p>
-<div class="share" id="share">
-<span class="lab">Compartir esta sección:</span>
-<button class="btn primary" id="sh-native" type="button" hidden>Compartir</button>
-<a class="btn" id="sh-wa" href="https://wa.me/" target="_blank" rel="noopener">WhatsApp</a>
-<a class="btn" id="sh-x" href="https://twitter.com/intent/tweet" target="_blank" rel="noopener">X</a>
-<button class="btn" id="sh-copy" type="button">Copiar link</button>
+<div class="hero" id="hero">
+<div style="display:flex;flex-direction:column;gap:12px;min-width:0">
+<h1 id="titulo">Presupuesto 2027: qué te cambia, en qué se gasta y si se cumple</h1>
+<p class="sub" id="bajada">El proyecto que el gobierno mandó al Congreso, comparado con la ley 2026 y con lo que de verdad se gastó este año. Con los documentos oficiales, explicado en criollo.</p>
+<form class="busca" id="hero-busca" action="/programas" method="get" role="search">
+<label for="hq" class="vh">¿Cuánto se gasta en…?</label>
+<input id="hq" name="q" type="search" placeholder="¿Cuánto se gasta en…? Ej.: rutas, cine, PAMI" autocomplete="off" enterkeyhint="search">
+<button class="btn primary" type="submit">Buscar</button>
+</form>
+<div class="chips" id="hero-chips" aria-label="Búsquedas frecuentes">
+<a href="/programas?q=rutas">Rutas</a><a href="/programas?q=universidades">Universidades</a><a href="/programas?q=pami">PAMI</a><a href="/programas?q=jubilaciones">Jubilaciones</a><a href="/programas?q=cine">Cine (INCAA)</a><a href="/provincias">Tu provincia</a>
 </div>
-<div class="share" role="group" aria-label="Cómo ver los montos">
-<span class="lab">Ver montos en:</span>
-<button class="btn" type="button" data-unidad="bn" aria-pressed="true">Billones de pesos</button>
-<button class="btn" type="button" data-unidad="hab" aria-pressed="false">Pesos por habitante por mes</button>
 </div>
-</header>
+<div class="cifra" id="hero-cifra">
+<span class="k">Gasto previsto para 2027</span>
+<span class="n" id="h-total">—</span>
+<span class="d" id="h-hab"></span>
+<div class="barra" aria-hidden="true"><span id="h-barra"></span></div>
+<span class="d" id="h-ss"></span>
+</div>
+</div>
 
-<nav class="tabs" role="tablist" aria-label="Secciones">
-<button role="tab" id="tab-resumen" data-tab="resumen" aria-controls="sec-resumen" aria-selected="true">Resumen</button>
-<button role="tab" id="tab-que-me-cambia" data-tab="que-me-cambia" aria-controls="sec-que-me-cambia" aria-selected="false" class="hl">¿Qué me cambia a mí?</button>
-<button role="tab" id="tab-tus-impuestos" data-tab="tus-impuestos" aria-controls="sec-tus-impuestos" aria-selected="false" class="hl">¿A dónde van tus impuestos?</button>
-<button role="tab" id="tab-gasto" data-tab="gasto" aria-controls="sec-gasto" aria-selected="false">En qué se gasta</button>
-<button role="tab" id="tab-recursos" data-tab="recursos" aria-controls="sec-recursos" aria-selected="false">De dónde sale</button>
-<button role="tab" id="tab-cumplimiento-2026" data-tab="cumplimiento-2026" aria-controls="sec-cumplimiento-2026" aria-selected="false">2026: ¿se cumplió?</button>
-<button role="tab" id="tab-realismo-2027" data-tab="realismo-2027" aria-controls="sec-realismo-2027" aria-selected="false">2027: ¿se cumplirá?</button>
-<button role="tab" id="tab-congreso" data-tab="congreso" aria-controls="sec-congreso" aria-selected="false">En el Congreso</button>
-<button role="tab" id="tab-ley-vs-proyecto" data-tab="ley-vs-proyecto" aria-controls="sec-ley-vs-proyecto" aria-selected="false">Ley 2026 vs proyecto 2027</button>
-<button role="tab" id="tab-articulos" data-tab="articulos" aria-controls="sec-articulos" aria-selected="false">Artículos clave</button>
-</nav>
+<nav class="secnav" aria-label="Secciones">{{SECNAV}}</nav>
 
-<section id="sec-resumen" data-panel="resumen" role="tabpanel" aria-labelledby="tab-resumen">
+<div class="herramientas">
+<details class="compartir" id="share"><summary class="btn">Compartir esta página</summary>
+<div class="menu">
+<button type="button" id="sh-native" hidden>Compartir…</button>
+<a id="sh-wa" href="https://wa.me/" target="_blank" rel="noopener">WhatsApp</a>
+<a id="sh-x" href="https://twitter.com/intent/tweet" target="_blank" rel="noopener">X (Twitter)</a>
+<button type="button" id="sh-copy">Copiar link</button>
+</div></details>
+<span class="note">Ver montos en</span>
+<div class="seg" role="group" aria-label="Cómo ver los montos">
+<button type="button" data-unidad="bn" aria-pressed="true">Billones de $</button>
+<button type="button" data-unidad="hab" aria-pressed="false">$ por habitante</button>
+</div>
+</div>
+
+<section id="sec-resumen" data-panel="resumen">
 <h2 class="vh">Lo principal en tres frases</h2>
 <div class="claves" id="claves"></div>
 <div class="aviso" id="cg-proximo"></div>
-<div class="cta"><div><h2>¿Qué te cambia a vos?</h2><p class="note">Elegí tu caso: jubilado, familia con AUH, estudiante, trabajador, provincia, tarifas y más.</p></div><a class="btn primary" href="#que-me-cambia">Ver mi caso</a></div>
-<div class="cta"><div><h2>¿Cuánto se gasta en…?</h2><p class="note">Buscá cualquier programa, obra o actividad: rutas, cine, universidades, PAMI, trenes, hospitales. Con lo pedido para 2027, lo gastado en 2026 y el detalle por provincia. Y las 248 páginas del proyecto, con todos sus cuadros.</p></div><div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn primary" href="/programas">Buscar un gasto</a><a class="btn" href="/cuadros">Ver todos los cuadros</a></div></div>
+<div class="cta"><div><h2>¿Qué te cambia a vos?</h2><p class="note">Elegí tu caso: jubilado, familia con AUH, estudiante, trabajador, provincia, tarifas y más.</p></div><a class="btn primary" href="/que-me-cambia">Ver mi caso</a></div>
 <div class="tiles">
 <div class="tile"><span class="lab" id="k-gasto-lab">Gasto previsto para 2027 (billones de $)</span><span class="big" id="k-gasto">—</span></div>
 <div class="tile"><span class="lab">Aumento contra 2026, sin descontar inflación</span><span class="big" id="k-var">—</span></div>
@@ -86,7 +94,7 @@
 <div class="caveat">Los montos del proyecto salen del documento oficial. Los porcentajes en términos reales son cálculos propios y dependen de que la inflación sea la supuesta; el simulador de la pestaña 2027 permite cambiarla. Detalles en <a href="/metodologia">metodología y fuentes</a>.</div>
 </section>
 
-<section id="sec-que-me-cambia" data-panel="que-me-cambia" role="tabpanel" aria-labelledby="tab-que-me-cambia" hidden>
+<section id="sec-que-me-cambia" data-panel="que-me-cambia" hidden>
 <div class="card"><h2>¿Qué me cambia a mí?</h2>
 <p class="note">Elegí tu caso. Cada punto dice si te favorece, te perjudica o conviene tenerlo en cuenta, según lo que dice el proyecto y lo que pasó en 2026.</p>
 <div class="perfiles" id="perfiles" role="group" aria-label="Elegí tu caso"></div>
@@ -94,7 +102,7 @@
 <div id="perfil-detalle"></div>
 </section>
 
-<section id="sec-tus-impuestos" data-panel="tus-impuestos" role="tabpanel" aria-labelledby="tab-tus-impuestos" hidden>
+<section id="sec-tus-impuestos" data-panel="tus-impuestos" hidden>
 <div class="card"><h2>¿A dónde van tus impuestos?</h2>
 <p class="note">Poné tus números y te mostramos cuánto pagás por mes en impuestos y aportes nacionales y en qué se gastarían según el Presupuesto 2027. Los valores que aparecen son un ejemplo. Nada de lo que escribas sale de tu navegador.</p>
 <div class="calc">
@@ -117,7 +125,7 @@
 <div class="caveat">Es una estimación. Incluye aportes jubilatorios y de PAMI (14% del sueldo bruto), el IVA de tus compras (estimado en 16% de lo que gastás), Ganancias y monotributo. No incluye impuestos provinciales ni municipales, el impuesto al cheque, combustibles, internos ni las contribuciones que paga tu empleador. Detalles en <a href="/metodologia">metodología</a>.</div>
 </section>
 
-<section id="sec-gasto" data-panel="gasto" role="tabpanel" aria-labelledby="tab-gasto" hidden>
+<section id="sec-gasto" data-panel="gasto" hidden>
 <div class="card"><h2>Por ministerio y poder del Estado</h2>
 <p class="note">Gráfico: <span data-unidad-nota>Billones de pesos.</span> Tabla: millones de pesos. La columna 2026 es el gasto que el gobierno estima para este año, no la ley original. Capital Humano concentra jubilaciones, AUH y universidades.</p>
 <div id="g-min"></div>
@@ -139,7 +147,7 @@
 <div class="tw"><table id="t-ben" data-row-key="concepto"><caption>Beneficiarios y montos</caption><thead><tr><th class="t" scope="col">Concepto</th><th class="t" scope="col">Tipo</th><th scope="col">2026 / agosto 2026</th><th scope="col">2027</th></tr></thead><tbody></tbody></table></div></div>
 </section>
 
-<section id="sec-recursos" data-panel="recursos" role="tabpanel" aria-labelledby="tab-recursos" hidden>
+<section id="sec-recursos" data-panel="recursos" hidden>
 <div class="card"><h2>Recaudación nacional 2027 por impuesto</h2>
 <p class="note">Incluye lo que se reparte a las provincias por coparticipación. <span data-unidad-nota>Billones de pesos.</span></p>
 <div id="rc-chart"></div>
@@ -155,7 +163,7 @@
 <div id="gt-chart"></div></div>
 </section>
 
-<section id="sec-cumplimiento-2026" data-panel="cumplimiento-2026" role="tabpanel" aria-labelledby="tab-cumplimiento-2026" hidden>
+<section id="sec-cumplimiento-2026" data-panel="cumplimiento-2026" hidden>
 <div class="card"><h2>¿Se está cumpliendo el presupuesto 2026?</h2>
 <div id="v26" class="vgrid"></div></div>
 <div class="card"><h2>Cuánto se gastó hasta julio de 2026</h2>
@@ -173,7 +181,7 @@
 <div class="tw"><table id="t-sup" data-row-key="variable"><thead><tr><th class="t" scope="col">Variable</th><th class="t" scope="col">Unidad</th><th scope="col">Ley 2026</th><th scope="col">2026 actual</th><th scope="col">Proyecto 2027</th></tr></thead><tbody></tbody></table></div></div>
 </section>
 
-<section id="sec-realismo-2027" data-panel="realismo-2027" role="tabpanel" aria-labelledby="tab-realismo-2027" hidden>
+<section id="sec-realismo-2027" data-panel="realismo-2027" hidden>
 <div class="card"><h2>¿Qué tan realista es el 2027?</h2>
 <p class="note">Semáforo propio. Verde: probable. Amarillo: depende de algo que hoy es incierto. Rojo: muy difícil de cumplir.</p>
 <div id="v27" class="vgrid"></div></div>
@@ -191,7 +199,7 @@
 </div>
 </section>
 
-<section id="sec-congreso" data-panel="congreso" role="tabpanel" aria-labelledby="tab-congreso" hidden>
+<section id="sec-congreso" data-panel="congreso" hidden>
 <div class="card"><h2>El proyecto en el Congreso</h2>
 <p class="note" id="cg-act"></p>
 <ol class="timeline" id="cg-etapas"></ol></div>
@@ -200,14 +208,14 @@
 <div id="cg-cambios" class="vgrid"></div></div>
 </section>
 
-<section id="sec-ley-vs-proyecto" data-panel="ley-vs-proyecto" role="tabpanel" aria-labelledby="tab-ley-vs-proyecto" hidden>
+<section id="sec-ley-vs-proyecto" data-panel="ley-vs-proyecto" hidden>
 <div class="card"><h2>Cuánto cambia cada partida entre la ley 2026 y el proyecto 2027</h2>
 <p class="note">Variación nominal del monto fijado en los artículos. En 2026 la ley se modificó por decisiones administrativas y la inflación fue mucho mayor a la prevista, así que parte del salto solo compensa precios.</p>
 <div id="lv-chart"></div>
 <div class="tw"><table id="t-lvp" data-row-key="concepto"><caption>Millones de pesos</caption><thead><tr><th class="t" scope="col">Concepto</th><th scope="col">Ley 2026</th><th scope="col">Proyecto 2027</th><th class="t" scope="col">Nota</th></tr></thead><tbody></tbody></table></div></div>
 </section>
 
-<section id="sec-articulos" data-panel="articulos" role="tabpanel" aria-labelledby="tab-articulos" hidden>
+<section id="sec-articulos" data-panel="articulos" hidden>
 <div class="card"><h2>Artículos del proyecto que más afectan a la gente</h2>
 <div class="tw"><table id="t-nor" data-row-key="articulo"><thead><tr><th class="t" scope="col">Artículo</th><th class="t" scope="col">Tema</th><th class="t" scope="col">Qué dice</th></tr></thead><tbody></tbody></table></div></div>
 </section>
@@ -285,6 +293,11 @@ function render() {
   const M = DATA.ministerios, F = DATA.funciones, V = DATA.veredictos;
   const a = M.reduce((s, r) => s + r.y2026, 0), b = M.reduce((s, r) => s + r.y2027, 0);
   $('#k-gasto').textContent = money(b, true);
+  $('#h-total').replaceChildren('$' + nf1.format(b / 1e6) + ' ', el('small', {textContent: 'billones'}));
+  $('#h-hab').replaceChildren('Son ', el('b', {textContent: '$' + nf0.format(b * 1e6 / POB / 12) + ' por mes'}), ' por cada habitante del país.');
+  const ssh = DATA.funciones.find((x) => x.codigo === '3.3').y2027 / b * 100;
+  $('#h-barra').style.width = ssh.toFixed(1) + '%';
+  $('#h-ss').textContent = 'El ' + nf0.format(ssh) + '% va a jubilaciones, pensiones y asignaciones (seguridad social).';
   $('#k-gasto-lab').textContent = UNIDAD === 'hab' ? 'Gasto previsto para 2027, por habitante por mes' : 'Gasto previsto para 2027 (billones de $)';
   document.querySelectorAll('[data-unidad-nota]').forEach((n) => { n.textContent = UNIDAD === 'hab' ? 'Pesos por habitante por mes.' : 'Billones de pesos.'; });
   $('#k-var').textContent = pct((b / a - 1) * 100);
@@ -343,7 +356,7 @@ function renderCongreso() {
   const prox = C.etapas.find((e) => e.estado === 'proximo');
   const av = $('#cg-proximo');
   if (prox) {
-    const a = el('a', {href: '#congreso', textContent: 'Ver el seguimiento'});
+    const a = el('a', {href: '/congreso', textContent: 'Ver el seguimiento'});
     av.replaceChildren(el('span', {className: 'lab', textContent: 'En el Congreso · ' + prox.fecha_texto}), el('span', {textContent: prox.titulo + '. '}), a);
     av.hidden = false;
   } else av.hidden = true;
@@ -360,7 +373,7 @@ function renderEjecMin() {
 }
 
 const TAG = {'+': ['A favor', 'mas'], '-': ['En contra', 'menos'], '~': ['A tener en cuenta', 'ojo']};
-let perfilActual = DATA.impacto[0].id;
+let perfilActual = null;
 function renderPerfiles() {
   $('#perfiles').replaceChildren(...DATA.impacto.map((p) => {
     const b = el('button', {type: 'button', textContent: p.perfil});
@@ -398,65 +411,86 @@ function drawSim() {
   hb($('#sim-chart'), DATA.funciones.filter((x) => x.nivel === 'función').map((x) => ({...x, real: realOf(x, infl)})).sort((x, y) => y.real - x.real), {label: (x) => x.nombre, value: (x) => x.real, fmt: pct});
 }
 
-/* Navegación por pestañas con links propios (#seccion o #que-me-cambia-perfil) */
-const TABS = [...document.querySelectorAll('.tabs button')].map((b) => b.dataset.tab);
+/* Navegación: cada sección tiene su dirección propia (/impuestos, /que-me-cambia/jubilados, …) */
 const SITE = {{SITE_JS}};
-const TEXTO = {
-  'resumen': 'El Presupuesto 2027 explicado: qué te cambia, en qué se gasta la plata y si se cumple.',
-  'que-me-cambia': '¿Qué te cambia el Presupuesto 2027? Elegí tu caso y fijate.',
-  'tus-impuestos': '¿A dónde van tus impuestos? Calculá cuánto pagás y en qué se gasta según el Presupuesto 2027.',
-  'gasto': 'En qué se gasta el Presupuesto 2027, ministerio por ministerio.',
-  'recursos': 'De dónde sale la plata del Presupuesto 2027: impuestos y deuda.',
-  'cumplimiento-2026': '¿Se cumplió el Presupuesto 2026? Lo que decía la ley contra lo que pasó.',
-  'realismo-2027': '¿Es realista el Presupuesto 2027? Semáforo y simulador de inflación y dólar.',
-  'congreso': 'El Presupuesto 2027 en el Congreso: fechas, etapas y cambios al proyecto.',
-  'ley-vs-proyecto': 'Presupuesto 2026 contra 2027, partida por partida.',
-  'articulos': 'Los artículos del Presupuesto 2027 que más afectan a la gente.'
-};
+const SECCIONES = {{SECCIONES_JS}};
+const PERFILES_SEO = {{PERFILES_JS}};
+const TABS = Object.keys(SECCIONES);
 let tabActual = 'resumen';
-function hashActual() { return tabActual === 'que-me-cambia' ? 'que-me-cambia-' + perfilActual : tabActual; }
-function textoActual() {
-  if (tabActual === 'que-me-cambia') { const p = DATA.impacto.find((x) => x.id === perfilActual); return '¿Qué le cambia el Presupuesto 2027 a ' + p.perfil.charAt(0).toLowerCase() + p.perfil.slice(1) + '? Fijate acá:'; }
-  return TEXTO[tabActual];
+function rutaActual() { return tabActual === 'que-me-cambia' && perfilActual ? '/que-me-cambia/' + perfilActual : SECCIONES[tabActual].ruta; }
+function metaActual() {
+  const m = {...SECCIONES[tabActual]};
+  if (tabActual === 'que-me-cambia' && perfilActual && PERFILES_SEO[perfilActual]) Object.assign(m, PERFILES_SEO[perfilActual]);
+  return m;
 }
+const norm2 = (t) => t.normalize('NFD').replace(/[\u0300-\u036f¿?]/g, '').toLowerCase().trim();
+function setMeta(sel, attr, val) { const n = document.querySelector(sel); if (n) n.setAttribute(attr, val); }
 function show(tab, push) {
   tabActual = tab;
-  document.querySelectorAll('.tabs button').forEach((b) => { const on = b.dataset.tab === tab; b.setAttribute('aria-selected', String(on)); b.tabIndex = on ? 0 : -1; });
+  const m = metaActual(), url = SITE + rutaActual();
   document.querySelectorAll('[data-panel]').forEach((s) => { s.hidden = s.dataset.panel !== tab; });
   document.querySelectorAll('#perfiles button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.perfil === perfilActual)));
   document.querySelectorAll('#perfil-detalle .perfil').forEach((a) => { a.hidden = a.id !== 'perfil-' + perfilActual; });
-  const h = hashActual();
-  if (push) { try { history.replaceState(null, '', h === 'resumen' ? location.pathname : '#' + h); } catch (e) {} }
-  const url = SITE + '/' + (h === 'resumen' ? '' : '#' + h), txt = textoActual();
+  document.querySelectorAll('.secnav a[data-tab]').forEach((a) => { if (a.dataset.tab === tab) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+  const inicio = tab === 'resumen';
+  ['#hero-busca', '#hero-chips', '#hero-cifra'].forEach((s) => { $(s).hidden = !inicio; });
+  $('#hero').style.gridTemplateColumns = inicio ? '' : '1fr';
+  $('#titulo').textContent = m.h1; $('#bajada').textContent = m.bajada;
+  // en las secciones, el primer título de la tarjeta repite el título de la página: se oculta (sigue para lectores de pantalla)
+  document.querySelectorAll('[data-panel] > .card:first-child > h2').forEach((h) => h.classList.toggle('vh', !inicio && h.closest('[data-panel]').dataset.panel === tab && norm2(h.textContent) === norm2(m.h1)));
+  document.title = m.titulo;
+  setMeta('meta[name="description"]', 'content', m.descripcion);
+  setMeta('link[rel="canonical"]', 'href', url);
+  setMeta('meta[property="og:url"]', 'content', url);
+  setMeta('meta[property="og:title"]', 'content', m.titulo);
+  setMeta('meta[property="og:description"]', 'content', m.descripcion);
+  setMeta('meta[name="twitter:title"]', 'content', m.titulo);
+  setMeta('meta[name="twitter:description"]', 'content', m.descripcion);
+  if (push && location.pathname !== rutaActual()) { try { history.pushState(null, '', rutaActual()); } catch (e) {} }
+  const txt = m.compartir || m.titulo;
   $('#sh-wa').href = 'https://wa.me/?text=' + encodeURIComponent(txt + ' ' + url);
   $('#sh-x').href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(txt) + '&url=' + encodeURIComponent(url);
-  if (window.va) window.va('event', {name: 'seccion', data: {seccion: h}});
+  const act = document.querySelector('.secnav a[aria-current]'); if (act && act.scrollIntoView && push) act.scrollIntoView({block: 'nearest', inline: 'center'});
+  if (window.va && push) window.va('event', {name: 'seccion', data: {seccion: rutaActual()}});
+}
+function tabDeRuta(path) {
+  path = path.replace(/\.html$/, '').replace(/\/+$/, '') || '/';
+  const pm = path.match(/^\/que-me-cambia\/([a-z-]+)$/);
+  if (pm && DATA.impacto.some((p) => p.id === pm[1])) return ['que-me-cambia', pm[1]];
+  const t = TABS.find((k) => SECCIONES[k].ruta === path);
+  return t ? [t, null] : null;
 }
 function route() {
+  // links viejos con # (#impuestos, #que-me-cambia-jubilados) siguen andando
   const h = decodeURIComponent(location.hash.slice(1));
-  if (h.startsWith('que-me-cambia-') && DATA.impacto.some((p) => p.id === h.slice(14))) { perfilActual = h.slice(14); show('que-me-cambia', false); }
-  else show(TABS.includes(h) ? h : 'resumen', false);
+  if (h) {
+    const viejo = h === 'tus-impuestos' ? ['tus-impuestos', null] : h.startsWith('que-me-cambia-') ? ['que-me-cambia', h.slice(14)] : TABS.includes(h) ? [h, null] : null;
+    if (viejo) { if (viejo[1]) perfilActual = viejo[1]; show(viejo[0], false); try { history.replaceState(null, '', rutaActual()); } catch (e) {} return; }
+  }
+  const r = tabDeRuta(location.pathname) || ['resumen', null];
+  perfilActual = r[1] || (r[0] === 'que-me-cambia' ? null : perfilActual);
+  if (r[0] === 'que-me-cambia' && !perfilActual) perfilActual = null;
+  show(r[0], false);
 }
-document.querySelectorAll('.tabs button').forEach((b) => b.addEventListener('click', () => show(b.dataset.tab, true)));
-$('.tabs').addEventListener('keydown', (e) => {
-  if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
-  const i = TABS.indexOf(tabActual), n = TABS[(i + (e.key === 'ArrowRight' ? 1 : TABS.length - 1)) % TABS.length];
-  show(n, true); $('#tab-' + n).focus();
-});
 document.addEventListener('click', (e) => {
-  const a = e.target.closest('a[href^="#"]'); if (!a) return;
-  const h = a.getAttribute('href').slice(1);
-  if (TABS.includes(h)) { e.preventDefault(); show(h, true); $('.tabs').scrollIntoView({behavior: 'smooth', block: 'start'}); }
+  if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  const a = e.target.closest('a[href]'); if (!a || a.target === '_blank') return;
+  const u = new URL(a.href, location.href); if (u.origin !== location.origin || u.search) return;
+  const r = tabDeRuta(u.pathname); if (!r) return;
+  e.preventDefault();
+  if (r[1]) perfilActual = r[1];
+  show(r[0], true);
+  const nav = $('.secnav'); if (nav.getBoundingClientRect().top < 0 || a.closest('main, section')) window.scrollTo({top: Math.max(0, nav.offsetTop - 4), behavior: 'smooth'});
 });
-window.addEventListener('hashchange', route);
+window.addEventListener('popstate', route);
 function toast(msg) { const t = $('#toast'); t.textContent = msg; t.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(() => { t.hidden = true; }, 2200); }
 $('#sh-copy').addEventListener('click', async () => {
-  const url = SITE + '/' + (hashActual() === 'resumen' ? '' : '#' + hashActual());
+  const url = SITE + rutaActual(); $('#share').open = false;
   try { await navigator.clipboard.writeText(url); toast('Link copiado'); } catch (e) { prompt('Copiá el link:', url); }
 });
 if (navigator.share) {
   $('#sh-native').hidden = false;
-  $('#sh-native').addEventListener('click', () => { navigator.share({title: document.title, text: textoActual(), url: SITE + '/' + (hashActual() === 'resumen' ? '' : '#' + hashActual())}).catch(() => {}); });
+  $('#sh-native').addEventListener('click', () => { $('#share').open = false; navigator.share({title: document.title, text: metaActual().compartir || document.title, url: SITE + rutaActual()}).catch(() => {}); });
 }
 $('#s-inf').addEventListener('input', drawSim);
 $('#s-usd').addEventListener('input', drawSim);
@@ -496,7 +530,7 @@ function calcular() {
 ['#c-sueldo', '#c-gasto', '#c-gan', '#c-mono'].forEach((id) => $(id).addEventListener('input', calcular));
 
 /* Placas para compartir en redes */
-const PL = {w: 1080, h: 1350, m: 84, bg: '#12263f', fg: '#ffffff', muted: '#c9d6e6', acc: '#9cc3ef', ok: '#7ddc9a', warn: '#f2c26b', bad: '#ff9b8f'};
+const PL = {w: 1080, h: 1350, m: 84, bg: '#13294b', fg: '#ffffff', muted: '#c9d6e6', acc: '#f2b632', ok: '#7ddc9a', warn: '#f2c26b', bad: '#ff9b8f'};
 const SERIF = '"Source Serif 4", Georgia, serif', SANS = '"Source Sans 3", system-ui, sans-serif';
 function lineas(ctx, texto, ancho) {
   const out = []; let l = '';
@@ -536,7 +570,7 @@ async function placa(o) {
   while (alto > PL.h - pie && esc > 0.55) { esc -= 0.05; alto = dibujar(esc, 0); }
   const libre = PL.h - pie - alto;
   if (libre > 60) dibujar(esc, libre * 0.4);
-  ctx.fillStyle = '#6ea8e6'; ctx.fillRect(PL.m, PL.h - pie + 20, W, 3);
+  ctx.fillStyle = '#f2b632'; ctx.fillRect(PL.m, PL.h - pie + 20, W, 3);
   ctx.font = '600 30px ' + SANS; ctx.fillStyle = PL.fg; ctx.textBaseline = 'top';
   ctx.fillText(SITE.replace('https://', ''), PL.m, PL.h - pie + 48);
   ctx.font = '400 24px ' + SANS; ctx.fillStyle = PL.muted;

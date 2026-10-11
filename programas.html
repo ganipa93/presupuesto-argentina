@@ -6,7 +6,7 @@
 <title>¿Cuánto se gasta en…? Buscador del Presupuesto · Presupuesto Argentina</title>
 <meta name="description" content="Buscá cuánto gasta el Estado nacional en lo que te interesa: rutas, cine, universidades, PAMI, trenes, hospitales. 429 programas, cada obra y actividad, con lo pedido para 2027 y lo gastado en 2026, por provincia.">
 <link rel="canonical" href="https://presupuesto-argentina.vercel.app/programas">
-<meta name="theme-color" content="#2f6fb3">
+<meta name="theme-color" content="#13294b">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_AR">
@@ -21,17 +21,19 @@
 <script defer src="/_vercel/insights/script.js"></script>
 <style>
 .buscar{display:flex;flex-direction:column;gap:var(--g-sm)}
-.buscar input,.buscar select{font:inherit;font-size:17px;padding:10px 14px;border:1px solid var(--line);border-radius:var(--r);background:var(--bg);color:var(--fg);width:100%}
+.buscar input,.buscar select{font:inherit;font-size:17px;padding:10px 14px;border:1px solid var(--line);border-radius:var(--r);background:var(--card);color:var(--fg);width:100%;min-height:48px}
 .buscar .fila{display:grid;grid-template-columns:minmax(0,1fr) minmax(10rem,16rem);gap:var(--g-sm)}
 @media (max-width:640px){.buscar .fila{grid-template-columns:1fr}}
 .atajos{display:flex;flex-wrap:wrap;gap:6px}
-.atajos button{font:inherit;font-size:var(--fs-cap);border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:999px;padding:4px 12px;cursor:pointer}
+.atajos button{font:inherit;font-size:var(--fs-cap);border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;padding:4px 12px;min-height:36px;cursor:pointer}
 .atajos button:hover{border-color:var(--c1)}
 .suma{display:flex;flex-wrap:wrap;gap:var(--g-md);align-items:baseline}
 .suma .big{font-size:1.6rem;font-weight:var(--fw-b);font-variant-numeric:tabular-nums}
 .res{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--g-sm)}
-.item{border:1px solid var(--line);border-radius:var(--r);background:var(--bg);padding:12px 14px;display:flex;flex-direction:column;gap:8px}
-.item h3{margin:0;font-size:1.05rem}
+.item{border:1px solid var(--line);border-radius:var(--r);background:var(--card);padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.item h3{margin:0;font-size:1.1rem}
+.item h3 a{color:var(--fg);text-decoration:none}
+.item h3 a:hover{color:var(--c1);text-decoration:underline}
 .item .org{font-size:var(--fs-cap);color:var(--muted)}
 .cifras{display:grid;grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr));gap:8px}
 .cifra{background:var(--panel);border-radius:var(--r);padding:6px 10px}
@@ -42,7 +44,6 @@
 .hojas{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:2px;font-size:var(--fs-cap)}
 .hojas li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;padding:3px 0;border-bottom:1px dashed var(--line)}
 .hojas li span:last-child{font-variant-numeric:tabular-nums;white-space:nowrap}
-mark{background:#ffe08a;color:#1b1f24;border-radius:2px}
 .det{display:flex;flex-direction:column;gap:8px}
 .det summary{cursor:pointer;font-weight:var(--fw-m)}
 .tabla{width:100%;border-collapse:collapse;font-size:var(--fs-cap)}
@@ -50,15 +51,13 @@ mark{background:#ffe08a;color:#1b1f24;border-radius:2px}
 .tabla th:first-child,.tabla td:first-child{text-align:left}
 .tabla td:not(:first-child){white-space:nowrap}
 .tabla-scroll{overflow-x:auto}
-.etq{display:inline-block;font-size:12px;border-radius:999px;padding:1px 8px;background:var(--c1soft);color:var(--fg)}
-.etq.warn{background:#fdecc8}
 .acciones{display:flex;flex-wrap:wrap;gap:6px}
 .mas{align-self:flex-start}
 </style>
 </head>
 <body>
 <div class="wrap">
-<div class="top"><a class="brand" href="/">Presupuesto Argentina</a><nav><a href="/">Volver al análisis</a><a href="/cuadros">Todos los cuadros</a><a href="/metodologia">Metodología y fuentes</a></nav></div>
+<header class="top"><a class="brand" href="/"><svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#13294b"/><rect x="7" y="17" width="4" height="8" rx="1" fill="#9cc3ef"/><rect x="14" y="12" width="4" height="13" rx="1" fill="#9cc3ef"/><rect x="21" y="7" width="4" height="18" rx="1" fill="#f2b632"/></svg><span>Presupuesto Argentina</span></a><nav aria-label="Principal"><a href="/">Inicio</a><a href="/programas" aria-current="page">Buscar un gasto</a><a href="/provincias">Por provincia</a><a href="/cuadros">Todos los cuadros</a><a href="/metodologia">Metodología</a></nav></header>
 <header style="display:flex;flex-direction:column;gap:var(--g-sm)">
 <h1>¿Cuánto se gasta en…?</h1>
 <p class="sub">Los 429 programas del presupuesto nacional, con cada obra y actividad: lo que el gobierno pide para 2027 y lo que se autorizó y se gastó en 2026, también por provincia. Además, las universidades una por una, el INCAA, el PAMI, los fondos fiduciarios y las empresas públicas.</p>
@@ -100,7 +99,7 @@ mark{background:#ffe08a;color:#1b1f24;border-radius:2px}
 <h2>Cómo leer estos números</h2>
 <ul>
 <li><strong>2027 (proyecto):</strong> lo que el gobierno pide gastar en 2027 en el proyecto de ley que está en el Congreso. Puede cambiar en el debate.</li>
-<li><strong>2026 ley:</strong> lo que aprobó el Congreso en la Ley 27.798. <strong>2026 vigente:</strong> lo autorizado hoy, después de las modificaciones que hizo el gobierno durante el año. <strong>2026 gastado:</strong> lo devengado (gasto ya comprometido y recibido) hasta el <span id="corte"></span>; el año todavía no terminó.</li>
+<li><strong>2026, aprobado por ley:</strong> lo que votó el Congreso en la Ley 27.798. <strong>2026, autorizado hoy:</strong> lo que se puede gastar después de los cambios que hizo el gobierno durante el año. <strong>2026, gastado:</strong> lo devengado (gasto ya comprometido y recibido) hasta el <span id="corte"></span>; el año todavía no terminó.</li>
 <li>Los pesos de 2027 valen menos que los de 2026: el proyecto supone precios en promedio 21,1% más altos en 2027 que en 2026 (18% de diciembre a diciembre). La etiqueta «real» compara lo pedido para 2027 con lo vigente en 2026 descontando esa inflación: si es negativa, el programa tiene menos recursos de verdad.</li>
 <li>Las <strong>universidades, el INCAA, el PAMI, los fondos fiduciarios y las empresas públicas</strong> tienen presupuesto propio, fuera de los programas. Muestran el gasto total que el proyecto les estima para 2027 y, cuando figura en la ley, el de 2026; una parte de ese dinero sale de transferencias que ya cuentan en los programas, así que no se suman con ellos.</li>
 <li>La provincia es la que asigna el propio Estado a cada gasto. Mucho gasto figura como «Nacional», «Interprovincial» o «No clasificado» (por ejemplo, gran parte de las jubilaciones), así que la suma de una provincia no es todo lo que llega a sus habitantes.</li>
@@ -267,9 +266,9 @@ function resumen(lista, vs, q, prov, montoProv) {
   const cif = [];
   if (progs.length) {
     if (!prov) cif.push(cifra('Pedido para 2027', plata(s.a27)));
-    cif.push(cifra('2026 vigente' + (prov ? ' en ' + prov : ''), plata(s.v26)), cifra('2026 gastado hasta ahora', plata(s.d26) + ' (' + pct(s.d26, s.v26) + ')'));
+    cif.push(cifra('2026: autorizado hoy' + (prov ? ' en ' + prov : ''), plata(s.v26)), cifra('2026: gastado hasta ahora', plata(s.d26) + ' (' + pct(s.d26, s.v26) + ')'));
   }
-  if (entes.length) cif.push(cifra('Presupuesto propio 2027 (aparte)', plata(entes.reduce((a, r) => a + r.x.g27, 0))));
+  if (entes.length) cif.push(cifra('Organismos con presupuesto propio, 2027 (no se suman)', plata(entes.reduce((a, r) => a + r.x.g27, 0))));
   box.replaceChildren(
     el('div', {style: 'flex:1 1 100%'}, el('strong', {text: 'Suma de los resultados'}), el('p', {class: 'note', text: prov
       ? 'Lo que el Estado nacional asignó a ' + prov + ' en 2026 en los programas encontrados. No incluye el gasto clasificado como nacional o interprovincial.'
@@ -306,14 +305,14 @@ function tarjeta(r, vs, prov) {
   const var27 = p.a27 != null && p.v26 > 0 ? (p.a27 / p.v26 / (1 + 21.1 / 100) - 1) * 100 : null;
   cif.push(cifra('Pedido para 2027', p.a27 == null ? 'No sigue en 2027' : plata(p.a27)));
   if (p.v26 != null) {
-    cif.push(cifra('2026 ley', plata(p.l26)), cifra('2026 vigente', plata(p.v26)));
+    cif.push(cifra('2026: aprobado por ley', plata(p.l26)), cifra('2026: autorizado hoy', plata(p.v26)));
     const ej = p.v26 ? Math.min(100, Math.max(0, p.d26 / p.v26 * 100)) : 0;
-    cif.push(cifra('2026 gastado', plata(p.d26) + ' (' + pct(p.d26, p.v26) + ')', el('div', {class: 'barra-ej'}, el('span', {style: 'width:' + ej.toFixed(1) + '%'}))));
+    cif.push(cifra('2026: gastado', plata(p.d26) + ' (' + pct(p.d26, p.v26) + ')', el('div', {class: 'barra-ej'}, el('span', {style: 'width:' + ej.toFixed(1) + '%'}))));
   } else cif.push(cifra('2026', 'Programa nuevo o reorganizado'));
   if (prov) { const m = p.prov26.find((z) => z[0] === prov); cif.push(cifra('2026 en ' + prov, plata(m[1]) + ' · gastado ' + plata(m[2]))); }
   const etq = [];
-  if (var27 != null && p.a27 != null) etq.push(el('span', {class: 'etq' + (var27 < 0 ? ' warn' : ''), text: 'Real 2027 vs. 2026 vigente: ' + (var27 >= 0 ? '+' : '') + nf(0).format(var27) + '%', title: 'Descontando la inflación promedio de 21,1% que supone el proyecto.'}));
-  const cuerpo = [el('div', {class: 'org', text: org}), el('h3', {}, ...marcar(p.n, vs)), etq.length ? el('div', {}, ...etq) : null, el('div', {class: 'cifras'}, ...cif)];
+  if (var27 != null && p.a27 != null) etq.push(el('span', {class: 'etq' + (var27 < 0 ? ' warn' : ''), text: 'Variación real 2027 contra lo autorizado en 2026: ' + (var27 >= 0 ? '+' : '') + nf(0).format(var27) + '%', title: 'Descontando la inflación promedio de 21,1% que supone el proyecto.'}));
+  const cuerpo = [el('div', {class: 'org', text: org}), el('h3', {}, el('a', {href: '/gasto/' + p.s}, ...marcar(p.n, vs))), p.b ? el('p', {class: 'note', text: p.b}) : null, etq.length ? el('div', {}, ...etq) : null, el('div', {class: 'cifras'}, ...cif)];
   if (r.nivel === 'hojas') {
     const filas = [];
     for (const i of r.i27) filas.push(el('li', {}, el('span', {}, ...marcar(p.act27[i][0], vs)), el('span', {text: '2027: ' + plata(p.act27[i][1])})));
@@ -342,7 +341,7 @@ function detalle(p, vs) {
     if (p.prov26 && p.prov26.length) partes.push(el('h4', {text: '2026: por provincia'}), tabla(['Provincia', 'Vigente', 'Gastado', '%'], p.prov26.map((a) => [a[0], plata(a[1]), plata(a[2]), pct(a[2], a[1])])));
     const link = el('button', {class: 'btn', type: 'button', text: 'Copiar link a este programa'});
     link.addEventListener('click', async () => { const u = SITE + '/programas?q=' + encodeURIComponent(p.n); try { await navigator.clipboard.writeText(u); toast('Link copiado'); } catch (e) { prompt('Copiá el link:', u); } });
-    partes.push(el('div', {class: 'acciones'}, link, el('a', {class: 'btn', href: '/cuadros?q=' + encodeURIComponent(p.e || p.j), text: 'Buscar el organismo en los cuadros'})));
+    partes.push(el('div', {class: 'acciones'}, el('a', {class: 'btn primary', href: '/gasto/' + p.s, text: 'Ver la página completa'}), link, el('a', {class: 'btn', href: '/cuadros?q=' + encodeURIComponent(p.e || p.j), text: 'Buscar el organismo en los cuadros'})));
     d.append(...partes);
     if (window.va) window.va('event', {name: 'programa', data: {n: p.n.slice(0, 60)}});
   });
@@ -354,12 +353,12 @@ function tarjetaEnte(e, vs) {
   if (e.g26 != null) cif.push(cifra('Gasto total 2026 (ley)', plata(e.g26) + (e.g26 > 0 ? ' · ' + (e.g27 >= e.g26 ? '+' : '') + nf(0).format((e.g27 / e.g26 - 1) * 100) + '% nominal' : '')));
   cif.push(...(e.det || []).map((d) => cifra(d[0] + ' 2027', plata(d[1]))));
   return el('article', {class: 'item'},
-    el('div', {class: 'org', text: e.tipo2 + ' · presupuesto propio, fuera de los programas'}),
-    el('h3', {}, ...marcar(e.n, vs)),
+    el('div', {class: 'org', text: e.tipo2 + ' · tiene presupuesto propio'}),
+    el('h3', {}, el('a', {href: '/gasto/' + e.s}, ...marcar(e.n, vs))),
     el('div', {class: 'cifras'}, ...cif),
     e.nota ? el('p', {class: 'note', text: e.nota}) : null,
     e.g26 != null ? el('p', {class: 'note', text: 'La ley 2026 se armó suponiendo 10,1% de inflación y el año cerraría cerca de 29%: por eso la suba nominal contra la ley no dice si hay más o menos recursos reales.'}) : null,
-    el('div', {class: 'acciones'}, el('a', {class: 'btn', href: '/cuadros#p' + e.pag, text: 'Cuadro 2027 (pág. ' + e.pag + ')'}), e.pag26 ? el('a', {class: 'btn', href: '/cuadros#ley2026-p' + e.pag26, text: 'Cuadro de la ley 2026 (pág. ' + e.pag26 + ')'}) : null));
+    el('div', {class: 'acciones'}, el('a', {class: 'btn primary', href: '/gasto/' + e.s, text: 'Ver la página completa'}), el('a', {class: 'btn', href: '/cuadros#p' + e.pag, text: 'Cuadro 2027 (pág. ' + e.pag + ')'}), e.pag26 ? el('a', {class: 'btn', href: '/cuadros#ley2026-p' + e.pag26, text: 'Cuadro de la ley 2026 (pág. ' + e.pag26 + ')'}) : null));
 }
 
 let espera;

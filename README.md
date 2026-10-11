@@ -21,6 +21,8 @@ Sitio publicado: https://presupuesto-argentina.vercel.app
 - **¿Cuánto se gasta en…? (`/programas`):** buscador con los programas del presupuesto, cada actividad y obra, lo pedido para 2027, lo autorizado y gastado en 2026 (también por provincia), las metas físicas, y además universidades, fondos fiduciarios, otros entes (INCAA, PAMI, ARCA) y empresas públicas.
 - **Todos los cuadros (`/cuadros`):** las 248 páginas del proyecto 2027 y las 125 de la Ley 27.798 (2026) como imagen, con buscador de texto en los dos documentos y tablas en CSV.
 
+- **Páginas fijas para buscadores:** una por programa u organismo (`/gasto/<slug>`, más el índice `/gasto`), una por provincia (`/provincias/<slug>`), y una por sección de la portada (`/impuestos`, `/que-me-cambia/jubilados`, …), cada una con su título, descripción, datos estructurados e imagen para redes (`og/`). Las arma `scripts/paginas.py` (llamado por `build.py`) y las imágenes `scripts/prerender.mjs`, que solo rehace las que cambiaron.
+
 ## Otras funciones
 
 - Selector para ver los montos en billones de pesos o en pesos por habitante por mes.

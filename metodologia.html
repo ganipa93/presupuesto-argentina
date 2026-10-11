@@ -6,7 +6,7 @@
 <title>Metodología y fuentes · Presupuesto Argentina</title>
 <meta name="description" content="De dónde salen los datos del sitio Presupuesto Argentina, cómo se calculan las variaciones reales, el simulador y el semáforo de cumplimiento.">
 <link rel="canonical" href="https://presupuesto-argentina.vercel.app/metodologia">
-<meta name="theme-color" content="#2f6fb3">
+<meta name="theme-color" content="#13294b">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="article">
 <meta property="og:locale" content="es_AR">
@@ -22,7 +22,7 @@
 </head>
 <body>
 <div class="wrap">
-<div class="top"><a class="brand" href="/">Presupuesto Argentina</a><nav><a href="/">Volver al sitio</a><a href="/programas">¿Cuánto se gasta en…?</a><a href="/cuadros">Todos los cuadros</a></nav></div>
+<header class="top"><a class="brand" href="/"><svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#13294b"/><rect x="7" y="17" width="4" height="8" rx="1" fill="#9cc3ef"/><rect x="14" y="12" width="4" height="13" rx="1" fill="#9cc3ef"/><rect x="21" y="7" width="4" height="18" rx="1" fill="#f2b632"/></svg><span>Presupuesto Argentina</span></a><nav aria-label="Principal"><a href="/">Inicio</a><a href="/programas">Buscar un gasto</a><a href="/provincias">Por provincia</a><a href="/cuadros">Todos los cuadros</a><a href="/metodologia" aria-current="page">Metodología</a></nav></header>
 <main class="prose">
 <h1>Metodología y fuentes</h1>
 <p class="sub">Qué es dato oficial, qué es cálculo propio y dónde verificar cada número. Datos actualizados al 10/10/2026.</p>
@@ -78,6 +78,9 @@
 <li><strong>Fuera de los programas:</strong> las universidades nacionales (planilla anexa al art. 12, pág. 198), los fondos fiduciarios (pág. 206), otros entes como el INCAA, el PAMI y ARCA (págs. 124 y 207) y las empresas públicas (págs. 127-129), con su gasto total 2027. Tienen presupuesto propio y en parte se financian con transferencias que ya cuentan en los programas, por eso no se suman con ellos.</li>
 </ul>
 <p>Los programas de 2027 y 2026 se emparejan por organismo y nombre del programa; si el organismo cambió de nombre o de ministerio, por nombre del programa cuando hay uno solo igual. Los que no tienen pareja figuran como nuevos o como «no sigue en 2027», en general porque se reorganizaron. La variación real compara lo pedido para 2027 con lo vigente en 2026, descontando la inflación promedio que supone el proyecto. El código está en <code>scripts/armar_programas.py</code> y los datos en <a href="/datos/programas.json">programas.json</a>.</p>
+
+<h3>Páginas por programa y por provincia</h3>
+<p>Cada programa, universidad, fondo, ente y empresa tiene su propia página en <a href="/gasto">/gasto</a>, con sus actividades y obras, metas, gasto por tipo y por provincia. Cada provincia tiene la suya en <a href="/provincias">/provincias</a>, con lo que el Estado nacional ubica en ella según Presupuesto Abierto: no incluye el gasto clasificado como «Nacional» o «No clasificado» (por ejemplo, buena parte de las jubilaciones) ni la coparticipación. Las bases 2027 de la Oficina Nacional de Presupuesto vienen sin tildes: se reponen con las palabras de las bases que sí las tienen, y las explicaciones en castellano simple de los programas más grandes son propias.</p>
 
 <h2>Todos los cuadros</h2>
 <p>La página <a href="/cuadros">Todos los cuadros</a> muestra cada página del proyecto como imagen fiel del original, más el texto extraído para el buscador y, cuando la estructura lo permite, una tabla descargable en CSV. La extracción es automática (<code>scripts/extraer_cuadros.py</code>): ante cualquier diferencia entre el texto o la tabla y la imagen, vale la imagen.</p>

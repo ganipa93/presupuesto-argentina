@@ -3,7 +3,9 @@
 
 Uso:  python3 scripts/build.py      (después: node scripts/prerender.mjs)
 """
-import json, html, pathlib, datetime
+import json, html, pathlib, datetime, shutil, sys
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+from paginas import Generador
 
 RAIZ = pathlib.Path(__file__).resolve().parent.parent
 SITE = "https://presupuesto-argentina.vercel.app"
@@ -38,6 +40,101 @@ DESCRIPCIONES = {
 GRANDES = {"programas"}  # se cargan aparte (fetch), no van dentro de index.html
 
 
+LOGO = '<svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#13294b"/><rect x="7" y="17" width="4" height="8" rx="1" fill="#9cc3ef"/><rect x="14" y="12" width="4" height="13" rx="1" fill="#9cc3ef"/><rect x="21" y="7" width="4" height="18" rx="1" fill="#f2b632"/></svg>'
+MENU = [("/", "Inicio"), ("/programas", "Buscar un gasto"), ("/provincias", "Por provincia"), ("/cuadros", "Todos los cuadros"), ("/metodologia", "Metodología")]
+
+
+# Secciones de la portada: cada una con su dirección, título y descripción para buscadores
+SECCIONES = {
+    "resumen": {"ruta": "/", "titulo": "Presupuesto 2027 explicado: qué te cambia, en qué se gasta y si se cumple",
+                "h1": "Presupuesto 2027: qué te cambia, en qué se gasta y si se cumple",
+                "bajada": "El proyecto que el gobierno mandó al Congreso, comparado con la ley 2026 y con lo que de verdad se gastó este año. Con los documentos oficiales, explicado en criollo.",
+                "descripcion": "El Presupuesto 2027 de Argentina en lenguaje simple: qué les cambia a jubilados, familias, estudiantes y trabajadores, en qué se gasta, de dónde sale la plata y si se cumple.",
+                "compartir": "El Presupuesto 2027 explicado: qué te cambia, en qué se gasta la plata y si se cumple."},
+    "que-me-cambia": {"ruta": "/que-me-cambia", "titulo": "¿Qué te cambia el Presupuesto 2027? Jubilados, AUH, estudiantes y más",
+                      "h1": "¿Qué te cambia el Presupuesto 2027?",
+                      "bajada": "Elegí tu caso y fijate qué dice el proyecto: qué te favorece, qué te perjudica y qué conviene tener en cuenta.",
+                      "descripcion": "Qué cambia el Presupuesto 2027 para jubilados, familias con AUH, estudiantes, personas con discapacidad, trabajadores, empleados públicos, provincias y usuarios de luz y gas.",
+                      "compartir": "¿Qué te cambia el Presupuesto 2027? Elegí tu caso y fijate."},
+    "tus-impuestos": {"ruta": "/impuestos", "titulo": "¿A dónde van tus impuestos? Calculadora del Presupuesto 2027",
+                      "h1": "¿A dónde van tus impuestos?",
+                      "bajada": "Poné tu sueldo y lo que gastás por mes: te mostramos cuánto pagás en impuestos nacionales y en qué se usa esa plata según el Presupuesto 2027.",
+                      "descripcion": "Calculá cuánto pagás por mes en IVA, Ganancias, aportes y monotributo, y en qué se gasta esa plata según el Presupuesto 2027 de Argentina.",
+                      "compartir": "¿A dónde van tus impuestos? Calculá cuánto pagás y en qué se gasta según el Presupuesto 2027."},
+    "gasto": {"ruta": "/en-que-se-gasta", "titulo": "En qué se gasta el Presupuesto 2027: ministerio por ministerio",
+              "h1": "¿En qué se gasta el Presupuesto 2027?",
+              "bajada": "Ministerio por ministerio, por función y por tipo de gasto, comparado con 2026.",
+              "descripcion": "El gasto del Presupuesto 2027 de Argentina por ministerio, por función (salud, educación, seguridad social, deuda) y por tipo de gasto, comparado con 2026.",
+              "compartir": "En qué se gasta el Presupuesto 2027, ministerio por ministerio."},
+    "recursos": {"ruta": "/de-donde-sale", "titulo": "De dónde sale la plata del Presupuesto 2027: impuestos, deuda y exenciones",
+                 "h1": "¿De dónde sale la plata?",
+                 "bajada": "Cuánto recauda cada impuesto, cómo se financia el Estado y cuánto deja de cobrar por exenciones.",
+                 "descripcion": "Recaudación 2027 por impuesto (IVA, Ganancias, aportes), financiamiento con deuda y gasto tributario: de dónde sale la plata del Presupuesto 2027.",
+                 "compartir": "De dónde sale la plata del Presupuesto 2027: impuestos y deuda."},
+    "cumplimiento-2026": {"ruta": "/cumplimiento-2026", "titulo": "¿Se cumplió el Presupuesto 2026? La ley contra lo que pasó",
+                          "h1": "¿Se está cumpliendo el Presupuesto 2026?",
+                          "bajada": "Lo que decía la Ley 27.798 contra lo que pasó: inflación, dólar, gasto ejecutado por ministerio y semáforo de cumplimiento.",
+                          "descripcion": "Presupuesto 2026 de Argentina: lo que preveía la Ley 27.798 contra lo que pasó. Inflación, dólar, crecimiento y gasto ejecutado por ministerio, actualizado cada mes.",
+                          "compartir": "¿Se cumplió el Presupuesto 2026? Lo que decía la ley contra lo que pasó."},
+    "realismo-2027": {"ruta": "/realismo-2027", "titulo": "¿Es realista el Presupuesto 2027? Semáforo y simulador",
+                      "h1": "¿Es realista el Presupuesto 2027?",
+                      "bajada": "Qué supuestos son probables y cuáles no, y qué pasa con las cuentas si la inflación o el dólar se desvían.",
+                      "descripcion": "Semáforo de los supuestos del Presupuesto 2027 (inflación, dólar, crecimiento, superávit) comparados con el REM y el FMI, y un simulador de desvíos.",
+                      "compartir": "¿Es realista el Presupuesto 2027? Semáforo y simulador de inflación y dólar."},
+    "congreso": {"ruta": "/congreso", "titulo": "Presupuesto 2027 en el Congreso: fechas, etapas y cambios",
+                 "h1": "El Presupuesto 2027 en el Congreso",
+                 "bajada": "Etapas del debate, próximas fechas y los cambios que se anunciaron al proyecto.",
+                 "descripcion": "Seguimiento del Presupuesto 2027 en el Congreso: comisión de Presupuesto, dictamen, sesiones en Diputados y Senado, y cambios al proyecto.",
+                 "compartir": "El Presupuesto 2027 en el Congreso: fechas, etapas y cambios."},
+    "ley-vs-proyecto": {"ruta": "/ley-2026-vs-proyecto-2027", "titulo": "Presupuesto 2026 vs. 2027: los montos de la ley, partida por partida",
+                        "h1": "Ley 2026 contra proyecto 2027",
+                        "bajada": "Cuánto cambian de un año al otro los montos que fijan los artículos de la ley.",
+                        "descripcion": "Comparación de los montos fijados en los artículos de la Ley 27.798 de Presupuesto 2026 y del proyecto 2027: fondos, cupos, deuda y transferencias.",
+                        "compartir": "Presupuesto 2026 contra 2027, partida por partida."},
+    "articulos": {"ruta": "/articulos", "titulo": "Presupuesto 2027: los artículos que más afectan a la gente",
+                  "h1": "Los artículos que más te afectan",
+                  "bajada": "Lo que dice el proyecto de ley, artículo por artículo, en lenguaje simple.",
+                  "descripcion": "Los artículos del Proyecto de Presupuesto 2027 con efecto directo en la gente, explicados en lenguaje simple.",
+                  "compartir": "Los artículos del Presupuesto 2027 que más afectan a la gente."},
+}
+QUIEN = {"jubilados": "los jubilados y pensionados", "familias": "las familias con hijos y la AUH", "estudiantes": "los estudiantes y las universidades",
+         "discapacidad": "las personas con discapacidad", "trabajadores": "los trabajadores en relación de dependencia", "estatales": "los empleados públicos nacionales",
+         "provincias": "las provincias", "servicios": "las tarifas de luz, gas y transporte", "contribuyentes": "los contribuyentes, las pymes y los productores"}
+GRUPOS = [("Para vos", [("resumen", "Resumen"), ("que-me-cambia", "¿Qué me cambia?"), ("tus-impuestos", "Tus impuestos"), ("/programas", "Buscar un gasto")]),
+          ("Los números", [("gasto", "En qué se gasta"), ("recursos", "De dónde sale la plata"), ("/provincias", "Por provincia")]),
+          ("¿Se cumple?", [("cumplimiento-2026", "2026: ¿se cumplió?"), ("realismo-2027", "2027: ¿es realista?"), ("congreso", "En el Congreso")]),
+          ("La ley", [("ley-vs-proyecto", "2026 vs. 2027"), ("articulos", "Artículos clave"), ("/cuadros", "Todos los cuadros")])]
+
+
+def perfiles_seo(impacto):
+    out = {}
+    for p in impacto:
+        q = QUIEN.get(p["id"], p["perfil"].lower())
+        out[p["id"]] = {"titulo": f"Presupuesto 2027 para {q}: qué cambia", "h1": f"¿Qué cambia el Presupuesto 2027 para {q}?",
+                        "bajada": "Lo que te favorece, lo que te perjudica y lo que conviene tener en cuenta, según el proyecto y lo que pasó en 2026.",
+                        "descripcion": f"Qué dice el Proyecto de Presupuesto 2027 para {q}: montos, cambios y lo que hay que tener en cuenta, explicado en lenguaje simple.",
+                        "compartir": f"¿Qué cambia el Presupuesto 2027 para {q}? Fijate acá:"}
+    return out
+
+
+def secnav(actual="resumen"):
+    partes = []
+    for g, items in GRUPOS:
+        partes.append(f'<li class="grupo" aria-hidden="true">{g}</li>')
+        for k, t in items:
+            if k.startswith("/"):
+                partes.append(f'<li><a href="{k}">{t}</a></li>')
+            else:
+                partes.append(f'<li><a href="{SECCIONES[k]["ruta"]}" data-tab="{k}"' + (' aria-current="page"' if k == actual else "") + f">{t}</a></li>")
+    return "<ol>" + "".join(partes) + "</ol>"
+
+
+def cabecera(actual=""):
+    """Cabecera común a todas las páginas."""
+    links = "".join(f'<a href="{u}"' + (' aria-current="page"' if u == actual else "") + f">{t}</a>" for u, t in MENU)
+    return f'<header class="top"><a class="brand" href="/">{LOGO}<span>Presupuesto Argentina</span></a><nav aria-label="Principal">{links}</nav></header>'
+
+
 def leer_datos():
     return {p.stem: json.loads(p.read_text(encoding="utf-8")) for p in sorted((RAIZ / "datos").glob("*.json"))}
 
@@ -62,10 +159,12 @@ def main():
              "creator": {"@type": "Organization", "name": "Presupuesto Argentina", "url": SITE + "/"},
              "distribution": [{"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": f"{SITE}/datos/{k}.json"} for k in datos]}]}
     comunes = {"SITE": SITE, "REPO": REPO, "FECHA": FECHA}
+    cab = lambda u: {"CABECERA": cabecera(u)}
     (RAIZ / "index.html").write_text(reemplazar((RAIZ / "src/plantilla.html").read_text(encoding="utf-8"), {
-        **comunes, "DATA": datos_js, "SITE_JS": json.dumps(SITE),
+        **comunes, **cab("/"), "SECNAV": secnav(), "SECCIONES_JS": json.dumps(SECCIONES, ensure_ascii=False),
+        "PERFILES_JS": json.dumps(perfiles_seo(datos["impacto"]), ensure_ascii=False), "DATA": datos_js, "SITE_JS": json.dumps(SITE),
         "JSONLD": json.dumps(jsonld, ensure_ascii=False).replace("</", "<\\/")}), encoding="utf-8")
-    (RAIZ / "metodologia.html").write_text(reemplazar((RAIZ / "src/metodologia.html").read_text(encoding="utf-8"), comunes), encoding="utf-8")
+    (RAIZ / "metodologia.html").write_text(reemplazar((RAIZ / "src/metodologia.html").read_text(encoding="utf-8"), {**comunes, **cab("/metodologia")}), encoding="utf-8")
 
     # Página índice de datos abiertos
     filas = "\n".join(f'<li><a href="/datos/{k}.json">{k}.json</a> · {html.escape(DESCRIPCIONES.get(k, ""))}</li>' for k in datos)
@@ -96,7 +195,7 @@ def main():
         indice26 = json.loads(ind26_path.read_text(encoding="utf-8")) if ind26_path.exists() else []
         js = lambda v: json.dumps(v, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
         (RAIZ / "cuadros.html").write_text(reemplazar((RAIZ / "src/cuadros.html").read_text(encoding="utf-8"), {
-            **comunes, "SITE_JS": json.dumps(SITE), "N": str(len(indice)), "N26": str(len(indice26)),
+            **comunes, **cab("/cuadros"), "SITE_JS": json.dumps(SITE), "N": str(len(indice)), "N26": str(len(indice26)),
             "LISTA": lista_de(indice, "2027"), "LISTA26": lista_de(indice26, "2026"),
             "INDICE": js(indice), "INDICE26": js(indice26)}), encoding="utf-8")
 
@@ -104,14 +203,23 @@ def main():
     sup = {r["clave"]: r for r in datos["supuestos"]}
     if "programas" in datos:
         (RAIZ / "programas.html").write_text(reemplazar((RAIZ / "src/programas.html").read_text(encoding="utf-8"), {
-            **comunes, "SITE_JS": json.dumps(SITE), "NPROG": str(len(datos["programas"]["programas"])),
+            **comunes, **cab("/programas"), "SITE_JS": json.dumps(SITE), "NPROG": str(len(datos["programas"]["programas"])),
             "INFL": f'{sup["inflacion"]["proyecto2027"]:g}'.replace(".", ","),
             "INFLP": f'{sup["infl_prom"]["proyecto2027"]:g}'.replace(".", ","),
             "INFLP_JS": f'{sup["infl_prom"]["proyecto2027"]:g}',
             "INFL26": f'{sup["inflacion"]["estimado2026"]:g}'.replace(".", ",")}), encoding="utf-8")
 
+    # Páginas fijas por programa, organismo y provincia
+    paginas = []
+    if "programas" in datos:
+        for d in ("gasto", "provincias"):
+            shutil.rmtree(RAIZ / d, ignore_errors=True)
+        for f in ("gasto.html", "provincias.html"):
+            (RAIZ / f).unlink(missing_ok=True)
+        paginas = Generador(RAIZ, SITE, REPO, FECHA, cabecera, datos, sup["infl_prom"]["proyecto2027"], sup["inflacion"]["estimado2026"]).todo()
+
     (RAIZ / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n", encoding="utf-8")
-    urls = ["/", "/programas", "/cuadros", "/metodologia", "/datos/"]
+    urls = [v["ruta"] for v in SECCIONES.values()] + [f'/que-me-cambia/{p["id"]}' for p in datos["impacto"]] + ["/programas", "/cuadros", "/metodologia", "/datos/"] + paginas
     (RAIZ / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
         "".join(f"  <url><loc>{SITE}{u}</loc><lastmod>{FECHA_ISO}</lastmod></url>\n" for u in urls) + "</urlset>\n", encoding="utf-8")
 

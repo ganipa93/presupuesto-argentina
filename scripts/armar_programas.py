@@ -29,6 +29,42 @@ def norm(s):
     return re.sub(r"[^a-z0-9]+", " ", s).strip()
 
 
+EXCLUIR_TILDE = {"que", "como", "donde", "cual", "quien", "esta", "este", "estas", "solo", "si", "el", "tu", "mi", "se", "de", "te", "aun", "continua", "practica", "publico", "transito", "termino", "deposito", "ultimo", "medico", "numero", "credito", "titulo", "calculo", "limite", "liquido", "basico", "rapido"}
+_TILDES = None
+
+
+def tildes(s):
+    """Las bases de 2027 vienen sin tildes: se reponen con las palabras de las bases que sí las tienen."""
+    global _TILDES
+    if _TILDES is None:
+        _TILDES = {}
+        cuenta = defaultdict(lambda: defaultdict(int))
+        textos = []
+        with open(DS / "2026-credito-por-programa.csv", encoding="utf-8-sig") as fh:
+            for r in csv.DictReader(fh):
+                textos += [r[k] for k in ("jurisdiccion_desc", "entidad_desc", "programa_desc", "subprograma_desc", "actividad_desc")]
+        for f in ("2026-apertura-programatica.xlsx", "2027-mediciones-fisicas.xlsx"):
+            for fila_ in filas_xlsx(f):
+                textos += [v for v in fila_ if isinstance(v, str)]
+        for t in textos:
+            for w in re.findall(r"[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+", t):
+                base = norm(w)
+                if base and w.lower() != base:
+                    cuenta[base][w.lower()] += 1
+        _TILDES = {k: max(v, key=v.get) for k, v in cuenta.items() if k not in EXCLUIR_TILDE}
+        _TILDES.update({"publico": "público", "publicos": "públicos", "credito": "crédito", "creditos": "créditos", "medico": "médico", "medicos": "médicos", "transito": "tránsito", "numero": "número", "basico": "básico", "basica": "básica"})
+
+    def cambiar(m):
+        w = m.group(0)
+        n = _TILDES.get(w.lower())
+        if not n or len(n) != len(w):
+            return w
+        if w.isupper() and len(w) > 1:
+            return n.upper()
+        return "".join(c.upper() if o.isupper() else c for c, o in zip(n, w))
+    return re.sub(r"[A-Za-z]+", cambiar, str(s or ""))
+
+
 def filas_xlsx(nombre):
     ws = openpyxl.load_workbook(DS / nombre, read_only=True).worksheets[0]
     filas = list(ws.iter_rows(values_only=True))
@@ -54,6 +90,7 @@ def main():
     for f in filas_xlsx("2027-apertura-programatica.xlsx"):
         (cj, j, cs, sj, ce, e, cp, p, csub, sub, cpy, py, ca, a, monto) = f
         k = (cj, cs, ce, cp)
+        j, sj, e, p, sub, py, a = (tildes(v) for v in (j, sj, e, p, sub, py, a))
         g = progs.setdefault(k, {"j": j, "s": sj, "e": e, "n": p, "a27": 0.0, "act27": defaultdict(float)})
         g["a27"] += (monto or 0) / M
         hoja = a if ca else py
@@ -67,14 +104,14 @@ def main():
         k = (f[0], f[2], f[4], f[6])
         if k in progs:
             inc = progs[k].setdefault("inc27", defaultdict(float))
-            inc[f[11]] += (f[14] or 0) / M
+            inc[tildes(f[11])] += (f[14] or 0) / M
 
     # metas físicas 2027
     for f in filas_xlsx("2027-mediciones-fisicas.xlsx"):
         k = (f[0], f[2], f[4], f[6])
         if k in progs and f[15] is not None:
-            desc = f[12] if not f[8] or norm(f[9]) == norm(f[7]) else f"{f[12]} ({f[9]})"
-            progs[k].setdefault("metas", []).append([desc, f[14], f[15], "i" if str(f[10]).lower().startswith("ind") else "m"])
+            desc = tildes(f[12] if not f[8] or norm(f[9]) == norm(f[7]) else f"{f[12]} ({f[9]})")
+            progs[k].setdefault("metas", []).append([desc, tildes(f[14]), f[15], "i" if str(f[10]).lower().startswith("ind") else "m"])
 
     # ---------- 2026: ejecución por programa (Presupuesto Abierto) ----------
     p26 = {}
@@ -122,12 +159,18 @@ def main():
     for k, g in p26.items():  # programas de 2026 que no siguen en 2027
         if k in usados or not any(g["t"]):
             continue
-        x = {"j": g["j"], "e": g["e"] if norm(g["e"]) != norm(g["j"]) else "", "n": g["n"], "a27": None}
+        x = {"j": tildes(g["j"]), "e": tildes(g["e"]) if norm(g["e"]) != norm(g["j"]) else "", "n": tildes(g["n"]), "a27": None}
         agregar_2026(x, g)
         salida.append(x)
     salida.sort(key=lambda x: -max(x["a27"] or 0, x.get("v26", 0)))
+    bajadas = json.loads((RAIZ / "scripts" / "bajadas_programas.json").read_text(encoding="utf-8"))
+    for x in salida:
+        b = bajadas.get(norm(x["e"] or x["j"]) + "|" + norm(x["n"])) or bajadas.get(norm(x["n"]))
+        if b:
+            x["b"] = b
 
     entes = universidades() + entes_fuera()
+    poner_slugs(salida, entes)
     ley26 = json.loads((RAIZ / "fuentes" / "ley2026_planillas.json").read_text(encoding="utf-8"))
     for e in entes:
         x = ley26["universidades"].get(e["n"]) or ley26["entes"].get(e["n"])
@@ -155,6 +198,57 @@ def main():
     print(f"{DESTINO.stat().st_size/1e6:.2f} MB")
 
 
+ABREV = {"administracion nacional de la seguridad social": "anses", "direccion nacional de vialidad": "vialidad",
+         "consejo nacional de investigaciones cientificas y tecnicas": "conicet", "instituto nacional de tecnologia agropecuaria": "inta",
+         "instituto nacional de tecnologia industrial": "inti", "administracion nacional de laboratorios e institutos de salud dr carlos g malbran": "anlis-malbran",
+         "registro nacional de las personas renaper": "renaper", "gendarmeria nacional": "gendarmeria", "prefectura naval argentina": "prefectura",
+         "policia federal argentina": "policia-federal", "servicio penitenciario federal": "servicio-penitenciario", "comision nacional de energia atomica cnea": "cnea",
+         "estado mayor general del ejercito argentino": "ejercito", "estado mayor general de la armada argentina": "armada",
+         "estado mayor general de la fuerza aerea argentina": "fuerza-aerea", "obligaciones a cargo del tesoro": "tesoro", "servicio de la deuda publica": "deuda",
+         "poder judicial de la nacion": "poder-judicial", "poder legislativo nacional": "congreso", "ministerio publico": "ministerio-publico",
+         "jefatura de gabinete de ministros": "jefatura-de-gabinete", "ente nacional de comunicaciones": "enacom",
+         "instituto nacional de servicios sociales para jubilados y pensionados": "pami", "agencia nacional de discapacidad": "andis",
+         "administracion de parques nacionales": "parques-nacionales", "servicio nacional de sanidad y calidad agroalimentaria": "senasa"}
+VACIAS = {"de", "del", "la", "las", "los", "el", "y", "e", "en", "para", "por", "a", "al", "con"}
+
+
+def slug(s, max_palabras=9):
+    ps = [w for w in norm(s).split() if w]
+    return "-".join(ps[:max_palabras])
+
+
+def org_corto(x):
+    o = x["e"] or x["j"]
+    if norm(o) in ABREV:
+        return ABREV[norm(o)]
+    o = re.sub(r"^(ministerio|secretaria|subsecretaria) (de |del )?", "", norm(o))
+    return "-".join([w for w in o.split() if w not in VACIAS][:4])
+
+
+def poner_slugs(programas, entes):
+    """Dirección fija de cada página de detalle (/gasto/<slug>)."""
+    usados = set()
+    def unico(b):
+        b = b.strip("-")[:90].strip("-")
+        s, i = b, 2
+        while s in usados:
+            s, i = f"{b}-{i}", i + 1
+        usados.add(s)
+        return s
+    for e in entes:  # primero los entes, que tienen nombres más buscados
+        m = re.match(r"^(.*?)\s*\(([^)]*)\)", e["n"])
+        if m and re.fullmatch(r"[A-Z][A-Za-z-]{1,7}", m.group(2).strip()):  # "Nombre (SIGLA)"
+            base = slug(m.group(2)) + "-" + slug(m.group(1), 7)
+        elif m and re.fullmatch(r"[A-Z][A-Za-z.-]{1,8}( S\.A\.)?", m.group(1).strip()):  # "SIGLA (nombre)"
+            base = slug(m.group(1)) + "-" + slug(m.group(2), 6)
+        else:
+            base = slug(m.group(1) if m else e["n"], 10)
+        e["s"] = unico(base)
+    for x in sorted(programas, key=lambda x: -max(x["a27"] or 0, x.get("v26", 0))):
+        nom = re.sub(r"^asistencia financiera a empresas publicas y otros entes (dependientes )?(de la |del |de )?", "asistencia financiera ", norm(x["n"]))
+        x["s"] = unico(slug(nom, 14)[:70].rstrip("-") + "-" + org_corto(x))
+
+
 def fecha_csv():
     """Día en que se bajó la ejecución 2026: el del último commit del CSV, o hoy si todavía no se commiteó."""
     f = DS / "2026-credito-por-programa.csv"
@@ -168,7 +262,7 @@ def fecha_csv():
 
 def agregar_2026(x, g):
     x["l26"], x["v26"], x["d26"] = (r1(v) for v in g["t"])
-    x["act26"] = sorted(([n] + [r1(v) for v in vs] for n, vs in g["act"].items() if any(abs(v) >= 0.05 for v in vs)),
+    x["act26"] = sorted(([tildes(n)] + [r1(v) for v in vs] for n, vs in g["act"].items() if any(abs(v) >= 0.05 for v in vs)),
                         key=lambda z: -max(z[1], z[2]))
     x["prov26"] = sorted(([n, r1(v[0]), r1(v[1])] for n, v in g["prov"].items() if abs(v[0]) >= 0.05 or abs(v[1]) >= 0.05),
                          key=lambda z: -z[1])
