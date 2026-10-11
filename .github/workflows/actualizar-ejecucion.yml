@@ -1,10 +1,10 @@
-name: Actualizar ejecución mensual
+name: Actualizar ejecución semanal
 
-# Corre el día 12 de cada mes (los datos del mes anterior ya suelen estar cargados)
-# y también se puede correr a mano desde la pestaña Actions.
+# Corre todos los martes a las 10:17 de Argentina (Presupuesto Abierto se actualiza a diario;
+# la recaudación, el IPC y el dólar se suman cuando salen). También se puede correr a mano desde Actions.
 on:
   schedule:
-    - cron: "0 13 12 * *"
+    - cron: "17 13 * * 2"
   workflow_dispatch:
     inputs:
       ejercicio:
@@ -44,7 +44,7 @@ jobs:
             python3 scripts/bajar_datasets.py --solo-api && python3 scripts/armar_programas.py
           fi
 
-      - name: Bajar recaudación e inflación (datos.gob.ar)
+      - name: Bajar recaudación, inflación y dólar (datos.gob.ar)
         continue-on-error: true
         run: python3 scripts/bajar_series.py
 
@@ -78,5 +78,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A datos fuentes/datasets fuentes/ipc_indec.json *.html que-me-cambia gasto provincias embed og js novedades.xml sitemap.xml
-          git commit -m "Actualizar ejecución mensual desde Presupuesto Abierto"
+          git commit -m "Actualizar ejecución semanal desde Presupuesto Abierto"
+          git pull --rebase --autostash
           git push

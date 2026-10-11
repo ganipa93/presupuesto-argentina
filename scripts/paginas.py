@@ -39,6 +39,18 @@ def plata_og(m):
     return (f"${miles(m * 1e6)}", "pesos")
 
 
+def dolares(u):
+    """Millones de dólares → texto corto («US$ 1.234 millones»)."""
+    if u is None:
+        return "—"
+    a = abs(u)
+    if a >= 100:
+        return f"US$ {miles(u)} millones"
+    if a >= 1:
+        return f"US$ {miles(u, 1)} millones"
+    return f"US$ {miles(u * 1e6)}"
+
+
 def dn(m):
     """Monto para una celda de tabla: el texto corto y el valor exacto (millones) para descargar."""
     return plata(m) if m is None else f'<span data-n="{round(m, 1)}">{plata(m)}</span>'
@@ -64,9 +76,10 @@ def tabla(cab, filas, clase=""):
     return f'<div class="tw{(" " + clase) if clase else ""}"><table><thead><tr>{th}</tr></thead><tbody>{cuerpo}</tbody></table></div>'
 
 
-def stat(k, n, s="", ink=False, barra=None):
+def stat(k, n, s="", ink=False, barra=None, u=None):
     b = f'<div class="ejbar"><span style="width:{max(0, min(100, barra)):.1f}%"></span></div>' if barra is not None else ""
-    return f'<div class="stat{" ink" if ink else ""}"><span class="k">{e(k)}</span><span class="n">{e(n)}</span>{f"<span class=s>{e(s)}</span>" if s else ""}{b}</div>'
+    us = f'<span class="u">≈ {e(u)}</span>' if u else ""
+    return f'<div class="stat{" ink" if ink else ""}"><span class="k">{e(k)}</span><span class="n">{e(n)}</span>{us}{f"<span class=s>{e(s)}</span>" if s else ""}{b}</div>'
 
 
 class Generador:
@@ -83,6 +96,22 @@ class Generador:
         self.HO = datos["programas"].get("historia_org", {})
         self.OB = datos.get("obras_provincias", {})
         self.HT = datos["programas"].get("historia_total", [])
+        self.TC = {int(a): v for a, v in datos.get("dolar", {}).get("promedio", {}).items()}
+
+    def usd(self, m, anio):
+        """Millones de pesos de un año → texto en dólares al promedio oficial de ese año (o None)."""
+        if m is None or anio not in self.TC:
+            return None
+        return dolares(m / self.TC[anio])
+
+    def usd_hab(self, pesos, anio):
+        return f"US$ {miles(pesos / self.TC[anio])}" if anio in self.TC else None
+
+    def nota_usd(self):
+        if not self.TC:
+            return ""
+        return (f'<p class="note">En dólares, al dólar oficial promedio de cada año (BCRA): ${miles(self.TC[2026])} en 2026, con los meses publicados, '
+                f'y ${miles(self.TC[2027])} en 2027, según el dólar que proyecta el Ministerio de Economía. <a href="/metodologia#dolares">Cómo se calcula</a>.</p>')
 
     def indices_ipc(self):
         """IPC promedio de cada año. 2026: meses publicados + el resto interpolado hasta la inflación anual estimada;
@@ -288,7 +317,8 @@ a.t{{display:flex;flex-direction:column;gap:10px;padding:14px 16px;border:1px so
         real = (x["a27"] / x["v26"] / (1 + self.infl27 / 100) - 1) * 100 if x.get("a27") is not None and x.get("v26") else None
         frases = []
         if x.get("a27") is not None:
-            frases.append(f"El proyecto de Presupuesto 2027 pide <strong>{plata(x['a27'])}</strong> para {e(x['n'])} ({e(org)}).")
+            u27 = self.usd(x["a27"], 2027)
+            frases.append(f"El proyecto de Presupuesto 2027 pide <strong>{plata(x['a27'])}</strong>{f' (unos {u27})' if u27 and x['a27'] else ''} para {e(x['n'])} ({e(org)}).")
         else:
             frases.append(f"{e(x['n'])} ({e(org)}) no figura con este nombre en el proyecto 2027: puede haberse reorganizado o cerrado.")
         if x.get("v26") is not None:
@@ -297,16 +327,16 @@ a.t{{display:flex;flex-direction:column;gap:10px;padding:14px 16px;border:1px so
             frases.append(("Descontando la inflación que supone el proyecto, " + ("crece" if real >= 0 else "cae") + f" alrededor de {miles(abs(real))}% en términos reales."))
         stats = []
         if x.get("a27") is not None:
-            stats.append(stat("Pedido para 2027", plata(x["a27"]), "Proyecto de ley", ink=True))
+            stats.append(stat("Pedido para 2027", plata(x["a27"]), "Proyecto de ley", ink=True, u=self.usd(x["a27"], 2027)))
         if x.get("v26") is not None:
-            stats.append(stat("2026: aprobado por ley", plata(x["l26"]), "Ley 27.798"))
-            stats.append(stat("2026: autorizado hoy", plata(x["v26"]), "con los cambios del año"))
-            stats.append(stat("2026: gastado", plata(x["d26"]), f"{pct(x['d26'], x['v26'])} al {fecha(self.corte)}", barra=x["d26"] / x["v26"] * 100 if x["v26"] else 0))
+            stats.append(stat("2026: aprobado por ley", plata(x["l26"]), "Ley 27.798", u=self.usd(x["l26"], 2026)))
+            stats.append(stat("2026: autorizado hoy", plata(x["v26"]), "con los cambios del año", u=self.usd(x["v26"], 2026)))
+            stats.append(stat("2026: gastado", plata(x["d26"]), f"{pct(x['d26'], x['v26'])} al {fecha(self.corte)}", barra=x["d26"] / x["v26"] * 100 if x["v26"] else 0, u=self.usd(x["d26"], 2026)))
         cuerpo = [f'<p class="note" style="margin-top:-12px">{e(x["j"])}{" › " + e(x["e"]) if x["e"] else ""}</p>']
         if x.get("b"):
             cuerpo.append(f'<p class="sub" style="font-size:18px">{e(x["b"])}</p>')
         cuerpo.append(f'<p class="respuesta">{" ".join(frases)}</p>')
-        cuerpo.append(f'<div class="stats">{"".join(stats)}</div>')
+        cuerpo.append(f'<div class="stats">{"".join(stats)}</div>{self.nota_usd()}')
         if real is not None:
             cuerpo.append(f'<p><span class="etq{" warn" if real < 0 else ""}">Variación real 2027 contra lo autorizado en 2026: {"+" if real >= 0 else "−"}{miles(abs(real))}%</span></p>')
         cuerpo.append(self.seccion_historia(x))
@@ -349,15 +379,16 @@ a.t{{display:flex;flex-direction:column;gap:10px;padding:14px 16px;border:1px so
     # ---------- organismo fuera de los programas ----------
     def ente(self, x, hermanos):
         ruta = f"/gasto/{x['s']}"
-        frases = [f"El proyecto de Presupuesto 2027 prevé un gasto de <strong>{plata(x['g27'])}</strong> para {e(x['n'])} en 2027."]
+        u27 = self.usd(x["g27"], 2027)
+        frases = [f"El proyecto de Presupuesto 2027 prevé un gasto de <strong>{plata(x['g27'])}</strong>{f' (unos {u27})' if u27 and x['g27'] else ''} para {e(x['n'])} en 2027."]
         if x.get("g26") is not None:
             frases.append(f"La Ley 27.798 le fijó {plata(x['g26'])} para 2026: {pct(x['g27'] - x['g26'], x['g26'])} más en pesos, aunque la ley 2026 suponía 10,1% de inflación y el año cerraría cerca de {miles(self.infl26)}%.")
-        stats = [stat("Gasto total 2027", plata(x["g27"]), "Proyecto de ley", ink=True)]
+        stats = [stat("Gasto total 2027", plata(x["g27"]), "Proyecto de ley", ink=True, u=self.usd(x["g27"], 2027))]
         if x.get("g26") is not None:
-            stats.append(stat("Gasto total 2026", plata(x["g26"]), "Ley 27.798"))
-        stats += [stat(d[0] + " 2027", plata(d[1])) for d in x.get("det", [])]
+            stats.append(stat("Gasto total 2026", plata(x["g26"]), "Ley 27.798", u=self.usd(x["g26"], 2026)))
+        stats += [stat(d[0] + " 2027", plata(d[1]), u=self.usd(d[1], 2027)) for d in x.get("det", [])]
         cuerpo = [f'<p class="note" style="margin-top:-12px">{e(x["tipo"])} · tiene presupuesto propio, fuera de los programas de la Administración Nacional</p>',
-                  f'<p class="respuesta">{" ".join(frases)}</p>', f'<div class="stats">{"".join(stats)}</div>']
+                  f'<p class="respuesta">{" ".join(frases)}</p>', f'<div class="stats">{"".join(stats)}</div>{self.nota_usd()}']
         if x.get("nota"):
             cuerpo.append(f'<p class="sub">{e(x["nota"])}</p>')
         if x["tipo"].startswith("Univ"):
@@ -394,12 +425,12 @@ a.t{{display:flex;flex-direction:column;gap:10px;padding:14px 16px;border:1px so
         for p, tv, td in lista:
             ruta = f"/provincias/{slug(p)}"
             xs = sorted(por[p], key=lambda z: -z[1])
-            frases = [f"En 2026 el Estado nacional tiene <strong>{plata(tv)}</strong> autorizados para gastar en {e(p)} y lleva gastado {plata(td)} ({pct(td, tv)}) hasta el {fecha(self.corte)}.",
+            frases = [f"En 2026 el Estado nacional tiene <strong>{plata(tv)}</strong> (unos {self.usd(tv, 2026)}) autorizados para gastar en {e(p)} y lleva gastado {plata(td)} ({pct(td, tv)}) hasta el {fecha(self.corte)}.",
                       f"Es el {miles(tv / geo * 100, 1)}% de lo que la Nación asigna a alguna provincia"
-                      + (f" y equivale a <strong>${miles(hab[p])} por habitante</strong> en el año, el {rank[p]}.º puesto entre las 24 jurisdicciones." if p in hab else ".")]
+                      + (f" y equivale a <strong>${miles(hab[p])} por habitante</strong> (unos {self.usd_hab(hab[p], 2026)}) en el año, el {rank[p]}.º puesto entre las 24 jurisdicciones." if p in hab else ".")]
             filas = [[f'<a href="/gasto/{x["s"]}">{e(x["n"])}</a><br><span class="note">{e(x["e"] or x["j"])}</span>', dn(v), dn(d), pct(d, v)] for x, v, d in xs[:60]]
             cuerpo = [f'<p class="respuesta">{" ".join(frases)}</p>',
-                      f'<div class="stats">{stat("Autorizado 2026", plata(tv), "gasto nacional con ubicación en la provincia", ink=True)}{stat("Gastado", plata(td), pct(td, tv) + " al " + fecha(self.corte), barra=td / tv * 100 if tv else 0)}{stat("Por habitante en 2026", "$" + miles(hab[p]) if p in hab else "—", f"puesto {rank[p]} de 24 · {miles(pob[p])} habitantes (Censo 2022)" if p in hab else "")}{stat("Programas con gasto en la provincia", miles(len(xs)))}</div>',
+                      f'<div class="stats">{stat("Autorizado 2026", plata(tv), "gasto nacional con ubicación en la provincia", ink=True, u=self.usd(tv, 2026))}{stat("Gastado", plata(td), pct(td, tv) + " al " + fecha(self.corte), barra=td / tv * 100 if tv else 0, u=self.usd(td, 2026))}{stat("Por habitante en 2026", "$" + miles(hab[p]) if p in hab else "—", f"puesto {rank[p]} de 24 · {miles(pob[p])} habitantes (Censo 2022)" if p in hab else "", u=self.usd_hab(hab[p], 2026) if p in hab else None)}{stat("Programas con gasto en la provincia", miles(len(xs)))}</div>' + self.nota_usd(),
                       '<div class="caveat">Cuenta solo el gasto que el Estado nacional ubica en esta provincia. Una parte grande del gasto, como muchas jubilaciones y asignaciones o las transferencias a fondos, figura como «Nacional» o «No clasificado», así que lo que llega a la gente de la provincia es más que esto. Tampoco incluye la coparticipación, que no es gasto del presupuesto nacional.' + (' En la Ciudad de Buenos Aires, además, figura mucho gasto de organismos nacionales que tienen ahí su sede.' if p.startswith('Ciudad') else '') + '</div>',
                       self.obras_provincia(p),
                       f'<section class="card"><h2>¿En qué gasta la Nación en {e(p)}?</h2><p class="note">Los {min(60, len(xs))} programas con más gasto en la provincia en 2026.</p>{tabla(["Programa", "Autorizado 2026", "Gastado", "%"], filas)}</section>',
@@ -411,13 +442,13 @@ a.t{{display:flex;flex-direction:column;gap:10px;padding:14px 16px;border:1px so
             titulo = f"¿Cuánto gasta la Nación en {p}? Presupuesto 2026 por provincia"
             desc = f"El Estado nacional tiene {plata(tv)} autorizados para gastar en {p} en 2026" + (f" (${miles(hab[p])} por habitante, puesto {rank[p]} de 24)" if p in hab else "") + f" y lleva gastado el {pct(td, tv)}. Programa por programa."
             self.pagina(ruta, titulo, desc, "\n".join(cuerpo), [("Inicio", "/"), ("Por provincia", "/provincias"), (p, ruta)], img, self.dataset(titulo, desc, ruta), h1=f"¿Cuánto gasta la Nación en {p}?")
-        filas = [[f'<a href="/provincias/{slug(p)}">{e(p)}</a>', "$" + miles(hab[p]) if p in hab else "—", dn(tv), dn(td), pct(td, tv), f"{miles(tv / geo * 100, 1)}%"] for p, tv, td in sorted(lista, key=lambda z: -hab.get(z[0], 0))]
+        filas = [[f'<a href="/provincias/{slug(p)}">{e(p)}</a>', "$" + miles(hab[p]) if p in hab else "—", (self.usd_hab(hab[p], 2026) or "—") if p in hab else "—", dn(tv), dn(td), pct(td, tv), f"{miles(tv / geo * 100, 1)}%"] for p, tv, td in sorted(lista, key=lambda z: -hab.get(z[0], 0))]
         esp = [[e(p), plata(sum(v for _, v, _ in por[p])), plata(sum(d for _, _, d in por[p]))] for p in sorted(ESPECIALES) if p in por]
         prov_solo = {q: v for q, v in hab.items() if not q.startswith("Ciudad")}
         mx, mn = max(prov_solo, key=prov_solo.get), min(prov_solo, key=prov_solo.get)
-        cuerpo = [f'<p class="respuesta">Por habitante, la Nación asigna en 2026 entre <strong>${miles(hab[mn])}</strong> en {e(mn)} y <strong>${miles(hab[mx])}</strong> en {e(mx)}. La Ciudad de Buenos Aires queda arriba de todas porque ahí se registra el gasto de muchos organismos nacionales. Tocá una provincia para ver en qué se gasta, programa por programa.</p>',
+        cuerpo = [f'<p class="respuesta">Por habitante, la Nación asigna en 2026 entre <strong>${miles(hab[mn])}</strong> (unos {self.usd_hab(hab[mn], 2026)}) en {e(mn)} y <strong>${miles(hab[mx])}</strong> (unos {self.usd_hab(hab[mx], 2026)}) en {e(mx)}. La Ciudad de Buenos Aires queda arriba de todas porque ahí se registra el gasto de muchos organismos nacionales. Tocá una provincia para ver en qué se gasta, programa por programa.</p>',
                   '<div class="caveat">Solo cuenta el gasto que el presupuesto nacional ubica en cada provincia: no incluye lo clasificado como «Nacional» o «No clasificado» (como buena parte de las jubilaciones y asignaciones) ni la coparticipación. En la Ciudad de Buenos Aires figura además mucho gasto de organismos que tienen ahí su sede. Población: Censo 2022 (INDEC, resultados provisionales).</div>',
-                  tabla(["Provincia", "Por habitante", "Autorizado 2026", "Gastado", "%", "Parte del total con provincia"], filas),
+                  tabla(["Provincia", "Por habitante", "Por habitante en dólares", "Autorizado 2026", "Gastado", "%", "Parte del total con provincia"], filas),
                   '<section class="card"><h2>Gasto sin provincia asignada</h2><p class="note">Este gasto no se puede atribuir a una provincia en el presupuesto, aunque llegue a personas de todo el país.</p>' + tabla(["Ubicación", "Autorizado 2026", "Gastado"], esp) + "</section>"]
         self.pagina("/provincias", "¿Cuánto gasta la Nación en cada provincia? Ranking por habitante 2026", "Ranking del gasto del Estado nacional por habitante en cada provincia argentina en 2026, con lo autorizado y lo gastado, programa por programa.",
                     "\n".join(cuerpo), [("Inicio", "/"), ("Por provincia", "/provincias")], h1="¿Cuánto gasta la Nación en cada provincia?")
@@ -500,6 +531,9 @@ a.t{{display:flex;flex-direction:column;gap:10px;padding:14px 16px;border:1px so
         c_tot = (d[2027] / d[2023] - 1) * 100
         cab = ["Programa", "2023 (gastado)", "2027 (proyecto)", "Cambio real"]
         cuerpo = [f'<p class="respuesta">Descontada la inflación, el gasto total que pide el proyecto para 2027 es <strong>{miles(abs(c_tot))}% {"más" if c_tot >= 0 else "menos"}</strong> que lo gastado en 2023. Pero no todo se movió igual: acá está qué creció y qué se achicó, programa por programa.</p>',
+                  (f'<section class="card"><h2>El gasto total, año por año</h2>{tabla(["Año", "Pesos de cada año", "Pesos de 2026 (sin inflación)", "En dólares"], [[str(a) + ("" if t == "gastado" else f" ({t})"), dn(v), dn(d[a]), self.usd(v, a) or "—"] for a, v, t in tot])}'
+                   '<p class="note">Suma de los programas de la Administración Nacional. Hasta 2025, lo gastado; 2026, lo autorizado hoy; 2027, lo pedido en el proyecto. '
+                   'Dólares al oficial promedio de cada año (BCRA); 2027, con el dólar que proyecta el Ministerio de Economía.</p></section>' if self.TC else ""),
                   f'<section class="card"><h2>Gasto total del Estado nacional, 2020-2027</h2>{self.grafico(tot, "Gasto total por año en pesos de 2026")}</section>',
                   f'<section class="card"><h2>Los que más cayeron desde 2023</h2><p class="note">Programas con más de $50.000 millones (en pesos de 2026) tanto en 2023 como en 2027.</p>{tabla(cab, [fila(*z) for z in baja])}</section>',
                   f'<section class="card"><h2>Los que más crecieron desde 2023</h2><p class="note">Programas con más de $50.000 millones (en pesos de 2026) tanto en 2023 como en 2027.</p>{tabla(cab, [fila(*z) for z in sube])}</section>',
@@ -547,10 +581,10 @@ a.t{{display:flex;flex-direction:column;gap:10px;padding:14px 16px;border:1px so
                   f'<section class="card"><h2>Los más atrasados</h2><p class="note">Ordenados por la distancia entre el porcentaje gastado y el {miles(avance * 100)}% del año que ya pasó.</p>{tabla(cab, [fila(z) for z in atrasados])}</section>',
                   f'<section class="card"><h2>Los que van más adelantados</h2>{tabla(cab, [fila(z) for z in adelantados])}</section>',
                   f'<section class="card"><h2>Ministerio por ministerio</h2>{tabla(["Jurisdicción", "Autorizado 2026", "Gastado", "% gastado"], fj)}</section>',
-                  '<div class="caveat">Atrasado no siempre quiere decir recortado: hay gastos que se concentran a fin de año (aguinaldo, certificados de obra, transferencias trimestrales) y créditos que se van a reasignar. Se deja afuera «Otras Asistencias Financieras» (Obligaciones a Cargo del Tesoro), un fondo de reserva que se reparte a otros programas durante el año. Pero un programa que a esta altura gastó muy poco difícilmente use todo lo autorizado. Datos: Presupuesto Abierto (Ministerio de Economía), gasto devengado; se actualizan solos todos los meses.</div>']
+                  '<div class="caveat">Atrasado no siempre quiere decir recortado: hay gastos que se concentran a fin de año (aguinaldo, certificados de obra, transferencias trimestrales) y créditos que se van a reasignar. Se deja afuera «Otras Asistencias Financieras» (Obligaciones a Cargo del Tesoro), un fondo de reserva que se reparte a otros programas durante el año. Pero un programa que a esta altura gastó muy poco difícilmente use todo lo autorizado. Datos: Presupuesto Abierto (Ministerio de Economía), gasto devengado; se actualizan solos todas las semanas.</div>']
         img = self.og_trabajo("ejecucion-2026.jpg", kicker="Presupuesto 2026 · ejecución", titulo="¿Qué se está dejando de gastar?", org=f"Al {fecha(self.corte)}",
                               l1="Pasó del año", n1=f"{miles(avance * 100)}%", u1="", l2="Gastado de lo autorizado", n2=pct(td, tv), u2="", fuente="Fuente: Presupuesto Abierto (Ministerio de Economía)")
-        desc = f"Qué programas del Presupuesto 2026 van más atrasados en su ejecución y cuánta plata tienen sin gastar, al {fecha(self.corte)}. Se actualiza todos los meses."
+        desc = f"Qué programas del Presupuesto 2026 van más atrasados en su ejecución y cuánta plata tienen sin gastar, al {fecha(self.corte)}. Se actualiza todas las semanas."
         self.pagina("/ejecucion-2026", "¿Qué se está dejando de gastar del Presupuesto 2026? Programas atrasados", desc, "\n".join(cuerpo),
                     [("Inicio", "/"), ("2026: ¿se cumplió?", "/cumplimiento-2026"), ("Qué se está dejando de gastar", "/ejecucion-2026")], img,
                     self.dataset("Ejecución del Presupuesto 2026 por programa", desc, "/ejecucion-2026"), h1="¿Qué se está dejando de gastar en 2026?")
@@ -593,7 +627,7 @@ a.t{{display:flex;flex-direction:column;gap:10px;padding:14px 16px;border:1px so
 <div class="chips" aria-label="Ejemplos"><span class="note" style="align-self:center">Ejemplos:</span>{chips}</div>
 </div>
 <div id="cmp-res" aria-live="polite"></div>
-<p class="note">Montos en pesos corrientes salvo donde dice «pesos de 2026». La evolución usa lo gastado de 2020 a 2025, lo autorizado en 2026 y lo pedido para 2027, con el IPC del INDEC. Universidades, entes y empresas tienen presupuesto propio y no se pueden seguir año por año. <a href="/metodologia#evolucion">Cómo se calcula</a>.</p>
+<p class="note">Montos en pesos corrientes salvo donde dice «pesos de 2026». La evolución usa lo gastado de 2020 a 2025, lo autorizado en 2026 y lo pedido para 2027, con el IPC del INDEC. Universidades, entes y empresas tienen presupuesto propio y no se pueden seguir año por año. Los dólares son al oficial promedio de cada año (BCRA); 2027, con el que proyecta el Ministerio de Economía. <a href="/metodologia#evolucion">Cómo se calcula</a>.</p>
 <style>
 .cmp-slots{{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--g-sm)}}
 @media (max-width:760px){{.cmp-slots{{grid-template-columns:1fr}}}}
@@ -607,7 +641,7 @@ a.t{{display:flex;flex-direction:column;gap:10px;padding:14px 16px;border:1px so
 .slot li small{{display:block;color:var(--muted)}}
 .cmp-tabla th[scope=col] i{{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px}}
 </style>
-<script>window.CMP_SITE = {json.dumps(self.site)};</script>
+<script>window.CMP_SITE = {json.dumps(self.site)}; window.CMP_TC = {json.dumps({str(k): v for k, v in self.TC.items()})};</script>
 <script defer src="/js/comparar.js?v={__import__("hashlib").sha1((self.raiz / "src" / "js" / "comparar.js").read_bytes()).hexdigest()[:10]}"></script>"""
         desc = "Compará lado a lado programas, organismos y provincias del presupuesto nacional: universidades, jubilaciones, rutas, INCAA, PAMI y más, con su evolución desde 2020."
         img = self.og_trabajo("comparar.jpg", kicker="Presupuesto nacional", titulo="Compará programas, organismos y provincias", org="Lado a lado, con la evolución desde 2020",
@@ -635,7 +669,7 @@ a.t{{display:flex;flex-direction:column;gap:10px;padding:14px 16px;border:1px so
         cuerpo = ('<p class="sub">Lo nuevo del sitio y cada actualización de los datos. <a href="#suscribirse">¿Querés que te avise cuando haya algo nuevo?</a></p>'
                   f'<ol style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--g-sm)">{items}</ol>'
                   + suscribir)
-        self.pagina("/novedades", "Novedades: lo nuevo del sitio y las actualizaciones del presupuesto", "Las últimas novedades de Presupuesto Argentina: nuevas secciones y la actualización mensual de la ejecución del presupuesto nacional.",
+        self.pagina("/novedades", "Novedades: lo nuevo del sitio y las actualizaciones del presupuesto", "Las últimas novedades de Presupuesto Argentina: nuevas secciones y la actualización semanal de la ejecución del presupuesto nacional.",
                     cuerpo, [("Inicio", "/"), ("Novedades", "/novedades")], h1="Novedades")
         def rfc(f):
             d = datetime.datetime.fromisoformat(f + "T12:00:00-03:00")
@@ -707,7 +741,7 @@ a.t{{display:flex;flex-direction:column;gap:10px;padding:14px 16px;border:1px so
         grafico = (f'<figure style="margin:0"><svg viewBox="0 0 {W} 222" width="100%" style="max-width:720px;color:var(--fg)" role="img" aria-label="Recaudación mensual {anio} contra {prev}">{"".join(svg)}'
                    f'<line x1="6" x2="{W - 6}" y1="{base}" y2="{base}" stroke="var(--axis)"/></svg><figcaption class="note"><span style="color:var(--c1)">■</span> {anio} &nbsp; <span style="color:var(--mutedbar)">■</span> {prev}, llevado a pesos del mismo mes de {anio} con el IPC (solo los meses con inflación publicada)</figcaption></figure>')
         cuerpo = [f'<p class="respuesta">{" ".join(frases)}</p>',
-                  f'<div class="stats">{stat(f"Recaudado ene-{mes_txt[:3]} {anio}", plata(t_hoy), "pesos corrientes", ink=True)}{stat("Variación real", (("+" if rv >= 0 else "−") + miles(abs(rv), 1) + "%") if rv is not None else "—", f"contra ene-{ult_ipc[:3]} {prev}")}'
+                  f'<div class="stats">{stat(f"Recaudado ene-{mes_txt[:3]} {anio}", plata(t_hoy), "pesos corrientes", ink=True, u=self.usd(t_hoy, anio))}{stat("Variación real", (("+" if rv >= 0 else "−") + miles(abs(rv), 1) + "%") if rv is not None else "—", f"contra ene-{ult_ipc[:3]} {prev}")}'
                   + (stat(f"De lo estimado para {anio}", pct(t_hoy, estim), plata(estim) + " en el año", barra=t_hoy / estim * 100) if estim else "") + "</div>",
                   f'<section class="card"><h2>Mes por mes</h2>{grafico}{tabla(["Mes", "Total", "DGI", "Aduana (DGA)", "Seguridad social", "Var. nominal", "Var. real"], filas_m)}</section>',
                   f'<section class="card"><h2>¿De dónde viene?</h2><p class="note">Enero a {mes_txt} de {anio} contra el mismo período de {prev}.</p>{tabla(["Componente", str(anio), str(prev), "Var. nominal", "Var. real"], filas_c)}</section>',

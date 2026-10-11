@@ -40,5 +40,11 @@
   "titulo": "Buscador: ¿cuánto se gasta en…?",
   "texto": "Todos los programas del presupuesto, con cada obra y actividad, lo pedido para 2027 y lo gastado en 2026, también por provincia.",
   "link": "/programas"
+ },
+ {
+  "fecha": "2026-10-11",
+  "titulo": "Montos en dólares y ejecución actualizada cada semana",
+  "texto": "Los montos principales de cada programa, organismo y provincia ahora también se ven en dólares, al oficial promedio de cada año (BCRA). Y lo gastado se actualiza todas las semanas con Presupuesto Abierto.",
+  "link": "/evolucion"
  }
 ]

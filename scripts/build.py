@@ -5,7 +5,7 @@ Uso:  python3 scripts/build.py      (después: node scripts/prerender.mjs)
 """
 import json, html, pathlib, datetime, shutil, sys, hashlib
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
-from paginas import Generador
+from paginas import Generador, miles
 
 RAIZ = pathlib.Path(__file__).resolve().parent.parent
 SITE = "https://presupuesto-argentina.vercel.app"
@@ -37,6 +37,7 @@ DESCRIPCIONES = {
     "obras_provincias": "Por provincia: obras y actividades 2027 que la nombran y la inversión 2026 (bienes de uso) que el Estado ubica en ella (millones de $).",
     "comparar": "Datos del comparador: cada programa, organismo y provincia con sus montos 2026-2027 y la serie real 2020-2027 en millones de pesos de 2026.",
     "novedades": "Novedades del sitio y actualizaciones de datos (también en /novedades.xml).",
+    "dolar": "Dólar oficial (BCRA, Com. A 3500): promedio mensual y anual en pesos por dólar; 2027 según la proyección del proyecto de ley.",
     "recaudacion": "Recaudación tributaria mensual (total, DGI, Aduana y seguridad social) en millones de $. Secretaría de Hacienda vía datos.gob.ar.",
     "referencias": "Población (INDEC), haber mínimo (Res. ANSES 284/2026), reparto de la recaudación (pág. 41) y supuestos de la calculadora de impuestos.",
 }
@@ -78,7 +79,7 @@ SECCIONES = {
     "cumplimiento-2026": {"ruta": "/cumplimiento-2026", "titulo": "¿Se cumplió el Presupuesto 2026? La ley contra lo que pasó",
                           "h1": "¿Se está cumpliendo el Presupuesto 2026?",
                           "bajada": "Lo que decía la Ley 27.798 contra lo que pasó: inflación, dólar, gasto ejecutado por ministerio y semáforo de cumplimiento.",
-                          "descripcion": "Presupuesto 2026 de Argentina: lo que preveía la Ley 27.798 contra lo que pasó. Inflación, dólar, crecimiento y gasto ejecutado por ministerio, actualizado cada mes.",
+                          "descripcion": "Presupuesto 2026 de Argentina: lo que preveía la Ley 27.798 contra lo que pasó. Inflación, dólar, crecimiento y gasto ejecutado por ministerio, actualizado cada semana.",
                           "compartir": "¿Se cumplió el Presupuesto 2026? Lo que decía la ley contra lo que pasó."},
     "realismo-2027": {"ruta": "/realismo-2027", "titulo": "¿Es realista el Presupuesto 2027? Semáforo y simulador",
                       "h1": "¿Es realista el Presupuesto 2027?",
@@ -222,7 +223,10 @@ def main():
             "INFL": f'{sup["inflacion"]["proyecto2027"]:g}'.replace(".", ","),
             "INFLP": f'{sup["infl_prom"]["proyecto2027"]:g}'.replace(".", ","),
             "INFLP_JS": f'{sup["infl_prom"]["proyecto2027"]:g}',
-            "INFL26": f'{sup["inflacion"]["estimado2026"]:g}'.replace(".", ",")}), encoding="utf-8")
+            "INFL26": f'{sup["inflacion"]["estimado2026"]:g}'.replace(".", ","),
+            "TC_JS": json.dumps(datos.get("dolar", {}).get("promedio", {})),
+            "TC26": miles(datos.get("dolar", {}).get("promedio", {}).get("2026", 0)),
+            "TC27": miles(datos.get("dolar", {}).get("promedio", {}).get("2027", 0))}), encoding="utf-8")
 
     # Páginas fijas por programa, organismo y provincia
     paginas = []

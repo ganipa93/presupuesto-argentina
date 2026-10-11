@@ -66,6 +66,8 @@ function render() {
   $('#k-gasto').textContent = money(b, true);
   $('#h-total').replaceChildren('$' + nf1.format(b / 1e6) + ' ', el('small', {textContent: 'billones'}));
   $('#h-hab').replaceChildren('Son ', el('b', {textContent: '$' + nf0.format(b * 1e6 / POB / 12) + ' por mes'}), ' por cada habitante del país.');
+  const tc27 = DATA.dolar && DATA.dolar.promedio && DATA.dolar.promedio['2027'];
+  if (tc27) $('#h-usd').replaceChildren('Unos ', el('b', {textContent: 'US$ ' + nf0.format(b / tc27) + ' millones'}), ', con el dólar oficial proyectado para 2027 ($' + nf0.format(tc27) + ' promedio).');
   const ssh = DATA.funciones.find((x) => x.codigo === '3.3').y2027 / b * 100;
   $('#h-barra').style.width = ssh.toFixed(1) + '%';
   $('#h-ss').textContent = 'El ' + nf0.format(ssh) + '% va a jubilaciones, pensiones y asignaciones (seguridad social).';

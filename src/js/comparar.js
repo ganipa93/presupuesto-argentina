@@ -16,7 +16,15 @@
     if (a >= 1) return '$' + nf(1).format(m) + ' millones';
     return '$' + nf(0).format(m * 1e6);
   }
-  const celdaN = (m) => (m == null ? '—' : el('span', {'data-n': String(Math.round(m * 10) / 10)}, plata(m)));
+  const TC = window.CMP_TC || {};
+  function usd(m, anio) {
+    if (m == null || !m || !TC[anio]) return null;
+    const u = m / TC[anio], a = Math.abs(u);
+    if (a >= 100) return 'US$ ' + nf(0).format(u) + ' millones';
+    if (a >= 1) return 'US$ ' + nf(1).format(u) + ' millones';
+    return 'US$ ' + nf(0).format(u * 1e6);
+  }
+  const celdaN = (m, anio) => { if (m == null) return '—'; const u = anio && usd(m, anio); return el('span', {}, el('span', {'data-n': String(Math.round(m * 10) / 10)}, plata(m)), u ? el('small', {class: 'usd', style: 'display:block', text: '≈ ' + u}) : null); };
   let D = null, porId = {}, elegidos = [null, null, null];
 
   function slots() {
@@ -83,12 +91,12 @@
     if (!sel.length) { box.replaceChildren(); return; }
     const filas = [
       ['Qué es', (x) => TIPO[x.t] + (x.t === 'v' ? '' : ' · ' + x.o)],
-      ['Pedido para 2027', (x) => celdaN(x.t === 'e' ? x.g27 : x.a27)],
-      ['2026: aprobado por ley', (x) => celdaN(x.t === 'e' ? x.g26 : x.l26)],
-      ['2026: autorizado hoy', (x) => celdaN(x.v26)],
-      ['2026: gastado', (x) => (x.d26 == null ? '—' : el('span', {}, celdaN(x.d26), x.v26 ? ' (' + nf(0).format(x.d26 / x.v26 * 100) + '%)' : ''))],
+      ['Pedido para 2027', (x) => celdaN(x.t === 'e' ? x.g27 : x.a27, 2027)],
+      ['2026: aprobado por ley', (x) => celdaN(x.t === 'e' ? x.g26 : x.l26, 2026)],
+      ['2026: autorizado hoy', (x) => celdaN(x.v26, 2026)],
+      ['2026: gastado', (x) => (x.d26 == null ? '—' : el('span', {}, celdaN(x.d26, 2026), x.v26 ? nf(0).format(x.d26 / x.v26 * 100) + '% de lo autorizado' : ''))],
       ['Cambio real desde 2023', (x) => cambioReal(x)],
-      ['Por habitante (2026)', (x) => (x.hab ? '$' + nf(0).format(x.hab) : '—')],
+      ['Por habitante (2026)', (x) => (x.hab ? el('span', {}, '$' + nf(0).format(x.hab), TC[2026] ? el('small', {class: 'usd', style: 'display:block', text: '≈ US$ ' + nf(0).format(x.hab / TC[2026])}) : null) : '—')],
       ['Página', (x) => (x.t === 'v' ? el('a', {href: '/provincias/' + x.id.replace('provincia-', ''), text: 'Ver la provincia'}) : el('a', {href: '/gasto/' + x.id, text: 'Ver el detalle'}))],
     ];
     const tabla = el('table', {class: 'cmp-tabla'},

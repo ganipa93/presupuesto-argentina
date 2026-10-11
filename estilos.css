@@ -80,6 +80,9 @@ details.compartir .menu a:hover,details.compartir .menu button:hover{background:
 .stat .k{font-size:var(--fs-cap);color:var(--muted)}
 .stat .n{font-size:22px;font-weight:var(--fw-m);font-variant-numeric:tabular-nums}
 .stat .s{font-size:var(--fs-cap);color:var(--muted)}
+.stat .u,.usd{font-variant-numeric:tabular-nums;color:var(--c1);font-weight:var(--fw-m)}
+.stat .u{font-size:15px}
+.stat.ink .u{color:var(--acc)}
 .stat.ink{background:var(--ink);border-color:var(--ink);color:#fff}
 .stat.ink .k,.stat.ink .s{color:#c9d8ec}
 .ejbar{height:6px;border-radius:3px;background:var(--line);overflow:hidden;margin-top:6px}

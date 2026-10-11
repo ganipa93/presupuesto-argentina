@@ -13,6 +13,15 @@ function plata(m) {
   if (a > 0) return '$ ' + nf(0).format(m * 1e6) + '';
   return '$ 0';
 }
+// Dólares al oficial promedio de cada año (BCRA); 2027, el que proyecta el Ministerio de Economía
+const TC = window.CFG.TC || {};
+function usd(m, anio) {
+  if (m == null || !m || !TC[anio]) return null;
+  const u = m / TC[anio], a = Math.abs(u);
+  if (a >= 100) return 'US$ ' + nf(0).format(u) + ' millones';
+  if (a >= 1) return 'US$ ' + nf(1).format(u) + ' millones';
+  return 'US$ ' + nf(0).format(u * 1e6);
+}
 const pct = (a, b) => (b ? nf(0).format(a / b * 100) + '%' : '—');
 function toast(m) { const t = $('#toast'); t.textContent = m; t.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(() => { t.hidden = true; }, 2000); }
 
@@ -150,10 +159,10 @@ function resumen(lista, vs, q, prov, montoProv) {
   est.replaceChildren((q ? 'Para «' + q + '»' : 'Todo') + (prov ? ' en ' + prov : '') + ': ' + partes.join(' y ') + '. ', el('a', {href: '/cuadros?q=' + encodeURIComponent(q || prov), text: 'Ver también en los cuadros del PDF'}), '.');
   const cif = [];
   if (progs.length) {
-    if (!prov) cif.push(cifra('Pedido para 2027', plata(s.a27)));
-    cif.push(cifra('2026: autorizado hoy' + (prov ? ' en ' + prov : ''), plata(s.v26)), cifra('2026: gastado hasta ahora', plata(s.d26) + ' (' + pct(s.d26, s.v26) + ')'));
+    if (!prov) cif.push(cifra('Pedido para 2027', plata(s.a27), null, usd(s.a27, 2027)));
+    cif.push(cifra('2026: autorizado hoy' + (prov ? ' en ' + prov : ''), plata(s.v26), null, usd(s.v26, 2026)), cifra('2026: gastado hasta ahora', plata(s.d26) + ' (' + pct(s.d26, s.v26) + ')', null, usd(s.d26, 2026)));
   }
-  if (entes.length) cif.push(cifra('Organismos con presupuesto propio, 2027 (no se suman)', plata(entes.reduce((a, r) => a + r.x.g27, 0))));
+  if (entes.length) { const g = entes.reduce((a, r) => a + r.x.g27, 0); cif.push(cifra('Organismos con presupuesto propio, 2027 (no se suman)', plata(g), null, usd(g, 2027))); }
   box.replaceChildren(
     el('div', {style: 'flex:1 1 100%'}, el('strong', {text: 'Suma de los resultados'}), el('p', {class: 'note', text: prov
       ? 'Lo que el Estado nacional asignó a ' + prov + ' en 2026 en los programas encontrados. No incluye el gasto clasificado como nacional o interprovincial.'
@@ -161,7 +170,7 @@ function resumen(lista, vs, q, prov, montoProv) {
     el('div', {class: 'cifras', style: 'flex:1 1 100%'}, ...cif));
   box.hidden = false;
 }
-function cifra(k, v, barra) { return el('div', {class: 'cifra'}, el('div', {class: 'ck', text: k}), el('div', {class: 'cv', text: v}), barra || null); }
+function cifra(k, v, barra, u) { return el('div', {class: 'cifra'}, el('div', {class: 'ck', text: k}), el('div', {class: 'cv', text: v}), u ? el('div', {class: 'cu usd', text: '≈ ' + u}) : null, barra || null); }
 
 function marcar(texto, vs) {
   // resalta las palabras buscadas sin tocar el texto original
@@ -188,15 +197,15 @@ function tarjeta(r, vs, prov) {
   const org = [p.j, p.e].filter(Boolean).join(' › ');
   const cif = [];
   const var27 = p.a27 != null && p.v26 > 0 ? (p.a27 / p.v26 / (1 + window.CFG.INFLP_JS / 100) - 1) * 100 : null;
-  cif.push(cifra('Pedido para 2027', p.a27 == null ? 'No sigue en 2027' : plata(p.a27)));
+  cif.push(cifra('Pedido para 2027', p.a27 == null ? 'No sigue en 2027' : plata(p.a27), null, usd(p.a27, 2027)));
   if (p.v26 != null) {
-    cif.push(cifra('2026: aprobado por ley', plata(p.l26)), cifra('2026: autorizado hoy', plata(p.v26)));
+    cif.push(cifra('2026: aprobado por ley', plata(p.l26), null, usd(p.l26, 2026)), cifra('2026: autorizado hoy', plata(p.v26), null, usd(p.v26, 2026)));
     const ej = p.v26 ? Math.min(100, Math.max(0, p.d26 / p.v26 * 100)) : 0;
-    cif.push(cifra('2026: gastado', plata(p.d26) + ' (' + pct(p.d26, p.v26) + ')', el('div', {class: 'barra-ej'}, el('span', {style: 'width:' + ej.toFixed(1) + '%'}))));
+    cif.push(cifra('2026: gastado', plata(p.d26) + ' (' + pct(p.d26, p.v26) + ')', el('div', {class: 'barra-ej'}, el('span', {style: 'width:' + ej.toFixed(1) + '%'})), usd(p.d26, 2026)));
   } else cif.push(cifra('2026', 'Programa nuevo o reorganizado'));
   if (prov) { const m = p.prov26.find((z) => z[0] === prov); cif.push(cifra('2026 en ' + prov, plata(m[1]) + ' · gastado ' + plata(m[2]))); }
   const etq = [];
-  if (var27 != null && p.a27 != null) etq.push(el('span', {class: 'etq' + (var27 < 0 ? ' warn' : ''), text: 'Variación real 2027 contra lo autorizado en 2026: ' + (var27 >= 0 ? '+' : '') + nf(0).format(var27) + '%', title: 'Descontando la inflación promedio de ' + window.CFG.INFLP + '% que supone el proyecto.'}));
+  if (var27 != null && p.a27 != null) etq.push(el('span', {class: 'etq' + (var27 < 0 ? ' warn' : ''), text: 'Variación real 2027 contra lo autorizado en 2026: ' + (Math.round(var27) > 0 ? '+' : Math.round(var27) < 0 ? '−' : '') + nf(0).format(Math.abs(Math.round(var27))) + '%', title: 'Descontando la inflación promedio de ' + window.CFG.INFLP + '% que supone el proyecto.'}));
   const cuerpo = [el('div', {class: 'org', text: org}), el('h3', {}, el('a', {href: '/gasto/' + p.s}, ...marcar(p.n, vs))), p.b ? el('p', {class: 'note', text: p.b}) : null, etq.length ? el('div', {}, ...etq) : null, el('div', {class: 'cifras'}, ...cif)];
   if (r.nivel === 'hojas') {
     const filas = [];
@@ -234,8 +243,8 @@ function detalle(p, vs) {
 }
 
 function tarjetaEnte(e, vs) {
-  const cif = [cifra('Gasto total 2027 (proyecto)', plata(e.g27))];
-  if (e.g26 != null) cif.push(cifra('Gasto total 2026 (ley)', plata(e.g26) + (e.g26 > 0 ? ' · ' + (e.g27 >= e.g26 ? '+' : '') + nf(0).format((e.g27 / e.g26 - 1) * 100) + '% nominal' : '')));
+  const cif = [cifra('Gasto total 2027 (proyecto)', plata(e.g27), null, usd(e.g27, 2027))];
+  if (e.g26 != null) cif.push(cifra('Gasto total 2026 (ley)', plata(e.g26) + (e.g26 > 0 ? ' · ' + (e.g27 >= e.g26 ? '+' : '') + nf(0).format((e.g27 / e.g26 - 1) * 100) + '% nominal' : ''), null, usd(e.g26, 2026)));
   cif.push(...(e.det || []).map((d) => cifra(d[0] + ' 2027', plata(d[1]))));
   return el('article', {class: 'item'},
     el('div', {class: 'org', text: e.tipo2 + ' · tiene presupuesto propio'}),
