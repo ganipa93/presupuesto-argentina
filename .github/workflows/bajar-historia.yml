@@ -1,0 +1,35 @@
+name: Bajar serie histórica
+
+# Se corre a mano desde la pestaña Actions. Baja de Presupuesto Abierto el gasto por
+# programa de cada año desde 2020 y lo guarda en fuentes/datasets/historia-AAAA.csv.
+on:
+  workflow_dispatch:
+    inputs:
+      desde:
+        description: "Primer año"
+        required: false
+        default: "2020"
+
+permissions:
+  contents: write
+
+jobs:
+  bajar:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Bajar
+        env:
+          PRESUPUESTO_ABIERTO_TOKEN: ${{ secrets.PRESUPUESTO_ABIERTO_TOKEN }}
+        run: python3 scripts/bajar_historia.py ${{ github.event.inputs.desde }}
+      - name: Guardar en el repositorio
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add fuentes/datasets
+          git diff --cached --quiet || git commit -m "Bajar serie histórica por programa"
+          git push
