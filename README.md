@@ -19,7 +19,7 @@ Sitio publicado: https://presupuesto-argentina.vercel.app
 ## Otras páginas
 
 - **¿Cuánto se gasta en…? (`/programas`):** buscador con los programas del presupuesto, cada actividad y obra, lo pedido para 2027, lo autorizado y gastado en 2026 (también por provincia), las metas físicas, y además universidades, fondos fiduciarios, otros entes (INCAA, PAMI, ARCA) y empresas públicas.
-- **Todos los cuadros (`/cuadros`):** las 248 páginas del proyecto como imagen, con buscador de texto y tablas en CSV.
+- **Todos los cuadros (`/cuadros`):** las 248 páginas del proyecto 2027 y las 125 de la Ley 27.798 (2026) como imagen, con buscador de texto en los dos documentos y tablas en CSV.
 
 ## Otras funciones
 
@@ -37,6 +37,7 @@ Sitio publicado: https://presupuesto-argentina.vercel.app
 - `scripts/prerender.mjs`: deja el contenido escrito en `index.html` (para buscadores y vistas previas) y genera `og.png`.
 - `fuentes/`: copia del Proyecto de Ley de Presupuesto 2027 y, en `fuentes/datasets/`, los datasets oficiales por programa.
 - `scripts/extraer_cuadros.py`: genera `cuadros/` (imágenes, texto y tablas de cada página del PDF).
+- `scripts/extraer_ley2026.py`: genera `cuadros/2026/` a partir del escaneo de la Ley 27.798 (endereza las páginas y hace OCR en castellano; necesita tesseract con `spa`). Títulos en `scripts/titulos_ley2026.json`.
 - `scripts/bajar_datasets.py`: baja los datasets del Presupuesto Ciudadano 2027/2026 (ONP) y la ejecución 2026 por programa (API de Presupuesto Abierto).
 - `scripts/armar_programas.py`: arma `datos/programas.json` para el buscador, a partir de los datasets y de las planillas del PDF. `datos/programas.json` no se incrusta en `index.html`: la página `/programas` lo carga aparte.
 - `tipografias/`: Source Sans 3 y Source Serif 4 (licencia SIL OFL).

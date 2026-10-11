@@ -1,0 +1,421 @@
+{
+ "fuente": "Ley 27.798 (Presupuesto 2026), texto sancionado. Planillas anexas a los arts. 12 (pág. 74), 59 (pág. 81) y 60 (pág. 82). Montos en millones de pesos; universidades transcriptas por OCR y verificadas contra los subtotales de cada columna, fondos y entes transcriptos a mano y verificados con ingresos menos resultado financiero.",
+ "universidades": {
+  "Universidad de Buenos Aires (UBA)": {
+   "g26": 799443.4,
+   "salud": 23437.2,
+   "educ": 775308.4,
+   "cyt": 697.8
+  },
+  "Universidad Nacional de Catamarca": {
+   "g26": 58893.8,
+   "salud": 0.0,
+   "educ": 58790.3,
+   "cyt": 103.5
+  },
+  "Universidad Nacional del Centro de la Provincia de Buenos Aires": {
+   "g26": 72755.7,
+   "salud": 70.8,
+   "educ": 72552.6,
+   "cyt": 132.4
+  },
+  "Universidad Nacional del Comahue": {
+   "g26": 94220.7,
+   "salud": 80.0,
+   "educ": 94010.6,
+   "cyt": 130.1
+  },
+  "Universidad Nacional de Córdoba": {
+   "g26": 304666.1,
+   "salud": 6021.0,
+   "educ": 298290.8,
+   "cyt": 354.3
+  },
+  "Universidad Nacional de Cuyo": {
+   "g26": 171893.2,
+   "salud": 1758.5,
+   "educ": 169952.8,
+   "cyt": 181.9
+  },
+  "Universidad Nacional de Entre Ríos": {
+   "g26": 62631.6,
+   "salud": 0.0,
+   "educ": 62563.1,
+   "cyt": 68.5
+  },
+  "Universidad Nacional de Formosa": {
+   "g26": 34343.8,
+   "salud": 0.0,
+   "educ": 34286.9,
+   "cyt": 56.9
+  },
+  "Universidad Nacional de General San Martín": {
+   "g26": 60817.4,
+   "salud": 17.2,
+   "educ": 60743.5,
+   "cyt": 56.8
+  },
+  "Universidad Nacional de General Sarmiento": {
+   "g26": 32056.4,
+   "salud": 0.0,
+   "educ": 32001.1,
+   "cyt": 55.3
+  },
+  "Universidad Nacional de Jujuy": {
+   "g26": 54093.2,
+   "salud": 0.0,
+   "educ": 54020.2,
+   "cyt": 73.0
+  },
+  "Universidad Nacional de La Matanza": {
+   "g26": 82673.2,
+   "salud": 91.0,
+   "educ": 82479.1,
+   "cyt": 103.1
+  },
+  "Universidad Nacional de La Pampa": {
+   "g26": 53281.7,
+   "salud": 17.3,
+   "educ": 53188.3,
+   "cyt": 76.2
+  },
+  "Universidad Nacional de la Patagonia San Juan Bosco": {
+   "g26": 75069.2,
+   "salud": 72.0,
+   "educ": 74934.8,
+   "cyt": 62.4
+  },
+  "Universidad Nacional de La Plata": {
+   "g26": 322996.3,
+   "salud": 248.4,
+   "educ": 322301.3,
+   "cyt": 446.6
+  },
+  "Universidad Nacional de La Rioja": {
+   "g26": 53596.4,
+   "salud": 1549.3,
+   "educ": 51997.8,
+   "cyt": 49.4
+  },
+  "Universidad Nacional del Litoral": {
+   "g26": 106628.8,
+   "salud": 88.2,
+   "educ": 106356.1,
+   "cyt": 184.5
+  },
+  "Universidad Nacional de Lomas de Zamora": {
+   "g26": 64523.5,
+   "salud": 0.0,
+   "educ": 64377.8,
+   "cyt": 145.7
+  },
+  "Universidad Nacional de Luján": {
+   "g26": 62318.5,
+   "salud": 0.0,
+   "educ": 62250.2,
+   "cyt": 68.3
+  },
+  "Universidad Nacional de Mar del Plata": {
+   "g26": 106611.4,
+   "salud": 0.0,
+   "educ": 106422.6,
+   "cyt": 188.8
+  },
+  "Universidad Nacional de Misiones": {
+   "g26": 69767.9,
+   "salud": 0.0,
+   "educ": 69668.7,
+   "cyt": 99.2
+  },
+  "Universidad Nacional del Nordeste": {
+   "g26": 128112.3,
+   "salud": 95.2,
+   "educ": 127904.5,
+   "cyt": 112.6
+  },
+  "Universidad Nacional de Quilmes": {
+   "g26": 44118.7,
+   "salud": 0.0,
+   "educ": 44059.8,
+   "cyt": 58.9
+  },
+  "Universidad Nacional de Río Cuarto": {
+   "g26": 65330.9,
+   "salud": 17.5,
+   "educ": 65162.9,
+   "cyt": 150.6
+  },
+  "Universidad Nacional de Rosario": {
+   "g26": 237298.4,
+   "salud": 333.6,
+   "educ": 236720.2,
+   "cyt": 244.6
+  },
+  "Universidad Nacional de Salta": {
+   "g26": 68863.5,
+   "salud": 0.0,
+   "educ": 68740.2,
+   "cyt": 123.2
+  },
+  "Universidad Nacional de San Juan": {
+   "g26": 120651.2,
+   "salud": 0.0,
+   "educ": 120484.6,
+   "cyt": 166.6
+  },
+  "Universidad Nacional de San Luis": {
+   "g26": 87460.6,
+   "salud": 0.0,
+   "educ": 87298.6,
+   "cyt": 162.0
+  },
+  "Universidad Nacional de Santiago del Estero": {
+   "g26": 42772.8,
+   "salud": 55.6,
+   "educ": 42637.9,
+   "cyt": 79.3
+  },
+  "Universidad Nacional del Sur": {
+   "g26": 82319.7,
+   "salud": 78.2,
+   "educ": 82064.5,
+   "cyt": 177.0
+  },
+  "Universidad Tecnológica Nacional (UTN)": {
+   "g26": 336048.5,
+   "salud": 0.0,
+   "educ": 335811.5,
+   "cyt": 237.1
+  },
+  "Universidad Nacional de Tucumán": {
+   "g26": 212671.3,
+   "salud": 168.6,
+   "educ": 212226.5,
+   "cyt": 276.3
+  },
+  "Universidad Nacional de la Patagonia Austral": {
+   "g26": 44981.3,
+   "salud": 0.0,
+   "educ": 44927.0,
+   "cyt": 54.3
+  },
+  "Universidad Nacional de Lanús": {
+   "g26": 30884.6,
+   "salud": 0.0,
+   "educ": 30836.7,
+   "cyt": 47.9
+  },
+  "Universidad Nacional de Tres de Febrero": {
+   "g26": 29438.0,
+   "salud": 0.0,
+   "educ": 29390.8,
+   "cyt": 47.2
+  },
+  "Universidad Nacional de Villa María": {
+   "g26": 27443.4,
+   "salud": 49.1,
+   "educ": 27345.7,
+   "cyt": 48.5
+  },
+  "Universidad Nacional de las Artes": {
+   "g26": 50406.2,
+   "salud": 0.0,
+   "educ": 50354.1,
+   "cyt": 52.1
+  },
+  "Universidad Nacional de Chilecito": {
+   "g26": 16321.4,
+   "salud": 0.0,
+   "educ": 16278.6,
+   "cyt": 42.8
+  },
+  "Universidad Nacional del Noroeste de la Provincia de Buenos Aires": {
+   "g26": 19474.8,
+   "salud": 0.0,
+   "educ": 19396.6,
+   "cyt": 78.2
+  },
+  "Universidad Nacional de Río Negro": {
+   "g26": 36153.0,
+   "salud": 17.6,
+   "educ": 36080.7,
+   "cyt": 54.8
+  },
+  "Universidad Nacional del Chaco Austral": {
+   "g26": 19389.2,
+   "salud": 188.2,
+   "educ": 19147.3,
+   "cyt": 53.7
+  },
+  "Universidad Nacional de Avellaneda": {
+   "g26": 27656.2,
+   "salud": 0.0,
+   "educ": 27627.1,
+   "cyt": 29.1
+  },
+  "Universidad Nacional del Oeste": {
+   "g26": 12945.4,
+   "salud": 0.0,
+   "educ": 12914.5,
+   "cyt": 30.9
+  },
+  "Universidad Nacional de Tierra del Fuego": {
+   "g26": 20755.3,
+   "salud": 0.0,
+   "educ": 20729.6,
+   "cyt": 25.6
+  },
+  "Universidad Nacional de Moreno": {
+   "g26": 17685.4,
+   "salud": 0.0,
+   "educ": 17656.9,
+   "cyt": 28.5
+  },
+  "Universidad Nacional Arturo Jauretche": {
+   "g26": 37960.8,
+   "salud": 51.3,
+   "educ": 37880.2,
+   "cyt": 29.2
+  },
+  "Universidad Nacional de José C. Paz": {
+   "g26": 27936.8,
+   "salud": 0.0,
+   "educ": 27907.8,
+   "cyt": 29.0
+  },
+  "Universidad Nacional de Villa Mercedes": {
+   "g26": 9543.3,
+   "salud": 0.0,
+   "educ": 9524.7,
+   "cyt": 18.7
+  },
+  "Universidad Nacional de Comechingones": {
+   "g26": 4828.9,
+   "salud": 0.0,
+   "educ": 4803.0,
+   "cyt": 25.9
+  },
+  "Universidad Nacional de Hurlingham": {
+   "g26": 33289.6,
+   "salud": 0.0,
+   "educ": 33260.4,
+   "cyt": 29.1
+  },
+  "Universidad Nacional del Alto Uruguay": {
+   "g26": 3535.4,
+   "salud": 0.0,
+   "educ": 3520.7,
+   "cyt": 14.7
+  },
+  "Universidad Nacional de Rafaela": {
+   "g26": 7122.5,
+   "salud": 0.0,
+   "educ": 7095.5,
+   "cyt": 27.0
+  },
+  "Universidad Nacional de San Antonio de Areco": {
+   "g26": 4289.7,
+   "salud": 0.0,
+   "educ": 4248.7,
+   "cyt": 41.0
+  },
+  "Universidad Nacional Guillermo Brown": {
+   "g26": 6402.6,
+   "salud": 0.0,
+   "educ": 6372.3,
+   "cyt": 30.3
+  },
+  "Universidad Pedagógica Nacional": {
+   "g26": 7018.1,
+   "salud": 0.0,
+   "educ": 6994.4,
+   "cyt": 23.6
+  },
+  "Universidad Nacional Raúl Scalabrini Ortiz": {
+   "g26": 4189.2,
+   "salud": 0.0,
+   "educ": 4168.0,
+   "cyt": 21.3
+  },
+  "Universidad de la Defensa Nacional": {
+   "g26": 4787.9,
+   "salud": 0.0,
+   "educ": 4748.3,
+   "cyt": 39.7
+  },
+  "Universidad Nacional de las Madres de Plaza de Mayo": {
+   "g26": 1000.0,
+   "salud": 0.0,
+   "educ": 986.2,
+   "cyt": 13.8
+  },
+  "Universidad Nacional del Delta": {
+   "g26": 1000.0,
+   "salud": 0.0,
+   "educ": 996.0,
+   "cyt": 4.0
+  },
+  "Universidad Nacional de Pilar": {
+   "g26": 1000.0,
+   "salud": 0.0,
+   "educ": 996.0,
+   "cyt": 4.0
+  },
+  "Universidad Nacional de Río Tercero": {
+   "g26": 1000.0,
+   "salud": 0.0,
+   "educ": 996.0,
+   "cyt": 4.0
+  }
+ },
+ "entes": {
+  "Fondo Fiduciario del Sistema de Infraestructura de Transporte (rutas, trenes y subsidios al transporte)": {
+   "g26": 2845992.6,
+   "pag": 81
+  },
+  "Fondo Fiduciario de Infraestructura Hídrica": {
+   "g26": 262054.0,
+   "pag": 81
+  },
+  "Fondo Fiduciario para Subsidios de Consumos Residenciales de Gas": {
+   "g26": 796725.7,
+   "pag": 81
+  },
+  "Fondo para el Desarrollo de Energías Renovables (FODER)": {
+   "g26": 2892.0,
+   "pag": 81
+  },
+  "Fondo de Garantías Argentino (FOGAR)": {
+   "g26": 60954.1,
+   "pag": 81
+  },
+  "Fondo Fiduciario para la Promoción de la Economía del Conocimiento (FONPEC)": {
+   "g26": 12794.5,
+   "pag": 81
+  },
+  "Fondo Fiduciario Ampliación de la Matriz Fueguina": {
+   "g26": 66421.0,
+   "pag": 81
+  },
+  "ARCA (Agencia de Recaudación y Control Aduanero)": {
+   "g26": 3227536.4,
+   "pag": 82
+  },
+  "Comisión Nacional Antidopaje (CNAD)": {
+   "g26": 1672.0,
+   "pag": 82
+  },
+  "Instituto Nacional de la Música (INAMU)": {
+   "g26": 1971.2,
+   "pag": 82
+  },
+  "Instituto Nacional de Cine y Artes Audiovisuales (INCAA)": {
+   "g26": 43168.3,
+   "pag": 82
+  },
+  "PAMI (Instituto Nacional de Servicios Sociales para Jubilados y Pensionados)": {
+   "g26": 10174148.6,
+   "pag": 82
+  }
+ }
+}

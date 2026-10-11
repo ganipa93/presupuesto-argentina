@@ -128,6 +128,12 @@ def main():
     salida.sort(key=lambda x: -max(x["a27"] or 0, x.get("v26", 0)))
 
     entes = universidades() + entes_fuera()
+    ley26 = json.loads((RAIZ / "fuentes" / "ley2026_planillas.json").read_text(encoding="utf-8"))
+    for e in entes:
+        x = ley26["universidades"].get(e["n"]) or ley26["entes"].get(e["n"])
+        if x:
+            e["g26"] = x["g26"]
+            e["pag26"] = x.get("pag", 74)
     t27 = sum(x["a27"] or 0 for x in salida)
     t26 = [sum(x.get(c, 0) for x in salida) for c in ("l26", "v26", "d26")]
     emparejados = sum(1 for x in salida if x["a27"] is not None and "v26" in x)

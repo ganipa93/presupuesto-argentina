@@ -83,23 +83,32 @@ def main():
     ind_path = RAIZ / "cuadros/indice.json"
     if ind_path.exists():
         indice = json.loads(ind_path.read_text(encoding="utf-8"))
-        secciones = {}
-        for x in indice:
-            secciones.setdefault(x["s"], []).append(x)
-        lista = "\n".join(
-            "<details" + (" open" if i == 0 else "") + "><summary>" + html.escape(sec) + f" ({sum(1 for x in xs if x['c'])})</summary><ol>" +
-            "".join(f'<li><a href="#p{x["p"]}" data-p="{x["p"]}"' + ("" if x["c"] else ' class="txt"') + f'><span class="n">p. {x["p"]}</span><span>{html.escape(x["t"])}</span></a></li>' for x in xs) +
-            "</ol></details>" for i, (sec, xs) in enumerate(secciones.items()))
+        def lista_de(indice, d):
+            secciones = {}
+            for x in indice:
+                secciones.setdefault(x["s"], []).append(x)
+            return "\n".join(
+                "<details" + (" open" if i == 0 else "") + "><summary>" + html.escape(sec) + f" ({sum(1 for x in xs if x['c'])})</summary><ol>" +
+                "".join(f'<li><a href="#{"ley2026-" if d == "2026" else ""}p{x["p"]}" data-doc="{d}" data-p="{x["p"]}"' + ("" if x["c"] else ' class="txt"') +
+                        f'><span class="n">p. {x["p"]}</span><span>{html.escape(x["t"])}</span></a></li>' for x in xs) +
+                "</ol></details>" for i, (sec, xs) in enumerate(secciones.items()))
+        ind26_path = RAIZ / "cuadros/2026/indice.json"
+        indice26 = json.loads(ind26_path.read_text(encoding="utf-8")) if ind26_path.exists() else []
+        js = lambda v: json.dumps(v, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
         (RAIZ / "cuadros.html").write_text(reemplazar((RAIZ / "src/cuadros.html").read_text(encoding="utf-8"), {
-            **comunes, "SITE_JS": json.dumps(SITE), "N": str(len(indice)), "LISTA": lista,
-            "INDICE": json.dumps(indice, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")}), encoding="utf-8")
+            **comunes, "SITE_JS": json.dumps(SITE), "N": str(len(indice)), "N26": str(len(indice26)),
+            "LISTA": lista_de(indice, "2027"), "LISTA26": lista_de(indice26, "2026"),
+            "INDICE": js(indice), "INDICE26": js(indice26)}), encoding="utf-8")
 
     # Buscador por programa (datos/programas.json, lo arma scripts/armar_programas.py)
     sup = {r["clave"]: r for r in datos["supuestos"]}
     if "programas" in datos:
         (RAIZ / "programas.html").write_text(reemplazar((RAIZ / "src/programas.html").read_text(encoding="utf-8"), {
-            **comunes, "SITE_JS": json.dumps(SITE), "NPROG": str(len(datos["programas"]["programas"])), "INFL": f'{sup["inflacion"]["proyecto2027"]:g}', "INFLP": f'{sup["infl_prom"]["proyecto2027"]:g}'.replace(".", ","),
-            "INFLP_JS": f'{sup["infl_prom"]["proyecto2027"]:g}'}), encoding="utf-8")
+            **comunes, "SITE_JS": json.dumps(SITE), "NPROG": str(len(datos["programas"]["programas"])),
+            "INFL": f'{sup["inflacion"]["proyecto2027"]:g}'.replace(".", ","),
+            "INFLP": f'{sup["infl_prom"]["proyecto2027"]:g}'.replace(".", ","),
+            "INFLP_JS": f'{sup["infl_prom"]["proyecto2027"]:g}',
+            "INFL26": f'{sup["inflacion"]["estimado2026"]:g}'.replace(".", ",")}), encoding="utf-8")
 
     (RAIZ / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n", encoding="utf-8")
     urls = ["/", "/programas", "/cuadros", "/metodologia", "/datos/"]

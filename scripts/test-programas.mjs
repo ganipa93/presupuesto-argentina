@@ -19,5 +19,11 @@ await ver('rutas'); await p.click('#res details summary'); await p.screenshot({ 
 await p.evaluate(() => document.querySelector('#res details').scrollIntoView()); await p.screenshot({ path: out + '/prog-rutas-det.png' });
 await p.setViewportSize({ width: 390, height: 800 }); await ver('cine');
 console.log('ancho movil:', await p.evaluate(() => document.documentElement.scrollWidth)); await p.screenshot({ path: out + '/prog-cine-movil.png', fullPage: true });
-await p.goto(base + '/cuadros?q=incaa'); await p.waitForTimeout(800); console.log('cuadros q:', await p.evaluate(() => document.querySelector('#estado').innerText));
+await p.setViewportSize({ width: 1200, height: 900 });
+await p.goto(base + '/cuadros?q=incaa'); await p.waitForTimeout(1200); console.log('cuadros q:', await p.evaluate(() => document.querySelector('#estado').innerText));
+await p.goto(base + '/cuadros#ley2026-p82'); await p.waitForTimeout(1200);
+console.log('ley 2026:', await p.evaluate(() => [document.querySelector('#vmeta').innerText, document.querySelector('#vtitulo').innerText, document.querySelector('#vimg').naturalWidth, location.hash]));
+await p.screenshot({ path: out + '/cuadros-2026.png' });
+await p.click('#sig'); await p.waitForTimeout(500); console.log('siguiente:', await p.evaluate(() => [document.querySelector('#vtitulo').innerText, location.hash]));
+await p.click('.docs button[data-doc="2027"]'); await p.waitForTimeout(500); console.log('volver 2027:', await p.evaluate(() => [document.querySelector('#vmeta').innerText, location.hash]));
 console.log('ERRORES', JSON.stringify(errs.filter((e) => !e.includes('404')))); await b.close(); server.close();
