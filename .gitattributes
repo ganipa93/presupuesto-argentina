@@ -6,6 +6,7 @@
 /provincias/**          linguist-generated=true
 /cuadros/**             linguist-generated=true
 /og/**                  linguist-generated=true
+/embed/**               linguist-generated=true
 /js/**                  linguist-generated=true
 /datos/index.html       linguist-generated=true
 /datos/programas.json   linguist-generated=true

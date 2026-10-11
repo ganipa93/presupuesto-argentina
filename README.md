@@ -13,11 +13,12 @@ El Presupuesto nacional 2026 y el proyecto 2027, explicados en lenguaje simple: 
 - **Qué creció y qué cayó:** la evolución de cada programa desde 2020, descontada la inflación.
 - **¿Se cumple?:** la ley 2026 contra lo que pasó, qué programas se están dejando de gastar (se actualiza cada mes), el realismo del 2027 y el debate en el Congreso.
 - **Todos los cuadros:** las páginas completas del proyecto 2027 y de la Ley 27.798, con buscador.
+- **Recaudación mes a mes:** cuánto entra cada mes, contra el año anterior y descontada la inflación.
 - **Comparar:** hasta tres programas, organismos o provincias lado a lado.
 - **Glosario:** los términos del presupuesto en castellano simple.
 - **Novedades:** lo nuevo del sitio, también por RSS (`/novedades.xml`).
 
-Todas las tablas se pueden descargar en Excel (CSV).
+Todas las tablas se pueden descargar en Excel (CSV), y cada programa, organismo o provincia tiene una tarjeta para insertar en notas y blogs.
 
 ## De dónde salen los datos
 
@@ -32,7 +33,7 @@ Los cálculos en términos reales y el semáforo de cumplimiento son estimacione
 
 ## Actualización
 
-- **Automática, todos los meses (día 12):** se baja lo gastado de Presupuesto Abierto, se rearma el sitio, se prueba y se publica.
+- **Automática, todos los meses (día 12):** se baja lo gastado de Presupuesto Abierto y la recaudación e inflación de datos.gob.ar, se rearma el sitio, se prueba y se publica.
 - **A mano, cuando haga falta** (desde la pestaña *Actions* de GitHub):
   - *Bajar datasets oficiales*: cuando se publiquen nuevos datos del presupuesto (por ejemplo, la ley 2027 aprobada).
   - *Bajar serie histórica*: para sumar un año nuevo a la evolución.

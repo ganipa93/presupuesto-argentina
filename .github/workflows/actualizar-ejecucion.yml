@@ -44,11 +44,15 @@ jobs:
             python3 scripts/bajar_datasets.py --solo-api && python3 scripts/armar_programas.py
           fi
 
+      - name: Bajar recaudación e inflación (datos.gob.ar)
+        continue-on-error: true
+        run: python3 scripts/bajar_series.py
+
       - name: Ver si cambió algo
         id: cambios
         run: |
-          git status --porcelain -- datos/
-          if [ -z "$(git status --porcelain -- datos/)" ]; then echo "hay=no" >> "$GITHUB_OUTPUT"; else echo "hay=si" >> "$GITHUB_OUTPUT"; fi
+          git status --porcelain -- datos/ fuentes/ipc_indec.json
+          if [ -z "$(git status --porcelain -- datos/ fuentes/ipc_indec.json)" ]; then echo "hay=no" >> "$GITHUB_OUTPUT"; else echo "hay=si" >> "$GITHUB_OUTPUT"; fi
 
       - uses: actions/setup-node@v5
         if: steps.cambios.outputs.hay == 'si'
@@ -73,6 +77,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A datos fuentes/datasets *.html que-me-cambia gasto provincias og sitemap.xml
+          git add -A datos fuentes/datasets fuentes/ipc_indec.json *.html que-me-cambia gasto provincias embed og js novedades.xml sitemap.xml
           git commit -m "Actualizar ejecución mensual desde Presupuesto Abierto"
           git push

@@ -154,6 +154,14 @@ class Generador:
             se.append((2027, a27, "proyecto"))
         return se
 
+    def seccion_real_corta(self, x):
+        d = {a: self.real(v, a) for a, v, _ in self.serie(x)}
+        fin = 2027 if 2027 in d else 2026 if 2026 in d else None
+        if not fin or 2023 not in d or not d[2023]:
+            return ""
+        c = (d[fin] / d[2023] - 1) * 100
+        return f'{"+" if c >= 0 else "−"}{miles(abs(c))}% (2023→{fin})'
+
     def seccion_historia(self, x):
         se = self.serie(x)
         sujeto = ""
@@ -235,6 +243,33 @@ class Generador:
         archivo.write_text(doc, encoding="utf-8")
         self.urls.append(ruta)
 
+    def embed(self, ruta, kicker, titulo, cifras, nota=""):
+        """Tarjeta para insertar en otros sitios (/embed/...): sin indexar, con link a la página completa.
+        Devuelve el bloque «Insertar en tu sitio» para la página principal."""
+        url = self.site + ruta
+        cif = "".join(f'<div class="c"><span>{e(k)}</span><b>{e(v)}</b></div>' for k, v in cifras if v)
+        doc = f"""<!doctype html><html lang="es-AR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{e(titulo)} · Presupuesto Argentina</title><meta name="robots" content="noindex"><link rel="canonical" href="{url}">
+<style>
+:root{{--fg:#1a1d21;--mu:#565d66;--bg:#fff;--li:#e0dcd2;--c1:#1d4f91;--ac:#f2b632}}
+@media (prefers-color-scheme:dark){{:root{{--fg:#e8eaed;--mu:#a4abb4;--bg:#181b20;--li:#2e333a;--c1:#7fb0ee}}}}
+*{{box-sizing:border-box}}body{{margin:0;font:15px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--fg);background:var(--bg)}}
+a.t{{display:flex;flex-direction:column;gap:10px;padding:14px 16px;border:1px solid var(--li);border-top:4px solid var(--ac);border-radius:10px;color:inherit;text-decoration:none;min-height:100vh}}
+.k{{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mu);font-weight:600}}h1{{margin:0;font:600 18px/1.25 Georgia,serif}}
+.g{{display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));gap:8px}}.c{{display:flex;flex-direction:column}}.c span{{font-size:12px;color:var(--mu)}}.c b{{font-size:17px}}
+.n{{font-size:12px;color:var(--mu)}}.f{{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:var(--c1);font-weight:600;margin-top:auto}}
+</style></head><body><a class="t" href="{url}" target="_blank" rel="noopener"><span class="k">{e(kicker)}</span><h1>{e(titulo)}</h1><div class="g">{cif}</div>{f'<p class="n" style="margin:0">{e(nota)}</p>' if nota else ""}<span class="f"><span>Presupuesto Argentina</span><span>Ver el detalle →</span></span></a></body></html>"""
+        destino = self.raiz / "embed" / (ruta.strip("/") + ".html")
+        destino.parent.mkdir(parents=True, exist_ok=True)
+        destino.write_text(doc, encoding="utf-8")
+        cid = "cod-" + __import__("hashlib").md5(ruta.encode()).hexdigest()[:8]
+        codigo = f'<iframe src="{self.site}/embed{ruta}" width="100%" height="230" style="border:0;max-width:640px" title="{e(titulo)} · Presupuesto Argentina" loading="lazy"></iframe>'
+        return (f'<details class="card insertar"><summary><strong>Insertar en tu sitio o nota</strong> <span class="note">· tarjeta con estos datos y link a esta página</span></summary>'
+                f'<iframe src="/embed{ruta}" width="100%" height="230" style="border:0;max-width:640px;margin-top:8px;display:block" title="Vista previa" loading="lazy"></iframe>'
+                f'<label class="note" for="{cid}" style="display:block">Copiá este código y pegalo en tu página:</label>'
+                f'<textarea id="{cid}" readonly rows="3" style="width:100%;font:13px/1.4 monospace;padding:8px;border:1px solid var(--line);border-radius:var(--r);background:var(--panel);color:var(--fg)">{e(codigo)}</textarea>'
+                f'<button type="button" class="btn mini" data-copiar="{cid}">Copiar código</button></details>')
+
     def dataset(self, nombre, descripcion, ruta):
         return {"@context": "https://schema.org", "@type": "Dataset", "name": nombre, "description": descripcion, "url": self.site + ruta,
                 "inLanguage": "es-AR", "isAccessibleForFree": True, "license": "https://creativecommons.org/licenses/by/4.0/",
@@ -295,6 +330,10 @@ class Generador:
         if hermanos:
             lis = "".join(f'<li><a href="/gasto/{h["s"]}">{e(h["n"])}</a><span>{plata(h["a27"] if h["a27"] is not None else h.get("v26"))}</span></li>' for h in hermanos[:40])
             cuerpo.append(f'<section class="card"><h2>Otros programas de {e(org)}</h2><ul class="lista-links">{lis}</ul></section>')
+        rh = self.seccion_real_corta(x)
+        cuerpo.append(self.embed(ruta, "Presupuesto 2027 · " + org, x["n"], [("Pedido para 2027", plata(x.get("a27"))) if x.get("a27") is not None else ("", ""),
+                                 ("2026: autorizado", plata(x.get("v26"))) if x.get("v26") else ("", ""),
+                                 ("2026: gastado", f'{pct(x["d26"], x["v26"])}') if x.get("v26") else ("", ""), ("Cambio real desde 2023", rh)]))
         cuerpo.append(f'<div class="acciones" style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn primary" href="/programas?q={e(x["n"])}">Abrir en el buscador</a><a class="btn" href="/cuadros?q={e(org)}">Buscar en los cuadros oficiales</a><a class="btn" href="/gasto">Ver todos los programas</a></div>')
         a27 = plata(x["a27"]) if x.get("a27") is not None else None
         desc = (x.get("b", "") + " " if x.get("b") else "") + (f"Presupuesto 2027: {a27}." if a27 else "") + (f" En 2026: {plata(x['v26'])} autorizados, {pct(x['d26'], x['v26'])} gastado." if x.get("v26") else "")
@@ -327,6 +366,7 @@ class Generador:
         if x.get("pag26"):
             botones.append(f'<a class="btn" href="/cuadros#ley2026-p{x["pag26"]}">Ver el cuadro de la ley 2026 (pág. {x["pag26"]})</a>')
         cuerpo.append(f'<div style="display:flex;gap:8px;flex-wrap:wrap">{"".join(botones)}</div>')
+        cuerpo.append(self.embed(ruta, "Presupuesto 2027 · " + x["tipo"], x["n"], [("Gasto total 2027", plata(x["g27"])), ("Ley 2026", plata(x["g26"]) if x.get("g26") is not None else "")]))
         if hermanos:
             lis = "".join(f'<li><a href="/gasto/{h["s"]}">{e(h["n"])}</a><span>{plata(h["g27"])}</span></li>' for h in hermanos)
             cuerpo.append(f'<section class="card"><h2>{"Las otras universidades nacionales" if x["tipo"].startswith("Univ") else "Otros " + ("fondos fiduciarios" if x["tipo"] == "Fondo fiduciario" else "organismos del mismo tipo")}</h2><ul class="lista-links">{lis}</ul></section>')
@@ -363,7 +403,8 @@ class Generador:
                       '<div class="caveat">Cuenta solo el gasto que el Estado nacional ubica en esta provincia. Una parte grande del gasto, como muchas jubilaciones y asignaciones o las transferencias a fondos, figura como «Nacional» o «No clasificado», así que lo que llega a la gente de la provincia es más que esto. Tampoco incluye la coparticipación, que no es gasto del presupuesto nacional.' + (' En la Ciudad de Buenos Aires, además, figura mucho gasto de organismos nacionales que tienen ahí su sede.' if p.startswith('Ciudad') else '') + '</div>',
                       self.obras_provincia(p),
                       f'<section class="card"><h2>¿En qué gasta la Nación en {e(p)}?</h2><p class="note">Los {min(60, len(xs))} programas con más gasto en la provincia en 2026.</p>{tabla(["Programa", "Autorizado 2026", "Gastado", "%"], filas)}</section>',
-                      f'<div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn primary" href="/programas?provincia={e(p)}">Buscar dentro de {e(p)}</a><a class="btn" href="/provincias">Ver todas las provincias</a></div>']
+                      f'<div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn primary" href="/programas?provincia={e(p)}">Buscar dentro de {e(p)}</a><a class="btn" href="/provincias">Ver todas las provincias</a></div>',
+                      self.embed(ruta, "Gasto nacional en la provincia · 2026", f"¿Cuánto gasta la Nación en {p}?", [("Autorizado 2026", plata(tv)), ("Gastado", pct(td, tv)), ("Por habitante", ("$" + miles(hab[p])) if p in hab else ""), ("Puesto", f"{rank[p]} de 24" if p in hab else "")])]
             n1, u1 = plata_og(tv)
             img = self.og_trabajo(f"provincias/{slug(p)}.jpg", kicker="Presupuesto nacional 2026", titulo=f"¿Cuánto gasta la Nación en {p}?", org="",
                                   l1="Autorizado 2026", n1=n1, u1=u1, l2="Por habitante", n2=("$" + miles(hab[p])) if p in hab else pct(td, tv), u2=(f"puesto {rank[p]} de 24") if p in hab else "", fuente="Fuentes: Presupuesto Abierto y Censo 2022")
@@ -596,6 +637,76 @@ class Generador:
         rss.append("</channel></rss>")
         (self.raiz / "novedades.xml").write_text("\n".join(rss), encoding="utf-8")
 
+    # ---------- recaudación mensual ----------
+    def recaudacion(self):
+        R = self.datos.get("recaudacion")
+        if not R:
+            return
+        ipcm = json.loads((self.raiz / "fuentes" / "ipc_indec.json").read_text(encoding="utf-8"))["mensual_2025_2026"]
+        S = {k: dict(v) for k, v in R["series"].items()}
+        ult = max(S["total"])
+        anio, mes = int(ult[:4]), int(ult[5:])
+        prev = anio - 1
+        meses = [f"{anio}-{m:02d}" for m in range(1, mes + 1)]
+        ant = lambda m: f"{prev}-{m[5:]}"
+        con_ipc = [m for m in meses if m in ipcm and ant(m) in ipcm]
+        def acum(k, ms, a=None):
+            return sum(S[k].get(m if a is None else ant(m), 0) for m in ms)
+        def real_var(k, ms):
+            hoy = acum(k, ms)
+            antes = sum(S[k].get(ant(m), 0) * ipcm[m] / ipcm[ant(m)] for m in ms)
+            return (hoy / antes - 1) * 100 if antes else None
+        t_hoy, t_ant = acum("total", meses), acum("total", meses, True)
+        nom = (t_hoy / t_ant - 1) * 100
+        rv = real_var("total", con_ipc)
+        estim = sum(r["y2026"] for r in self.datos["recursos"]) if anio == 2026 else None
+        mes_txt = MESES[mes - 1]
+        ult_ipc = MESES[int(con_ipc[-1][5:]) - 1] if con_ipc else ""
+        frases = [f"De enero a {mes_txt} de {anio} la Nación recaudó <strong>{plata(t_hoy)}</strong>, {miles(abs(nom))}% {'más' if nom >= 0 else 'menos'} en pesos que en el mismo período de {prev}."]
+        if rv is not None:
+            frases.append(f"Descontada la inflación (enero a {ult_ipc}), es <strong>{miles(abs(rv), 1)}% {'más' if rv >= 0 else 'menos'}</strong> en términos reales.")
+        if estim:
+            frases.append(f"Lleva el {pct(t_hoy, estim)} de lo que el proyecto 2027 estima que se recaudará en todo {anio} ({plata(estim)}), con el {miles(mes / 12 * 100)}% del año transcurrido.")
+        comp = [("dgi", "Impuestos (DGI): IVA, Ganancias, cheque y otros"), ("dga", "Comercio exterior (Aduana): derechos de exportación e importación"), ("seguridad_social", "Seguridad social: aportes y contribuciones")]
+        filas_c = []
+        for k, nombre in comp:
+            v = real_var(k, con_ipc)
+            filas_c.append([e(nombre), dn(acum(k, meses)), dn(acum(k, meses, True)), f"{'+' if (acum(k, meses) >= acum(k, meses, True)) else '−'}{miles(abs((acum(k, meses) / acum(k, meses, True) - 1) * 100))}%",
+                            (f"{'+' if v >= 0 else '−'}{miles(abs(v), 1)}%" if v is not None else "—")])
+        filas_m = []
+        for m in meses:
+            a = ant(m)
+            nv = (S["total"][m] / S["total"][a] - 1) * 100 if S["total"].get(a) else None
+            rr = ((S["total"][m] / S["total"][a]) / (ipcm[m] / ipcm[a]) - 1) * 100 if (m in ipcm and a in ipcm and S["total"].get(a)) else None
+            filas_m.append([f"{MESES[int(m[5:]) - 1].capitalize()} {m[:4]}", dn(S["total"][m]), dn(S["dgi"].get(m, 0)), dn(S["dga"].get(m, 0)), dn(S["seguridad_social"].get(m, 0)),
+                            f"{'+' if nv >= 0 else '−'}{miles(abs(nv))}%" if nv is not None else "—", f"{'+' if rr >= 0 else '−'}{miles(abs(rr), 1)}%" if rr is not None else "s/d"])
+        # gráfico: cada mes del año contra el mismo mes del año anterior, en pesos de hoy
+        barras = [(m, S["total"][m], S["total"].get(ant(m), 0) * ipcm[m] / ipcm[ant(m)]) for m in con_ipc]
+        mx = max(max(b, c) for _, b, c in barras) or 1
+        W, base, bw = 560, 200, 560 / len(barras)
+        svg = []
+        for i, (m, b, c) in enumerate(barras):
+            x0 = 6 + i * bw
+            for j, (v, col) in enumerate(((c, "var(--mutedbar)"), (b, "var(--c1)"))):
+                h = v / mx * 160
+                svg.append(f'<rect x="{x0 + bw * (0.12 + j * 0.38):.1f}" y="{base - h:.1f}" width="{bw * 0.36:.1f}" height="{h:.1f}" rx="2" fill="{col}"><title>{MESES[int(m[5:]) - 1]}: {plata(v)}</title></rect>')
+            svg.append(f'<text x="{x0 + bw / 2:.1f}" y="{base + 16}" text-anchor="middle" font-size="12" fill="currentColor" opacity=".75">{MESES[int(m[5:]) - 1][:3]}</text>')
+        grafico = (f'<figure style="margin:0"><svg viewBox="0 0 {W} 222" width="100%" style="max-width:720px;color:var(--fg)" role="img" aria-label="Recaudación mensual {anio} contra {prev}">{"".join(svg)}'
+                   f'<line x1="6" x2="{W - 6}" y1="{base}" y2="{base}" stroke="var(--axis)"/></svg><figcaption class="note"><span style="color:var(--c1)">■</span> {anio} &nbsp; <span style="color:var(--mutedbar)">■</span> {prev}, llevado a pesos del mismo mes de {anio} con el IPC (solo los meses con inflación publicada)</figcaption></figure>')
+        cuerpo = [f'<p class="respuesta">{" ".join(frases)}</p>',
+                  f'<div class="stats">{stat(f"Recaudado ene-{mes_txt[:3]} {anio}", plata(t_hoy), "pesos corrientes", ink=True)}{stat("Variación real", (("+" if rv >= 0 else "−") + miles(abs(rv), 1) + "%") if rv is not None else "—", f"contra ene-{ult_ipc[:3]} {prev}")}'
+                  + (stat(f"De lo estimado para {anio}", pct(t_hoy, estim), plata(estim) + " en el año", barra=t_hoy / estim * 100) if estim else "") + "</div>",
+                  f'<section class="card"><h2>Mes por mes</h2>{grafico}{tabla(["Mes", "Total", "DGI", "Aduana (DGA)", "Seguridad social", "Var. nominal", "Var. real"], filas_m)}</section>',
+                  f'<section class="card"><h2>¿De dónde viene?</h2><p class="note">Enero a {mes_txt} de {anio} contra el mismo período de {prev}.</p>{tabla(["Componente", str(anio), str(prev), "Var. nominal", "Var. real"], filas_c)}</section>',
+                  f'<div class="caveat">Fuente: Secretaría de Hacienda (Ministerio de Economía), recaudación tributaria mensual, publicada en la API de Series de Tiempo de datos.gob.ar; inflación: IPC del INDEC. La recaudación incluye lo que después se reparte a las provincias por coparticipación. La estimación anual es la que hace el proyecto 2027 para el cierre de {anio}. Se actualiza sola cada mes. <a href="/de-donde-sale">Más sobre los recursos</a>.</div>']
+        img = self.og_trabajo("recaudacion.jpg", kicker=f"Recaudación nacional {anio}", titulo="¿Cuánto recauda la Nación?", org=f"Enero a {mes_txt} de {anio}",
+                              l1="Recaudado", n1=plata_og(t_hoy)[0], u1=plata_og(t_hoy)[1], l2="Variación real", n2=(("+" if rv >= 0 else "−") + miles(abs(rv), 1) + "%") if rv is not None else "", u2="",
+                              fuente="Fuentes: Ministerio de Economía e INDEC")
+        desc = f"Recaudación nacional de enero a {mes_txt} de {anio}: {plata(t_hoy)}, comparada con {prev} y descontada la inflación, mes por mes y por componente. Se actualiza cada mes."
+        self.pagina("/recaudacion", f"Recaudación nacional {anio} mes a mes: cuánto entra y cómo viene contra {prev}", desc, "\n".join(cuerpo),
+                    [("Inicio", "/"), ("De dónde sale la plata", "/de-donde-sale"), ("Recaudación mes a mes", "/recaudacion")], img,
+                    self.dataset(f"Recaudación tributaria nacional mensual {prev}-{anio}", desc, "/recaudacion"), h1=f"¿Cuánto recauda la Nación en {anio}?")
+
     # ---------- glosario ----------
     def glosario(self):
         T = json.loads((self.raiz / "scripts" / "glosario.json").read_text(encoding="utf-8"))
@@ -629,6 +740,7 @@ class Generador:
         self.glosario()
         self.ejecucion()
         self.comparar()
+        self.recaudacion()
         self.novedades(self.datos.get("novedades", []))
         (self.raiz / "scripts" / ".og-paginas.json").write_text(json.dumps(self.og, ensure_ascii=False), encoding="utf-8")
         return self.urls

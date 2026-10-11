@@ -15,7 +15,7 @@ def existe(u):
 
 
 def main():
-    paginas = [p for p in RAIZ.rglob("*.html") if not any(x in p.parts for x in ("src", "scripts", "node_modules", "fuentes"))]
+    paginas = [p for p in RAIZ.rglob("*.html") if not any(x in p.parts for x in ("src", "scripts", "node_modules", "fuentes", "embed"))]
     problemas = []
     for f in paginas:
         s = f.read_text(encoding="utf-8")

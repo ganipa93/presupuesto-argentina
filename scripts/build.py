@@ -37,6 +37,7 @@ DESCRIPCIONES = {
     "obras_provincias": "Por provincia: obras y actividades 2027 que la nombran y la inversión 2026 (bienes de uso) que el Estado ubica en ella (millones de $).",
     "comparar": "Datos del comparador: cada programa, organismo y provincia con sus montos 2026-2027 y la serie real 2020-2027 en millones de pesos de 2026.",
     "novedades": "Novedades del sitio y actualizaciones de datos (también en /novedades.xml).",
+    "recaudacion": "Recaudación tributaria mensual (total, DGI, Aduana y seguridad social) en millones de $. Secretaría de Hacienda vía datos.gob.ar.",
     "referencias": "Población (INDEC), haber mínimo (Res. ANSES 284/2026), reparto de la recaudación (pág. 41) y supuestos de la calculadora de impuestos.",
 }
 
@@ -104,7 +105,7 @@ QUIEN = {"jubilados": "los jubilados y pensionados", "familias": "las familias c
          "discapacidad": "las personas con discapacidad", "trabajadores": "los trabajadores en relación de dependencia", "estatales": "los empleados públicos nacionales",
          "provincias": "las provincias", "servicios": "las tarifas de luz, gas y transporte", "contribuyentes": "los contribuyentes, las pymes y los productores"}
 GRUPOS = [("Para vos", [("resumen", "Resumen"), ("que-me-cambia", "¿Qué me cambia?"), ("tus-impuestos", "Tus impuestos"), ("/programas", "Buscar un gasto")]),
-          ("Los números", [("gasto", "En qué se gasta"), ("/comparar", "Comparar"), ("/evolucion", "Qué creció y qué cayó"), ("recursos", "De dónde sale la plata"), ("/provincias", "Por provincia")]),
+          ("Los números", [("gasto", "En qué se gasta"), ("/comparar", "Comparar"), ("/evolucion", "Qué creció y qué cayó"), ("recursos", "De dónde sale la plata"), ("/recaudacion", "Recaudación mes a mes"), ("/provincias", "Por provincia")]),
           ("¿Se cumple?", [("cumplimiento-2026", "2026: ¿se cumplió?"), ("/ejecucion-2026", "Lo que no se está gastando"), ("realismo-2027", "2027: ¿es realista?"), ("congreso", "En el Congreso")]),
           ("La ley", [("ley-vs-proyecto", "2026 vs. 2027"), ("articulos", "Artículos clave"), ("/cuadros", "Todos los cuadros"), ("/glosario", "Glosario")])]
 
@@ -226,7 +227,7 @@ def main():
     # Páginas fijas por programa, organismo y provincia
     paginas = []
     if "programas" in datos:
-        for d in ("gasto", "provincias"):
+        for d in ("gasto", "provincias", "embed"):
             shutil.rmtree(RAIZ / d, ignore_errors=True)
         for f in ("gasto.html", "provincias.html"):
             (RAIZ / f).unlink(missing_ok=True)

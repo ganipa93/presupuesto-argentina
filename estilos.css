@@ -178,3 +178,7 @@ tbody th{position:static;background:none;font-weight:inherit;text-align:left;z-i
 .timeline li.proximo .cg-fecha{color:var(--c1);text-underline-offset:2px}
 mark{background:var(--accsoft);color:inherit;border-radius:2px;box-shadow:0 0 0 1px var(--acc) inset}
 .timeline a,.v a{font-size:var(--fs-cap)}
+
+.insertar summary{cursor:pointer;list-style:none}
+.insertar summary::-webkit-details-marker{display:none}
+.insertar[open]{gap:var(--g-sm)}
