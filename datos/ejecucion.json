@@ -1,0 +1,173 @@
+[
+{
+"concepto": "Gastos corrientes",
+"tipo": "gasto",
+"ejec2025": 64754013.9,
+"estimado2026": 155576125.3,
+"ejec2026": 84434876.7,
+"var_pct": 30.4,
+"pct_ejec": 54.3
+},
+{
+"concepto": "Prestaciones de la seguridad social",
+"tipo": "gasto",
+"ejec2025": 30443919.3,
+"estimado2026": 75673168.6,
+"ejec2026": 41519652.3,
+"var_pct": 36.4,
+"pct_ejec": 54.9
+},
+{
+"concepto": "Remuneraciones",
+"tipo": "gasto",
+"ejec2025": 7450022.2,
+"estimado2026": 17541738.7,
+"ejec2026": 9550715.9,
+"var_pct": 28.2,
+"pct_ejec": 54.4
+},
+{
+"concepto": "Intereses netos y rentas",
+"tipo": "gasto",
+"ejec2025": 5082565.9,
+"estimado2026": 15756573.0,
+"ejec2026": 7513117.1,
+"var_pct": 47.8,
+"pct_ejec": 47.7
+},
+{
+"concepto": "Asignaciones familiares",
+"tipo": "gasto",
+"ejec2025": 5008180.9,
+"estimado2026": 11678559.4,
+"ejec2026": 6699447.8,
+"var_pct": 33.8,
+"pct_ejec": 57.4
+},
+{
+"concepto": "Universidades nacionales",
+"tipo": "gasto",
+"ejec2025": 2388586.3,
+"estimado2026": 6135916.7,
+"ejec2026": 2703553.2,
+"var_pct": 13.2,
+"pct_ejec": 44.1
+},
+{
+"concepto": "Transf. a empresas públicas y fondos",
+"tipo": "gasto",
+"ejec2025": 2243826.2,
+"estimado2026": 5480334.0,
+"ejec2026": 2886599.9,
+"var_pct": 28.6,
+"pct_ejec": 52.7
+},
+{
+"concepto": "Bienes y servicios",
+"tipo": "gasto",
+"ejec2025": 1630368.3,
+"estimado2026": 4830637.4,
+"ejec2026": 1839341.6,
+"var_pct": 12.8,
+"pct_ejec": 38.1
+},
+{
+"concepto": "PAMI (INSSJyP)",
+"tipo": "gasto",
+"ejec2025": 1842040.1,
+"estimado2026": 3932057.2,
+"ejec2026": 2147149.8,
+"var_pct": 16.6,
+"pct_ejec": 54.6
+},
+{
+"concepto": "Transf. a empresas privadas",
+"tipo": "gasto",
+"ejec2025": 1466481.0,
+"estimado2026": 4578939.3,
+"ejec2026": 2984523.2,
+"var_pct": 103.5,
+"pct_ejec": 65.2
+},
+{
+"concepto": "Transf. a provincias y municipios",
+"tipo": "gasto",
+"ejec2025": 1495855.1,
+"estimado2026": 2023653.8,
+"ejec2026": 740285.8,
+"var_pct": -50.5,
+"pct_ejec": 36.6
+},
+{
+"concepto": "Otros gastos (bono jubilatorio, Alimentar, etc.)",
+"tipo": "gasto",
+"ejec2025": 5702168.7,
+"estimado2026": 7944547.2,
+"ejec2026": 5850490.1,
+"var_pct": 2.6,
+"pct_ejec": 73.6
+},
+{
+"concepto": "Gastos de capital",
+"tipo": "gasto",
+"ejec2025": 818897.3,
+"estimado2026": 3104307.0,
+"ejec2026": 828286.4,
+"var_pct": 1.1,
+"pct_ejec": 26.7
+},
+{
+"concepto": "Inversión real directa",
+"tipo": "gasto",
+"ejec2025": 448014.8,
+"estimado2026": 1601391.7,
+"ejec2026": 363108.9,
+"var_pct": -19.0,
+"pct_ejec": 22.7
+},
+{
+"concepto": "Transferencias de capital",
+"tipo": "gasto",
+"ejec2025": 326895.7,
+"estimado2026": 1202142.4,
+"ejec2026": 339330.9,
+"var_pct": 3.8,
+"pct_ejec": 28.2
+},
+{
+"concepto": "Gasto total",
+"tipo": "total",
+"ejec2025": 65572911.3,
+"estimado2026": 158680432.3,
+"ejec2026": 85263163.1,
+"var_pct": 30.0,
+"pct_ejec": 53.7
+},
+{
+"concepto": "Recursos totales",
+"tipo": "resultado",
+"ejec2025": null,
+"estimado2026": 158776101.6,
+"ejec2026": 86713596.4,
+"var_pct": null,
+"pct_ejec": 54.6
+},
+{
+"concepto": "Resultado primario",
+"tipo": "resultado",
+"ejec2025": null,
+"estimado2026": 13064887.1,
+"ejec2026": 8949628.1,
+"var_pct": null,
+"pct_ejec": 68.5
+},
+{
+"concepto": "Resultado financiero",
+"tipo": "resultado",
+"ejec2025": null,
+"estimado2026": 95669.4,
+"ejec2026": 1450433.3,
+"var_pct": null,
+"pct_ejec": null
+}
+]

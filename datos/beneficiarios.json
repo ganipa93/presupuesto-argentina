@@ -1,0 +1,92 @@
+[
+{
+"concepto": "Jubilaciones ANSES",
+"tipo": "Cantidad",
+"y2026": 5590521,
+"y2027": 5485761
+},
+{
+"concepto": "Pensiones ANSES",
+"tipo": "Cantidad",
+"y2026": 1639578,
+"y2027": 1638828
+},
+{
+"concepto": "Total beneficios previsionales",
+"tipo": "Cantidad",
+"y2026": 7526636,
+"y2027": 7421530
+},
+{
+"concepto": "Pensión no contributiva por invalidez laboral",
+"tipo": "Cantidad",
+"y2026": 1145452,
+"y2027": 1141436
+},
+{
+"concepto": "Madres de 7 o más hijos",
+"tipo": "Cantidad",
+"y2026": 232077,
+"y2027": 230302
+},
+{
+"concepto": "Subsidios de contención familiar",
+"tipo": "Cantidad",
+"y2026": 92117,
+"y2027": 80120
+},
+{
+"concepto": "Seguro de desempleo",
+"tipo": "Cantidad",
+"y2026": 118868,
+"y2027": 130324
+},
+{
+"concepto": "PUAM",
+"tipo": "Cantidad",
+"y2026": 220308,
+"y2027": 253032
+},
+{
+"concepto": "AUH (niños)",
+"tipo": "Cantidad",
+"y2026": 4133410,
+"y2027": 4143930
+},
+{
+"concepto": "AUH monto agosto 2026",
+"tipo": "Valor mensual",
+"y2026": 150848,
+"y2027": null
+},
+{
+"concepto": "Prestación Alimentar (1 hijo, agosto 2026)",
+"tipo": "Valor mensual",
+"y2026": 72250,
+"y2027": null
+},
+{
+"concepto": "Prestación Alimentar (2 hijos, agosto 2026)",
+"tipo": "Valor mensual",
+"y2026": 113299,
+"y2027": null
+},
+{
+"concepto": "Prestación Alimentar (3 o más hijos, agosto 2026)",
+"tipo": "Valor mensual",
+"y2026": 149425,
+"y2027": null
+},
+{
+"concepto": "Plan 1000 días (agosto 2026)",
+"tipo": "Valor mensual",
+"y2026": 56897,
+"y2027": null
+},
+{
+"concepto": "Bono jubilatorio",
+"tipo": "Valor mensual",
+"y2026": 70000,
+"y2027": null
+}
+]

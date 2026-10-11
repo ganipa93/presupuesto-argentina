@@ -1,0 +1,86 @@
+[
+{
+"concepto": "IVA neto de reintegros",
+"y2026": 76792360.2,
+"y2027": 98471730.6,
+"pib2026": 6.72,
+"pib2027": 6.95
+},
+{
+"concepto": "Ganancias",
+"y2026": 53082214.0,
+"y2027": 69262175.6,
+"pib2026": 4.65,
+"pib2027": 4.89
+},
+{
+"concepto": "Créditos y débitos bancarios",
+"y2026": 17961680.2,
+"y2027": 22597000.0,
+"pib2026": 1.57,
+"pib2027": 1.6
+},
+{
+"concepto": "Derechos de exportación",
+"y2026": 8536982.5,
+"y2027": 12062269.8,
+"pib2026": 0.75,
+"pib2027": 0.85
+},
+{
+"concepto": "Combustibles y CO2",
+"y2026": 7644137.4,
+"y2027": 12177513.0,
+"pib2026": 0.67,
+"pib2027": 0.86
+},
+{
+"concepto": "Derechos de importación",
+"y2026": 5849587.3,
+"y2027": 8141333.6,
+"pib2026": 0.51,
+"pib2027": 0.57
+},
+{
+"concepto": "Impuestos internos",
+"y2026": 3612615.7,
+"y2027": 4424463.2,
+"pib2026": 0.32,
+"pib2027": 0.31
+},
+{
+"concepto": "Bienes Personales",
+"y2026": 2633144.8,
+"y2027": 2830649.9,
+"pib2026": 0.23,
+"pib2027": 0.2
+},
+{
+"concepto": "Tasa de estadística",
+"y2026": 1277244.5,
+"y2027": 1779100.0,
+"pib2026": 0.11,
+"pib2027": 0.13
+},
+{
+"concepto": "Monotributo impositivo",
+"y2026": 1362188.9,
+"y2027": 1802911.4,
+"pib2026": 0.12,
+"pib2027": 0.13
+},
+{
+"concepto": "Otros impuestos",
+"y2026": 1670871.6,
+"y2027": 2036440.2,
+"pib2026": 0.15,
+"pib2027": 0.14
+},
+{
+"concepto": "Aportes y contribuciones a la seguridad social",
+"y2026": 60023702.9,
+"y2027": 71842945.5,
+"pib2026": 5.26,
+"pib2027": 5.07
+}
+]

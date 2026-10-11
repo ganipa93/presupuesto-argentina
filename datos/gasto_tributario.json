@@ -1,0 +1,22 @@
+[
+{
+"concepto": "Total gasto tributario 2027",
+"monto": 51914317.8,
+"nota": "3,67% del PBI"
+},
+{
+"concepto": "IVA (exenciones y alícuotas reducidas)",
+"monto": 18846000.0,
+"nota": "36,3% del total; monto calculado sobre ese porcentaje"
+},
+{
+"concepto": "Monotributo",
+"monto": 15090000.0,
+"nota": "Regímenes simplificados"
+},
+{
+"concepto": "Ganancias",
+"monto": 9190000.0,
+"nota": "Deducciones y exenciones"
+}
+]

@@ -1,0 +1,67 @@
+[
+{
+"concepto": "Ingresos corrientes",
+"pib2026": 13.8,
+"pib2027": 14.0
+},
+{
+"concepto": "Ingresos impositivos",
+"pib2026": 8.2,
+"pib2027": 8.7
+},
+{
+"concepto": "Aportes a la seguridad social",
+"pib2026": 4.6,
+"pib2027": 4.4
+},
+{
+"concepto": "Gastos corrientes",
+"pib2026": 13.6,
+"pib2027": 13.8
+},
+{
+"concepto": "Prestaciones de la seguridad social",
+"pib2026": 6.6,
+"pib2027": 6.9
+},
+{
+"concepto": "Transferencias corrientes",
+"pib2026": 3.9,
+"pib2027": 3.8
+},
+{
+"concepto": "Remuneraciones",
+"pib2026": 1.5,
+"pib2027": 1.6
+},
+{
+"concepto": "Intereses netos y rentas",
+"pib2026": 1.1,
+"pib2027": 1.1
+},
+{
+"concepto": "Gastos de capital",
+"pib2026": 0.3,
+"pib2027": 0.3
+},
+{
+"concepto": "Resultado primario",
+"pib2026": 1.1,
+"pib2027": 1.1
+},
+{
+"concepto": "Memo: rentas del BCRA (no computadas en el resultado)",
+"pib2026": 2.1,
+"pib2027": 0.0
+},
+{
+"concepto": "Fuentes financieras (deuda y otras)",
+"pib2026": 24.8,
+"pib2027": 23.0
+},
+{
+"concepto": "Amortización de deudas",
+"pib2026": 25.0,
+"pib2027": 21.7
+}
+]

@@ -1,0 +1,47 @@
+[
+{
+"concepto": "Gasto total",
+"var_real_pct": -1.0,
+"nota": "$101,22 billones acumulados a agosto"
+},
+{
+"concepto": "Gasto primario (sin intereses)",
+"var_real_pct": -4.3,
+"nota": ""
+},
+{
+"concepto": "Intereses",
+"var_real_pct": 31.7,
+"nota": ""
+},
+{
+"concepto": "Transferencias a provincias",
+"var_real_pct": -64.6,
+"nota": ""
+},
+{
+"concepto": "Universidades",
+"var_real_pct": -12.6,
+"nota": ""
+},
+{
+"concepto": "Gastos de capital",
+"var_real_pct": -16.4,
+"nota": ""
+},
+{
+"concepto": "Inversión real directa",
+"var_real_pct": -27.9,
+"nota": ""
+},
+{
+"concepto": "Bono jubilatorio ($70.000 congelado desde marzo 2024)",
+"var_real_pct": -25.6,
+"nota": ""
+},
+{
+"concepto": "AUH",
+"var_real_pct": 4.7,
+"nota": ""
+}
+]

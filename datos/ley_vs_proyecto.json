@@ -1,0 +1,56 @@
+[
+{
+"concepto": "Gasto total (art. 1)",
+"ley2026": 148069293.5,
+"proyecto2027": 198718199.7,
+"nota": "2027 neto de intereses internos. El 2026 estimado actual es $158,68 billones neto ($161,43 bruto)."
+},
+{
+"concepto": "Universidades (art. 12)",
+"ley2026": 4785117.7,
+"proyecto2027": 7349000.0,
+"nota": "Mismo texto de condición: se pueden cortar transferencias si no informan."
+},
+{
+"concepto": "Fondo Nacional de Empleo (art. 15)",
+"ley2026": 11290.0,
+"proyecto2027": 15000.0,
+"nota": ""
+},
+{
+"concepto": "Bosques nativos: fondo",
+"ley2026": 15843.0,
+"proyecto2027": 24668.0,
+"nota": ""
+},
+{
+"concepto": "Bosques nativos: programa",
+"ley2026": 1624.5,
+"proyecto2027": 3654.6,
+"nota": ""
+},
+{
+"concepto": "Deudas previsionales ANSES",
+"ley2026": 212288.0,
+"proyecto2027": 1361000.0,
+"nota": "En 2026 el tope subió a $962.288 millones por DA 20 y 26/2026."
+},
+{
+"concepto": "Deudas Fuerzas Armadas y de Seguridad",
+"ley2026": 367205.6,
+"proyecto2027": 475766.0,
+"nota": ""
+},
+{
+"concepto": "Cajas previsionales provinciales",
+"ley2026": 122762.7,
+"proyecto2027": 503325.9,
+"nota": ""
+},
+{
+"concepto": "Tope de Letras del Tesoro",
+"ley2026": 70000000.0,
+"proyecto2027": 72000000.0,
+"nota": "Reembolsables en el mismo ejercicio."
+}
+]

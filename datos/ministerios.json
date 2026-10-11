@@ -1,0 +1,92 @@
+[
+{
+"jurisdiccion": "Poder Legislativo Nacional",
+"y2026": 936979.7,
+"y2027": 1127046.4,
+"var_pct": 20.3
+},
+{
+"jurisdiccion": "Poder Judicial de la Nación",
+"y2026": 2479810.1,
+"y2027": 3017276.6,
+"var_pct": 21.7
+},
+{
+"jurisdiccion": "Ministerio Público",
+"y2026": 1145073.3,
+"y2027": 1400742.1,
+"var_pct": 22.3
+},
+{
+"jurisdiccion": "Presidencia de la Nación",
+"y2026": 553767.7,
+"y2027": 633231.7,
+"var_pct": 14.3
+},
+{
+"jurisdiccion": "Jefatura de Gabinete de Ministros",
+"y2026": 2066464.2,
+"y2027": 2873382.8,
+"var_pct": 39.0
+},
+{
+"jurisdiccion": "Relaciones Exteriores, Comercio Int. y Culto",
+"y2026": 774719.0,
+"y2027": 901782.1,
+"var_pct": 16.4
+},
+{
+"jurisdiccion": "Ministerio de Justicia",
+"y2026": 328303.5,
+"y2027": 380938.0,
+"var_pct": 16.0
+},
+{
+"jurisdiccion": "Ministerio de Seguridad Nacional",
+"y2026": 8774611.5,
+"y2027": 10104495.8,
+"var_pct": 15.2
+},
+{
+"jurisdiccion": "Ministerio de Defensa",
+"y2026": 6722566.5,
+"y2027": 8066428.9,
+"var_pct": 20.0
+},
+{
+"jurisdiccion": "Ministerio de Economía",
+"y2026": 9863174.3,
+"y2027": 9539187.4,
+"var_pct": -3.3
+},
+{
+"jurisdiccion": "Ministerio de Salud",
+"y2026": 9220258.5,
+"y2027": 10726832.4,
+"var_pct": 16.3
+},
+{
+"jurisdiccion": "Ministerio de Capital Humano",
+"y2026": 96886257.7,
+"y2027": 119870969.8,
+"var_pct": 23.7
+},
+{
+"jurisdiccion": "Desregulación y Transformación del Estado",
+"y2026": 27485.9,
+"y2027": 39752.6,
+"var_pct": 44.6
+},
+{
+"jurisdiccion": "Servicio de la Deuda Pública",
+"y2026": 13260777.4,
+"y2027": 15223184.6,
+"var_pct": 14.8
+},
+{
+"jurisdiccion": "Obligaciones a Cargo del Tesoro",
+"y2026": 5640183.0,
+"y2027": 14812948.5,
+"var_pct": 162.6
+}
+]

@@ -1,0 +1,167 @@
+[
+{
+"jurisdiccion": "Poder Legislativo Nacional",
+"remuneraciones": 943958,
+"bienes_servicios": 173450,
+"intereses": 61,
+"prestaciones_ss": 0,
+"transf_corrientes": 1513,
+"inversion_real": 8020,
+"transf_capital": 0,
+"total": 1127046
+},
+{
+"jurisdiccion": "Poder Judicial de la Nación",
+"remuneraciones": 2772428,
+"bienes_servicios": 139766,
+"intereses": 1696,
+"prestaciones_ss": 14380,
+"transf_corrientes": 5,
+"inversion_real": 89001,
+"transf_capital": 0,
+"total": 3017277
+},
+{
+"jurisdiccion": "Ministerio Público",
+"remuneraciones": 1344042,
+"bienes_servicios": 28677,
+"intereses": 654,
+"prestaciones_ss": 0,
+"transf_corrientes": 40,
+"inversion_real": 27174,
+"transf_capital": 0,
+"total": 1400742
+},
+{
+"jurisdiccion": "Presidencia de la Nación",
+"remuneraciones": 338345,
+"bienes_servicios": 226295,
+"intereses": 370,
+"prestaciones_ss": 0,
+"transf_corrientes": 37650,
+"inversion_real": 27539,
+"transf_capital": 610,
+"total": 633232
+},
+{
+"jurisdiccion": "Jefatura de Gabinete de Ministros",
+"remuneraciones": 1048065,
+"bienes_servicios": 1039891,
+"intereses": 1905,
+"prestaciones_ss": 0,
+"transf_corrientes": 508191,
+"inversion_real": 235356,
+"transf_capital": 37469,
+"total": 2873383
+},
+{
+"jurisdiccion": "Relaciones Exteriores, Comercio Int. y Culto",
+"remuneraciones": 643667,
+"bienes_servicios": 115467,
+"intereses": 0,
+"prestaciones_ss": 0,
+"transf_corrientes": 135819,
+"inversion_real": 6829,
+"transf_capital": 0,
+"total": 901782
+},
+{
+"jurisdiccion": "Ministerio de Justicia",
+"remuneraciones": 155614,
+"bienes_servicios": 193957,
+"intereses": 250,
+"prestaciones_ss": 0,
+"transf_corrientes": 13909,
+"inversion_real": 16797,
+"transf_capital": 0,
+"total": 380938
+},
+{
+"jurisdiccion": "Ministerio de Seguridad Nacional",
+"remuneraciones": 5394624,
+"bienes_servicios": 532678,
+"intereses": 819,
+"prestaciones_ss": 3925131,
+"transf_corrientes": 153694,
+"inversion_real": 96566,
+"transf_capital": 0,
+"total": 10104496
+},
+{
+"jurisdiccion": "Ministerio de Defensa",
+"remuneraciones": 4282469,
+"bienes_servicios": 733693,
+"intereses": 428,
+"prestaciones_ss": 2819679,
+"transf_corrientes": 63487,
+"inversion_real": 166518,
+"transf_capital": 0,
+"total": 8066429
+},
+{
+"jurisdiccion": "Ministerio de Economía",
+"remuneraciones": 1729809,
+"bienes_servicios": 594019,
+"intereses": 14440,
+"prestaciones_ss": 0,
+"transf_corrientes": 5647854,
+"inversion_real": 1192323,
+"transf_capital": 359981,
+"total": 9539187
+},
+{
+"jurisdiccion": "Ministerio de Salud",
+"remuneraciones": 712476,
+"bienes_servicios": 1508593,
+"intereses": 4519,
+"prestaciones_ss": 5111046,
+"transf_corrientes": 3360442,
+"inversion_real": 22290,
+"transf_capital": 7307,
+"total": 10726832
+},
+{
+"jurisdiccion": "Ministerio de Capital Humano",
+"remuneraciones": 1286884,
+"bienes_servicios": 504101,
+"intereses": 26337,
+"prestaciones_ss": 82544690,
+"transf_corrientes": 35454333,
+"inversion_real": 22363,
+"transf_capital": 30315,
+"total": 119870970
+},
+{
+"jurisdiccion": "Desregulación y Transformación del Estado",
+"remuneraciones": 27286,
+"bienes_servicios": 4264,
+"intereses": 5335,
+"prestaciones_ss": 0,
+"transf_corrientes": 2828,
+"inversion_real": 39,
+"transf_capital": 0,
+"total": 39753
+},
+{
+"jurisdiccion": "Servicio de la Deuda Pública",
+"remuneraciones": 0,
+"bienes_servicios": 112891,
+"intereses": 18493526,
+"prestaciones_ss": 0,
+"transf_corrientes": 0,
+"inversion_real": 0,
+"transf_capital": 0,
+"total": 18606417
+},
+{
+"jurisdiccion": "Obligaciones a Cargo del Tesoro",
+"remuneraciones": 1445000,
+"bienes_servicios": 322021,
+"intereses": 0,
+"prestaciones_ss": 3660978,
+"transf_corrientes": 7967909,
+"inversion_real": 50,
+"transf_capital": 1060515,
+"total": 14812948
+}
+]

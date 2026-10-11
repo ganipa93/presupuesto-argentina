@@ -1,0 +1,266 @@
+[
+{
+"codigo": "1",
+"nombre": "Administración gubernamental",
+"nivel": "finalidad",
+"y2026": 7512694.5,
+"y2027": 9922750.0,
+"var_pct": 32.1
+},
+{
+"codigo": "1.1",
+"nombre": "Legislativa",
+"nivel": "función",
+"y2026": 602893.9,
+"y2027": 725889.1,
+"var_pct": 20.4
+},
+{
+"codigo": "1.2",
+"nombre": "Judicial",
+"nivel": "función",
+"y2026": 3970600.1,
+"y2027": 4881156.9,
+"var_pct": 22.9
+},
+{
+"codigo": "1.3",
+"nombre": "Dirección superior ejecutiva",
+"nivel": "función",
+"y2026": 368147.3,
+"y2027": 456087.1,
+"var_pct": 23.9
+},
+{
+"codigo": "1.4",
+"nombre": "Relaciones exteriores",
+"nivel": "función",
+"y2026": 1061213.6,
+"y2027": 1277733.5,
+"var_pct": 20.4
+},
+{
+"codigo": "1.5",
+"nombre": "Relaciones interiores",
+"nivel": "función",
+"y2026": 1164994.4,
+"y2027": 2166920.0,
+"var_pct": 86.0
+},
+{
+"codigo": "1.6",
+"nombre": "Administración fiscal",
+"nivel": "función",
+"y2026": 155005.0,
+"y2027": 182570.5,
+"var_pct": 17.8
+},
+{
+"codigo": "1.7",
+"nombre": "Control de la gestión pública",
+"nivel": "función",
+"y2026": 138777.4,
+"y2027": 167048.8,
+"var_pct": 20.4
+},
+{
+"codigo": "1.8",
+"nombre": "Información y estadística básicas",
+"nivel": "función",
+"y2026": 51062.8,
+"y2027": 65344.1,
+"var_pct": 28.0
+},
+{
+"codigo": "2",
+"nombre": "Defensa y seguridad",
+"nivel": "finalidad",
+"y2026": 7773469.8,
+"y2027": 9533386.1,
+"var_pct": 22.6
+},
+{
+"codigo": "2.1",
+"nombre": "Defensa",
+"nivel": "función",
+"y2026": 3038090.7,
+"y2027": 3778590.5,
+"var_pct": 24.4
+},
+{
+"codigo": "2.2",
+"nombre": "Seguridad interior",
+"nivel": "función",
+"y2026": 3641079.0,
+"y2027": 4485572.8,
+"var_pct": 23.2
+},
+{
+"codigo": "2.3",
+"nombre": "Sistema penal",
+"nivel": "función",
+"y2026": 692141.5,
+"y2027": 844660.7,
+"var_pct": 22.0
+},
+{
+"codigo": "2.4",
+"nombre": "Inteligencia",
+"nivel": "función",
+"y2026": 402158.6,
+"y2027": 424562.1,
+"var_pct": 5.6
+},
+{
+"codigo": "3",
+"nombre": "Servicios sociales",
+"nivel": "finalidad",
+"y2026": 118092268.7,
+"y2027": 150913491.9,
+"var_pct": 27.8
+},
+{
+"codigo": "3.1",
+"nombre": "Salud",
+"nivel": "función",
+"y2026": 9166571.7,
+"y2027": 12814253.0,
+"var_pct": 39.8
+},
+{
+"codigo": "3.2",
+"nombre": "Promoción y asistencia social",
+"nivel": "función",
+"y2026": 3280299.1,
+"y2027": 4091172.3,
+"var_pct": 24.7
+},
+{
+"codigo": "3.3",
+"nombre": "Seguridad social",
+"nivel": "función",
+"y2026": 93816242.8,
+"y2027": 119100781.7,
+"var_pct": 27.0
+},
+{
+"codigo": "3.4",
+"nombre": "Educación y cultura",
+"nivel": "función",
+"y2026": 8802864.7,
+"y2027": 11196743.4,
+"var_pct": 27.2
+},
+{
+"codigo": "3.5",
+"nombre": "Ciencia, tecnología e innovación",
+"nivel": "función",
+"y2026": 2090931.6,
+"y2027": 2599296.1,
+"var_pct": 24.3
+},
+{
+"codigo": "3.6",
+"nombre": "Trabajo",
+"nivel": "función",
+"y2026": 737380.3,
+"y2027": 868624.3,
+"var_pct": 17.8
+},
+{
+"codigo": "3.7",
+"nombre": "Vivienda y urbanismo",
+"nivel": "función",
+"y2026": 22259.4,
+"y2027": 26482.7,
+"var_pct": 19.0
+},
+{
+"codigo": "3.8",
+"nombre": "Agua potable y alcantarillado",
+"nivel": "función",
+"y2026": 175719.1,
+"y2027": 216138.4,
+"var_pct": 23.0
+},
+{
+"codigo": "4",
+"nombre": "Servicios económicos",
+"nivel": "finalidad",
+"y2026": 12039418.9,
+"y2027": 13122628.4,
+"var_pct": 9.0
+},
+{
+"codigo": "4.1",
+"nombre": "Energía, combustibles y minería",
+"nivel": "función",
+"y2026": 6918059.8,
+"y2027": 6966454.5,
+"var_pct": 0.7
+},
+{
+"codigo": "4.2",
+"nombre": "Comunicaciones",
+"nivel": "función",
+"y2026": 208975.8,
+"y2027": 254411.5,
+"var_pct": 21.7
+},
+{
+"codigo": "4.3",
+"nombre": "Transporte",
+"nivel": "función",
+"y2026": 3889360.1,
+"y2027": 4665586.1,
+"var_pct": 20.0
+},
+{
+"codigo": "4.4",
+"nombre": "Ecología y desarrollo sostenible",
+"nivel": "función",
+"y2026": 204349.1,
+"y2027": 253691.8,
+"var_pct": 24.1
+},
+{
+"codigo": "4.5",
+"nombre": "Agricultura, ganadería y pesca",
+"nivel": "función",
+"y2026": 398482.7,
+"y2027": 472393.7,
+"var_pct": 18.5
+},
+{
+"codigo": "4.6",
+"nombre": "Industria",
+"nivel": "función",
+"y2026": 174886.6,
+"y2027": 206183.2,
+"var_pct": 17.9
+},
+{
+"codigo": "4.7",
+"nombre": "Comercio, turismo y otros servicios",
+"nivel": "función",
+"y2026": 92750.7,
+"y2027": 115666.3,
+"var_pct": 24.7
+},
+{
+"codigo": "4.8",
+"nombre": "Seguros y finanzas",
+"nivel": "función",
+"y2026": 152554.1,
+"y2027": 188241.3,
+"var_pct": 23.4
+},
+{
+"codigo": "5",
+"nombre": "Deuda pública (intereses y gastos)",
+"nivel": "finalidad",
+"y2026": 13262580.4,
+"y2027": 15225943.3,
+"var_pct": 14.8
+}
+]

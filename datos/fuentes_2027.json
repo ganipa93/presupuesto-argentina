@@ -1,0 +1,37 @@
+[
+{
+"fuente": "BONCER (ajustan por inflación)",
+"billones": 109.9,
+"nota": "Bonos en pesos"
+},
+{
+"fuente": "BONCAP",
+"billones": 73.4,
+"nota": "Bonos capitalizables en pesos"
+},
+{
+"fuente": "LECAP",
+"billones": 62.4,
+"nota": "Letras en pesos"
+},
+{
+"fuente": "BONAR",
+"billones": 19.1,
+"nota": "Bonos en dólares, ley local"
+},
+{
+"fuente": "FMI",
+"billones": 2.89,
+"nota": "Desembolsos"
+},
+{
+"fuente": "BID",
+"billones": 2.82,
+"nota": "Préstamos"
+},
+{
+"fuente": "Otras fuentes",
+"billones": 54.69,
+"nota": "Diferencia hasta el total de $325,3 billones"
+}
+]
