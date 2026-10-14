@@ -3,15 +3,18 @@
 
 Uso:  python3 scripts/build.py      (después: node scripts/prerender.mjs)
 """
-import json, html, pathlib, datetime, shutil, sys, hashlib
+import json, html, os, pathlib, datetime, shutil, sys, hashlib
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from paginas import Generador, miles
 
 RAIZ = pathlib.Path(__file__).resolve().parent.parent
 SITE = "https://presupuesto-argentina.vercel.app"
 REPO = "https://github.com/ganipa93/presupuesto-argentina"
-FECHA = "10/10/2026"
-FECHA_ISO = "2026-10-10"
+# Fecha de la última actualización de datos. La acción diaria la fija con FECHA_SITIO=AAAA-MM-DD
+# (hoy, hora argentina); a mano, se cambia acá cuando se actualiza algo.
+_ISO = os.environ.get("FECHA_SITIO") or "2026-10-14"
+FECHA_ISO = _ISO
+FECHA = datetime.date.fromisoformat(_ISO).strftime("%d/%m/%Y")
 
 DESCRIPCIONES = {
     "ministerios": "Gasto 2026 estimado y 2027 por jurisdicción (millones de $). Proyecto 2027, pág. 93.",
