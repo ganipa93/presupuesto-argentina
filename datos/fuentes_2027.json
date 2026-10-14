@@ -1,22 +1,22 @@
 [
 {
 "fuente": "BONCER (ajustan por inflación)",
-"billones": 109.9,
+"billones": 109.94,
 "nota": "Bonos en pesos"
 },
 {
 "fuente": "BONCAP",
-"billones": 73.4,
+"billones": 73.38,
 "nota": "Bonos capitalizables en pesos"
 },
 {
 "fuente": "LECAP",
-"billones": 62.4,
+"billones": 62.43,
 "nota": "Letras en pesos"
 },
 {
 "fuente": "BONAR",
-"billones": 19.1,
+"billones": 19.09,
 "nota": "Bonos en dólares, ley local"
 },
 {
@@ -30,8 +30,38 @@
 "nota": "Préstamos"
 },
 {
-"fuente": "Otras fuentes",
-"billones": 54.73,
-"nota": "Diferencia hasta el total de $325,3 billones"
+"fuente": "Otros títulos públicos",
+"billones": 15.77,
+"nota": "Títulos que el proyecto no detalla por nombre"
+},
+{
+"fuente": "LECER",
+"billones": 12.79,
+"nota": "Letras en pesos que ajustan por inflación"
+},
+{
+"fuente": "LELINK",
+"billones": 12.0,
+"nota": "Letras en pesos atadas al dólar"
+},
+{
+"fuente": "BONAD",
+"billones": 8.42,
+"nota": "Bonos en dólares"
+},
+{
+"fuente": "Letras intransferibles al FGS",
+"billones": 1.84,
+"nota": "Préstamo al Estado del Fondo de Garantía de Sustentabilidad"
+},
+{
+"fuente": "Banco Mundial (BIRF)",
+"billones": 0.93,
+"nota": "Préstamos"
+},
+{
+"fuente": "Otras fuentes menores",
+"billones": 2.97,
+"nota": "BOCON, FONPLATA, CAF, BCIE, BICE, otros préstamos, documentos a pagar y disminución de inversión financiera"
 }
 ]

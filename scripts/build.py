@@ -24,7 +24,7 @@ DESCRIPCIONES = {
     "recursos": "Recaudación nacional 2026 y 2027 por impuesto (millones de $ y % del PBI). Págs. 40-41.",
     "gasto_tributario": "Gasto tributario 2027 (millones de $). Págs. 46-51. El IVA se calcula como 36,3% del total.",
     "cuenta_pib": "Cuenta ahorro-inversión de la Administración Nacional en % del PBI. Pág. 92.",
-    "fuentes_2027": "Fuentes de financiamiento 2027 (billones de $). Pág. 90; 'Otras fuentes' es la diferencia con el total.",
+    "fuentes_2027": "Fuentes de financiamiento 2027 (billones de $). Pág. 90; los títulos, préstamos y otras fuentes suman el total de $325,3 billones.",
     "ejecucion": "Ejecución al 31/07/2026 contra el estimado anual (millones de $). Págs. 35-38.",
     "asap": "Variación real del gasto acumulado enero-agosto 2026. Fuente: ASAP.",
     "supuestos": "Supuestos macroeconómicos de la ley 2026, el 2026 actual y el proyecto 2027, con fuentes externas (INDEC, REM, FMI).",
