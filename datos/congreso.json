@@ -31,34 +31,34 @@
    "fecha_texto": "13 de octubre",
    "estado": "hecho",
    "titulo": "Guberman presenta el proyecto en la Comisión de Presupuesto y Hacienda de Diputados",
-   "detalle": "El 13 de octubre, el secretario de Hacienda, Carlos Guberman, expuso ante la comisión que preside Alberto Benegas Lynch: crecimiento de 4% en 2027, inflación de 18% a diciembre y superávit fiscal. No se anunciaron cambios al texto. Siguen reuniones con funcionarios; Parlamentario menciona también el 20, 21 y 27 de octubre.",
+   "detalle": "El 13 de octubre el secretario de Hacienda, Carlos Guberman, defendió el proyecto ante la Comisión de Presupuesto y Hacienda: crecimiento de 4% en 2027, inflación de 18% y dólar a $1.848. La nota oficial no menciona cambios al texto. Siguen las reuniones informativas con funcionarios, entre ellas el 14 (Trabajo), el 20 y el 27 de octubre.",
    "fuente": {
-    "nombre": "C5N",
-    "url": "https://www.c5n.com/politica/diputados-debate-comisiones-presupuesto-2027-13-octubre-2026"
+    "nombre": "Honorable Cámara de Diputados de la Nación",
+    "url": "https://www.hcdn.gob.ar/prensa/noticia/EL-SECRETARIO-DE-HACIENDA-DEFENDIO-EL-PRESUPUESTO-GENERAL-PARA-LA-ADMINISTRACION-2027/"
    }
   },
   {
    "id": "dictamen",
    "fecha": "2026-10-28",
-   "fecha_texto": "28 de octubre (tentativo)",
+   "fecha_texto": "28 de octubre (previsto)",
    "estado": "proximo",
    "titulo": "Dictamen de comisión",
-   "detalle": "Es la fecha tentativa; Perfil informa que el oficialismo busca dictaminar antes del 7 de noviembre. En el dictamen se definirían los cambios al proyecto, como el capítulo de discapacidad.",
+   "detalle": "Según la Cámara de Diputados, se buscará dictamen el 28 de octubre. En el dictamen se definirían los cambios al proyecto, como el capítulo de discapacidad.",
    "fuente": {
-    "nombre": "Parlamentario",
-    "url": "https://www.parlamentario.com/2026/10/10/arranca-el-debate-del-presupuesto-2027/"
+    "nombre": "Honorable Cámara de Diputados de la Nación",
+    "url": "https://www.hcdn.gob.ar/prensa/noticia/EL-SECRETARIO-DE-HACIENDA-DEFENDIO-EL-PRESUPUESTO-GENERAL-PARA-LA-ADMINISTRACION-2027/"
    }
   },
   {
    "id": "diputados",
-   "fecha": "2026-11-04",
-   "fecha_texto": "Noviembre (a confirmar)",
+   "fecha": "2026-11-18",
+   "fecha_texto": "18 de noviembre (previsto)",
    "estado": "pendiente",
    "titulo": "Sesión en la Cámara de Diputados",
-   "detalle": "Se había hablado del 4 de noviembre, pero el oficialismo evalúa una fecha más avanzada: Perfil informa como objetivo el 17 de noviembre.",
+   "detalle": "La Cámara de Diputados informa que la sesión en el recinto está prevista para el miércoles 18 de noviembre.",
    "fuente": {
-    "nombre": "Parlamentario",
-    "url": "https://www.parlamentario.com/2026/10/10/arranca-el-debate-del-presupuesto-2027/"
+    "nombre": "Honorable Cámara de Diputados de la Nación",
+    "url": "https://www.hcdn.gob.ar/prensa/noticia/EL-SECRETARIO-DE-HACIENDA-DEFENDIO-EL-PRESUPUESTO-GENERAL-PARA-LA-ADMINISTRACION-2027/"
    }
   },
   {
