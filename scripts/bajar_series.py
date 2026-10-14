@@ -78,6 +78,13 @@ def main():
     if anterior.get("series") == out["series"]:
         print("Recaudación sin cambios.")
         return
+    # Si la API devuelve una serie vacía o más corta que la que ya tenemos, es un fallo de la fuente:
+    # se conservan los datos anteriores en vez de publicar una página rota.
+    for k, filas in out["series"].items():
+        previo = anterior.get("series", {}).get(k) or []
+        if not filas or len(filas) < len(previo) or (previo and filas[-1][0] < previo[-1][0]):
+            print(f"Recaudación: la serie «{k}» vino incompleta ({len(filas)} meses contra {len(previo)}); se conservan los datos anteriores.")
+            return
     out["actualizado"] = hoy.isoformat()
     f_rec.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
     ultimo = out["series"]["total"][-1][0]

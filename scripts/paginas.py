@@ -720,7 +720,7 @@ a.t{{display:flex;flex-direction:column;gap:10px;padding:14px 16px;border:1px so
         filas_c = []
         for k, nombre in comp:
             v = real_var(k, con_ipc)
-            filas_c.append([e(nombre), dn(acum(k, meses)), dn(acum(k, meses, True)), f"{'+' if (acum(k, meses) >= acum(k, meses, True)) else '−'}{miles(abs((acum(k, meses) / acum(k, meses, True) - 1) * 100))}%",
+            filas_c.append([e(nombre), dn(acum(k, meses)), dn(acum(k, meses, True)), (f"{'+' if (acum(k, meses) >= acum(k, meses, True)) else '−'}{miles(abs((acum(k, meses) / acum(k, meses, True) - 1) * 100))}%" if acum(k, meses, True) else "—"),
                             (f"{'+' if v >= 0 else '−'}{miles(abs(v), 1)}%" if v is not None else "—")])
         filas_m = []
         for m in meses:
