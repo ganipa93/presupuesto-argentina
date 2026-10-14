@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-10-10",
+ "actualizado": "2026-10-14",
  "etapas": [
   {
    "id": "envio",
@@ -29,21 +29,21 @@
    "id": "comision",
    "fecha": "2026-10-13",
    "fecha_texto": "13 de octubre",
-   "estado": "proximo",
-   "titulo": "Arranca el debate en la Comisión de Presupuesto y Hacienda de Diputados",
-   "detalle": "Preside Alberto Benegas Lynch. Expone el secretario de Hacienda, Carlos Guberman. Hay reuniones previstas también el 14, 20, 21 y 27 de octubre.",
+   "estado": "hecho",
+   "titulo": "Guberman presenta el proyecto en la Comisión de Presupuesto y Hacienda de Diputados",
+   "detalle": "El 13 de octubre, el secretario de Hacienda, Carlos Guberman, expuso ante la comisión que preside Alberto Benegas Lynch: crecimiento de 4% en 2027, inflación de 18% a diciembre y superávit fiscal. No se anunciaron cambios al texto. Siguen reuniones con funcionarios; Parlamentario menciona también el 20, 21 y 27 de octubre.",
    "fuente": {
-    "nombre": "Parlamentario",
-    "url": "https://www.parlamentario.com/2026/10/10/arranca-el-debate-del-presupuesto-2027/"
+    "nombre": "C5N",
+    "url": "https://www.c5n.com/politica/diputados-debate-comisiones-presupuesto-2027-13-octubre-2026"
    }
   },
   {
    "id": "dictamen",
    "fecha": "2026-10-28",
    "fecha_texto": "28 de octubre (tentativo)",
-   "estado": "pendiente",
+   "estado": "proximo",
    "titulo": "Dictamen de comisión",
-   "detalle": "Es la fecha tentativa. En el dictamen se definirían los cambios al proyecto, como el capítulo de discapacidad.",
+   "detalle": "Es la fecha tentativa; Perfil informa que el oficialismo busca dictaminar antes del 7 de noviembre. En el dictamen se definirían los cambios al proyecto, como el capítulo de discapacidad.",
    "fuente": {
     "nombre": "Parlamentario",
     "url": "https://www.parlamentario.com/2026/10/10/arranca-el-debate-del-presupuesto-2027/"
@@ -55,7 +55,7 @@
    "fecha_texto": "Noviembre (a confirmar)",
    "estado": "pendiente",
    "titulo": "Sesión en la Cámara de Diputados",
-   "detalle": "Se había hablado del 4 de noviembre, pero el oficialismo evalúa una fecha más avanzada del mes.",
+   "detalle": "Se había hablado del 4 de noviembre, pero el oficialismo evalúa una fecha más avanzada: Perfil informa como objetivo el 17 de noviembre.",
    "fuente": {
     "nombre": "Parlamentario",
     "url": "https://www.parlamentario.com/2026/10/10/arranca-el-debate-del-presupuesto-2027/"
