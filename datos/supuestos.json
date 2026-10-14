@@ -40,10 +40,10 @@
   "clave": "infl_prom"
  },
  {
-  "variable": "IPC interanual de agosto 2026",
+  "variable": "IPC interanual de septiembre 2026",
   "unidad": "%",
   "ley2026": null,
-  "estimado2026": 33.5,
+  "estimado2026": 33.4,
   "proyecto2027": null,
   "clave": "ipc_ago"
  },
@@ -72,10 +72,10 @@
   "clave": "pbi_rem"
  },
  {
-  "variable": "Inflación acumulada enero-agosto 2026 (INDEC)",
+  "variable": "Inflación acumulada enero-septiembre 2026 (INDEC)",
   "unidad": "%",
   "ley2026": null,
-  "estimado2026": 21.3,
+  "estimado2026": 23.6,
   "proyecto2027": null,
   "clave": "ipc_acum"
  },
