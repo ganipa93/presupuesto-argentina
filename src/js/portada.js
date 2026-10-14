@@ -75,6 +75,7 @@ function render() {
   document.querySelectorAll('[data-unidad-nota]').forEach((n) => { n.textContent = UNIDAD === 'hab' ? 'Pesos por habitante por mes.' : 'Billones de pesos.'; });
   $('#k-var').textContent = pct((b / a - 1) * 100);
   $('#k-infl').textContent = nf1.format(S('inflacion').proyecto2027) + '%';
+  $('#k-real-pr').textContent = ' (' + nf1.format(INFL) + '%)';
   $('#k-real').textContent = pct(((b / a) / (1 + INFL / 100) - 1) * 100);
   $('#claves').replaceChildren(...DATA.claves.map((c) => el('div', {className: 'clave'}, el('h3', {textContent: c.titulo}), el('p', {className: 'note', textContent: c.texto}))));
   $('#score').replaceChildren(...['2026', '2027'].map((p) => {
