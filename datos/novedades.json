@@ -46,5 +46,11 @@
   "titulo": "Montos en dólares y ejecución actualizada cada semana",
   "texto": "Los montos principales de cada programa, organismo y provincia ahora también se ven en dólares, al oficial promedio de cada año (BCRA). Y lo gastado se actualiza todas las semanas con Presupuesto Abierto.",
   "link": "/evolucion"
+ },
+ {
+  "fecha": "2026-10-14",
+  "titulo": "Ejecución 2026 actualizada con datos de septiembre",
+  "texto": "Con datos de Presupuesto Abierto, el Estado nacional lleva gastado el 77% de lo autorizado para 2026. Mirá qué programas van más atrasados.",
+  "link": "/ejecucion-2026"
  }
 ]
