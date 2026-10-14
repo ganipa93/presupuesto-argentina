@@ -125,7 +125,7 @@ def perfiles_seo(impacto):
 def secnav(actual="resumen"):
     partes = []
     for g, items in GRUPOS:
-        partes.append(f'<li class="grupo" aria-hidden="true">{g}</li>')
+        partes.append(f'<li class="grupo">{g}</li>')
         for k, t in items:
             if k.startswith("/"):
                 partes.append(f'<li><a href="{k}">{t}</a></li>')
@@ -137,7 +137,7 @@ def secnav(actual="resumen"):
 def cabecera(actual=""):
     """Cabecera común a todas las páginas."""
     links = "".join(f'<a href="{u}"' + (' aria-current="page"' if u == actual else "") + f">{t}</a>" for u, t in MENU)
-    return f'<header class="top"><a class="brand" href="/">{LOGO}<span>Presupuesto Argentina</span></a><nav aria-label="Principal">{links}</nav></header>'
+    return f'<a class="saltar" href="#contenido">Saltar al contenido</a><header class="top"><a class="brand" href="/">{LOGO}<span>Presupuesto Argentina</span></a><nav aria-label="Principal">{links}</nav></header>'
 
 
 def copiar_js():

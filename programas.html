@@ -20,7 +20,7 @@
 <link rel="alternate" type="application/rss+xml" title="Presupuesto Argentina: novedades" href="/novedades.xml">
 <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
 <script defer src="/_vercel/insights/script.js"></script>
-<script defer src="/js/descargas.js?v=3db796ba96"></script>
+<script defer src="/js/descargas.js?v=4ee9a1fe57"></script>
 <style>
 .buscar{display:flex;flex-direction:column;gap:var(--g-sm)}
 .buscar input,.buscar select{font:inherit;font-size:17px;padding:10px 14px;border:1px solid var(--line);border-radius:var(--r);background:var(--card);color:var(--fg);width:100%;min-height:48px}
@@ -60,7 +60,8 @@
 </head>
 <body>
 <div class="wrap">
-<header class="top"><a class="brand" href="/"><svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#13294b"/><rect x="7" y="17" width="4" height="8" rx="1" fill="#9cc3ef"/><rect x="14" y="12" width="4" height="13" rx="1" fill="#9cc3ef"/><rect x="21" y="7" width="4" height="18" rx="1" fill="#f2b632"/></svg><span>Presupuesto Argentina</span></a><nav aria-label="Principal"><a href="/">Inicio</a><a href="/programas" aria-current="page">Buscar un gasto</a><a href="/provincias">Por provincia</a><a href="/cuadros">Todos los cuadros</a><a href="/metodologia">Metodología</a></nav></header>
+<a class="saltar" href="#contenido">Saltar al contenido</a><header class="top"><a class="brand" href="/"><svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#13294b"/><rect x="7" y="17" width="4" height="8" rx="1" fill="#9cc3ef"/><rect x="14" y="12" width="4" height="13" rx="1" fill="#9cc3ef"/><rect x="21" y="7" width="4" height="18" rx="1" fill="#f2b632"/></svg><span>Presupuesto Argentina</span></a><nav aria-label="Principal"><a href="/">Inicio</a><a href="/programas" aria-current="page">Buscar un gasto</a><a href="/provincias">Por provincia</a><a href="/cuadros">Todos los cuadros</a><a href="/metodologia">Metodología</a></nav></header>
+<main id="contenido" class="principal">
 <header style="display:flex;flex-direction:column;gap:var(--g-sm)">
 <h1>¿Cuánto se gasta en…?</h1>
 <p class="sub">Los 429 programas del presupuesto nacional, con cada obra y actividad: lo que el gobierno pide para 2027 y lo que se autorizó y se gastó en 2026, también por provincia. Además, las universidades una por una, el INCAA, el PAMI, los fondos fiduciarios y las empresas públicas.</p>
@@ -91,11 +92,11 @@
 <button type="button" data-q="cultura">Cultura</button>
 <button type="button" data-q="deuda">Deuda</button>
 </div>
-<p class="note" id="estado">Cargando los datos…</p>
+<p class="note" id="estado" role="status">Cargando los datos…</p>
 </div>
 
 <section id="resumen" class="card suma" hidden></section>
-<ol class="res" id="res" aria-live="polite"></ol>
+<ol class="res" id="res"></ol>
 <button class="btn mas" type="button" id="mas" hidden>Ver más resultados</button>
 
 <section class="card prose" style="margin-top:var(--g-lg)">
@@ -111,6 +112,7 @@
 </ul>
 <p class="note">Fuentes: datasets del Presupuesto Ciudadano 2027 de la Oficina Nacional de Presupuesto, API de Presupuesto Abierto (Ministerio de Economía) y planillas anexas del proyecto. Detalle en <a href="/metodologia#programas">Metodología</a>. Datos: <a href="/datos/programas.json">programas.json</a>.</p>
 </section>
+</main>
 
 <footer class="src">
 <p>Sitio independiente, sin relación con el Gobierno nacional. Montos en pesos corrientes.</p>

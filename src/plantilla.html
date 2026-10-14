@@ -34,6 +34,7 @@
 <body>
 <div class="wrap">
 {{CABECERA}}
+<main id="contenido" class="principal">
 
 <div class="hero" id="hero">
 <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
@@ -146,7 +147,7 @@
 <p class="note">Incluye los intereses entre organismos del Estado. <span data-unidad-nota>Billones de pesos.</span></p>
 <div id="g-car"></div></div>
 <div class="card"><h2>Cada ministerio, por tipo de gasto (2027)</h2>
-<div class="tw"><table id="t-carmin" data-row-key="jurisdiccion"><caption>Millones de pesos</caption><thead><tr><th class="t" scope="col">Jurisdicción</th><th scope="col">Sueldos</th><th scope="col">Bienes y servicios</th><th scope="col">Intereses</th><th scope="col">Prestaciones sociales</th><th scope="col">Transf. corrientes</th><th scope="col">Inversión real</th><th scope="col">Transf. de capital</th><th scope="col">Total</th></tr></thead><tbody></tbody></table></div></div>
+<div class="tw"><table id="t-carmin" data-row-key="jurisdiccion"><caption>Gasto 2027 de cada ministerio por tipo de gasto, en millones de pesos</caption><thead><tr><th class="t" scope="col">Jurisdicción</th><th scope="col">Sueldos</th><th scope="col">Bienes y servicios</th><th scope="col">Intereses</th><th scope="col">Prestaciones sociales</th><th scope="col">Transf. corrientes</th><th scope="col">Inversión real</th><th scope="col">Transf. de capital</th><th scope="col">Total</th></tr></thead><tbody></tbody></table></div></div>
 <div class="card"><h2>Personas alcanzadas y valores</h2>
 <p class="note">Metas del proyecto 2027 y valores vigentes en agosto de 2026.</p>
 <div class="tw"><table id="t-ben" data-row-key="concepto"><caption>Beneficiarios y montos</caption><thead><tr><th class="t" scope="col">Concepto</th><th class="t" scope="col">Tipo</th><th scope="col">2026 / agosto 2026</th><th scope="col">2027</th></tr></thead><tbody></tbody></table></div></div>
@@ -160,7 +161,7 @@
 <div class="tw"><table id="t-rec" data-row-key="concepto"><caption>Recaudación en millones de pesos y en % del PBI</caption><thead><tr><th class="t" scope="col">Concepto</th><th scope="col">2026</th><th scope="col">2027</th><th scope="col">% PBI 2026</th><th scope="col">% PBI 2027</th></tr></thead><tbody></tbody></table></div></div>
 <div class="grid">
 <div class="card"><h2>Cuentas del Estado nacional (% del PBI)</h2><p class="note">Cuenta ahorro-inversión de la Administración Nacional.</p>
-<div class="tw"><table id="t-cpib" data-row-key="concepto"><thead><tr><th class="t" scope="col">Concepto</th><th scope="col">2026</th><th scope="col">2027</th></tr></thead><tbody></tbody></table></div></div>
+<div class="tw"><table id="t-cpib" data-row-key="concepto"><caption>Cuenta ahorro-inversión de la Administración Nacional, en % del PBI</caption><thead><tr><th class="t" scope="col">Concepto</th><th scope="col">2026</th><th scope="col">2027</th></tr></thead><tbody></tbody></table></div></div>
 <div class="card"><h2>Cómo se financia en 2027</h2><p class="note">Casi todo es deuda nueva para pagar vencimientos de deuda en pesos. <span data-unidad-nota>Billones de pesos.</span></p>
 <div id="fu-chart"></div></div>
 </div>
@@ -180,12 +181,12 @@
 <div class="card" id="em-card" hidden><h2>Ejecución por ministerio, actualizada cada semana</h2>
 <p class="note" id="em-nota"></p>
 <div id="em-chart"></div>
-<div class="tw"><table id="t-em" data-row-key="jurisdiccion"><caption>Millones de pesos</caption><thead><tr><th class="t" scope="col">Jurisdicción</th><th scope="col">Crédito inicial</th><th scope="col">Crédito vigente</th><th scope="col">Gastado (devengado)</th><th scope="col">% gastado</th></tr></thead><tbody></tbody></table></div></div>
+<div class="tw"><table id="t-em" data-row-key="jurisdiccion"><caption>Ejecución 2026 por ministerio, en millones de pesos</caption><thead><tr><th class="t" scope="col">Jurisdicción</th><th scope="col">Crédito inicial</th><th scope="col">Crédito vigente</th><th scope="col">Gastado (devengado)</th><th scope="col">% gastado</th></tr></thead><tbody></tbody></table></div></div>
 <div class="card"><h2>Variación real hasta agosto (ASAP)</h2>
 <p class="note">Gasto de enero a agosto de 2026 contra el mismo período de 2025, descontada la inflación. En rojo, lo que cae.</p>
 <div id="asap-chart"></div></div>
 <div class="card"><h2>Lo que decía la ley contra lo que pasó</h2>
-<div class="tw"><table id="t-sup" data-row-key="variable"><thead><tr><th class="t" scope="col">Variable</th><th class="t" scope="col">Unidad</th><th scope="col">Ley 2026</th><th scope="col">2026 actual</th><th scope="col">Proyecto 2027</th></tr></thead><tbody></tbody></table></div></div>
+<div class="tw"><table id="t-sup" data-row-key="variable"><caption>Supuestos macroeconómicos: ley 2026, 2026 actual y proyecto 2027</caption><thead><tr><th class="t" scope="col">Variable</th><th class="t" scope="col">Unidad</th><th scope="col">Ley 2026</th><th scope="col">2026 actual</th><th scope="col">Proyecto 2027</th></tr></thead><tbody></tbody></table></div></div>
 </section>
 
 <section id="sec-realismo-2027" data-panel="realismo-2027" hidden>
@@ -219,13 +220,14 @@
 <div class="card"><h2>Cuánto cambia cada partida entre la ley 2026 y el proyecto 2027</h2>
 <p class="note">Variación nominal del monto fijado en los artículos. En 2026 la ley se modificó por decisiones administrativas y la inflación fue mucho mayor a la prevista, así que parte del salto solo compensa precios.</p>
 <div id="lv-chart"></div>
-<div class="tw"><table id="t-lvp" data-row-key="concepto"><caption>Millones de pesos</caption><thead><tr><th class="t" scope="col">Concepto</th><th scope="col">Ley 2026</th><th scope="col">Proyecto 2027</th><th class="t" scope="col">Nota</th></tr></thead><tbody></tbody></table></div></div>
+<div class="tw"><table id="t-lvp" data-row-key="concepto"><caption>Ley 2026 contra proyecto 2027, partida por partida, en millones de pesos</caption><thead><tr><th class="t" scope="col">Concepto</th><th scope="col">Ley 2026</th><th scope="col">Proyecto 2027</th><th class="t" scope="col">Nota</th></tr></thead><tbody></tbody></table></div></div>
 </section>
 
 <section id="sec-articulos" data-panel="articulos" hidden>
 <div class="card"><h2>Artículos del proyecto que más afectan a la gente</h2>
-<div class="tw"><table id="t-nor" data-row-key="articulo"><thead><tr><th class="t" scope="col">Artículo</th><th class="t" scope="col">Tema</th><th class="t" scope="col">Qué dice</th></tr></thead><tbody></tbody></table></div></div>
+<div class="tw"><table id="t-nor" data-row-key="articulo"><caption>Artículos del proyecto con efecto directo en la gente</caption><thead><tr><th class="t" scope="col">Artículo</th><th class="t" scope="col">Tema</th><th class="t" scope="col">Qué dice</th></tr></thead><tbody></tbody></table></div></div>
 </section>
+</main>
 
 <footer class="src">
 <p>Sitio independiente, sin relación con el Gobierno nacional ni con partidos políticos. Fuentes: Proyecto de Ley de Presupuesto 2027 (MEN-2026-43-APN-JGM), Ley 27.798 de Presupuesto 2026, INDEC, BCRA (REM), FMI y ASAP. Los porcentajes en términos reales y el semáforo son estimaciones propias. Datos actualizados al {{FECHA}}.</p>

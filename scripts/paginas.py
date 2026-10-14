@@ -254,7 +254,7 @@ class Generador:
 <body>
 <div class="wrap">
 {self.cabecera("/provincias" if ruta.startswith("/provincias") else "/programas")}
-<main style="display:flex;flex-direction:column;gap:var(--g-lg)">
+<main id="contenido" style="display:flex;flex-direction:column;gap:var(--g-lg)">
 {migas_html}
 {f"<h1>{e(h1 or titulo)}</h1>"}
 {cuerpo}
@@ -626,7 +626,8 @@ a.t{{display:flex;flex-direction:column;gap:10px;padding:14px 16px;border:1px so
 <div class="cmp-slots" id="slots"></div>
 <div class="chips" aria-label="Ejemplos"><span class="note" style="align-self:center">Ejemplos:</span>{chips}</div>
 </div>
-<div id="cmp-res" aria-live="polite"></div>
+<p class="vh" id="cmp-anuncio" role="status"></p>
+<div id="cmp-res"></div>
 <p class="note">Montos en pesos corrientes salvo donde dice «pesos de 2026». La evolución usa lo gastado de 2020 a 2025, lo autorizado en 2026 y lo pedido para 2027, con el IPC del INDEC. Universidades, entes y empresas tienen presupuesto propio y no se pueden seguir año por año. Los dólares son al oficial promedio de cada año (BCRA); 2027, con el que proyecta el Ministerio de Economía. <a href="/metodologia#evolucion">Cómo se calcula</a>.</p>
 <style>
 .cmp-slots{{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--g-sm)}}
@@ -636,8 +637,9 @@ a.t{{display:flex;flex-direction:column;gap:10px;padding:14px 16px;border:1px so
 .slot label i{{display:inline-block;width:12px;height:12px;border-radius:3px}}
 .slot input{{font:inherit;min-height:44px;padding:8px 12px;border:1.5px solid var(--line);border-radius:var(--r);background:var(--card);color:var(--fg);width:100%}}
 .slot ul{{position:absolute;z-index:40;top:100%;left:0;right:0;margin:4px 0 0;padding:4px;list-style:none;background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:0 8px 24px rgba(0,0,0,.12);max-height:20rem;overflow:auto}}
-.slot li button{{all:unset;display:block;width:100%;box-sizing:border-box;padding:8px 10px;border-radius:6px;cursor:pointer;font-size:var(--fs-cap)}}
-.slot li button:hover,.slot li button:focus{{background:var(--panel)}}
+.slot li{{display:block;padding:8px 10px;border-radius:6px;cursor:pointer;font-size:var(--fs-cap)}}
+.slot li:hover,.slot li[aria-selected="true"]{{background:var(--panel)}}
+.slot li[aria-selected="true"]{{outline:2px solid var(--c1);outline-offset:-2px}}
 .slot li small{{display:block;color:var(--muted)}}
 .cmp-tabla th[scope=col] i{{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px}}
 </style>

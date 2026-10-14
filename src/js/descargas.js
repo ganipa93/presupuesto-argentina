@@ -47,6 +47,31 @@
     try { await navigator.clipboard.writeText(t.value); b.textContent = ok; } catch (e) { t.select(); document.execCommand('copy'); b.textContent = ok; }
     if (window.va) window.va('event', {name: b.dataset.evento || 'insertar', data: {pagina: location.pathname}});
   });
-  const iniciar = () => { preparar(); new MutationObserver(() => { clearTimeout(iniciar.t); iniciar.t = setTimeout(preparar, 200); }).observe(document.body, {childList: true, subtree: true}); };
+  // Accesibilidad: una tabla que se desplaza (a lo ancho o a lo alto) tiene que poder recorrerse con el
+  // teclado. Se la marca como región con nombre y foco solo si de verdad desplaza, para no sumar paradas de Tab.
+  const desplazable = (c) => c.scrollWidth > c.clientWidth + 1 || c.scrollHeight > c.clientHeight + 1;
+  function regiones() {
+    document.querySelectorAll('.tw, .tabla-scroll').forEach((caja) => {
+      const tabla = caja.querySelector('table'); if (!tabla) return;
+      if (!desplazable(caja)) {
+        if (caja.dataset.region) { caja.removeAttribute('role'); caja.removeAttribute('aria-label'); caja.removeAttribute('tabindex'); delete caja.dataset.region; }
+        return;
+      }
+      if (caja.dataset.region) return;
+      const cap = tabla.caption && tabla.caption.textContent.trim();
+      const bloque = caja.closest('section, .card');
+      const h = bloque && bloque.querySelector('h2, h3');
+      caja.dataset.region = '1';
+      caja.setAttribute('role', 'region');
+      caja.setAttribute('aria-label', 'Tabla: ' + (cap || (h && h.textContent.trim()) || 'datos'));
+      caja.tabIndex = 0;
+    });
+  }
+  const iniciar = () => {
+    const todo = () => { preparar(); regiones(); };
+    todo();
+    new MutationObserver(() => { clearTimeout(iniciar.t); iniciar.t = setTimeout(todo, 200); }).observe(document.body, {childList: true, subtree: true, attributes: true, attributeFilter: ['hidden']});
+    window.addEventListener('resize', () => { clearTimeout(iniciar.r); iniciar.r = setTimeout(regiones, 200); });
+  };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar); else iniciar();
 })();

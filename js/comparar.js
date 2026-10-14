@@ -27,30 +27,54 @@
   const celdaN = (m, anio) => { if (m == null) return '—'; const u = anio && usd(m, anio); return el('span', {}, el('span', {'data-n': String(Math.round(m * 10) / 10)}, plata(m)), u ? el('small', {class: 'usd', style: 'display:block', text: '≈ ' + u}) : null); };
   let D = null, porId = {}, elegidos = [null, null, null];
 
+  function anunciar(t) { const a = $('#cmp-anuncio'); if (a) { a.textContent = ''; setTimeout(() => { a.textContent = t; }, 50); } }
+
   function slots() {
     const box = $('#slots');
     box.replaceChildren(...[0, 1, 2].map((i) => {
       const it = elegidos[i] && porId[elegidos[i]];
-      const input = el('input', {type: 'search', id: 'slot' + i, placeholder: i === 0 ? 'Ej.: universidades, Córdoba, INCAA' : 'Agregar otro (opcional)', autocomplete: 'off', value: it ? it.n : ''});
-      const lista = el('ul', {role: 'listbox'}); lista.hidden = true;
+      const input = el('input', {type: 'search', id: 'slot' + i, placeholder: i === 0 ? 'Ej.: universidades, Córdoba, INCAA' : 'Agregar otro (opcional)', autocomplete: 'off', value: it ? it.n : '', role: 'combobox', 'aria-autocomplete': 'list', 'aria-expanded': 'false', 'aria-controls': 'lista' + i});
+      const lista = el('ul', {role: 'listbox', id: 'lista' + i, 'aria-label': 'Sugerencias para el ' + (i + 1) + '.º elemento'}); lista.hidden = true;
       const label = el('label', {for: 'slot' + i}, el('i', {style: 'background:' + COLORES[i]}), (i + 1) + '.º (' + NOMBRES_COLOR[i] + ')');
+      let activo = -1;
+      const opciones = () => [...lista.children];
+      const marcar = (k) => {
+        const ops = opciones(); activo = ops.length ? (k + ops.length) % ops.length : -1;
+        ops.forEach((o, j) => o.setAttribute('aria-selected', j === activo ? 'true' : 'false'));
+        if (activo >= 0) { input.setAttribute('aria-activedescendant', ops[activo].id); ops[activo].scrollIntoView({block: 'nearest'}); } else input.removeAttribute('aria-activedescendant');
+      };
+      const cerrar = () => { lista.hidden = true; activo = -1; input.setAttribute('aria-expanded', 'false'); input.removeAttribute('aria-activedescendant'); };
+      const elegir = (x) => { elegidos[i] = x.id; cerrar(); actualizar(); };
       const sugerir = () => {
         const q = norm(input.value).trim();
-        if (q.length < 2) { lista.hidden = true; return; }
+        if (q.length < 2) { cerrar(); return; }
         const ps = q.split(/\s+/);
         const hall = D.items.filter((x) => { const t = norm(x.n + ' ' + x.o); return ps.every((p) => t.includes(p)); })
           .sort((a, b) => (b.t === 'v') - (a.t === 'v') || ((b.a27 || b.g27 || b.v26 || 0) - (a.a27 || a.g27 || a.v26 || 0))).slice(0, 10);
-        lista.replaceChildren(...hall.map((x) => {
-          const b = el('button', {type: 'button'}, x.n, el('small', {text: TIPO[x.t] + ' · ' + x.o}));
-          b.addEventListener('click', () => { elegidos[i] = x.id; lista.hidden = true; actualizar(); });
-          return el('li', {}, b);
+        lista.replaceChildren(...hall.map((x, j) => {
+          const li = el('li', {role: 'option', id: 'opc' + i + '-' + j, 'aria-selected': 'false'}, x.n, el('small', {text: TIPO[x.t] + ' · ' + x.o}));
+          li.addEventListener('mousedown', (ev) => ev.preventDefault());
+          li.addEventListener('click', () => elegir(x));
+          li._x = x;
+          return li;
         }));
+        activo = -1; input.removeAttribute('aria-activedescendant');
         lista.hidden = !hall.length;
+        input.setAttribute('aria-expanded', hall.length ? 'true' : 'false');
+        if (hall.length) anunciar(hall.length + (hall.length === 1 ? ' sugerencia' : ' sugerencias') + '. Usá las flechas para recorrerlas.');
       };
       input.addEventListener('input', sugerir);
       input.addEventListener('focus', sugerir);
-      input.addEventListener('keydown', (e) => { if (e.key === 'Escape') lista.hidden = true; if (e.key === 'Enter') { const b = lista.querySelector('button'); if (b) { e.preventDefault(); b.click(); } } });
-      input.addEventListener('blur', () => setTimeout(() => { lista.hidden = true; }, 200));
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') { cerrar(); return; }
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+          if (lista.hidden) sugerir();
+          if (lista.hidden) return;
+          e.preventDefault(); marcar(activo < 0 ? (e.key === 'ArrowDown' ? 0 : -1) : activo + (e.key === 'ArrowDown' ? 1 : -1)); return;
+        }
+        if (e.key === 'Enter' && !lista.hidden) { const o = opciones()[activo >= 0 ? activo : 0]; if (o) { e.preventDefault(); elegir(o._x); } }
+      });
+      input.addEventListener('blur', () => setTimeout(cerrar, 200));
       const quitar = it ? el('button', {type: 'button', class: 'btn mini', text: 'Quitar'}) : null;
       if (quitar) quitar.addEventListener('click', () => { elegidos[i] = null; actualizar(); });
       return el('div', {class: 'slot'}, label, input, lista, quitar);
@@ -107,6 +131,7 @@
     const g = grafico(sel);
     box.replaceChildren(el('section', {class: 'card'}, el('h2', {text: sel.map((x) => x.n).join(' vs. ')}), el('div', {class: 'tw'}, tabla), g, el('div', {}, link)));
     document.title = sel.map((x) => x.n).join(' vs. ') + ' · Comparador del presupuesto';
+    anunciar('Comparando ' + sel.map((x) => x.n).join(' y ') + '.');
   }
 
   function actualizar() {

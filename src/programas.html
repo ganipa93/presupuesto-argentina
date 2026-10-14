@@ -61,6 +61,7 @@
 <body>
 <div class="wrap">
 {{CABECERA}}
+<main id="contenido" class="principal">
 <header style="display:flex;flex-direction:column;gap:var(--g-sm)">
 <h1>¿Cuánto se gasta en…?</h1>
 <p class="sub">Los {{NPROG}} programas del presupuesto nacional, con cada obra y actividad: lo que el gobierno pide para 2027 y lo que se autorizó y se gastó en 2026, también por provincia. Además, las universidades una por una, el INCAA, el PAMI, los fondos fiduciarios y las empresas públicas.</p>
@@ -91,11 +92,11 @@
 <button type="button" data-q="cultura">Cultura</button>
 <button type="button" data-q="deuda">Deuda</button>
 </div>
-<p class="note" id="estado">Cargando los datos…</p>
+<p class="note" id="estado" role="status">Cargando los datos…</p>
 </div>
 
 <section id="resumen" class="card suma" hidden></section>
-<ol class="res" id="res" aria-live="polite"></ol>
+<ol class="res" id="res"></ol>
 <button class="btn mas" type="button" id="mas" hidden>Ver más resultados</button>
 
 <section class="card prose" style="margin-top:var(--g-lg)">
@@ -111,6 +112,7 @@
 </ul>
 <p class="note">Fuentes: datasets del Presupuesto Ciudadano 2027 de la Oficina Nacional de Presupuesto, API de Presupuesto Abierto (Ministerio de Economía) y planillas anexas del proyecto. Detalle en <a href="/metodologia#programas">Metodología</a>. Datos: <a href="/datos/programas.json">programas.json</a>.</p>
 </section>
+</main>
 
 <footer class="src">
 <p>Sitio independiente, sin relación con el Gobierno nacional. Montos en pesos corrientes.</p>

@@ -92,7 +92,10 @@ details.compartir .menu a:hover,details.compartir .menu button:hover{background:
 .lista-links li span{color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
 .etq{display:inline-block;font-size:12px;border-radius:999px;padding:2px 10px;background:var(--c1soft);color:var(--fg)}
 .etq.warn{background:var(--accsoft)}
-button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible,.tw:focus-visible,.tabla-scroll:focus-visible{outline:3px solid var(--c1);outline-offset:2px}
+.saltar{position:absolute;left:12px;top:-100px;z-index:100;background:var(--acc);color:#13294b;padding:10px 16px;border-radius:var(--r);font-weight:var(--fw-m);text-decoration:none}
+.saltar:focus{top:12px;outline:3px solid var(--c1);outline-offset:2px}
+main.principal{display:flex;flex-direction:column;gap:var(--g-lg)}
 section{display:flex;flex-direction:column;gap:var(--g-md)}
 [hidden]{display:none!important}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,20rem),1fr));gap:var(--g-md)}
