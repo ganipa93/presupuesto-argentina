@@ -80,11 +80,11 @@
   "clave": "ipc_acum"
  },
  {
-  "variable": "Inflación 2027 según el FMI (abril 2026)",
+  "variable": "Inflación 2027 según el FMI (dic. a dic., base del WEO)",
   "unidad": "%",
   "ley2026": null,
   "estimado2026": null,
-  "proyecto2027": 15.7,
+  "proyecto2027": 18,
   "clave": "ipc_fmi"
  }
 ]

@@ -104,7 +104,7 @@
   "tema": "Inflación de 18% dic/dic",
   "estado": "Exigente",
   "semaforo": "warn",
-  "dato": "2026 cerraría cerca de 29-30% (gobierno y REM) y el desvío contra la ley fue de unos 19 puntos. El FMI (abril 2026) proyectaba 15,7% para 2027, algo más optimista que el proyecto.",
+  "dato": "2026 cerraría cerca de 29-30% (gobierno y REM) y el desvío contra la ley fue de unos 19 puntos. El FMI proyecta 18% dic/dic para 2027 (21,2% de promedio anual), igual que el proyecto.",
   "lectura": "Es el supuesto más importante: de él depende el valor real de casi todo. Hay que bajar unos 11 puntos en un año."
  },
  {
@@ -113,8 +113,8 @@
   "tema": "Crecimiento de 4%",
   "estado": "Optimista",
   "semaforo": "warn",
-  "dato": "FMI (abril 2026): 4% para 2027. Para 2026 el gobierno estima 3% y las consultoras del REM, 1,5%.",
-  "lectura": "Coincide con el FMI, pero las consultoras locales vienen recortando sus estimaciones. Si no llega, cae la recaudación."
+  "dato": "FMI: 3,5% para 2027. Para 2026 el gobierno estima 3% y las consultoras del REM, 1,5%.",
+  "lectura": "Es algo más optimista que el FMI (3,5%) y las consultoras locales vienen recortando sus estimaciones. Si no llega, cae la recaudación."
  },
  {
   "id": "14",
