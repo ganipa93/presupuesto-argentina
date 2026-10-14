@@ -63,9 +63,11 @@ jobs:
         if: steps.cambios.outputs.hay == 'si'
         run: |
           export FECHA_SITIO=$(TZ=America/Argentina/Buenos_Aires date +%F)
-          python3 scripts/build.py
-          cd scripts && npm ci && npx playwright install --with-deps chromium && cd ..
-          node scripts/prerender.mjs
+          # Si algo falla, el final del error queda como anotación visible en la corrida.
+          fallo() { echo "::error title=$1::$(tail -n 12 /tmp/paso.log | sed ':a;N;$!ba;s/\n/%0A/g')"; exit 1; }
+          python3 scripts/build.py > /tmp/paso.log 2>&1 || fallo build.py
+          (cd scripts && npm ci && npx playwright install --with-deps chromium) > /tmp/paso.log 2>&1 || fallo npm-playwright
+          node scripts/prerender.mjs > /tmp/paso.log 2>&1 || fallo prerender
 
       - name: Probar antes de publicar
         if: steps.cambios.outputs.hay == 'si'
