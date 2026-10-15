@@ -10,7 +10,7 @@
    "jurisdiccion": "Ministerio de Capital Humano",
    "credito_inicial": 84953712.8,
    "credito_vigente": 89121333.0,
-   "devengado": 69655165.0,
+   "devengado": 69667617.4,
    "pct_ejecutado": 78.2
   },
   {
@@ -24,15 +24,15 @@
    "jurisdiccion": "Ministerio de Economía",
    "credito_inicial": 8879050.1,
    "credito_vigente": 10040251.5,
-   "devengado": 7787251.0,
+   "devengado": 7789257.7,
    "pct_ejecutado": 77.6
   },
   {
    "jurisdiccion": "Ministerio de Salud",
    "credito_inicial": 7402959.0,
    "credito_vigente": 8604631.1,
-   "devengado": 6092628.2,
-   "pct_ejecutado": 70.8
+   "devengado": 6130208.8,
+   "pct_ejecutado": 71.2
   },
   {
    "jurisdiccion": "Obligaciones a Cargo del Tesoro",
@@ -45,71 +45,71 @@
    "jurisdiccion": "Ministerio de Seguridad Nacional",
    "credito_inicial": 7575435.2,
    "credito_vigente": 7802024.4,
-   "devengado": 6190606.6,
-   "pct_ejecutado": 79.3
+   "devengado": 6192987.1,
+   "pct_ejecutado": 79.4
   },
   {
    "jurisdiccion": "Ministerio de Defensa",
    "credito_inicial": 5699658.5,
    "credito_vigente": 5884905.7,
-   "devengado": 4631005.1,
-   "pct_ejecutado": 78.7
+   "devengado": 4639023.7,
+   "pct_ejecutado": 78.8
   },
   {
    "jurisdiccion": "Poder Judicial de la Nación",
    "credito_inicial": 2135209.0,
    "credito_vigente": 2587730.1,
-   "devengado": 1825090.5,
+   "devengado": 1825295.5,
    "pct_ejecutado": 70.5
   },
   {
    "jurisdiccion": "Jefatura de Gabinete de Ministros",
    "credito_inicial": 1263912.4,
    "credito_vigente": 1398980.8,
-   "devengado": 933259.8,
-   "pct_ejecutado": 66.7
+   "devengado": 934251.6,
+   "pct_ejecutado": 66.8
   },
   {
    "jurisdiccion": "Ministerio Público",
    "credito_inicial": 835392.3,
    "credito_vigente": 1065852.0,
-   "devengado": 766249.8,
+   "devengado": 766405.2,
    "pct_ejecutado": 71.9
   },
   {
    "jurisdiccion": "Poder Legislativo Nacional",
    "credito_inicial": 674012.9,
    "credito_vigente": 923397.7,
-   "devengado": 651547.6,
+   "devengado": 651913.9,
    "pct_ejecutado": 70.6
   },
   {
    "jurisdiccion": "Ministerio de Relaciones Exteriores, Comercio Internacional y Culto",
    "credito_inicial": 653503.0,
    "credito_vigente": 719391.9,
-   "devengado": 512629.3,
+   "devengado": 512629.4,
    "pct_ejecutado": 71.3
   },
   {
    "jurisdiccion": "Ministerio del Interior",
    "credito_inicial": 835138.3,
    "credito_vigente": 648426.6,
-   "devengado": 406059.5,
-   "pct_ejecutado": 62.6
+   "devengado": 406676.2,
+   "pct_ejecutado": 62.7
   },
   {
    "jurisdiccion": "Presidencia de la Nación",
    "credito_inicial": 396555.1,
    "credito_vigente": 562589.8,
-   "devengado": 365208.1,
+   "devengado": 365258.9,
    "pct_ejecutado": 64.9
   },
   {
    "jurisdiccion": "Ministerio de Justicia",
    "credito_inicial": 218332.2,
    "credito_vigente": 331423.1,
-   "devengado": 189340.6,
-   "pct_ejecutado": 57.1
+   "devengado": 190219.3,
+   "pct_ejecutado": 57.4
   },
   {
    "jurisdiccion": "Ministerio de Desregulación y Transformación del Estado",
@@ -158,8 +158,8 @@
   },
   {
    "mes": 10,
-   "devengado": 1150079.4
+   "devengado": 1215783.2
   }
  ],
- "actualizado": "2026-10-14"
+ "actualizado": "2026-10-15"
 }
