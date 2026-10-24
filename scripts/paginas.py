@@ -249,6 +249,7 @@ class Generador:
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False).replace("</", "<\\/")}</script>
 <script>window.va = window.va || function () {{ (window.vaq = window.vaq || []).push(arguments); }};</script>
 <script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
 <script defer src="/js/descargas.js?v={self.v_desc}"></script>
 </head>
 <body>
