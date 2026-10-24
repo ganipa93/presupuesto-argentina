@@ -302,7 +302,7 @@ function calcular() {
   $('#c-total').textContent = pesos(total);
   $('#c-dias').textContent = sueldo > 0 ? nf1.format(total / sueldo * 30) + ' días de sueldo' : '—';
   $('#c-ss').textContent = pesos(ss);
-  ULTIMO = {total, filas};
+  ULTIMO = {total, filas, dias: sueldo > 0 ? total / sueldo * 30 : null};
 }
 ['#c-sueldo', '#c-gasto', '#c-gan', '#c-mono'].forEach((id) => $(id).addEventListener('input', calcular));
 
@@ -381,11 +381,29 @@ document.addEventListener('click', (e) => {
       bloques: p.puntos.map((pt) => ({tag: TAG[pt.signo][0], color: COLOR_TAG[pt.signo], texto: pt.texto}))}, 'presupuesto-2027-' + p.id);
   }
 });
+// Por defecto la placa no muestra pesos (dejaría ver el sueldo): muestra los días de trabajo
+// y el reparto de cada $1.000. Con "Mostrar mis montos en pesos" se ven los montos reales.
+function placaImpuestos(u, montos) {
+  const dias = u.dias > 0 && u.dias <= 30 ? nf1.format(u.dias) : null;
+  const titulo = montos ? 'Pago unos ' + pesos(u.total) + ' por mes en impuestos y aportes nacionales'
+    : dias ? 'Trabajo ' + dias + (dias === '1' ? ' día' : ' días') + ' al mes para pagar impuestos y aportes nacionales'
+    : 'Así se reparten mis impuestos y aportes nacionales';
+  const bloques = [];
+  if (montos && dias) bloques.push({texto: 'Son ' + dias + (dias === '1' ? ' día' : ' días') + ' de sueldo por mes.', tenue: true, sep: 20});
+  // 7 filas más "el resto", para que lo que muestra sume el total (o $1.000)
+  const filas = u.filas.slice(0, 7);
+  filas.push({nombre: 'Nación: resto de las áreas', monto: u.total - filas.reduce((s, f) => s + f.monto, 0)});
+  filas.forEach((f, i) => bloques.push({
+    tag: i === 0 ? (montos ? 'A dónde van, por mes' : 'De cada $1.000 que pago') : null,
+    texto: f.nombre, valor: pesos(montos ? f.monto : f.monto / u.total * 1000), sep: 8}));
+  return {kicker: '¿A dónde van mis impuestos?', titulo, bloques,
+    fuente: 'Estimación según el Presupuesto 2027. Calculá la tuya en el sitio.'};
+}
 $('#c-placa').addEventListener('click', () => {
-  if (!ULTIMO) return;
-  compartirPlaca({kicker: '¿A dónde van mis impuestos?', titulo: 'Pago unos ' + pesos(ULTIMO.total) + ' por mes en impuestos y aportes nacionales',
-    bloques: ULTIMO.filas.slice(0, 8).map((f) => ({texto: f.nombre, valor: pesos(f.monto), sep: 8})),
-    fuente: 'Estimación según el Presupuesto 2027. Calculá la tuya en el sitio.'}, 'mis-impuestos-2027');
+  if (!ULTIMO || !(ULTIMO.total > 0)) { toast('Completá la calculadora para armar la imagen'); return; }
+  const montos = $('#c-montos') ? $('#c-montos').checked : false;
+  compartirPlaca(placaImpuestos(ULTIMO, montos), 'mis-impuestos-2027');
+  if (window.va) window.va('event', {name: 'placa_impuestos', data: {montos: String(montos), dias: String(ULTIMO.dias > 0 && ULTIMO.dias <= 30)}});
 });
 render();
 route();
