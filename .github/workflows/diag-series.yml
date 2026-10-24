@@ -1,0 +1,27 @@
+# TEMPORAL: prueba la descarga de series en el PR y deja el resultado como comentario. Se borra antes del merge.
+name: diag-series
+on:
+  pull_request:
+permissions:
+  contents: read
+  pull-requests: write
+jobs:
+  diag:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: |
+          python3 scripts/bajar_series.py > /tmp/s.log 2>&1; echo "exit=$?" >> /tmp/s.log
+          python3 scripts/revisar_frescura.py > /tmp/f.log 2>&1; echo "exit=$?" >> /tmp/f.log
+          python3 - > /tmp/u.log <<'PY'
+          import json
+          i=json.load(open("fuentes/ipc_indec.json"))["mensual_2025_2026"]; print("IPC últimos:", list(i.items())[-3:])
+          d=json.load(open("datos/dolar.json")); print("Dólar últimos:", d["mensual"][-3:], "| promedio 2026:", d["promedio"].get("2026"))
+          PY
+          { echo "### Descarga"; echo '```'; cat /tmp/s.log; echo '```'; echo "### Frescura"; echo '```'; cat /tmp/f.log; echo '```'; echo "### Valores"; echo '```'; cat /tmp/u.log; echo '```'; } > /tmp/c.md
+          gh pr comment ${{ github.event.pull_request.number }} --body-file /tmp/c.md
+        env:
+          GH_TOKEN: ${{ github.token }}

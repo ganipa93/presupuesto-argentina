@@ -6,9 +6,15 @@
   - datos/dolar.json: dólar oficial (BCRA, Comunicación A 3500), promedio de cada mes y de cada año,
     para mostrar los montos también en dólares.
 Si aparece un mes nuevo de recaudación, deja una novedad en datos/novedades.json.
+La API de datos.gob.ar a veces se atrasa semanas con el IPC y el dólar: por eso también se
+consultan las fuentes primarias (INDEC y BCRA, ver fuentes_primarias.py) y se usan los meses
+más nuevos, solo si coinciden con la API en los meses que tienen en común.
 Uso: python3 scripts/bajar_series.py
 """
 import datetime, json, pathlib, sys, urllib.parse, urllib.request
+
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import fuentes_primarias  # noqa: E402
 
 RAIZ = pathlib.Path(__file__).resolve().parent.parent
 API = "https://apis.datos.gob.ar/series/api/series/"
@@ -37,7 +43,7 @@ def armar_dolar(mensual, hoy):
     d26, d27 = sup["tc"]["estimado2026"], sup["tc"]["proyecto2027"]
     p27 = sum(d26 * (d27 / d26) ** (k / 12) for k in range(1, 13)) / 12
     anio = str(hoy.year)
-    return {"fuente": "BCRA, tipo de cambio de referencia (Comunicación A 3500), promedio mensual, vía API de Series de Tiempo de datos.gob.ar. 2027: proyección del Ministerio de Economía en el proyecto de Presupuesto 2027.",
+    return {"fuente": "BCRA, tipo de cambio de referencia (Comunicación A 3500), promedio mensual, vía API de Series de Tiempo de datos.gob.ar y, para los meses que la API todavía no tiene, API de estadísticas del BCRA. 2027: proyección del Ministerio de Economía en el proyecto de Presupuesto 2027.",
             "url": "https://apis.datos.gob.ar/series/api/series/?ids=" + DOLAR + "&collapse=month&collapse_aggregation=avg",
             "unidad": "pesos por dólar",
             "promedio": {**{a: round(sum(vs) / len(vs), 2) for a, vs in por_anio.items()}, "2027": round(p27, 2)},
@@ -50,6 +56,7 @@ def main():
     hoy = datetime.date.today()
     # IPC
     ipc = serie(IPC, "2019-01-01")
+    ipc = fuentes_primarias.completar("IPC", ipc, fuentes_primarias.ipc_indec, tolerancia=0.002)
     por_anio = {}
     for f, v in ipc:
         por_anio.setdefault(f[:4], []).append(v)
@@ -61,6 +68,7 @@ def main():
     print("IPC hasta", ipc[-1][0])
     # Dólar oficial
     dol = serie(DOLAR, "2019-01-01", collapse="month", collapse_aggregation="avg")
+    dol = fuentes_primarias.completar("Dólar", dol, fuentes_primarias.dolar_bcra, tolerancia=0.01, rehacer_ultimo=True)
     out_d = armar_dolar([(f[:7], v) for f, v in dol if v is not None], hoy)
     f_dol = RAIZ / "datos" / "dolar.json"
     if not f_dol.exists() or json.loads(f_dol.read_text(encoding="utf-8")).get("mensual") != out_d["mensual"]:
