@@ -1,5 +1,5 @@
 {
- "fuente": "BCRA, tipo de cambio de referencia (Comunicación A 3500), promedio mensual, vía API de Series de Tiempo de datos.gob.ar. 2027: proyección del Ministerio de Economía en el proyecto de Presupuesto 2027.",
+ "fuente": "BCRA, tipo de cambio de referencia (Comunicación A 3500), promedio mensual, vía API de Series de Tiempo de datos.gob.ar y, para los meses que la API todavía no tiene, API de estadísticas del BCRA. 2027: proyección del Ministerio de Economía en el proyecto de Presupuesto 2027.",
  "url": "https://apis.datos.gob.ar/series/api/series/?ids=168.1_T_CAMBI500_D_0_0_17&collapse=month&collapse_aggregation=avg",
  "unidad": "pesos por dólar",
  "promedio": {
@@ -10,11 +10,11 @@
   "2023": 295.6,
   "2024": 916.19,
   "2025": 1244.52,
-  "2026": 1433.51,
+  "2026": 1450.39,
   "2027": 1731.17
  },
- "meses_en_curso": 8,
- "ultimo_mes": "2026-08",
+ "meses_en_curso": 10,
+ "ultimo_mes": "2026-10",
  "proyecto2027": {
   "dic2026": 1600.0,
   "dic2027": 1847.6
@@ -386,8 +386,16 @@
   ],
   [
    "2026-08",
-   1498.71
+   1499.96
+  ],
+  [
+   "2026-09",
+   1513.89
+  ],
+  [
+   "2026-10",
+   1520.67
   ]
  ],
- "actualizado": "2026-10-11"
+ "actualizado": "2026-10-24"
 }
