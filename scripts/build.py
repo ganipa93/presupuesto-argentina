@@ -189,7 +189,7 @@ def main():
     filas = "\n".join(f'<li><a href="/datos/{k}.json">{k}.json</a> · {html.escape(DESCRIPCIONES.get(k, ""))}</li>' for k in datos)
     (RAIZ / "datos/index.html").write_text(f"""<!doctype html><html lang="es-AR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Datos abiertos · Presupuesto Argentina</title><meta name="description" content="Los datos del sitio Presupuesto Argentina en formato JSON, para descargar y reutilizar.">
-<link rel="canonical" href="{SITE}/datos/"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/estilos.css"></head>
+<link rel="canonical" href="{SITE}/datos/"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/estilos.css"><script defer src="/_vercel/insights/script.js"></script><script defer src="/_vercel/speed-insights/script.js"></script></head>
 <body><div class="wrap"><div class="top"><a class="brand" href="/">Presupuesto Argentina</a><nav><a href="/">Volver al sitio</a><a href="/metodologia">Metodología y fuentes</a></nav></div>
 <main class="prose"><h1>Datos abiertos</h1><p class="sub">Todos los datos del sitio en JSON, uno por tabla. Podés usarlos citando la fuente (licencia CC BY 4.0). Actualizados al {FECHA}. Las páginas citadas son las del PDF del proyecto.</p>
 <ul>
