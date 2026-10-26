@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-10-14",
+ "actualizado": "2026-10-26",
  "etapas": [
   {
    "id": "envio",
@@ -28,13 +28,13 @@
   {
    "id": "comision",
    "fecha": "2026-10-13",
-   "fecha_texto": "13 de octubre",
+   "fecha_texto": "13 al 27 de octubre",
    "estado": "hecho",
-   "titulo": "Guberman presenta el proyecto en la Comisión de Presupuesto y Hacienda de Diputados",
-   "detalle": "El 13 de octubre el secretario de Hacienda, Carlos Guberman, defendió el proyecto ante la Comisión de Presupuesto y Hacienda: crecimiento de 4% en 2027, inflación de 18% y dólar a $1.848. La nota oficial no menciona cambios al texto. Siguen las reuniones informativas con funcionarios, entre ellas el 14 (Trabajo), el 20 y el 27 de octubre.",
+   "titulo": "Reuniones informativas en la Comisión de Presupuesto y Hacienda de Diputados",
+   "detalle": "El 13 de octubre el secretario de Hacienda, Carlos Guberman, defendió el proyecto ante la Comisión de Presupuesto y Hacienda: crecimiento de 4% en 2027, inflación de 18% y dólar a $1.848. El 14 expuso el secretario de Trabajo, Julio Cordero, y el 20 de octubre, en la tercera reunión informativa, el secretario de Educación, Carlos Torrendell, quien dijo que las transferencias a universidades nacionales serán el 3,88% del gasto total de la Administración Pública Nacional. Las notas oficiales no mencionan cambios al texto. Queda una última reunión informativa prevista para el martes 27 de octubre.",
    "fuente": {
     "nombre": "Honorable Cámara de Diputados de la Nación",
-    "url": "https://www.hcdn.gob.ar/prensa/noticia/EL-SECRETARIO-DE-HACIENDA-DEFENDIO-EL-PRESUPUESTO-GENERAL-PARA-LA-ADMINISTRACION-2027/"
+    "url": "https://www.hcdn.gob.ar/prensa/noticia/PRESUPUESTO-2027-EXPUSO-EL-SECRETARIO-DE-EDUCACION-CARLOS-TORRENDELL/"
    }
   },
   {
@@ -43,10 +43,10 @@
    "fecha_texto": "28 de octubre (previsto)",
    "estado": "proximo",
    "titulo": "Dictamen de comisión",
-   "detalle": "Según la Cámara de Diputados, se buscará dictamen el 28 de octubre. En el dictamen se definirían los cambios al proyecto, como el capítulo de discapacidad.",
+   "detalle": "El oficialismo sigue apuntando a firmar dictamen el miércoles 28 de octubre a las 14. Los bloques dialoguistas piden derogar el capítulo de discapacidad (arts. 36 a 41), mantener la actualización automática de la AUH y las asignaciones familiares, y más fondos para universidades; el gobierno condiciona cualquier cambio a preservar el equilibrio fiscal. Todavía no hay texto de dictamen.",
    "fuente": {
-    "nombre": "Honorable Cámara de Diputados de la Nación",
-    "url": "https://www.hcdn.gob.ar/prensa/noticia/EL-SECRETARIO-DE-HACIENDA-DEFENDIO-EL-PRESUPUESTO-GENERAL-PARA-LA-ADMINISTRACION-2027/"
+    "nombre": "Diario Popular (25 de octubre)",
+    "url": "https://www.diariopopular.com.ar/politica/presupuesto-2027-el-oficialismo-apura-las-negociaciones-firmar-el-dictamen-n926238"
    }
   },
   {
