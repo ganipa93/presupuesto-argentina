@@ -1,4 +1,96 @@
 {
+ "debug": {
+  "74.1_IIT_0_A_25": {
+   "data": [],
+   "meta": [
+    {
+     "frequency": "year"
+    },
+    {
+     "catalog": {
+      "title": "Datos Programación Macroeconómica"
+     },
+     "dataset": {
+      "title": "Intercambio Comercial Argentino",
+      "description": "Intercambio Comercial Argentino en millones de dólares",
+      "issued": "2017-09-28",
+      "source": "Instituto Nacional de Estadística y Censos (INDEC)"
+     },
+     "distribution": {
+      "title": "Intercambio Comercial Argentino. Valores anuales",
+      "downloadURL": "https://infra.datos.gob.ar/catalog/sspm/dataset/74/distribution/74.1/download/intercambio-comercial-argentino-anual.csv"
+     },
+     "field": {
+      "description": "Importaciones totales. En millones de dólares.",
+      "id": "74.1_IIT_0_A_25",
+      "units": "Millones de dólares",
+      "representation_mode": "value",
+      "representation_mode_units": "Millones de dólares"
+     }
+    }
+   ]
+  },
+  "74.1_IEMOI_0_A_46": {
+   "data": [],
+   "meta": [
+    {
+     "frequency": "year"
+    },
+    {
+     "catalog": {
+      "title": "Datos Programación Macroeconómica"
+     },
+     "dataset": {
+      "title": "Intercambio Comercial Argentino",
+      "description": "Intercambio Comercial Argentino en millones de dólares",
+      "issued": "2017-09-28",
+      "source": "Instituto Nacional de Estadística y Censos (INDEC)"
+     },
+     "distribution": {
+      "title": "Intercambio Comercial Argentino. Valores anuales",
+      "downloadURL": "https://infra.datos.gob.ar/catalog/sspm/dataset/74/distribution/74.1/download/intercambio-comercial-argentino-anual.csv"
+     },
+     "field": {
+      "description": "Exportaciones de manufacturas de origen industrial. En millones d.e dólares",
+      "id": "74.1_IEMOI_0_A_46",
+      "units": "Millones de dólares",
+      "representation_mode": "value",
+      "representation_mode_units": "Millones de dólares"
+     }
+    }
+   ]
+  },
+  "42.2_EPDT_0_M_30": {
+   "data": [],
+   "meta": [
+    {
+     "frequency": "semester"
+    },
+    {
+     "catalog": {
+      "title": "Datos Programación Macroeconómica"
+     },
+     "dataset": {
+      "title": "Principales variables ocupacionales. EPH puntual y continua.",
+      "description": "Principales variables ocupacionales por aglomerados urbanos.",
+      "issued": "2017-09-28",
+      "source": "Instituto Nacional de Estadística y Censos (INDEC)"
+     },
+     "distribution": {
+      "title": "Principales variables ocupacionales. EPH puntual. Valores mensuales.",
+      "downloadURL": "https://infra.datos.gob.ar/catalog/sspm/dataset/42/distribution/42.2/download/evolucion-principales-variables-ocupacionales-eph-puntual-valores-mensuales.csv"
+     },
+     "field": {
+      "description": "Tasa de desocupación total. En porcentaje.",
+      "id": "42.2_EPDT_0_M_30",
+      "units": "Porcentaje",
+      "representation_mode": "value",
+      "representation_mode_units": "Porcentaje"
+     }
+    }
+   ]
+  }
+ },
  "fuente": "API de Series de Tiempo, datos.gob.ar (INDEC)",
  "bajado": "2026-10-29",
  "suma": [
