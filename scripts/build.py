@@ -49,7 +49,7 @@ DESCRIPCIONES = {
 GRANDES = {"programas", "obras_provincias", "comparar", "historia"}  # se cargan aparte (fetch), no van dentro de index.html
 
 
-LOGO = '<svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#13294b"/><rect x="7" y="17" width="4" height="8" rx="1" fill="#9cc3ef"/><rect x="14" y="12" width="4" height="13" rx="1" fill="#9cc3ef"/><rect x="21" y="7" width="4" height="18" rx="1" fill="#f2b632"/></svg>'
+LOGO = '<svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#2B59FF"/><rect x="7" y="17" width="4" height="8" rx="1" fill="#FFFFFF"/><rect x="14" y="12" width="4" height="13" rx="1" fill="#FFFFFF"/><rect x="21" y="7" width="4" height="18" rx="1" fill="#FF8A3D"/></svg>'
 MENU = [("/", "Inicio"), ("/programas", "Buscar un gasto"), ("/provincias", "Por provincia"), ("/cuadros", "Todos los cuadros"), ("/metodologia", "Metodología")]
 
 

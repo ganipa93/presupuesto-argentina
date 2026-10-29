@@ -307,7 +307,7 @@ function calcular() {
 ['#c-sueldo', '#c-gasto', '#c-gan', '#c-mono'].forEach((id) => $(id).addEventListener('input', calcular));
 
 /* Placas para compartir en redes */
-const PL = {w: 1080, h: 1350, m: 84, bg: '#13294b', fg: '#ffffff', muted: '#c9d6e6', acc: '#f2b632', ok: '#7ddc9a', warn: '#f2c26b', bad: '#ff9b8f'};
+const PL = {w: 1080, h: 1350, m: 84, bg: '#0B1220', fg: '#ffffff', muted: '#C9D1E3', acc: '#FF8A3D', ok: '#7ddc9a', warn: '#f2c26b', bad: '#ff9b8f'};
 const SERIF = '"Source Serif 4", Georgia, serif', SANS = '"Source Sans 3", system-ui, sans-serif';
 function lineas(ctx, texto, ancho) {
   const out = []; let l = '';
@@ -347,7 +347,7 @@ async function placa(o) {
   while (alto > PL.h - pie && esc > 0.55) { esc -= 0.05; alto = dibujar(esc, 0); }
   const libre = PL.h - pie - alto;
   if (libre > 60) dibujar(esc, libre * 0.4);
-  ctx.fillStyle = '#f2b632'; ctx.fillRect(PL.m, PL.h - pie + 20, W, 3);
+  ctx.fillStyle = '#FF8A3D'; ctx.fillRect(PL.m, PL.h - pie + 20, W, 3);
   ctx.font = '600 30px ' + SANS; ctx.fillStyle = PL.fg; ctx.textBaseline = 'top';
   ctx.fillText(SITE.replace('https://', ''), PL.m, PL.h - pie + 48);
   ctx.font = '400 24px ' + SANS; ctx.fillStyle = PL.muted;
