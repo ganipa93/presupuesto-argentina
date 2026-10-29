@@ -49,10 +49,12 @@ let hechas = 0;
 try {
   const trabajos = JSON.parse(await readFile(path.join(raiz, 'scripts/.og-paginas.json'), 'utf-8'));
   const manifiesto = JSON.parse(await readFile(path.join(raiz, 'og/manifiesto.json'), 'utf-8').catch(() => '{}'));
+  // Si cambia el diseño de la imagen, se rehacen todas
+  const plantillaOg = createHash('sha1').update(await readFile(path.join(raiz, 'src/og-pagina.html'))).digest('hex').slice(0, 8);
   await og.goto(base + '/src/og-pagina.html', { waitUntil: 'load' });
   await og.evaluate(() => document.fonts.ready);
   for (const t of trabajos) {
-    const h = createHash('sha1').update(JSON.stringify(t)).digest('hex').slice(0, 12);
+    const h = createHash('sha1').update(plantillaOg + JSON.stringify(t)).digest('hex').slice(0, 12);
     const destino = path.join(raiz, 'og', t.archivo);
     const existe = await access(destino).then(() => true, () => false);
     if (manifiesto[t.archivo] === h && existe) continue;
