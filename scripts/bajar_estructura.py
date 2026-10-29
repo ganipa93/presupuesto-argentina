@@ -87,7 +87,15 @@ def main():
         except Exception as e:  # noqa: BLE001
             print("FALLÓ búsqueda", q, e)
     vals = {**previo.get("valores", {}), **valores(SUMA, "sum"), **valores(PROMEDIO, "avg")}
-    out = {"fuente": "API de Series de Tiempo, datos.gob.ar (INDEC)", "bajado": datetime.date.today().isoformat(),
+    # Series que vinieron vacías: guardar la respuesta cruda sin agregar, para revisar
+    debug = {}
+    for sid in [i for i in SUMA + PROMEDIO if not vals.get(i)]:
+        try:
+            d = get_json(f"{SERIES}/series/?ids={sid}&format=json&limit=40&sort=desc")
+            debug[sid] = {"data": d.get("data"), "meta": d.get("meta")}
+        except Exception as e:  # noqa: BLE001
+            debug[sid] = str(e)
+    out = {"debug": debug, "fuente": "API de Series de Tiempo, datos.gob.ar (INDEC)", "bajado": datetime.date.today().isoformat(),
            "suma": sorted(set(previo.get("suma", [])) | set(SUMA)), "promedio": sorted(set(previo.get("promedio", [])) | set(PROMEDIO)), "valores": vals, "candidatos": candidatos or previo.get("candidatos", {})}
     DEST.parent.mkdir(parents=True, exist_ok=True)
     DEST.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
