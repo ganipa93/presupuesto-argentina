@@ -11,6 +11,7 @@ El Presupuesto nacional 2026 y el proyecto 2027, explicados en lenguaje simple: 
 - **Buscar un gasto:** cualquier programa, obra u organismo, con lo pedido para 2027 y lo gastado en 2026. Cada uno tiene su página.
 - **Por provincia:** cuánto gasta la Nación en cada una, cuánto es por habitante y qué obras pide el proyecto 2027.
 - **Qué creció y qué cayó:** la evolución de cada programa desde 2020, descontada la inflación.
+- **Desde 1995, gobierno por gobierno:** todos los presupuestos nacionales de 1995 a 2027 en % del PIB: en qué se gastó, cuánto se modificó la ley y qué años hubo prórroga, de Menem a Milei (más la serie oficial de gasto público desde 1980).
 - **¿Se cumple?:** la ley 2026 contra lo que pasó, qué programas se están dejando de gastar (se actualiza cada semana), el realismo del 2027 y el debate en el Congreso.
 - **Todos los cuadros:** las páginas completas del proyecto 2027 y de la Ley 27.798, con buscador.
 - **Recaudación mes a mes:** cuánto entra cada mes, contra el año anterior y descontada la inflación.
@@ -38,6 +39,7 @@ Los cálculos en términos reales y el semáforo de cumplimiento son estimacione
 - **A mano, cuando haga falta** (desde la pestaña *Actions* de GitHub):
   - *Bajar datasets oficiales*: cuando se publiquen nuevos datos del presupuesto (por ejemplo, la ley 2027 aprobada).
   - *Bajar serie histórica*: para sumar un año nuevo a la evolución.
+  - *Bajar presupuestos desde 1995*: para cerrar un año en la historia por gobierno (rearma `datos/historia.json`).
 - El seguimiento del Congreso se actualiza editando `datos/congreso.json`.
 
 ## Avisar un error

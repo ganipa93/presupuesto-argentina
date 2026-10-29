@@ -190,3 +190,4 @@ mark{background:var(--accsoft);color:inherit;border-radius:2px;box-shadow:0 0 0 
 .insertar summary{cursor:pointer;list-style:none}
 .insertar summary::-webkit-details-marker{display:none}
 .insertar[open]{gap:var(--g-sm)}
+.tw.libre{max-height:none}

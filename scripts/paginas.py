@@ -542,6 +542,7 @@ a.t{{display:flex;flex-direction:column;gap:10px;padding:14px 16px;border:1px so
         if orgs:
             fo = [[e(o), dn(a), dn(b), f'{"+" if b >= a else "−"}{miles(abs((b / a - 1) * 100))}%'] for o, j, a, b in sorted(orgs, key=lambda z: z[3] / z[2] - 1)]
             cuerpo.append(f'<section class="card"><h2>Organismo por organismo</h2><p class="note">Sirve cuando los programas cambiaron de nombre (por ejemplo, en Vialidad). Montos en pesos de 2026.</p>{tabla(["Organismo", "2023 (gastado)", "2027 (proyecto)", "Cambio real"], fo)}</section>')
+        cuerpo.append('<p class="note">¿Y antes de 2020? En <a href="/historia">el presupuesto desde 1995, gobierno por gobierno</a> está la serie larga, en % del PIB.</p>')
         cuerpo.append('<div class="caveat">2020 a 2025: gasto devengado de cada año (Presupuesto Abierto). 2027: lo que pide el proyecto, que todavía puede cambiar en el Congreso y en la ejecución. Se descuenta la inflación con el IPC promedio del INDEC; para 2027, con la que supone el proyecto. Si la inflación de 2027 es mayor, la caída real será más grande. <a href="/metodologia#evolucion">Cómo se calcula</a>.</div>')
         n1, u1 = (f"{'+' if c_tot >= 0 else '−'}{miles(abs(c_tot))}%", "real")
         img = self.og_trabajo("evolucion.jpg", kicker="Presupuesto nacional 2020-2027", titulo="¿Qué creció y qué se achicó desde 2023?", org="Descontada la inflación, programa por programa",
@@ -787,6 +788,7 @@ a.t{{display:flex;flex-direction:column;gap:10px;padding:14px 16px;border:1px so
         self.indice()
         if self.HT:
             self.evolucion()
+        self.historia()
         self.glosario()
         self.ejecucion()
         self.comparar()
@@ -794,3 +796,227 @@ a.t{{display:flex;flex-direction:column;gap:10px;padding:14px 16px;border:1px so
         self.novedades(self.datos.get("novedades", []))
         (self.raiz / "scripts" / ".og-paginas.json").write_text(json.dumps(self.og, ensure_ascii=False), encoding="utf-8")
         return self.urls
+
+
+# ---------- historia 1995-2027: presupuestos y gobiernos ----------
+def _pp(v, dec=1):
+    """Porcentaje del PIB como texto («14,5%»)."""
+    return "—" if v is None else f"{miles(v, dec)}%"
+
+
+def _signo(v):
+    """Variación con signo («+12%», «−3%»), sin «−0%»."""
+    if v is None:
+        return "—"
+    r = round(v)
+    return "0%" if r == 0 else f"{'+' if r > 0 else '−'}{miles(abs(r))}%"
+
+
+def _puntos(v):
+    return "—" if v is None else f"{'+' if v >= 0 else '−'}{miles(abs(v), 1)} pp"
+
+
+def historia(self):
+    H = self.datos.get("historia")
+    if not H:
+        return
+    A = H["anios"]
+    por_a = {x["anio"]: x for x in A}
+    G = H["gobiernos"]
+    R = [(r["id"], r["nombre"]) for r in H["rubros"]]
+    T = [(t["id"], t["nombre"]) for t in H["tipos"]]
+    pct = lambda x, v: v / x["pib"] * 100 if v is not None and x["pib"] else None
+    tot = {a: pct(x, x["gastado"]) for a, x in por_a.items()}
+    rub = lambda a, r: pct(por_a[a], por_a[a]["rubros"].get(r, 0))
+    de_gob = {a: g for g in G for a in range(g["desde"], g["hasta"] + 1)}
+    prim, ult_ej = min(por_a), max(a for a, x in por_a.items() if x["tipo"] == "gastado")
+    pico = max((a for a in por_a if a <= ult_ej), key=lambda a: tot[a])
+    minimo = min((a for a in por_a if a <= ult_ej), key=lambda a: tot[a])
+
+    def prom(anios, f):
+        vals = [f(a) for a in anios if f(a) is not None]
+        return sum(vals) / len(vals) if vals else None
+
+    # --- gráfico de barras: gasto total en % del PIB, con franjas por gobierno ---
+    def grafico_total():
+        anios = sorted(por_a)
+        W, base, top, pad = 760, 250, 40, 34
+        bw = (W - pad - 8) / len(anios)
+        mx = max(tot.values()) * 1.1
+        y = lambda v: base - v / mx * (base - top)
+        x0 = lambda i: pad + i * bw
+        partes = []
+        for k, g in enumerate(G):
+            ii = [i for i, a in enumerate(anios) if g["desde"] <= a <= g["hasta"]]
+            if not ii:
+                continue
+            xa, xb = x0(ii[0]), x0(ii[-1] + 1)
+            if k % 2 == 0:
+                partes.append(f'<rect x="{xa:.1f}" y="{top - 30}" width="{xb - xa:.1f}" height="{base - top + 30}" fill="var(--panel)"/>')
+            ape = g["nombre"].split()[-1] if g["id"] != "cfk" else "C. Kirchner"
+            ape = {"nkirchner": "N. Kirchner", "afernandez": "A. Fernández", "delarua": "De la Rúa"}.get(g["id"], ape)
+            partes.append(f'<text x="{(xa + xb) / 2:.1f}" y="{top - 16 if len(ii) > 1 else top - 2}" text-anchor="middle" font-size="{11 if len(ii) > 1 else 9}" fill="currentColor" opacity=".8">{e(ape)}</text>')
+        for v in (5, 10, 15, 20, 25):
+            if v < mx:
+                partes.append(f'<line x1="{pad}" x2="{W - 8}" y1="{y(v):.1f}" y2="{y(v):.1f}" stroke="var(--line)"/><text x="{pad - 6}" y="{y(v) + 4:.1f}" text-anchor="end" font-size="11" fill="currentColor" opacity=".7">{v}%</text>')
+        for i, a in enumerate(anios):
+            x, v = por_a[a], tot[a]
+            col = {"gastado": "var(--c1)", "estimado": "var(--mutedbar)", "proyecto": "var(--acc)"}[x["tipo"]]
+            h = base - y(v)
+            partes.append(f'<rect x="{x0(i) + bw * .15:.1f}" y="{y(v):.1f}" width="{bw * .7:.1f}" height="{h:.1f}" rx="2" fill="{col}"><title>{a}: {_pp(v)} del PIB ({e(x["norma"])})</title></rect>')
+            if x["prorroga"]:
+                partes.append(f'<circle cx="{x0(i) + bw / 2:.1f}" cy="{y(v) - 6:.1f}" r="3" fill="none" stroke="var(--bad)" stroke-width="1.5"/>')
+            if a % 5 == 0 or a in (prim, max(anios)):
+                partes.append(f'<text x="{x0(i) + bw / 2:.1f}" y="{base + 15}" text-anchor="middle" font-size="11" fill="currentColor" opacity=".75">{a}</text>')
+        desc = "; ".join(f"{a}: {_pp(tot[a])}" for a in anios)
+        return (f'<figure style="margin:0"><div style="overflow-x:auto"><svg viewBox="0 0 {W} {base + 22}" width="100%" role="img" aria-label="Gasto de la Administración Nacional en % del PIB. {e(desc)}" style="color:var(--fg);min-width:640px">{"".join(partes)}'
+                f'<line x1="{pad}" x2="{W - 8}" y1="{base}" y2="{base}" stroke="var(--axis)"/></svg></div>'
+                '<figcaption class="note"><span style="color:var(--c1)">■</span> gastado (devengado) &nbsp; <span style="color:var(--mutedbar)">■</span> 2026: cierre estimado &nbsp; '
+                '<span style="color:var(--acc)">■</span> 2027: proyecto &nbsp; <span style="color:var(--bad)">○</span> año con presupuesto prorrogado (sin ley nueva)</figcaption></figure>')
+
+    # --- mini gráficos por rubro ---
+    def mini(r, nombre):
+        anios = sorted(por_a)
+        vals = [rub(a, r) for a in anios]
+        mx = max(vals) or 1
+        W, H2, pad = 300, 92, 4
+        bw = (W - 2 * pad) / len(anios)
+        barras = "".join(f'<rect x="{pad + i * bw + bw * .12:.1f}" y="{H2 - 16 - v / mx * 60:.1f}" width="{bw * .76:.1f}" height="{max(.8, v / mx * 60):.1f}" fill="{"var(--c1)" if por_a[a]["tipo"] == "gastado" else "var(--acc)" if por_a[a]["tipo"] == "proyecto" else "var(--mutedbar)"}"><title>{a}: {_pp(v, 2)} del PIB</title></rect>' for i, (a, v) in enumerate(zip(anios, vals)))
+        cortes = "".join(f'<line x1="{pad + anios.index(g["desde"]) * bw:.1f}" x2="{pad + anios.index(g["desde"]) * bw:.1f}" y1="10" y2="{H2 - 16}" stroke="var(--line)" stroke-dasharray="2 2"/>' for g in G[1:] if g["desde"] in anios)
+        a_max = anios[vals.index(mx)]
+        return (f'<div class="card" style="padding:12px"><h3 style="font-size:15px">{e(nombre)}</h3>'
+                f'<p class="note" style="margin:2px 0 0">{prim}: {_pp(vals[0])} · máximo {a_max}: {_pp(mx)} · 2027: {_pp(vals[-1])}</p>'
+                f'<svg viewBox="0 0 {W} {H2}" width="100%" role="img" aria-label="{e(nombre)} en % del PIB por año" style="color:var(--fg)">{cortes}{barras}'
+                f'<text x="{pad}" y="{H2 - 3}" font-size="10" fill="currentColor" opacity=".7">{prim}</text><text x="{W - pad}" y="{H2 - 3}" font-size="10" text-anchor="end" fill="currentColor" opacity=".7">{max(anios)}</text></svg></div>')
+
+    # --- tabla gobierno por gobierno ---
+    filas_g, filas_r, filas_t, filas_c, cortos = [], [], [], [], []
+    for g in G:
+        anios = [a for a in range(g["desde"], g["hasta"] + 1) if a in por_a]
+        if not anios:
+            continue
+        recibio = g["desde"] - 1 if g["desde"] - 1 in por_a else None
+        dejo = g["hasta"]
+        nombre = f'<strong>{e(g["nombre"])}</strong><br><span class="note">{e(g["periodo"])} · ' + (f'años {anios[0]}-{anios[-1]}' if len(anios) > 1 else f'año {anios[0]}') + '</span>'
+        pro = [a for a in anios if por_a[a]["prorroga"]]
+        filas_g.append([nombre, _pp(prom(anios, lambda a: tot[a])),
+                        (_pp(tot[recibio]) + f' <span class="note">({recibio})</span>') if recibio else "—",
+                        _pp(tot[dejo]) + f' <span class="note">({dejo}{", est." if por_a[dejo]["tipo"] != "gastado" else ""})</span>',
+                        _puntos(tot[dejo] - tot[recibio]) if recibio else "—",
+                        ", ".join(map(str, pro)) or "Ninguno"])
+        filas_r.append([prom(anios, lambda a, r=r: rub(a, r)) for r, _ in R] + [prom(anios, lambda a: tot[a])])
+        cortos.append(g["nombre"].replace("Cristina Fernández de Kirchner", "C. Kirchner").replace("Néstor Kirchner", "N. Kirchner").replace("Alberto Fernández", "A. Fernández").replace("Fernando de la Rúa", "De la Rúa").split()[-1] if g["id"] not in ("cfk", "nkirchner", "afernandez", "delarua") else {"cfk": "C. Kirchner", "nkirchner": "N. Kirchner", "afernandez": "A. Fernández", "delarua": "De la Rúa"}[g["id"]])
+        aa = [a for a in anios if por_a[a]["tipos"]]
+        if aa:
+            filas_t.append([f'<strong>{e(g["nombre"])}</strong>'] + [_pp(prom(aa, lambda a, t=t: pct(por_a[a], por_a[a]["tipos"].get(t, 0))), 2) for t, _ in T])
+        filas_c.append(f'<li><strong>{e(g["nombre"])}</strong> ({e(g["periodo"])}): {e(g.get("contexto", ""))}{(" " + e(g["nota"])) if g.get("nota") else ""}</li>')
+
+    # --- composición: de cada $100 gastados ---
+    def composicion():
+        filas = []
+        colores = ["#1d4f91", "#4f7fc0", "#8fb3e3", "#2f8f6f", "#7cc2a6", "#b9dfcd", "#c9822b", "#e6b45a", "#f2d99a", "#7a5aa6", "#b39ad6", "#8a9099", "#c0392b"]
+        for g in G:
+            anios = [a for a in range(g["desde"], g["hasta"] + 1) if a in por_a]
+            if not anios:
+                continue
+            sh = [prom(anios, lambda a, r=r: por_a[a]["rubros"].get(r, 0) / por_a[a]["gastado"] * 100) for r, _ in R]
+            x, segs = 0.0, []
+            for (r, n), v, c in zip(R, sh, colores):
+                segs.append(f'<rect x="{x:.2f}" y="0" width="{v:.2f}" height="22" fill="{c}"><title>{e(n)}: ${miles(v)} de cada $100</title></rect>')
+                x += v
+            filas.append(f'<div style="display:grid;grid-template-columns:minmax(7rem,11rem) 1fr;gap:8px;align-items:center"><span style="font-size:14px">{e(g["nombre"])}</span>'
+                         f'<svg viewBox="0 0 100 22" preserveAspectRatio="none" width="100%" height="22" role="img" aria-label="{e(g["nombre"])}: ' +
+                         e("; ".join(f"{n} {miles(v)}%" for (r, n), v in zip(R, sh))) + f'">{"".join(segs)}</svg></div>')
+        ley = "".join(f'<span style="display:inline-flex;align-items:center;gap:4px;margin-right:10px;font-size:13px"><span style="width:10px;height:10px;background:{c};display:inline-block;border-radius:2px"></span>{e(n)}</span>' for (r, n), c in zip(R, colores))
+        return f'<div style="display:flex;flex-direction:column;gap:6px">{"".join(filas)}</div><p class="note" style="margin-top:8px">{ley}</p>'
+
+    # --- ley contra lo modificado y lo gastado ---
+    filas_l = []
+    for a in sorted(por_a):
+        x = por_a[a]
+        if x["tipo"] == "proyecto":
+            continue
+        mod = (x["vigente"] / x["ley"] - 1) * 100 if x.get("vigente") and x.get("ley") else None
+        ej = (x["gastado"] / x["ley"] - 1) * 100 if x.get("ley") else None
+        filas_l.append([f'{a}{" (est.)" if x["tipo"] == "estimado" else ""}', ("⚠ " if x["prorroga"] else "") + e(x["norma"]),
+                        dn(x["ley"]), dn(x["vigente"]), dn(x["gastado"]),
+                        _signo(mod), _signo(ej)])
+
+    # --- todos los números, año por año ---
+    filas_a = [[str(a) + {"gastado": "", "estimado": " (est.)", "proyecto": " (proy.)"}[por_a[a]["tipo"]], e(de_gob.get(a, {}).get("nombre", "Proyecto 2027" if a == 2027 else "")), dn(por_a[a]["gastado"]),
+                dn(por_a[a]["pib"]), _pp(tot[a])] + [_pp(rub(a, r), 2) for r, _ in R] for a in sorted(por_a)]
+
+    # --- mirada larga: Gasto Público Consolidado, 1980-2023 ---
+    gpc = {int(a): v for a, v in H["gpc"].get("nacional", {}).items()}
+    largo = ""
+    if gpc:
+        aa = sorted(gpc)
+        W, base, top, pad = 760, 230, 50, 34
+        bw = (W - pad - 8) / len(aa)
+        mx = max(gpc.values()) * 1.1
+        y = lambda v: base - v / mx * (base - top)
+        pts = " ".join(f"{pad + i * bw + bw / 2:.1f},{y(gpc[a]):.1f}" for i, a in enumerate(aa))
+        ejes = "".join(f'<line x1="{pad}" x2="{W - 8}" y1="{y(v):.1f}" y2="{y(v):.1f}" stroke="var(--line)"/><text x="{pad - 6}" y="{y(v) + 4:.1f}" text-anchor="end" font-size="11" fill="currentColor" opacity=".7">{v}%</text>' for v in (10, 15, 20, 25) if v < mx)
+        etis = "".join(f'<text x="{pad + i * bw + bw / 2:.1f}" y="{base + 15}" text-anchor="middle" font-size="11" fill="currentColor" opacity=".75">{a}</text>' for i, a in enumerate(aa) if a % 5 == 0)
+        pres = [(1983, "Alfonsín"), (1989, "Menem"), (1999, "De la Rúa"), (2002, "Duhalde"), (2003, "N. Kirchner"), (2007, "C. Kirchner"), (2015, "Macri"), (2019, "A. Fernández")]
+        marcas = "".join(f'<line x1="{pad + aa.index(a) * bw + bw:.1f}" x2="{pad + aa.index(a) * bw + bw:.1f}" y1="{top - 38 + (i % 2) * 13}" y2="{base}" stroke="var(--axis)" stroke-dasharray="3 3" opacity=".6"/>'
+                         f'<text x="{pad + aa.index(a) * bw + bw + 3:.1f}" y="{top - 28 + (i % 2) * 13}" font-size="10" fill="currentColor" opacity=".75">{n}</text>' for i, (a, n) in enumerate(pres) if a in aa)
+        puntos = "".join(f'<circle cx="{pad + i * bw + bw / 2:.1f}" cy="{y(gpc[a]):.1f}" r="2.5" fill="var(--c1)"><title>{a}: {_pp(gpc[a])} del PIB</title></circle>' for i, a in enumerate(aa))
+        largo = (f'<section class="card"><h2>La mirada larga: 1980 a 2023</h2>'
+                 f'<p>Para ver más atrás que 1995 hay otra serie oficial, el <strong>Gasto Público Consolidado</strong> del Ministerio de Economía. Mide algo más amplio que el presupuesto de la Administración Nacional (suma, por ejemplo, el PAMI, las obras sociales nacionales y los fondos fiduciarios), así que sus porcentajes son más altos y no se deben mezclar con los de arriba. Sirve para ver la tendencia: el gasto nacional pasó de {_pp(gpc[aa[0]])} del PIB en {aa[0]} a {_pp(gpc[aa[-1]])} en {aa[-1]}, con su mínimo en {min(gpc, key=gpc.get)} ({_pp(min(gpc.values()))}) y su máximo en {max(gpc, key=gpc.get)} ({_pp(max(gpc.values()))}).</p>'
+                 f'<figure style="margin:0"><div style="overflow-x:auto"><svg viewBox="0 0 {W} {base + 22}" width="100%" role="img" aria-label="Gasto público nacional en % del PIB, {aa[0]}-{aa[-1]}" style="color:var(--fg);min-width:640px">{ejes}{marcas}'
+                 f'<polyline points="{pts}" fill="none" stroke="var(--c1)" stroke-width="2"/>{puntos}{etis}<line x1="{pad}" x2="{W - 8}" y1="{base}" y2="{base}" stroke="var(--axis)"/></svg></div>'
+                 '<figcaption class="note">Gasto público nacional en % del PIB. Las líneas marcan el último año completo antes de cada cambio de gobierno. Fuente: Ministerio de Economía, Gasto Público Consolidado (API de Series de Tiempo, datos.gob.ar).</figcaption></figure></section>')
+
+    # --- frase principal (solo hechos) ---
+    p27 = tot.get(2027)
+    frase = (f'En {prim} el Estado nacional gastó el equivalente a <strong>{_pp(tot[prim])} del PIB</strong>. Ese número subió hasta <strong>{_pp(tot[pico])} en {pico}</strong>, '
+             f'el máximo de la serie, y en {ult_ej} fue de <strong>{_pp(tot[ult_ej])}</strong>' + (f'; para 2027 el proyecto prevé {_pp(p27)}.' if p27 else '.') +
+             ' Acá está cómo se movió el presupuesto con cada gobierno, en qué se gastó y cuánto se respetó la ley que aprobó el Congreso.')
+
+    cab_r = ["Rubro"] + cortos
+    filas_rt = []
+    for j, (r, n) in enumerate(R + [("total", "Total")]):
+        vals = [f[j] for f in filas_r]
+        mx_ = max(v for v in vals if v is not None)
+        filas_rt.append([("<strong>Total</strong>" if r == "total" else e(n))] + [(f"<strong>{_pp(v, 2 if r != 'total' else 1)}</strong>" if v == mx_ else _pp(v, 2 if r != "total" else 1)) for v in vals])
+    cuerpo = [
+        f'<p class="respuesta">{frase}</p>',
+        '<div class="stats">' + stat(f"Gasto {prim}", _pp(tot[prim]), "del PIB") + stat(f"Máximo ({pico})", _pp(tot[pico]), "del PIB")
+        + stat(f"Mínimo ({minimo})", _pp(tot[minimo]), "del PIB") + stat(f"Gastado {ult_ej}", _pp(tot[ult_ej]), "del PIB", ink=True)
+        + (stat("Proyecto 2027", _pp(p27), "del PIB") if p27 else "") + "</div>",
+        '<nav class="chips" aria-label="En esta página"><a href="#total">El gasto total</a><a href="#gobiernos">Gobierno por gobierno</a><a href="#rubros">En qué se gastó</a><a href="#composicion">De cada $100</a><a href="#tipo">Por tipo de gasto</a><a href="#ley">La ley contra lo gastado</a><a href="#largo">Desde 1980</a><a href="#numeros">Todos los números</a></nav>',
+        f'<section class="card" id="total"><h2>Cuánto gastó el Estado nacional cada año</h2><p class="note">Gasto de la Administración Nacional en % del PIB: cuánto de todo lo que produce el país en un año pasa por el presupuesto nacional. Se usa el PIB porque permite comparar 1995 con 2025 sin discutir qué índice de inflación usar.</p>{grafico_total()}</section>',
+        f'<section class="card" id="gobiernos"><h2>Gobierno por gobierno</h2><p class="note">«Lo recibió» es el último año del gobierno anterior; «lo dejó», el último año completo propio. Cada año se cuenta al gobierno que lo ejecutó, aunque el presupuesto lo haya escrito el anterior.</p>'
+        f'{tabla(["Gobierno", "Gasto promedio (% PIB)", "Lo recibió en", "Lo dejó en", "Cambio", "Años sin ley nueva"], filas_g, "libre")}'
+        f'<details><summary class="note">Qué pasaba en cada gobierno (contexto que mueve los números)</summary><ul class="note" style="margin:8px 0 0;padding-left:18px;display:flex;flex-direction:column;gap:6px">{"".join(filas_c)}</ul></details></section>',
+        f'<section class="card" id="rubros"><h2>En qué se gastó: rubro por rubro</h2><p class="note">Cada barra es un año, en % del PIB. Las líneas punteadas marcan los cambios de gobierno. El tope de cada gráfico es distinto: mirá los números.</p>'
+        f'<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px">{"".join(mini(r, n) for r, n in R)}</div>'
+        f'<h3 style="margin-top:16px">Promedio de cada gobierno, en % del PIB</h3><p class="note">En negrita, el gobierno con el promedio más alto en cada rubro.</p>{tabla(cab_r, filas_rt, "libre")}'
+        '<p class="note">Algunos saltos bruscos de un año a otro (por ejemplo, Salud entre 1995 y 1996) responden a cambios en cómo se clasificó el gasto o en qué organismos entran al presupuesto, no necesariamente a decisiones de política. «Jubilaciones, pensiones y asignaciones» incluye la AUH y las asignaciones familiares (función Seguridad social). «Ayuda a provincias» es la función Relaciones interiores: transferencias que no son coparticipación (la coparticipación no pasa por el presupuesto nacional). «Energía y combustibles» y «Transporte» son, sobre todo, subsidios y obras.</p></section>',
+        f'<section class="card" id="composicion"><h2>De cada $100 que gastó la Nación</h2><p class="note">Cómo se repartió el gasto en promedio en cada gobierno. Pasá el dedo o el mouse por cada color para ver el número.</p>{composicion()}</section>',
+        f'<section class="card" id="tipo"><h2>Por tipo de gasto</h2><p class="note">Promedio de cada gobierno, en % del PIB, según el inciso del gasto. Hasta {ult_ej} (para 2026 y 2027 todavía no hay este detalle cerrado).</p>{tabla(["Gobierno"] + [n for _, n in T], filas_t, "libre")}</section>',
+        f'<section class="card" id="ley"><h2>La ley contra lo que se gastó</h2><p class="note">«Ley» es el crédito inicial que aprobó el Congreso (o el prorrogado); «vigente», cómo quedó después de las modificaciones del año (decisiones administrativas, DNU y leyes); «gastado», lo devengado. '
+        'Con inflación alta, el gasto siempre supera a la ley en pesos: la diferencia mide sobre todo cuánto se equivocó la inflación prevista, y en los años de prórroga es todavía mayor porque se arranca con los montos de un año anterior. ⚠ = sin ley nueva (presupuesto prorrogado).</p>'
+        f'{tabla(["Año", "Qué rigió", "Ley (inicial)", "Vigente (modificado)", "Gastado", "Modificación", "Gastado vs. ley"], filas_l)}</section>',
+        f'<div id="largo">{largo}</div>' if largo else "",
+        f'<section class="card" id="numeros"><h2>Todos los números, año por año</h2><details><summary class="note">Ver la tabla completa (se puede bajar en Excel)</summary>'
+        f'{tabla(["Año", "Gobierno", "Gasto (pesos corrientes)", "PIB (pesos corrientes)", "Gasto % PIB"] + [n + " (% PIB)" for _, n in R], filas_a)}</details></section>',
+        '<div class="caveat">Fuentes: Presupuesto Abierto (Ministerio de Economía), crédito y gasto devengado de la Administración Nacional de 1995 a 2025; Proyecto de Presupuesto 2027 para el cierre estimado de 2026 y lo pedido para 2027; '
+        f'INDEC, PIB a precios corrientes (base 2004 desde 2004; antes, la base 1993 empalmada en 2004 multiplicándola por {miles(H["empalme_pib"], 4)}); para 2026 y 2027, el PIB que usa el propio proyecto. '
+        'Leyes y prórrogas: InfoLEG, Boletín Oficial y «Cupos presupuestarios anuales» del Ministerio de Economía. No incluye coparticipación, provincias, municipios, PAMI ni empresas públicas. '
+        '<a href="/metodologia#historia">Cómo se calcula</a> · <a href="/datos/historia.json">Bajar los datos (JSON)</a>.</div>',
+    ]
+    img = self.og_trabajo("historia.jpg", kicker=f"Presupuesto nacional {prim}-2027", titulo="¿Cómo cambió el gasto con cada gobierno?", org="En % del PIB, año por año",
+                          l1=f"Máximo ({pico})", n1=_pp(tot[pico]), u1="del PIB", l2=f"Gastado {ult_ej}", n2=_pp(tot[ult_ej]), u2="del PIB",
+                          fuente="Fuentes: Presupuesto Abierto, INDEC y Proyecto 2027")
+    desc = (f"Los presupuestos nacionales de {prim} a 2027 con cada gobierno, de Menem a Milei: cuánto se gastó en % del PIB, en qué "
+            "(jubilaciones, subsidios, educación, salud, deuda), cuánto se modificó la ley y qué años hubo prórroga.")
+    ld = self.dataset(f"Presupuesto nacional de Argentina {prim}-2027: gasto por rubro y por gobierno", desc, "/historia")
+    ld["temporalCoverage"] = f"{prim}/2027"
+    ld["distribution"] = [{"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": self.site + "/datos/historia.json"}]
+    self.pagina("/historia", f"Presupuestos nacionales {prim}-2027: cómo cambió el gasto con cada gobierno", desc, "\n".join(cuerpo),
+                [("Inicio", "/"), ("Historia del presupuesto", "/historia")], img, ld, h1=f"El presupuesto nacional de {prim} a hoy, gobierno por gobierno")
+
+
+Generador.historia = historia
