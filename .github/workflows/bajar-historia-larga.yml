@@ -1,0 +1,36 @@
+name: Bajar presupuestos desde 1995
+
+# Baja de Presupuesto Abierto la ley, el vigente y lo gastado de cada año desde 1995 (por finalidad,
+# función, tipo de gasto y jurisdicción) y las series de PIB y gasto público de datos.gob.ar.
+# Se corre a mano desde Actions cuando haga falta (por ejemplo, para cerrar un año).
+on:
+  workflow_dispatch:
+    inputs:
+      desde: {description: "Primer año", required: false, default: "1995"}
+  push:
+    branches: [historial-largo]
+    paths: [scripts/bajar_historia_larga.py, .github/workflows/bajar-historia-larga.yml]
+
+permissions:
+  contents: write
+
+jobs:
+  bajar:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: {python-version: "3.12"}
+      - name: Bajar
+        env:
+          PRESUPUESTO_ABIERTO_TOKEN: ${{ secrets.PRESUPUESTO_ABIERTO_TOKEN }}
+          PIB_IDS: ""
+        run: python3 scripts/bajar_historia_larga.py ${{ github.event.inputs.desde || '1995' }}
+      - name: Guardar en el repositorio
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add fuentes/historia_larga
+          git diff --cached --quiet || git commit -m "Bajar presupuestos desde 1995"
+          git push
