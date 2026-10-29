@@ -1081,6 +1081,7 @@ def historia(self):
                 f'<div class="hx-dos"><div>Economía por año<b>{(("+" if crec >= 0 else "−") + miles(abs(crec), 1) + "%") if crec is not None else "—"}</b></div>'
                 f'<div>Gasto por habitante<b>{("$" + miles(ghab / 1e6, 2) + " M") if ghab else "—"}</b></div></div>'
                 + (f'<div class="hx-dos"><div>Resultado financiero<b>{_pp(prom(aa, lambda a: pct(por_a[a], por_a[a]["res_fin"])), 1)} del PIB</b></div><div>Años con superávit<b>{len([a for a in aa if a <= ult_ej and por_a[a]["res_fin"] > 0])} de {len([a for a in aa if a <= ult_ej])}</b></div></div>' if all(por_a[a].get("res_fin") is not None for a in aa) else "")
+                + (f'<div class="hx-dos"><div>Industria<b>{_pp(prom(ae, lambda a: por_a[a]["eco"]["industria"]))} del PIB</b></div><div>Desempleo en {ae[-1]}<b>{_pp(por_a[ae[-1]]["eco"]["desempleo"])}</b></div></div>' if (ae := [a for a in aa if por_a[a].get("eco")]) else "")
                 + (f'<span class="hx-pro">Sin ley nueva en {", ".join(pro)}</span>' if pro else "")
                 + (f'<p class="hx-ctx">{e(g.get("contexto", ""))}</p>' if g.get("contexto") else "") + '</article>')
         return f'<div class="hx-govs">{"".join(tarj)}</div>'
@@ -1128,7 +1129,7 @@ def historia(self):
                 f'<polyline points="{pts(ip)}" fill="none" stroke="#FF8A3D" stroke-width="3" stroke-linejoin="round"/><polyline points="{pts(ig)}" fill="none" stroke="#7FA0FF" stroke-width="3" stroke-linejoin="round"/>{puntos}{etis}</svg></figure>'
                 f'<div class="hx-trio"><div><b>{sg(c_pib)}</b>creció la economía entre {prim} y {ref}</div><div><b>{sg(c_hab)}</b>el PIB por habitante, porque la población también creció</div>'
                 f'<div><b>{sg(c_g)}</b>el gasto nacional por habitante de {ref} contra {prim}; su máximo fue en {pico_g}</div></div>'
-                f'<p class="note">Sin inflación: con el índice de precios implícitos del PIB del INDEC (no con el IPC). 2026 y 2027, con el crecimiento y el gasto que estima el Proyecto 2027. El PIB mide lo que se produce en el país; no muestra cuánto es industria ni qué parte de lo que se consume se importa. <a href="/metodologia#historia">Cómo se calcula</a>.</p></section>')
+                f'<p class="note">Sin inflación: con el índice de precios implícitos del PIB del INDEC (no con el IPC). 2026 y 2027, con el crecimiento y el gasto que estima el Proyecto 2027. Cuánto de eso es industria y cuánto se importa está en <a href="#produccion">qué economía había detrás</a>. <a href="/metodologia#historia">Cómo se calcula</a>.</p></section>')
 
 
     def hx_fiscal():
@@ -1177,6 +1178,94 @@ def historia(self):
                 'Datos del Sector Público Nacional en base caja (Secretaría de Hacienda), que abarca más que el presupuesto de la Administración Nacional de arriba. Para comparar años se usa el resultado sin las utilidades del BCRA ni las rentas del FGS, que hasta 2014 se contaban como ingresos y mejoraban el número; desde 2015 la metodología oficial ya las excluye. '
                 '2026 y 2027: lo que estima y propone el Proyecto 2027 para la Administración Nacional. <a href="/metodologia#historia">Cómo se calcula</a>.</p></section>')
 
+    def hx_prod():
+        aa = [a for a in anios_all if por_a[a].get("eco")]
+        if not aa:
+            return ""
+        ev = lambda a, k: por_a[a].get("eco", {}).get(k)
+        u = max(aa)
+        # (clave, nombre, aclaración, formato, divergente)
+        F1 = lambda v: miles(v, 1)
+        grupos = [
+            ("Qué se produce", [
+                ("industria", "Industria", "% del PIB", F1, False),
+                ("industria_real_hab", "Producción industrial por habitante", f"sin inflación, {aa[0]} = 100", lambda v: miles(v), False),
+                ("agro", "Agro y pesca", "% del PIB", F1, False),
+                ("mineria", "Minería, petróleo y gas", "% del PIB", F1, False),
+                ("construccion", "Construcción", "% del PIB", F1, False)]),
+            ("Comercio con el mundo", [
+                ("exportaciones", "Exportaciones", "% del PIB", F1, False),
+                ("importaciones", "Importaciones", "% del PIB", F1, False),
+                ("saldo_usd", "Saldo comercial", "miles de millones de dólares", lambda v: miles(0 if round(v / 1000, 1) == 0 else v / 1000, 1), True),
+                ("moi", "Manufacturas industriales", "% de lo exportado", lambda v: miles(v), False),
+                ("bk", "Bienes de capital y piezas", "% de lo importado", lambda v: miles(v), False)]),
+            ("Inversión y trabajo", [
+                ("inversion", "Inversión", "% del PIB", F1, False),
+                ("inv_equipo", "…en maquinaria y equipo", "% del PIB", F1, False),
+                ("desempleo", "Desempleo", "% de la población activa", F1, False)]),
+        ]
+
+        def celda(v, lo, hi, div):
+            if v is None:
+                return '<td class="nd">—</td>'
+            if div:
+                m = max(abs(lo), abs(hi)) or 1
+                k = 0.12 + 0.78 * min(1, abs(v) / m)
+                base = (0x2B, 0x59, 0xFF) if v >= 0 else (0xFF, 0x8A, 0x3D)
+                oscuro = v >= 0 and k > 0.62
+            else:
+                k = 0.06 + 0.84 * ((v - lo) / (hi - lo) if hi > lo else 0)
+                base, oscuro = (0x2B, 0x59, 0xFF), k > 0.62
+            bg = "#%02X%02X%02X" % tuple(round(255 + (c - 255) * k) for c in base)
+            return f'<td style="background:{bg};color:{"#fff" if oscuro else "#0B1220"}" title="{v:.1f}"><span data-n="{v:.2f}">{{}}</span></td>'
+        fila_gob = []
+        for g in G:
+            n = len([a for a in aa if g["desde"] <= a <= g["hasta"]])
+            if n:
+                fila_gob.append(f'<th scope="colgroup" colspan="{n}" class="gob">{e(corto_de(g))}</th>')
+        cab = "".join(f'<th scope="col">{str(a)[2:] if a % 5 else a}</th>' for a in aa)
+        cuerpo_t = []
+        for gn, filas_ in grupos:
+            cuerpo_t.append(f'<tr class="grupo"><th scope="rowgroup" colspan="{len(aa) + 1}">{e(gn)}</th></tr>')
+            for k, n, ac, fmt, div in filas_:
+                vals = [ev(a, k) for a in aa]
+                ok = [x for x in vals if x is not None]
+                lo, hi = min(ok), max(ok)
+                cuerpo_t.append(f'<tr><th scope="row">{e(n)}<br><span class="note">{e(ac)}</span></th>' + "".join(celda(x, lo, hi, div).replace("{}", fmt(x)) if x is not None else celda(None, 0, 0, div) for x in vals) + '</tr>')
+        tabla_h = (f'<div class="hx-scroll"><table class="hx-heat hx-fis hx-prod"><thead><tr><th></th>{"".join(fila_gob)}</tr><tr><th scope="col" style="text-align:left">Indicador</th>{cab}</tr></thead>'
+                   f'<tbody>{"".join(cuerpo_t)}</tbody></table></div>')
+        filas = []
+        for g in G:
+            ag = [a for a in aa if g["desde"] <= a <= g["hasta"]]
+            if not ag:
+                continue
+            ini = g["desde"] - 1 if g["desde"] - 1 in aa else ag[0]
+            fin = ag[-1]
+            ih = lambda a: ev(a, "industria_real_hab")
+            sal = sum(ev(a, "saldo_usd") for a in ag if ev(a, "saldo_usd") is not None)
+            filas.append([f'<strong>{e(g["nombre"])}</strong><br><span class="note">{ini}→{fin}</span>',
+                          _pp(prom(ag, lambda a: ev(a, "industria"))),
+                          _signo((ih(fin) / ih(ini) - 1) * 100) if ini != fin else "—",
+                          _pp(prom(ag, lambda a: ev(a, "inversion"))),
+                          _pp(prom(ag, lambda a: ev(a, "importaciones"))),
+                          f'<span data-n="{sal:.0f}">{"+" if sal >= 0 else "−"}US$ {miles(abs(sal) / 1000, 1)} mil M</span>',
+                          f'{_pp(ev(ini, "desempleo"))} → {_pp(ev(fin, "desempleo"))}'])
+        ind, ihab = {a: ev(a, "industria") for a in aa}, {a: ev(a, "industria_real_hab") for a in aa}
+        i_max = max(aa, key=lambda a: ihab[a])
+        d_max = max(aa, key=lambda a: ev(a, "desempleo"))
+        d_min = min(aa, key=lambda a: ev(a, "desempleo"))
+        return (f'<section class="hx-card" id="produccion"><div class="hx-head"><div><h2>Qué economía había detrás</h2>'
+                f'<p>El mismo gasto no pesa igual en una economía con fábricas trabajando que en una que importa casi todo, o con 7% de desempleo que con 18%. Acá está, año por año, qué se producía, cuánto se compraba y vendía al mundo, cuánto se invertía y cuánta gente buscaba trabajo sin encontrarlo. '
+                f'La producción industrial por habitante de {u} quedó en {miles(ihab[u])} ({aa[0]} = 100): su máximo fue en {i_max} ({miles(ihab[i_max])}). El desempleo más alto de la serie fue en {d_max} ({_pp(ev(d_max, "desempleo"))}) y el más bajo, en {d_min} ({_pp(ev(d_min, "desempleo"))}).</p></div>'
+                '<div class="hx-ley"><span><i style="background:#2B59FF"></i>Más alto en la fila</span><span><i style="background:#E6ECFF"></i>Más bajo en la fila</span><span><i style="background:#FF8A3D"></i>Saldo comercial negativo</span></div></div>'
+                f'<p class="hx-sub">Cada fila se colorea contra sus propios años: más oscuro no quiere decir mejor ni peor, solo más alto. Los datos llegan hasta {u}; 2026 y 2027 todavía no tienen cifras cerradas.</p>'
+                f'{tabla_h}'
+                f'<h3 style="margin-top:8px">Cada gobierno</h3>{tabla(["Gobierno", "Industria (% del PIB, promedio)", "Producción industrial por habitante (cambio)", "Inversión (% del PIB, promedio)", "Importaciones (% del PIB, promedio)", "Saldo comercial (suma de sus años)", "Desempleo (recibió → dejó)"], filas, "libre")}'
+                '<p class="note">Los porcentajes del PIB se miden a precios de cada año, así que también se mueven con los precios relativos: con la devaluación de 2002, por ejemplo, exportaciones, industria y agro pasan a valer más pesos y su parte del PIB salta aunque no se haya producido más. Por eso se agrega la producción industrial <strong>sin inflación</strong> por habitante, que mide cantidades. '
+                '«Cambio» compara el último año del gobierno anterior con el último propio (Menem arranca en 1995 y Milei llega hasta 2025). El desempleo sale de dos encuestas distintas: la EPH puntual hasta 2002 y la EPH continua desde 2003, que no son del todo comparables; en 2015 promedia los trimestres que se publicaron. '
+                'INDEC advierte que las series que publicó entre 2007 y 2015 deben tomarse con reservas; las de cuentas nacionales se revisaron en 2016 y son las que se usan acá. '
+                'Fuente: INDEC (cuentas nacionales, bases 1993 y 2004 empalmadas en 2004; Intercambio Comercial Argentino, en dólares; Encuesta Permanente de Hogares), vía la API de Series de Tiempo de datos.gob.ar. <a href="/metodologia#historia">Cómo se calcula</a>.</p></section>')
+
     # --- frase principal (solo hechos) ---
     p27 = tot.get(2027)
     frase = (f'En {prim} el Estado nacional gastó el equivalente a <strong>{_pp(tot[prim])} del PIB</strong>. Ese número subió hasta <strong>{_pp(tot[pico])} en {pico}</strong>, '
@@ -1195,7 +1284,7 @@ def historia(self):
         f'<p>De Menem a Milei: cuánto gastó el Estado nacional cada año, en qué, cuánto respetó la ley del Congreso y cómo se compara con el tamaño de la economía. Con datos oficiales.</p></div>'
         f'<div class="hx-big"><span>Máximo de la serie · {pico}</span><b>{miles(tot[pico], 1)}<i>%</i></b><span>del PIB gastó la Administración Nacional ese año. En {ult_ej} fue {_pp(tot[ult_ej])}.</span></div></section>',
         '<div class="hx-stats">' + "".join(f'<div class="hx-stat">{k}<b>{v}</b>del PIB</div>' for k, v in ((f"Gasto en {prim}", _pp(tot[prim])), (f"Mínimo · {minimo}", _pp(tot[minimo])), (f"Último año cerrado · {ult_ej}", _pp(tot[ult_ej])), ("Proyecto 2027", _pp(p27)))) + '</div>',
-        '<nav class="chips" aria-label="En esta página"><a href="#total">Año por año</a><a href="#gobiernos">Gobierno por gobierno</a><a href="#rubros">En qué se gastó</a><a href="#resultado">¿Gastó más de lo que recaudó?</a><a href="#economia">Contra el tamaño de la economía</a><a href="#composicion">De cada $100</a><a href="#tipo">Por tipo de gasto</a><a href="#ley">La ley contra lo gastado</a><a href="#largo">Desde 1980</a><a href="#numeros">Todos los números</a></nav>',
+        '<nav class="chips" aria-label="En esta página"><a href="#total">Año por año</a><a href="#gobiernos">Gobierno por gobierno</a><a href="#rubros">En qué se gastó</a><a href="#resultado">¿Gastó más de lo que recaudó?</a><a href="#economia">Contra el tamaño de la economía</a><a href="#produccion">Industria, comercio y empleo</a><a href="#composicion">De cada $100</a><a href="#tipo">Por tipo de gasto</a><a href="#ley">La ley contra lo gastado</a><a href="#largo">Desde 1980</a><a href="#numeros">Todos los números</a></nav>',
         f'<section class="hx-card" id="total"><div class="hx-head"><div><h2>Cuánto gastó la Nación cada año</h2><p>{frase}</p></div>'
         '<div class="hx-ley"><span><i style="background:var(--hx-acc)"></i>Gastado</span><span><i style="background:var(--hx-est)"></i>2026 estimado</span><span><i style="background:var(--hx-acc2)"></i>2027 proyecto</span><span><i style="width:10px;height:10px;border-radius:50%;border:2px solid var(--fg);background:none"></i>Sin ley nueva (prórroga)</span></div></div>'
         f'<p class="hx-sub">En % del PIB: qué parte de todo lo que produce el país pasa por el presupuesto nacional. Se usa el PIB porque permite comparar 1995 con 2025 sin discutir qué índice de inflación usar. Tocá una barra para ver el año.</p>{hx_chart()}</section>',
@@ -1205,6 +1294,7 @@ def historia(self):
         f'<details><summary class="note">Ver cada rubro año por año</summary><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-top:12px">{"".join(mini(r, n) for r, n in R)}</div></details></section>',
         hx_fiscal(),
         hx_eco(),
+        hx_prod(),
         f'<section class="hx-card" id="composicion"><h2>De cada $100 que gastó la Nación</h2><p class="hx-sub">Cómo se repartió el gasto en promedio en cada gobierno. Pasá el dedo o el mouse por cada color para ver el número.</p>{composicion()}</section>',
         f'<section class="hx-card" id="tipo"><h2>Por tipo de gasto</h2><p class="hx-sub">Promedio de cada gobierno, en % del PIB, según el inciso del gasto. Hasta {ult_ej} (para 2026 y 2027 todavía no hay este detalle cerrado).</p>{tabla(["Gobierno"] + [n for _, n in T], filas_t, "libre")}</section>',
         f'<section class="hx-card" id="ley"><h2>La ley contra lo que se gastó</h2><p class="hx-sub">«Ley» es el crédito inicial que aprobó el Congreso (o el prorrogado); «vigente», cómo quedó después de las modificaciones del año (decisiones administrativas, DNU y leyes); «gastado», lo devengado. '
