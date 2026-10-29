@@ -19,9 +19,13 @@ SERIES = "https://apis.datos.gob.ar/series/api"
 COLUMNAS = ["finalidad_desc", "funcion_desc", "inciso_desc", "jurisdiccion_desc",
             "credito_presupuestado", "credito_vigente", "credito_devengado"]
 # PIB a precios corrientes (millones de $). Si un id deja de existir, se buscan candidatos y se guardan para revisar.
-PIB_IDS = os.environ.get("PIB_IDS") or "2.3_OGP_1993_A_17,4.3_OGP_2004_A_17,5.2_PIBPM_1993_T_38,6.1_PIBPM_2004_A_38,9.1_POB_2004_A_9"  # INDEC: PIB corriente y constante (bases 1993 y 2004) y población
-BUSQUEDAS_PIB = ["producto interno bruto precios corrientes base 2004", "producto interno bruto precios corrientes base 1993",
-                 "pib precios de mercado corrientes", "valor agregado bruto precios corrientes"]
+PIB_IDS = os.environ.get("PIB_IDS") or ("2.3_OGP_1993_A_17,4.3_OGP_2004_A_17,5.2_PIBPM_1993_T_38,6.1_PIBPM_2004_A_38,9.1_POB_2004_A_9,"
+           # Secretaría de Hacienda, cuenta ahorro-inversión-financiamiento del Sector Público Nacional (base caja), por metodología:
+           # resultado primario, resultado financiero e ingresos totales
+           "379.1_SUPERAVIT_006__28_89,379.2_SUPERAVIT_014__28_63,379.3_SUPERAVIT_017__23_25,379.4_RESULTADO_006__36_27,379.2_RESULTADO_014__36_75,379.3_RESULTADO_017__31_14,"
+           "379.1_RESULTADO_006__23_58,379.2_RESULTADO_014__23_28,379.3_RESULTADO_017__18_83,"
+           "379.1_ING_DESPUE006__33_57,379.2_ING_DESPUE014__33_45,379.2_ING_ANTES_014__31_66,379.3_ING_ANTES_017__26_5")  # INDEC: PIB y población
+BUSQUEDAS_PIB = ["producto interno bruto precios corrientes base 2004", "pib precios de mercado corrientes"]
 
 
 def credito(anio, token):
@@ -87,7 +91,7 @@ def main():
 
     # Series: candidatos de PIB (para revisar) y Gasto Público Consolidado nacional en % del PIB
     try:
-        candidatos = {q: buscar(q, 60) for q in BUSQUEDAS_PIB}
+        candidatos = {q: buscar(q, 100) for q in BUSQUEDAS_PIB}
         gpc = [x for q in ("Gasto público nacional en porcentaje del PIB", "Gasto público nacional en", "Gasto público consolidado en porcentaje del PIB")
                for x in buscar(q, 200) if x["desc"].startswith(("Gasto público nacional", "Gasto público consolidado en porcentaje")) and "PIB" in (x["unidad"] or "")]
         gpc = list({x["id"]: x for x in gpc}.values())

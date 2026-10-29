@@ -1080,6 +1080,7 @@ def historia(self):
                 f'<span class="a">{_pp(tot[fin])}</span>' + (f'<span class="hx-pill{" baja" if d < 0 else ""}">{_puntos(d)}</span>' if d is not None else "") + '</div>'
                 f'<div class="hx-dos"><div>Economía por año<b>{(("+" if crec >= 0 else "−") + miles(abs(crec), 1) + "%") if crec is not None else "—"}</b></div>'
                 f'<div>Gasto por habitante<b>{("$" + miles(ghab / 1e6, 2) + " M") if ghab else "—"}</b></div></div>'
+                + (f'<div class="hx-dos"><div>Resultado financiero<b>{_pp(prom(aa, lambda a: pct(por_a[a], por_a[a]["res_fin"])), 1)} del PIB</b></div><div>Años con superávit<b>{len([a for a in aa if a <= ult_ej and por_a[a]["res_fin"] > 0])} de {len([a for a in aa if a <= ult_ej])}</b></div></div>' if all(por_a[a].get("res_fin") is not None for a in aa) else "")
                 + (f'<span class="hx-pro">Sin ley nueva en {", ".join(pro)}</span>' if pro else "")
                 + (f'<p class="hx-ctx">{e(g.get("contexto", ""))}</p>' if g.get("contexto") else "") + '</article>')
         return f'<div class="hx-govs">{"".join(tarj)}</div>'
@@ -1129,6 +1130,53 @@ def historia(self):
                 f'<div><b>{sg(c_g)}</b>el gasto nacional por habitante de {ref} contra {prim}; su máximo fue en {pico_g}</div></div>'
                 f'<p class="note">Sin inflación: con el índice de precios implícitos del PIB del INDEC (no con el IPC). 2026 y 2027, con el crecimiento y el gasto que estima el Proyecto 2027. El PIB mide lo que se produce en el país; no muestra cuánto es industria ni qué parte de lo que se consume se importa. <a href="/metodologia#historia">Cómo se calcula</a>.</p></section>')
 
+
+    def hx_fiscal():
+        aa = [a for a in anios_all if por_a[a].get("res_prim") is not None]
+        if not aa:
+            return ""
+        rp = {a: pct(por_a[a], por_a[a]["res_prim"]) for a in aa}
+        rf = {a: pct(por_a[a], por_a[a]["res_fin"]) for a in aa}
+        mx = max(abs(v) for v in list(rp.values()) + list(rf.values())) or 1
+
+        def celda(v):
+            k = 0.12 + 0.78 * min(1, abs(v) / mx)
+            base = (0x2B, 0x59, 0xFF) if v >= 0 else (0xFF, 0x8A, 0x3D)
+            bg = "#%02X%02X%02X" % tuple(round(255 + (c - 255) * k) for c in base)
+            fg = "#fff" if (v >= 0 and k > 0.62) else "#0B1220"
+            return f'<td style="background:{bg};color:{fg}" title="{_pp(v)} del PIB"><span data-n="{v:.2f}">{miles(0 if round(v, 1) == 0 else v, 1)}</span></td>'
+        fila_gob = []
+        for g in G:
+            n = len([a for a in aa if g["desde"] <= a <= g["hasta"]])
+            if n:
+                fila_gob.append(f'<th scope="colgroup" colspan="{n}" class="gob">{e(corto_de(g))}</th>')
+        n27 = len([a for a in aa if a > G[-1]["hasta"]])
+        if n27:
+            fila_gob.append(f'<th scope="colgroup" colspan="{n27}" class="gob">Proy.</th>')
+        cab = "".join(f'<th scope="col">{str(a)[2:] if a % 5 else a}</th>' for a in aa)
+        tabla_h = (f'<div class="hx-scroll"><table class="hx-heat hx-fis"><thead><tr><th></th>{"".join(fila_gob)}</tr><tr><th scope="col" style="text-align:left">% del PIB</th>{cab}</tr></thead><tbody>'
+                   f'<tr><th scope="row">Resultado primario<br><span class="note">sin contar intereses</span></th>{"".join(celda(rp[a]) for a in aa)}</tr>'
+                   f'<tr><th scope="row">Resultado financiero<br><span class="note">con intereses de la deuda</span></th>{"".join(celda(rf[a]) for a in aa)}</tr></tbody></table></div>')
+        filas = []
+        for g in G:
+            ag = [a for a in aa if g["desde"] <= a <= g["hasta"]]
+            if not ag:
+                continue
+            cer = [a for a in ag if a <= ult_ej]
+            sup = len([a for a in cer if rf[a] > 0])
+            filas.append([f'<strong>{e(g["nombre"])}</strong>', _pp(prom(ag, lambda a: rp[a]), 1), _pp(prom(ag, lambda a: rf[a]), 1), f"{sup} de {len(cer)}" + (" (sin contar 2026)" if len(cer) < len(ag) else "")])
+        sup_total = len([a for a in aa if a <= ult_ej and rf[a] > 0])
+        n_total = len([a for a in aa if a <= ult_ej])
+        return (f'<section class="hx-card" id="resultado"><div class="hx-head"><div><h2>¿Gastó más de lo que recaudó?</h2>'
+                f'<p>Gastar mucho o poco no es bueno ni malo por sí solo: depende de cuánto entra y de cómo se paga la diferencia. Cuando el Estado gasta más de lo que recauda (déficit), lo cubre con deuda o con emisión de dinero; cuando recauda más (superávit), puede pagar deuda o ahorrar. '
+                f'Entre {aa[0]} y {ult_ej}, el Estado nacional terminó con superávit financiero en {sup_total} de {n_total} años.</p></div>'
+                '<div class="hx-ley"><span><i style="background:#2B59FF"></i>Superávit (entró más de lo que salió)</span><span><i style="background:#FF8A3D"></i>Déficit (salió más de lo que entró)</span></div></div>'
+                f'{tabla_h}'
+                f'<h3 style="margin-top:8px">Promedio de cada gobierno, en % del PIB</h3>{tabla(["Gobierno", "Resultado primario", "Resultado financiero", "Años con superávit financiero"], filas, "libre")}'
+                '<p class="note">El resultado <strong>primario</strong> compara lo que entra con lo que se gasta sin contar los intereses de la deuda; el <strong>financiero</strong> los suma, y es la cifra que dice si hubo que pedir prestado o emitir. '
+                'Datos del Sector Público Nacional en base caja (Secretaría de Hacienda), que abarca más que el presupuesto de la Administración Nacional de arriba. Para comparar años se usa el resultado sin las utilidades del BCRA ni las rentas del FGS, que hasta 2014 se contaban como ingresos y mejoraban el número; desde 2015 la metodología oficial ya las excluye. '
+                '2026 y 2027: lo que estima y propone el Proyecto 2027 para la Administración Nacional. <a href="/metodologia#historia">Cómo se calcula</a>.</p></section>')
+
     # --- frase principal (solo hechos) ---
     p27 = tot.get(2027)
     frase = (f'En {prim} el Estado nacional gastó el equivalente a <strong>{_pp(tot[prim])} del PIB</strong>. Ese número subió hasta <strong>{_pp(tot[pico])} en {pico}</strong>, '
@@ -1147,7 +1195,7 @@ def historia(self):
         f'<p>De Menem a Milei: cuánto gastó el Estado nacional cada año, en qué, cuánto respetó la ley del Congreso y cómo se compara con el tamaño de la economía. Con datos oficiales.</p></div>'
         f'<div class="hx-big"><span>Máximo de la serie · {pico}</span><b>{miles(tot[pico], 1)}<i>%</i></b><span>del PIB gastó la Administración Nacional ese año. En {ult_ej} fue {_pp(tot[ult_ej])}.</span></div></section>',
         '<div class="hx-stats">' + "".join(f'<div class="hx-stat">{k}<b>{v}</b>del PIB</div>' for k, v in ((f"Gasto en {prim}", _pp(tot[prim])), (f"Mínimo · {minimo}", _pp(tot[minimo])), (f"Último año cerrado · {ult_ej}", _pp(tot[ult_ej])), ("Proyecto 2027", _pp(p27)))) + '</div>',
-        '<nav class="chips" aria-label="En esta página"><a href="#total">Año por año</a><a href="#gobiernos">Gobierno por gobierno</a><a href="#rubros">En qué se gastó</a><a href="#economia">Contra el tamaño de la economía</a><a href="#composicion">De cada $100</a><a href="#tipo">Por tipo de gasto</a><a href="#ley">La ley contra lo gastado</a><a href="#largo">Desde 1980</a><a href="#numeros">Todos los números</a></nav>',
+        '<nav class="chips" aria-label="En esta página"><a href="#total">Año por año</a><a href="#gobiernos">Gobierno por gobierno</a><a href="#rubros">En qué se gastó</a><a href="#resultado">¿Gastó más de lo que recaudó?</a><a href="#economia">Contra el tamaño de la economía</a><a href="#composicion">De cada $100</a><a href="#tipo">Por tipo de gasto</a><a href="#ley">La ley contra lo gastado</a><a href="#largo">Desde 1980</a><a href="#numeros">Todos los números</a></nav>',
         f'<section class="hx-card" id="total"><div class="hx-head"><div><h2>Cuánto gastó la Nación cada año</h2><p>{frase}</p></div>'
         '<div class="hx-ley"><span><i style="background:var(--hx-acc)"></i>Gastado</span><span><i style="background:var(--hx-est)"></i>2026 estimado</span><span><i style="background:var(--hx-acc2)"></i>2027 proyecto</span><span><i style="width:10px;height:10px;border-radius:50%;border:2px solid var(--fg);background:none"></i>Sin ley nueva (prórroga)</span></div></div>'
         f'<p class="hx-sub">En % del PIB: qué parte de todo lo que produce el país pasa por el presupuesto nacional. Se usa el PIB porque permite comparar 1995 con 2025 sin discutir qué índice de inflación usar. Tocá una barra para ver el año.</p>{hx_chart()}</section>',
@@ -1155,6 +1203,7 @@ def historia(self):
         f'<section class="hx-card" id="rubros"><div class="hx-head"><div><h2>En qué se gastó</h2><p>Promedio de cada gobierno en % del PIB. Cuanto más oscura la celda, más alto fue ese rubro con ese gobierno respecto de los demás.</p></div></div>{hx_heat()}'
         '<p class="note">Algunos saltos bruscos de un año a otro (por ejemplo, Salud entre 1995 y 1996) responden a cambios en cómo se clasificó el gasto o en qué organismos entran al presupuesto, no necesariamente a decisiones de política. «Jubilaciones, pensiones y asignaciones» incluye la AUH y las asignaciones familiares (función Seguridad social). «Ayuda a provincias» es la función Relaciones interiores: transferencias que no son coparticipación. «Energía y combustibles» y «Transporte» son, sobre todo, subsidios y obras.</p>'
         f'<details><summary class="note">Ver cada rubro año por año</summary><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-top:12px">{"".join(mini(r, n) for r, n in R)}</div></details></section>',
+        hx_fiscal(),
         hx_eco(),
         f'<section class="hx-card" id="composicion"><h2>De cada $100 que gastó la Nación</h2><p class="hx-sub">Cómo se repartió el gasto en promedio en cada gobierno. Pasá el dedo o el mouse por cada color para ver el número.</p>{composicion()}</section>',
         f'<section class="hx-card" id="tipo"><h2>Por tipo de gasto</h2><p class="hx-sub">Promedio de cada gobierno, en % del PIB, según el inciso del gasto. Hasta {ult_ej} (para 2026 y 2027 todavía no hay este detalle cerrado).</p>{tabla(["Gobierno"] + [n for _, n in T], filas_t, "libre")}</section>',
