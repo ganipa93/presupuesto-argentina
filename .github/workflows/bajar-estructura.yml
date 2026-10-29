@@ -1,0 +1,35 @@
+name: Bajar estructura productiva
+
+# Baja de datos.gob.ar las series de INDEC de industria, comercio exterior, inversión y empleo
+# que usa /historia. Se corre a mano desde Actions cuando haga falta.
+on:
+  workflow_dispatch:
+    inputs:
+      suma: {description: "Ids que se suman por año (vacío = los del script)", required: false, default: ""}
+      promedio: {description: "Ids que se promedian por año (vacío = los del script)", required: false, default: ""}
+
+permissions:
+  contents: write
+
+jobs:
+  bajar:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: {python-version: "3.12"}
+      - name: Bajar
+        env:
+          ESTRUCTURA_SUMA: ${{ github.event.inputs.suma }}
+          ESTRUCTURA_PROMEDIO: ${{ github.event.inputs.promedio }}
+        run: python3 scripts/bajar_estructura.py
+      - name: Armar datos/historia.json
+        run: python3 scripts/armar_historia.py
+      - name: Guardar en el repositorio
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add fuentes/historia_larga/estructura.json datos/historia.json
+          git diff --cached --quiet || git commit -m "Bajar estructura productiva" -m "El sitio se rearma en la próxima actualización diaria."
+          git push
