@@ -11,7 +11,9 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v5
-      - run: bash scripts/sondeo.sh > sondeo.txt 2>&1 || true
+      - env:
+          PRESUPUESTO_ABIERTO_TOKEN: ${{ secrets.PRESUPUESTO_ABIERTO_TOKEN }}
+        run: bash scripts/sondeo.sh > sondeo.txt 2>&1 || true
       - run: |
           mkdir -p tmp_sondeo && mv sondeo.txt tmp_sondeo/ && cp -r sondeo_files tmp_sondeo/ 2>/dev/null || true
           git config user.name "github-actions[bot]"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
