@@ -1,8 +1,10 @@
 name: Bajar estructura productiva
 
 # Baja de datos.gob.ar las series de INDEC de industria, comercio exterior, inversión y empleo
-# que usa /historia. Se corre a mano desde Actions cuando haga falta.
+# que usa /historia. Corre solo una vez por mes y también se puede correr a mano desde Actions.
 on:
+  schedule:
+    - cron: "17 9 5 * *"  # día 5 de cada mes
   workflow_dispatch:
     inputs:
       suma: {description: "Ids que se suman por año (vacío = los del script)", required: false, default: ""}

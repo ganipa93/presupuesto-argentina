@@ -2,8 +2,10 @@ name: Bajar presupuestos desde 1995
 
 # Baja de Presupuesto Abierto la ley, el vigente y lo gastado de cada año desde 1995 (por finalidad,
 # función, tipo de gasto y jurisdicción) y las series de PIB y gasto público de datos.gob.ar.
-# Se corre a mano desde Actions cuando haga falta (por ejemplo, para cerrar un año).
+# Corre solo una vez por mes (año anterior y actual) y se puede correr a mano desde Actions.
 on:
+  schedule:
+    - cron: "43 9 6 * *"  # día 6 de cada mes: actualiza el año anterior y el actual
   workflow_dispatch:
     inputs:
       desde: {description: "Primer año", required: false, default: "1995"}
@@ -22,7 +24,10 @@ jobs:
       - name: Bajar
         env:
           PRESUPUESTO_ABIERTO_TOKEN: ${{ secrets.PRESUPUESTO_ABIERTO_TOKEN }}
-        run: python3 scripts/bajar_historia_larga.py ${{ github.event.inputs.desde || '1995' }}
+        run: |
+          D="${{ github.event.inputs.desde }}"
+          [ -z "$D" ] && D=$(( $(date +%Y) - 1 ))
+          python3 scripts/bajar_historia_larga.py "$D"
       - name: Armar datos/historia.json
         run: python3 scripts/armar_historia.py
       - name: Guardar en el repositorio
