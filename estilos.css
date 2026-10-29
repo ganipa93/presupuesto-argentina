@@ -300,3 +300,6 @@ footer.src nav.mapa{display:grid;gap:18px}
 .hx-fis thead th{font-size:11px;padding:4px 2px;text-align:center}
 .hx-fis th.gob{background:var(--panel);border-radius:6px;color:var(--fg)}
 .hx-fis tbody th{font-size:13px;line-height:1.2;min-width:150px}
+.hx-prod tr.grupo th{background:none;color:var(--muted);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:14px 4px 2px;text-align:left}
+.hx-prod td.nd{color:var(--muted);background:var(--panel)}
+.hx-prod tbody th{min-width:190px}

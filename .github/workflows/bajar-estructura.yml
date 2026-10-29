@@ -30,6 +30,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add fuentes/historia_larga/estructura.json datos/historia.json
+          git add fuentes/historia_larga/estructura.json fuentes/historia_larga/*.csv datos/historia.json
           git diff --cached --quiet || git commit -m "Bajar estructura productiva" -m "El sitio se rearma en la próxima actualización diaria."
           git push

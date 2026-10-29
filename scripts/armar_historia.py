@@ -178,6 +178,83 @@ def resultado_fiscal(pib):
     return out
 
 
+def estructura(pob):
+    """Estructura productiva de cada año (INDEC), en % del PIB salvo donde se aclara.
+    Las participaciones a precios corrientes de 1995-2003 vienen de la base 1993 y se empalman con la base 2004
+    multiplicándolas por el cociente de 2004 (participación base 2004 / participación base 1993), igual que el PIB.
+    Industria real por habitante: valor agregado industrial a precios constantes (bases 1993 y 2004 empalmadas en 2004)
+    dividido por la población, índice 1995 = 100. Desempleo: EPH puntual (promedio de las ondas de mayo y octubre)
+    hasta 2002 y EPH continua (promedio de los trimestres publicados) desde 2003. Comercio exterior: Intercambio
+    Comercial Argentino, millones de dólares corrientes."""
+    f = HL / "estructura.json"
+    if not f.exists():
+        return {}, {}
+    v = json.loads(f.read_text(encoding="utf-8"))["valores"]
+    s = lambda i: {int(a): x for a, x in v.get(i, {}).items() if x is not None}
+    p93, p04 = s("2.3_OGP_1993_A_17"), s("4.3_OGP_2004_A_17")
+
+    def parte(i93, i04):
+        a93, a04 = s(i93), s(i04)
+        if 2004 not in a93 or 2004 not in a04:
+            return {}
+        k = (a04[2004] / p04[2004]) / (a93[2004] / p93[2004])
+        out = {a: a93[a] / p93[a] * 100 * k for a in a93 if a < 2004 and a in p93}
+        out.update({a: a04[a] / p04[a] * 100 for a in a04 if a in p04})
+        return out
+    sumar = lambda *ds: {a: sum(d[a] for d in ds) for a in set.intersection(*(set(d) for d in ds))}
+    series = {
+        "industria": parte("7.1_IM_1993_A_23", "8.1_IM_2004_A_23"),
+        "agro": sumar(parte("7.1_AGCS_1993_A_39", "8.1_AGCS_2004_A_39"), parte("7.1_P_1993_A_5", "8.1_P_2004_A_5")),
+        "mineria": parte("7.1_EMC_1993_A_26", "8.1_EMC_2004_A_26"),
+        "construccion": parte("7.1_C_1993_A_12", "8.1_C_2004_A_12"),
+        "exportaciones": parte("2.3_DGE_1993_A_26", "4.3_DGE_2004_A_26"),
+        "importaciones": parte("2.3_OGI_1993_A_25", "4.3_OGI_2004_A_25"),
+        "inversion": parte("2.3_DGI_1993_A_19", "4.3_DGI_2004_A_19"),
+        "inv_equipo": parte("2.3_DGIEDP_1993_A_45", "4.3_DGIEDP_2004_A_45"),
+    }
+    # industria a precios constantes por habitante
+    r93, r04 = s("5.1_IM_1993_A_23"), s("6.1_IM_2004_A_23")
+    real = {}
+    if 2004 in r93 and 2004 in r04:
+        k = r04[2004] / r93[2004]
+        real = {a: x * k for a, x in r93.items() if a < 2004}
+        real.update(r04)
+        hab = {a: real[a] / pob[a] for a in real if a in pob and a >= 1995}
+        series["industria_real_hab"] = {a: x / hab[1995] * 100 for a, x in hab.items()}
+    # desempleo
+    des = {}
+    eph = HL / "eph-puntual.csv"
+    if eph.exists():
+        por = defaultdict(list)
+        for x in csv.DictReader(eph.open(encoding="utf-8")):
+            if x.get("eph_puntual_desocupacion_total"):
+                por[int(x["indice_tiempo"][:4])].append(float(x["eph_puntual_desocupacion_total"]))
+        des = {a: sum(l) / len(l) * 100 for a, l in por.items() if a < 2003}
+    des.update({a: x * 100 for a, x in s("45.2_ECTDT_0_T_33").items()})
+    series["desempleo"] = des
+    # comercio exterior en dólares
+    ica = HL / "intercambio-comercial-anual.csv"
+    if ica.exists():
+        for x in csv.DictReader(ica.open(encoding="utf-8")):
+            a = int(x["indice_tiempo"][:4])
+            if a < 1995 or not x["ica_expo_totales"]:
+                continue
+            ex, im = float(x["ica_expo_totales"]), float(x["ica_importaciones_totales"])
+            series.setdefault("expo_usd", {})[a] = ex
+            series.setdefault("impo_usd", {})[a] = im
+            series.setdefault("saldo_usd", {})[a] = ex - im
+            if x["ica_exportacion_manufacturas_origen_industrial"]:
+                series.setdefault("moi", {})[a] = float(x["ica_exportacion_manufacturas_origen_industrial"]) / ex * 100
+            if x["ica_importaciones_bienes_capital"] and x["ica_importaciones_piezas_accesorios_bienes_capital"]:
+                series.setdefault("bk", {})[a] = (float(x["ica_importaciones_bienes_capital"]) + float(x["ica_importaciones_piezas_accesorios_bienes_capital"])) / im * 100
+    por_anio = defaultdict(dict)
+    for k, d in series.items():
+        for a, x in d.items():
+            if 1995 <= a <= 2025:
+                por_anio[a][k] = round(x, 2)
+    return por_anio, {k: min(d) for k, d in series.items() if d}
+
+
 def main():
     pib, k_empalme = pib_serie()
     pib_real, pob, k_real, tasa_pob = real_y_poblacion(pib)
@@ -225,10 +302,13 @@ def main():
     gpc = {"nacional": S["valores"].get("451.4_GPN_PIBPIB_0_0_7_95", {}), "consolidado": S["valores"].get("451.2_GPC_PIBPIB_0_0_7_85", {})}
 
     res = resultado_fiscal(pib)
+    eco, _ = estructura(pob)
     for x in anios:
         x.update(res.get(x["anio"], {}))
         x["pib_real"] = round(pib_real[x["anio"]], 1)
         x["poblacion"] = round(pob[x["anio"]])
+        if eco.get(x["anio"]):
+            x["eco"] = eco[x["anio"]]
     out = {"fuente": "Presupuesto Abierto (Ministerio de Economía) para 1995-2025; Proyecto de Presupuesto 2027 para 2026 (estimado) y 2027; "
                      "PIB a precios corrientes del INDEC (bases 1993 y 2004, empalmadas en 2004); Gasto Público Consolidado (Ministerio de Economía).",
            "unidad": "millones de pesos corrientes", "empalme_pib": round(k_empalme, 4), "empalme_pib_real": k_real, "tasa_poblacion_1995_2003": tasa_pob, "bajado_hasta": ultimo,

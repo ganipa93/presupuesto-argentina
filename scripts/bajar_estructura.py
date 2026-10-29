@@ -9,7 +9,7 @@ Guarda fuentes/historia_larga/estructura.json con:
 
 No necesita token. Uso: python3 scripts/bajar_estructura.py
 """
-import datetime, json, os, pathlib, urllib.parse, urllib.request
+import datetime, json, os, pathlib, time, urllib.parse, urllib.request
 
 RAIZ = pathlib.Path(__file__).resolve().parent.parent
 DEST = RAIZ / "fuentes" / "historia_larga" / "estructura.json"
@@ -42,8 +42,14 @@ BUSQUEDAS = [
 
 
 def get_json(url):
-    with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "presupuesto-argentina"}), timeout=120) as r:
-        return json.loads(r.read())
+    for intento in range(4):
+        try:
+            with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "presupuesto-argentina"}), timeout=120) as r:
+                return json.loads(r.read())
+        except Exception:  # noqa: BLE001 - la API corta por exceso de pedidos: esperar y reintentar
+            if intento == 3:
+                raise
+            time.sleep(5 * (intento + 1))
 
 
 def buscar(q, limit=100):
@@ -72,7 +78,21 @@ def valores(ids, agregacion):
     return out
 
 
+# Algunas series figuran en el catálogo pero la API las devuelve vacías: se baja el CSV original.
+CSVS = {
+    "intercambio-comercial-anual.csv": "https://infra.datos.gob.ar/catalog/sspm/dataset/74/distribution/74.1/download/intercambio-comercial-argentino-anual.csv",
+    "eph-puntual.csv": "https://infra.datos.gob.ar/catalog/sspm/dataset/42/distribution/42.2/download/evolucion-principales-variables-ocupacionales-eph-puntual-valores-mensuales.csv",
+}
+
+
 def main():
+    for nombre, url in CSVS.items():
+        try:
+            with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "presupuesto-argentina"}), timeout=120) as r:
+                (DEST.parent / nombre).write_bytes(r.read())
+            print("OK", nombre)
+        except Exception as e:  # noqa: BLE001
+            print("FALLÓ", nombre, e)
     previo = json.loads(DEST.read_text(encoding="utf-8")) if DEST.exists() else {}
     candidatos = {}
     for q in BUSQUEDAS:
@@ -80,9 +100,17 @@ def main():
             candidatos[q] = buscar(q)
         except Exception as e:  # noqa: BLE001
             print("FALLÓ búsqueda", q, e)
-    vals = {**valores(SUMA, "sum"), **valores(PROMEDIO, "avg")} if (SUMA or PROMEDIO) else previo.get("valores", {})
-    out = {"fuente": "API de Series de Tiempo, datos.gob.ar (INDEC)", "bajado": datetime.date.today().isoformat(),
-           "suma": SUMA, "promedio": PROMEDIO, "valores": vals, "candidatos": candidatos or previo.get("candidatos", {})}
+    vals = {**previo.get("valores", {}), **valores(SUMA, "sum"), **valores(PROMEDIO, "avg")}
+    # Series que vinieron vacías: guardar la respuesta cruda sin agregar, para revisar
+    debug = {}
+    for sid in [i for i in SUMA + PROMEDIO if not vals.get(i)]:
+        try:
+            d = get_json(f"{SERIES}/series/?ids={sid}&format=json&limit=40&sort=desc")
+            debug[sid] = {"data": d.get("data"), "meta": d.get("meta")}
+        except Exception as e:  # noqa: BLE001
+            debug[sid] = str(e)
+    out = {"debug": debug, "fuente": "API de Series de Tiempo, datos.gob.ar (INDEC)", "bajado": datetime.date.today().isoformat(),
+           "suma": sorted(set(previo.get("suma", [])) | set(SUMA)), "promedio": sorted(set(previo.get("promedio", [])) | set(PROMEDIO)), "valores": vals, "candidatos": candidatos or previo.get("candidatos", {})}
     DEST.parent.mkdir(parents=True, exist_ok=True)
     DEST.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
     print("OK estructura:", len(vals), "series,", sum(len(v) for v in candidatos.values()), "candidatos")

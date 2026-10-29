@@ -1,6 +1,12 @@
 [
  {
   "fecha": "2026-10-29",
+  "titulo": "Historia: qué economía había detrás de cada presupuesto",
+  "texto": "La página de historia suma, año por año desde 1995, el peso de la industria, el agro y la minería en el PIB, la producción industrial por habitante, las exportaciones e importaciones, el saldo comercial, la inversión y el desempleo, con un resumen por gobierno. Datos del INDEC.",
+  "link": "/historia#produccion"
+ },
+ {
+  "fecha": "2026-10-29",
   "titulo": "Los presupuestos desde 1995, gobierno por gobierno",
   "texto": "Nueva página con todos los presupuestos nacionales de 1995 a 2027: cuánto se gastó cada año en % del PIB, en qué rubros, cuánto se modificó la ley y qué años hubo prórroga, comparado gobierno por gobierno de Menem a Milei. Con la serie oficial de gasto público desde 1980.",
   "link": "/historia"
