@@ -21,7 +21,7 @@ jobs:
         with:
           node-version: "22"
       - name: Links, títulos y datos estructurados
-        run: python3 scripts/revisar_sitio.py
+        run: python3 scripts/revisar_sitio.py && python3 scripts/controlar_datos.py
       - name: Instalar el navegador de prueba
         run: cd scripts && npm ci && npx playwright install --with-deps chromium
       - name: Pruebas de la portada

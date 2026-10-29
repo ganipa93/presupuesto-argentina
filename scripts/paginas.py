@@ -813,6 +813,11 @@ def _signo(v):
     return "0%" if r == 0 else f"{'+' if r > 0 else '−'}{miles(abs(r))}%"
 
 
+def _cal(k, naranja=False):
+    """Clase de color de una celda de mapa de calor (10 tonos de azul u naranja, definidos en estilos.css)."""
+    return f'{"o" if naranja else "h"}{max(0, min(9, round(k * 10)))}'
+
+
 def _puntos(v):
     return "—" if v is None else f"{'+' if v >= 0 else '−'}{miles(abs(v), 1)} pp"
 
@@ -1095,8 +1100,7 @@ def historia(self):
             celdas = []
             for v in vals:
                 k = 0.08 + 0.82 * (v / mx_ if mx_ else 0)
-                bg = "#%02X%02X%02X" % tuple(round(255 + (c - 255) * k) for c in (0x2B, 0x59, 0xFF))  # mezcla sólida de blanco y azul: se lee igual en modo oscuro
-                celdas.append(f'<td style="background:{bg};color:{"#fff" if k > 0.62 else "#0B1220"}"><span data-n="{v:.2f}">{_pp(v, 2 if r != "total" else 1)}</span></td>')
+                celdas.append(f'<td class="{_cal(k)}"><span data-n="{v:.2f}">{_pp(v, 2 if r != "total" else 1)}</span></td>')
             filas.append(f'<tr><th scope="row">{"<strong>Total</strong>" if r == "total" else e(n)}</th>{"".join(celdas)}</tr>')
         return f'<div class="hx-scroll"><table class="hx-heat"><thead><tr><th scope="col" style="text-align:left">Rubro</th>{cab}</tr></thead><tbody>{"".join(filas)}</tbody></table></div>'
 
@@ -1142,10 +1146,7 @@ def historia(self):
 
         def celda(v):
             k = 0.12 + 0.78 * min(1, abs(v) / mx)
-            base = (0x2B, 0x59, 0xFF) if v >= 0 else (0xFF, 0x8A, 0x3D)
-            bg = "#%02X%02X%02X" % tuple(round(255 + (c - 255) * k) for c in base)
-            fg = "#fff" if (v >= 0 and k > 0.62) else "#0B1220"
-            return f'<td style="background:{bg};color:{fg}" title="{_pp(v)} del PIB"><span data-n="{v:.2f}">{miles(0 if round(v, 1) == 0 else v, 1)}</span></td>'
+            return f'<td class="{_cal(k, v < 0)}" title="{_pp(v)} del PIB"><span data-n="{v:.2f}">{miles(0 if round(v, 1) == 0 else v, 1)}</span></td>'
         fila_gob = []
         for g in G:
             n = len([a for a in aa if g["desde"] <= a <= g["hasta"]])
@@ -1211,13 +1212,9 @@ def historia(self):
             if div:
                 m = max(abs(lo), abs(hi)) or 1
                 k = 0.12 + 0.78 * min(1, abs(v) / m)
-                base = (0x2B, 0x59, 0xFF) if v >= 0 else (0xFF, 0x8A, 0x3D)
-                oscuro = v >= 0 and k > 0.62
             else:
                 k = 0.06 + 0.84 * ((v - lo) / (hi - lo) if hi > lo else 0)
-                base, oscuro = (0x2B, 0x59, 0xFF), k > 0.62
-            bg = "#%02X%02X%02X" % tuple(round(255 + (c - 255) * k) for c in base)
-            return f'<td style="background:{bg};color:{"#fff" if oscuro else "#0B1220"}" title="{v:.1f}"><span data-n="{v:.2f}">{{}}</span></td>'
+            return f'<td class="{_cal(k, div and v < 0)}" title="{v:.1f}"><span data-n="{v:.2f}">{{}}</span></td>'
         fila_gob = []
         for g in G:
             n = len([a for a in aa if g["desde"] <= a <= g["hasta"]])
@@ -1254,6 +1251,7 @@ def historia(self):
         i_max = max(aa, key=lambda a: ihab[a])
         d_max = max(aa, key=lambda a: ev(a, "desempleo"))
         d_min = min(aa, key=lambda a: ev(a, "desempleo"))
+        js = "<script>document.querySelectorAll('.hx-scroll').forEach(function(w){if(w.querySelector('.hx-fis'))w.scrollLeft=w.scrollWidth});</script>"
         return (f'<section class="hx-card" id="produccion"><div class="hx-head"><div><h2>Qué economía había detrás</h2>'
                 f'<p>El mismo gasto no pesa igual en una economía con fábricas trabajando que en una que importa casi todo, o con 7% de desempleo que con 18%. Acá está, año por año, qué se producía, cuánto se compraba y vendía al mundo, cuánto se invertía y cuánta gente buscaba trabajo sin encontrarlo. '
                 f'La producción industrial por habitante de {u} quedó en {miles(ihab[u])} ({aa[0]} = 100): su máximo fue en {i_max} ({miles(ihab[i_max])}). El desempleo más alto de la serie fue en {d_max} ({_pp(ev(d_max, "desempleo"))}) y el más bajo, en {d_min} ({_pp(ev(d_min, "desempleo"))}).</p></div>'
@@ -1264,7 +1262,7 @@ def historia(self):
                 '<p class="note">Los porcentajes del PIB se miden a precios de cada año, así que también se mueven con los precios relativos: con la devaluación de 2002, por ejemplo, exportaciones, industria y agro pasan a valer más pesos y su parte del PIB salta aunque no se haya producido más. Por eso se agrega la producción industrial <strong>sin inflación</strong> por habitante, que mide cantidades. '
                 '«Cambio» compara el último año del gobierno anterior con el último propio (Menem arranca en 1995 y Milei llega hasta 2025). El desempleo sale de dos encuestas distintas: la EPH puntual hasta 2002 y la EPH continua desde 2003, que no son del todo comparables; en 2015 promedia los trimestres que se publicaron. '
                 'INDEC advierte que las series que publicó entre 2007 y 2015 deben tomarse con reservas; las de cuentas nacionales se revisaron en 2016 y son las que se usan acá. '
-                'Fuente: INDEC (cuentas nacionales, bases 1993 y 2004 empalmadas en 2004; Intercambio Comercial Argentino, en dólares; Encuesta Permanente de Hogares), vía la API de Series de Tiempo de datos.gob.ar. <a href="/metodologia#historia">Cómo se calcula</a>.</p></section>')
+                'Fuente: INDEC (cuentas nacionales, bases 1993 y 2004 empalmadas en 2004; Intercambio Comercial Argentino, en dólares; Encuesta Permanente de Hogares), vía la API de Series de Tiempo de datos.gob.ar. <a href="/metodologia#historia">Cómo se calcula</a>.</p></section>' + js)
 
     # --- frase principal (solo hechos) ---
     p27 = tot.get(2027)
