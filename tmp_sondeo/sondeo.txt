@@ -1,0 +1,268 @@
+== API por año
+1995 http=200 bytes=41238
+﻿ejercicio_presupuestario,finalidad_desc,funcion_desc,inciso_desc,jurisdiccion_desc,credito_presupuestado,credito_vigente,credito_devengado
+1995,ADMINISTRACION GUBERNAMENTAL,Administración Fiscal,Bienes de consumo,Ministerio de Economia y Obras y Servicios Publicos,39.235178,38.934139,33.32373702
+1995,ADMINISTRACION GUBERNAMENTAL,Administración Fiscal,Bienes de uso,Ministerio de Economia y Obras y Servicios Publicos,36.55237,23.805243,17.71290041
+1995,ADMINISTRACION GUBERNAMENTAL,Administración Fiscal,Gastos en personal,Ministerio de Economia y Obras y Servicios Publicos,694.390097,778.55
+320 /tmp/a.csv
+2003 http=200 bytes=52522
+﻿ejercicio_presupuestario,finalidad_desc,funcion_desc,inciso_desc,jurisdiccion_desc,credito_presupuestado,credito_vigente,credito_devengado
+2003,ADMINISTRACION GUBERNAMENTAL,Administración Fiscal,Activos Financieros,Ministerio de Economia y Produccion,0.0999,0.0999,0
+2003,ADMINISTRACION GUBERNAMENTAL,Administración Fiscal,Bienes de consumo,Ministerio de Economia y Produccion,0.477789,0.513789,0.30569474
+2003,ADMINISTRACION GUBERNAMENTAL,Administración Fiscal,Bienes de consumo,"Ministerio de Plan. Fed., Inversion Pub. y Servicios",0.356662,0.354662,0.29728567
+2003,ADMINISTRACION GUBERNAMEN
+391 /tmp/a.csv
+2010 http=200 bytes=58342
+﻿ejercicio_presupuestario,finalidad_desc,funcion_desc,inciso_desc,jurisdiccion_desc,credito_presupuestado,credito_vigente,credito_devengado
+2010,ADMINISTRACION GUBERNAMENTAL,Administración Fiscal,Bienes de consumo,Ministerio de Economía y Finanzas Públicas,2.19282,1.551044,0.72190923
+2010,ADMINISTRACION GUBERNAMENTAL,Administración Fiscal,Bienes de consumo,"Ministerio de Planificación Federal, Inversión Pública y Ser",0.652,0.895,0.78933985
+2010,ADMINISTRACION GUBERNAMENTAL,Administración Fiscal,Bienes de uso,Ministerio de Economía y Finanzas Públicas,73.790237,71.952485,17.4219939
+431 /tmp/a.csv
+2016 http=200 bytes=61987
+﻿ejercicio_presupuestario,finalidad_desc,funcion_desc,inciso_desc,jurisdiccion_desc,credito_presupuestado,credito_vigente,credito_devengado
+2016,ADMINISTRACION GUBERNAMENTAL,Administración Fiscal,Bienes de consumo,Jefatura de Gabinete de Ministros,3.906,6.406,3.84393648
+2016,ADMINISTRACION GUBERNAMENTAL,Administración Fiscal,Bienes de consumo,Ministerio de Hacienda y Finanzas Públicas,16.753303,9.009522,2.18596618
+2016,ADMINISTRACION GUBERNAMENTAL,Administración Fiscal,Bienes de consumo,"Ministerio del Interior, Obras Públicas y Vivienda",1.383275,0.883275,0.26285474
+2016,ADMINISTRACION
+470 /tmp/a.csv
+2019 http=200 bytes=54824
+﻿ejercicio_presupuestario,finalidad_desc,funcion_desc,inciso_desc,jurisdiccion_desc,credito_presupuestado,credito_vigente,credito_devengado
+2019,ADMINISTRACION GUBERNAMENTAL,Administración Fiscal,Bienes de consumo,Jefatura de Gabinete de Ministros,8.008471,11.708471,9.6606927
+2019,ADMINISTRACION GUBERNAMENTAL,Administración Fiscal,Bienes de consumo,Ministerio de Hacienda,6.461992,6.288328,2.15892082
+2019,ADMINISTRACION GUBERNAMENTAL,Administración Fiscal,Bienes de consumo,"Ministerio del Interior, Obras Públicas y Vivienda",0.488,0.588,0.58040456
+2019,ADMINISTRACION GUBERNAMENTAL,Adminis
+412 /tmp/a.csv
+== sici links
+href="#"
+href="css/bootstrap.min.css"
+href="css/datos-abiertos.css"
+href="css/font-awesome.min.css"
+href="css/icono-arg.css"
+href="css/navegador-no-soportado.css"
+href="css/poncho.min.css"
+href="css/sici.css"
+href="datos-abiertos"
+href="dejanos-tu-comentario"
+href="home"
+href="https://creativecommons.org/licenses/by/4.0/"
+href="https://fonts.googleapis.com/css2?family=Encode+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+href="https://t.me/share/url?url=https://www.presupuestoabierto.gob.ar/sici/datos-abiertos"
+href="https://wa.me/?text=https://www.presupuestoabierto.gob.ar/sici/datos-abiertos"
+href="https://www.facebook.com/sharer/sharer.php?u=https://www.presupuestoabierto.gob.ar/sici/datos-abiertos"
+href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.presupuestoabierto.gob.ar/sici/datos-abiertos"
+href="https://www.presupuestoabierto.gob.ar/sici/datos-abiertos"
+href="https://x.com/intent/post?url=https://www.presupuestoabierto.gob.ar/sici/datos-abiertos"
+href="images/favicon.ico?v=PYEbx0dw2z"
+href="mailto:info@presupuestoabierto.gob.ar"
+href="mapa-del-sitio"
+href="notificaciones"
+href="novedades"
+href="pac"
+href="saber-mas"
+href="visualizaciones"
+== series PIB
+-- pib%20nominal
+192.1_CEREALES_6_60_0_0_11 R/P3M 1970 1980 | PIB Subtotal Agrícola. Cereales | PIB Subtotal Agrícola en millones de pesos de 1960 | Millones de pesos
+234.1_PIMPORTIOS_0_0_27 R/P3M 1970 1980 | PIB Importaciones. Servicios | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+234.1_PEXPORTTAL_0_0_23 R/P3M 1970 1980 | PIB Exportaciones Total | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+238.1_PAGRIC_UNO_0_0_23 R/P3M 1970 1980 | PIB Agrícola. Ganado Vacuno | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+235.1_PSERVICLES_0_0_30 R/P3M 1970 1980 | PIB Servicios Gubernamentales | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+226.1_PAGRIC_SAS_1970_0_21 R/P3M 1980 1990 | PIB Agrícola. Oleaginosas | Producto Interno Bruto Sectorial 1980-1990 | Australes
+227.1_PAGRIC_NJA_1970_0_16 R/P3M 1980 1990 | PIB Agrícola. Granja | Producto Interno Bruto Sectorial 1980-1990 | Australes
+227.1_PAGRIC_UNO_1970_0_23 R/P3M 1980 1990 | PIB Agrícola. Ganado Vacuno | Producto Interno Bruto Sectorial 1980-1990 | Australes
+220.1_PCONSTRCAS_1970_0_33 R/P3M 1980 1990 | PIB Construcciones. Obras Públicas | Producto Interno Bruto Sectorial 1980-1990 | Australes
+179.1_TVPE_PPVEIOS_0_0_17 R/P1D 2013 2020 | Cupón PIB - TVPE. Cotización | Títulos Públicos de Deuda | Pesos
+179.1_TVPY_COTIZION_0_0_15_88 R/P1D 2013 2020 | Cupón PIB - TVPY. Cotización | Títulos Públicos de Deuda | Pesos
+234.1_PIMPORTIAS_0_0_28 R/P3M 1970 1980 | PIB Importaciones. Mercancías | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+234.1_PIMPORTTAL_0_0_23 R/P3M 1970 1980 | PIB Importaciones Total | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+254.1_ACULTURAZA_0_0_16 R/P3M 1970 1980 | PIB Agricultura. Caza | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+253.1_CALESLES_0_0_8 R/P3M 1970 1980 | PIB Subtotal Agrícola. Cereales | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+232.1_PCONSTRDAS_0_0_33 R/P3M 1970 1980 | PIB Construcciones. Obras privadas | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+238.1_PAGRIC_INO_0_0_24 R/P3M 1970 1980 | PIB Agrícola. Ganado Porcino | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+213.1_PAGRIC_UNO_0_0_23 R/P3M 1970 1980 | PIB Agrícola. Ganado Vacuno | Producto Interno Bruto Sectorial 1970-1980 | Millones de pesos
+213.1_PAGRIC_RIO_0_0_27 R/P3M 1970 1980 | PIB Agrícola. Subtotal Pecuario | Producto Interno Bruto Sectorial 1970-1980 | Millones de pesos
+213.1_PAGRIC_NJA_0_0_16 R/P3M 1970 1980 | PIB Agrícola. Granja | Producto Interno Bruto Sectorial 1970-1980 | Millones de pesos
+166.2_PPIB_0_0_3 R/P3M 2006 2025 | Producto interno bruto | Ingreso nacional, Ahorro nacional y Préstamo neto. Base 2004 | Millones de Pesos
+226.1_PAGRIC_LES_1970_0_18 R/P3M 1980 1990 | PIB Agrícola. Cereales | Producto Interno Bruto Sectorial 1980-1990 | Australes
+227.1_PAGRIC_ANA_1970_0_14 R/P3M 1980 1990 | PIB Agrícola. Lana | Producto Interno Bruto Sectorial 1980-1990 | Australes
+192.1_SUBTOTAL_A_60_0_0_20 R/P3M 1970 1980 | PIB Subtotal Agrícola. Total | PIB Subtotal Agrícola en millones de pesos de 1960 | Millones de pesos
+248.1_CRCIOCIO_MERC_0_8 R/P1Y 1950 1964 | PIB Comercio | Producto Interno Bruto 1950-1964 | Millones de pesos
+247.1_ISTRIASFAC_MERC_0_18 R/P1Y 1950 1964 | PIB Industrias Manufactureras | Producto Interno Bruto 1950-1964 | Millones de pesos
+234.1_PEXPORTIOS_0_0_33 R/P3M 1970 1980 | PIB Exportaciones. Resto de Servicios | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+252.1_EOTACIORAS_0_0_26 R/P3M 1970 1980 | PIB Explotación Minas y Canteras | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+226.1_PAGRIC_RES_1970_0_23 R/P3M 1980 1990 | PIB Agrícola. Frutas y Flores | Producto Interno Bruto Sectorial 1980-1990 | Australes
+248.1_EOTACIORAS_MERC_0_26 R/P1Y 1950 1964 | PIB Explotación Minas y Canteras | Producto Interno Bruto 1950-1964 | Millones de pesos
+247.1_PCOSTO_RES_MERC_0_18 R/P1Y 1950 1964 | PIB a Costo de Factores | Producto Interno Bruto 1950-1964 | Millones de pesos
+237.1_PTRANSPNES_0_0_35 R/P3M 1970 1980 | PIB Transporte, Almacenamiento y Comunicaciones | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+226.1_PAGRIC_UMB_1970_0_22 R/P3M 1980 1990 | PIB Agrícola. Hortalizas y Legumbres | Producto Interno Bruto Sectorial 1980-1990 | Australes
+192.1_CULTIVOS_I_60_0_0_24 R/P3M 1970 1980 | PIB Subtotal Agrícola. Cultivos Industriales | PIB Subtotal Agrícola en millones de pesos de 1960 | Millones de pesos
+240.1_OTA_TOTTAL_1950_0_12 R/P1Y 1935 1962 | Precios Implícitos. PIB Oferta Total | Cuentas Nacionales 1935-1962 | Índice
+232.1_PCONSTRCAS_0_0_33 R/P3M 1970 1980 | PIB Construcciones. Obras Públicas | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+238.1_PAGRIC_NJA_0_0_16 R/P3M 1970 1980 | PIB Agrícola. Granja | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+238.1_PAGRIC_RIO_0_0_27 R/P3M 1970 1980 | PIB Agrícola. Subtotal Pecuario | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+213.1_PAGRIC_INO_0_0_22 R/P3M 1970 1980 | PIB Agrícola. Ganado Ovino | Producto Interno Bruto Sectorial 1970-1980 | Millones de pesos
+226.1_PAGRIC_LES_1970_0_31 R/P3M 1980 1990 | PIB Agrícola. Cultivos Industriales | Producto Interno Bruto Sectorial 1980-1990 | Australes
+-- producto%20interno%20bruto%20precios%20corrientes
+234.1_PIMPORTIAS_0_0_28 R/P3M 1970 1980 | PIB Importaciones. Mercancías | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+234.1_PIMPORTTAL_0_0_23 R/P3M 1970 1980 | PIB Importaciones Total | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+254.1_ACULTURAZA_0_0_16 R/P3M 1970 1980 | PIB Agricultura. Caza | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+253.1_CALESLES_0_0_8 R/P3M 1970 1980 | PIB Subtotal Agrícola. Cereales | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+232.1_PCONSTRDAS_0_0_33 R/P3M 1970 1980 | PIB Construcciones. Obras privadas | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+238.1_PAGRIC_INO_0_0_24 R/P3M 1970 1980 | PIB Agrícola. Ganado Porcino | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+213.1_PAGRIC_UNO_0_0_23 R/P3M 1970 1980 | PIB Agrícola. Ganado Vacuno | Producto Interno Bruto Sectorial 1970-1980 | Millones de pesos
+213.1_PAGRIC_RIO_0_0_27 R/P3M 1970 1980 | PIB Agrícola. Subtotal Pecuario | Producto Interno Bruto Sectorial 1970-1980 | Millones de pesos
+213.1_PAGRIC_NJA_0_0_16 R/P3M 1970 1980 | PIB Agrícola. Granja | Producto Interno Bruto Sectorial 1970-1980 | Millones de pesos
+166.2_PPIB_0_0_3 R/P3M 2006 2025 | Producto interno bruto | Ingreso nacional, Ahorro nacional y Préstamo neto. Base 2004 | Millones de Pesos
+226.1_PAGRIC_LES_1970_0_18 R/P3M 1980 1990 | PIB Agrícola. Cereales | Producto Interno Bruto Sectorial 1980-1990 | Australes
+227.1_PAGRIC_ANA_1970_0_14 R/P3M 1980 1990 | PIB Agrícola. Lana | Producto Interno Bruto Sectorial 1980-1990 | Australes
+192.1_SUBTOTAL_A_60_0_0_20 R/P3M 1970 1980 | PIB Subtotal Agrícola. Total | PIB Subtotal Agrícola en millones de pesos de 1960 | Millones de pesos
+248.1_CRCIOCIO_MERC_0_8 R/P1Y 1950 1964 | PIB Comercio | Producto Interno Bruto 1950-1964 | Millones de pesos
+247.1_ISTRIASFAC_MERC_0_18 R/P1Y 1950 1964 | PIB Industrias Manufactureras | Producto Interno Bruto 1950-1964 | Millones de pesos
+192.1_CEREALES_6_60_0_0_11 R/P3M 1970 1980 | PIB Subtotal Agrícola. Cereales | PIB Subtotal Agrícola en millones de pesos de 1960 | Millones de pesos
+234.1_PIMPORTIOS_0_0_27 R/P3M 1970 1980 | PIB Importaciones. Servicios | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+234.1_PEXPORTTAL_0_0_23 R/P3M 1970 1980 | PIB Exportaciones Total | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+238.1_PAGRIC_UNO_0_0_23 R/P3M 1970 1980 | PIB Agrícola. Ganado Vacuno | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+235.1_PSERVICLES_0_0_30 R/P3M 1970 1980 | PIB Servicios Gubernamentales | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+226.1_PAGRIC_SAS_1970_0_21 R/P3M 1980 1990 | PIB Agrícola. Oleaginosas | Producto Interno Bruto Sectorial 1980-1990 | Australes
+227.1_PAGRIC_NJA_1970_0_16 R/P3M 1980 1990 | PIB Agrícola. Granja | Producto Interno Bruto Sectorial 1980-1990 | Australes
+227.1_PAGRIC_UNO_1970_0_23 R/P3M 1980 1990 | PIB Agrícola. Ganado Vacuno | Producto Interno Bruto Sectorial 1980-1990 | Australes
+220.1_PCONSTRCAS_1970_0_33 R/P3M 1980 1990 | PIB Construcciones. Obras Públicas | Producto Interno Bruto Sectorial 1980-1990 | Australes
+179.1_TVPE_PPVEIOS_0_0_17 R/P1D 2013 2020 | Cupón PIB - TVPE. Cotización | Títulos Públicos de Deuda | Pesos
+179.1_TVPY_COTIZION_0_0_15_88 R/P1D 2013 2020 | Cupón PIB - TVPY. Cotización | Títulos Públicos de Deuda | Pesos
+240.1_OTA_TOTTAL_1950_0_12 R/P1Y 1935 1962 | Precios Implícitos. PIB Oferta Total | Cuentas Nacionales 1935-1962 | Índice
+226.1_PAGRIC_RIC_1970_0_24 R/P3M 1980 1990 | PIB Agrícola. Subtotal Agrícola | Producto Interno Bruto Sectorial 1980-1990 | Australes
+227.1_PAGRIC_INO_1970_0_24 R/P3M 1980 1990 | PIB Agrícola. Ganado Porcino | Producto Interno Bruto Sectorial 1980-1990 | Australes
+227.1_PAGRIC_RIO_1970_0_27 R/P3M 1980 1990 | PIB Agrícola. Subtotal Pecuario | Producto Interno Bruto Sectorial 1980-1990 | Australes
+227.1_PAGRIC_CHE_1970_0_15 R/P3M 1980 1990 | PIB Agrícola. Leche | Producto Interno Bruto Sectorial 1980-1990 | Australes
+220.1_PCONSTRDAS_1970_0_33 R/P3M 1980 1990 | PIB Construcciones. Obras Privadas | Producto Interno Bruto Sectorial 1980-1990 | Australes
+234.1_PEXPORTTES_0_0_24 R/P3M 1970 1980 | PIB Exportaciones. Fletes | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+234.1_PEXPORTIAS_0_0_28 R/P3M 1970 1980 | PIB Exportaciones. Mercancías | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+236.1_PESTABLROS_0_0_32 R/P3M 1970 1980 | PIB Establecimientos Financieros. Seguros | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+253.1_OGINOSASAS_0_0_11 R/P3M 1970 1980 | PIB Subtotal Agrícola. Oleaginosas | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+253.1_SOTAL_AOLA_0_0_17 R/P3M 1970 1980 | PIB Subtotal Agrícola | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+232.1_PCONSTRNES_0_0_18 R/P3M 1970 1980 | PIB Construcciones | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+238.1_PAGRIC_ANA_0_0_14 R/P3M 1970 1980 | PIB Agrícola. Lana | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+213.1_PAGRIC_INO_0_0_24 R/P3M 1970 1980 | PIB Agrícola. Ganado Porcino | Producto Interno Bruto Sectorial 1970-1980 | Millones de pesos
+-- oferta%20demanda%20global%20precios%20corrientes
+229.1_E_MERCAIAS_1970_0_15 R/P3M 1980 1990 | Oferta y Demanda Global Externa. Exportaciones Mercancías | Cuentas Nacionales 1980-1990 | Australes
+229.1_I_SCIOSIOS_1970_0_10 R/P3M 1980 1990 | Oferta y Demanda Global Externa. Importaciones Servicios | Cuentas Nacionales 1980-1990 | Australes
+229.1_E_TOTALLES_1970_0_12 R/P3M 1980 1990 | Oferta y Demanda Global Externa. Exportaciones Totales | Cuentas Nacionales 1980-1990 | Australes
+229.1_I_TOTALLES_1970_0_12 R/P3M 1980 1990 | Oferta y Demanda Global Externa. Importaciones Totales | Cuentas Nacionales 1980-1990 | Australes
+229.1_E_FLETETES_1970_0_11 R/P3M 1980 1990 | Oferta y Demanda Global Externa. Exportaciones Fletes | Cuentas Nacionales 1980-1990 | Australes
+229.1_I_MERCAIAS_1970_0_15 R/P3M 1980 1990 | Oferta y Demanda Global Externa. Importaciones Mercancías | Cuentas Nacionales 1980-1990 | Australes
+24.2_OGT_1993_T_19 R/P3M 1993 2013 | Índice de precios implícitos de oferta global total | Índice de precios implícitos de la Oferta y Demanda Globales | Índice 1993=100
+25.1_OGT_2004_A_19 R/P1Y 2004 2025 | Índice de precios implícitos de oferta global total | Índice de precios implícitos de la Oferta y Demanda Globales | Índice 2004=100
+25.1_OGP_2004_A_17 R/P1Y 2004 2025 | Índice de precios implícitos de oferta global PIB | Índice de precios implícitos de la Oferta y Demanda Globales | Índice 2004=100
+25.2_OGI_2004_T_25 R/P3M 2004 2026 | Índice de precios implícitos de oferta global importacion | Índice de precios implícitos de la Oferta y Demanda Globales | Índice 2004=100
+25.2_OGP_2004_T_17 R/P3M 2004 2026 | Índice de precios implícitos de oferta global PIB | Índice de precios implícitos de la Oferta y Demanda Globales | Índice 2004=100
+24.2_OGI_1993_T_25 R/P3M 1993 2013 | Índice de precios implícitos de oferta global importacion | Índice de precios implícitos de la Oferta y Demanda Globales | Índice 1993=100
+24.1_OGT_1993_A_19 R/P1Y 1993 2012 | Índice de precios implícitos de oferta global total | Índice de precios implícitos de la Oferta y Demanda Globales | Índice 1993=100
+25.1_OGI_2004_A_25 R/P1Y 2004 2025 | Índice de precios implícitos de oferta global importacion | Índice de precios implícitos de la Oferta y Demanda Globales | Índice 2004=100
+25.2_OGT_2004_T_19 R/P3M 2004 2026 | Índice de precios implícitos de oferta global total | Índice de precios implícitos de la Oferta y Demanda Globales | Índice 2004=100
+24.2_OGP_1993_T_17 R/P3M 1993 2013 | Índice de precios implícitos de oferta global pib | Índice de precios implícitos de la Oferta y Demanda Globales | Índice 1993=100
+24.1_OGI_1993_A_25 R/P1Y 1993 2012 | Índice de precios implícitos de oferta global importacion | Índice de precios implícitos de la Oferta y Demanda Globales | Índice 1993=100
+24.1_OGP_1993_A_17 R/P1Y 1993 2012 | Índice de precios implícitos de oferta global pib | Índice de precios implícitos de la Oferta y Demanda Globales | Índice 1993=100
+24.1_DGI_1993_A_19 R/P1Y 1993 2012 | Índice de precios implícitos de demanda global ibif | Índice de precios implícitos de la Oferta y Demanda Globales | Índice 1993=100
+24.1_DGIC_1993_A_32 R/P1Y 1993 2012 | Índice de precios implícitos de demanda global ibif construccion | Índice de precios implícitos de la Oferta y Demanda Globales | Índice 1993=100
+24.2_DGCP_1993_T_30 R/P3M 1993 2013 | Índice de precios implícitos de demanda global consumo publico | Índice de precios implícitos de la Oferta y Demanda Globales | Índice 1993=100
+24.2_DGT_1993_T_20 R/P3M 1993 2013 | Índice de precios implícitos de demanda global total | Índice de precios implícitos de la Oferta y Demanda Globales | Índice 1993=100
+24.1_DGCP_1993_A_30 R/P1Y 1993 2012 | Índice de precios implícitos de demanda global consumo publico | Índice de precios implícitos de la Oferta y Demanda Globales | Índice 1993=100
+25.2_DGCP_2004_T_27 R/P3M 2004 2026 | Índice de precios implícitos de demanda global consumo privado | Índice de precios implícitos de la Oferta y Demanda Globales | Índice 2004=100
+24.2_DGE_1993_T_26 R/P3M 1993 2013 | Índice de precios implícitos de demanda global exportacion | Índice de precios implícitos de la Oferta y Demanda Globales | Índice 1993=100
+25.1_DGE_2004_A_26 R/P1Y 2004 2025 | Índice de precios implícitos de demanda global exportacion | Índice de precios implícitos de la Oferta y Demanda Globales | Índice 2004=100
+25.1_DGT_2004_A_20 R/P1Y 2004 2025 | Índice de precios implícitos de demanda global total | Índice de precios implícitos de la Oferta y Demanda Globales | Índice 2004=100
+25.2_DGIT_2004_T_25 R/P3M 2004 2026 | Índice de precios implícitos de demanda global ibif total | Índice de precios implícitos de la Oferta y Demanda Globales | Índice 2004=100
+25.2_DGIC_2004_T_32 R/P3M 2004 2026 | Índice de precios implícitos de demanda global ibif construccion | Índice de precios implícitos de la Oferta y Demanda Globales | Índice 2004=100
+4.4_OGT_2004_T_19 R/P3M 2004 2026 | Oferta global total a precios de comprador, en millones de pesos corrientes y Tr | Oferta y Demanda Globales. Base 2004 | Millones de pesos
+24.2_DGCP_1993_T_27 R/P3M 1993 2013 | Índice de precios implícitos de demanda global consumo privado | Índice de precios implícitos de la Oferta y Demanda Globales | Índice 1993=100
+24.2_DGIC_1993_T_32 R/P3M 1993 2013 | Índice de precios implícitos de demanda global ibif construccion | Índice de precios implícitos de la Oferta y Demanda Globales | Índice 1993=100
+24.1_DGT_1993_A_20 R/P1Y 1993 2012 | Índice de precios implícitos de demanda global total | Índice de precios implícitos de la Oferta y Demanda Globales | Índice 1993=100
+25.1_DGIOC_2004_A_40 R/P1Y 2004 2025 | Índice de precios implícitos de demanda global ibif otras construcciones | Índice de precios implícitos de la Oferta y Demanda Globales | Índice 2004=100
+25.1_DGCP_2004_A_30 R/P1Y 2004 2025 | Índice de precios implícitos de demanda global consumo publico | Índice de precios implícitos de la Oferta y Demanda Globales | Índice 2004=100
+2.3_OGT_1993_A_19 R/P1Y 1993 2012 | Oferta global total a precios de comprador, en millones de pesos corrientes y An | Oferta y Demanda Globales. Base 1993 | Millones de pesos
+24.2_DGI_1993_T_19 R/P3M 1993 2013 | Índice de precios implícitos de demanda global ibif | Índice de precios implícitos de la Oferta y Demanda Globales | Índice 1993=100
+24.1_DGCP_1993_A_27 R/P1Y 1993 2012 | Índice de precios implícitos de demanda global consumo privado | Índice de precios implícitos de la Oferta y Demanda Globales | Índice 1993=100
+24.1_DGE_1993_A_26 R/P1Y 1993 2012 | Índice de precios implícitos de demanda global exportacion | Índice de precios implícitos de la Oferta y Demanda Globales | Índice 1993=100
+25.1_DGIC_2004_A_32 R/P1Y 2004 2025 | Índice de precios implícitos de demanda global ibif construccion | Índice de precios implícitos de la Oferta y Demanda Globales | Índice 2004=100
+-- gasto%20publico%20pbi
+451.8_GPM_PIBPIB_0_0_7_60 R/P1Y 1980 2023 | Gasto público municipal en porcentaje del PIB | Gasto Público Consolidado | Porcentaje del PIB
+451.4_GPN_PIBPIB_0_0_7_95 R/P1Y 1980 2023 | Gasto público nacional en porcentaje del PIB | Gasto Público Consolidado | Porcentaje del PIB
+451.6_GPP_PIBPIB_0_0_7_41 R/P1Y 1980 2023 | Gasto público provincial en porcentaje del PIB | Gasto Público Consolidado | Porcentaje del PIB
+451.2_GPC_PIBPIB_0_0_7_85 R/P1Y 1980 2023 | Gasto público consolidado en porcentaje del PIB | Gasto Público Consolidado | Porcentaje del PIB
+451.8_GPM_ENERGIPIB_0_0_27_86 R/P1Y 1980 2023 | Gasto público municipal en Energía y combustible en porcentaje del PIB | Gasto Público Consolidado | Porcentaje del PIB
+451.8_GPM_OTROS_PIB_0_0_31_98 R/P1Y 1980 2023 | Gasto público municipal en Otros servicios urbanos en porcentaje del PIB | Gasto Público Consolidado | Porcentaje del PIB
+451.8_GPM_OBRAS_PIB_0_0_35_94 R/P1Y 1980 2023 | Gasto público municipal en Obras sociales - prestaciones sociales en porcentaje  | Gasto Público Consolidado | Porcentaje del PIB
+451.6_GPP_INDUSTPIB_0_0_17_91 R/P1Y 1980 2023 | Gasto público provincial en Industria en porcentaje del PIB | Gasto Público Consolidado | Porcentaje del PIB
+451.6_GPP_SERVICPIB_0_0_26_100 R/P1Y 1980 2023 | Gasto público provincial en Servicios Sociales en porcentaje del PIB | Gasto Público Consolidado | Porcentaje del PIB
+451.6_GPP_JUSTICPIB_0_0_16_76 R/P1Y 1980 2023 | Gasto público provincial en Justicia en porcentaje del PIB | Gasto Público Consolidado | Porcentaje del PIB
+451.2_GPC_ENERGIPIB_0_0_27_77 R/P1Y 1980 2023 | Gasto público consolidado en Energía y combustible en porcentaje del PIB | Gasto Público Consolidado | Porcentaje del PIB
+451.2_GPC_CIENCIPIB_0_0_23_49 R/P1Y 1980 2023 | Gasto público consolidado en Ciencia y técnica en porcentaje del PIB | Gasto Público Consolidado | Porcentaje del PIB
+451.2_GPC_DEFENSPIB_0_0_25_92 R/P1Y 1980 2023 | Gasto público consolidado en Defensa y seguridad en porcentaje del PIB | Gasto Público Consolidado | Porcentaje del PIB
+451.2_GPC_ADMINIPIB_0_0_30_95 R/P1Y 1980 2023 | Gasto público consolidado en Administración general en porcentaje del PIB | Gasto Público Consolidado | Porcentaje del PIB
+451.2_GPC_VIVIENPIB_0_0_26_20 R/P1Y 1980 2023 | Gasto público consolidado en Vivienda y urbanismo en porcentaje del PIB | Gasto Público Consolidado | Porcentaje del PIB
+451.2_GPC_OBRAS_PIB_0_0_35_89 R/P1Y 1980 2023 | Gasto público consolidado en Obras sociales - prestaciones sociales en porcentaj | Gasto Público Consolidado | Porcentaje del PIB
+451.4_GPN_AGUA_APIB_0_0_27_5 R/P1Y 1980 2023 | Gasto público nacional en Agua potable y alcantarillado en porcentaje del PIB | Gasto Público Consolidado | Porcentaje del PIB
+451.4_GPN_FUNCIOPIB_0_0_29_33 R/P1Y 1980 2023 | Gasto público nacional en Funcionamiento del estado en porcentaje del PIB | Gasto Público Consolidado | Porcentaje del PIB
+451.4_GPN_CULTURPIB_0_0_15_45 R/P1Y 1980 2023 | Gasto público nacional en Cultura en porcentaje del PIB | Gasto Público Consolidado | Porcentaje del PIB
+451.4_GPN_PRODUCPIB_0_0_27_54 R/P1Y 1980 2023 | Gasto público nacional en Producción primaria en porcentaje del PIB | Gasto Público Consolidado | Porcentaje del PIB
+451.4_GPN_OTROS_PIB_0_0_31_28 R/P1Y 1980 2023 | Gasto público nacional en Otros servicios urbanos en porcentaje del PIB | Gasto Público Consolidado | Porcentaje del PIB
+451.8_GPM_TRANSPPIB_0_0_18_84 R/P1Y 1980 2023 | Gasto público municipal en Transporte en porcentaje del PIB | Gasto Público Consolidado | Porcentaje del PIB
+451.8_GPM_INSSJYPIB_0_0_28_61 R/P1Y 1980 2023 | Gasto público municipal en INSSJYP - prestaciones sociales en porcentaje del PIB | Gasto Público Consolidado | Porcentaje del PIB
+451.8_GPM_EDUCACPIB_0_0_31_29 R/P1Y 1980 2023 | Gasto público municipal en Educación superior y universitaria en porcentaje del  | Gasto Público Consolidado | Porcentaje del PIB
+451.8_GPM_ADMINIPIB_0_0_30_23 R/P1Y 1980 2023 | Gasto público municipal en Administración general en porcentaje del PIB | Gasto Público Consolidado | Porcentaje del PIB
+451.8_GPM_SERVICPIB_0_0_31_65 R/P1Y 1980 2023 | Gasto público municipal en Servicios de la deuda pública en porcentaje del PIB | Gasto Público Consolidado | Porcentaje del PIB
+451.8_GPM_FUNCIOPIB_0_0_29_99 R/P1Y 1980 2023 | Gasto público municipal en Funcionamiento del estado en porcentaje del PIB | Gasto Público Consolidado | Porcentaje del PIB
+451.6_GPP_SERVICPIB_0_0_31_1 R/P1Y 1980 2023 | Gasto público provincial en Servicios de la deuda pública en porcentaje del PIB | Gasto Público Consolidado | Porcentaje del PIB
+451.6_GPP_ENERGIPIB_0_0_27_12 R/P1Y 1980 2023 | Gasto público provincial en Energía y combustible en porcentaje del PIB | Gasto Público Consolidado | Porcentaje del PIB
+451.6_GPP_AGUA_APIB_0_0_27_6 R/P1Y 1980 2023 | Gasto público provincial en Agua potable y alcantarillado en porcentaje del PIB | Gasto Público Consolidado | Porcentaje del PIB
+451.6_GPP_CULTURPIB_0_0_15_91 R/P1Y 1980 2023 | Gasto público provincial en Cultura en porcentaje del PIB | Gasto Público Consolidado | Porcentaje del PIB
+451.6_GPP_EDUCACPIB_0_0_31_90 R/P1Y 1980 2023 | Gasto público provincial en Educación superior y universitaria en porcentaje del | Gasto Público Consolidado | Porcentaje del PIB
+451.6_GPP_PRODUCPIB_0_0_27_15 R/P1Y 1980 2023 | Gasto público provincial en Producción primaria en porcentaje del PIB | Gasto Público Consolidado | Porcentaje del PIB
+451.6_GPP_OBRAS_PIB_0_0_28_0 R/P1Y 1980 2023 | Gasto público provincial en Obras sociales - atención de la salud en porcentaje  | Gasto Público Consolidado | Porcentaje del PIB
+451.6_GPP_OBRAS_PIB_0_0_35_26 R/P1Y 1980 2023 | Gasto público provincial en Obras sociales - prestaciones sociales en porcentaje | Gasto Público Consolidado | Porcentaje del PIB
+451.6_GPP_OTROS_PIB_0_0_31_80 R/P1Y 1980 2023 | Gasto público provincial en Otros servicios urbanos en porcentaje del PIB | Gasto Público Consolidado | Porcentaje del PIB
+451.2_GPC_SERVICPIB_0_0_28_68 R/P1Y 1980 2023 | Gasto público consolidado en Servicios económicos en porcentaje del PIB | Gasto Público Consolidado | Porcentaje del PIB
+451.2_GPC_PREVISPIB_0_0_24_25 R/P1Y 1980 2023 | Gasto público consolidado en Previsión social en porcentaje del PIB | Gasto Público Consolidado | Porcentaje del PIB
+451.4_GPN_INDUSTPIB_0_0_17_32 R/P1Y 1980 2023 | Gasto público nacional en Industria en porcentaje del PIB | Gasto Público Consolidado | Porcentaje del PIB
+451.4_GPN_PREVISPIB_0_0_24_69 R/P1Y 1980 2023 | Gasto público nacional en Previsión social en porcentaje del PIB | Gasto Público Consolidado | Porcentaje del PIB
+-- resultado%20fiscal%20pbi
+192.1_CEREALES_6_60_0_0_11 R/P3M 1970 1980 | PIB Subtotal Agrícola. Cereales | PIB Subtotal Agrícola en millones de pesos de 1960 | Millones de pesos
+234.1_PIMPORTIOS_0_0_27 R/P3M 1970 1980 | PIB Importaciones. Servicios | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+234.1_PEXPORTTAL_0_0_23 R/P3M 1970 1980 | PIB Exportaciones Total | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+238.1_PAGRIC_UNO_0_0_23 R/P3M 1970 1980 | PIB Agrícola. Ganado Vacuno | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+235.1_PSERVICLES_0_0_30 R/P3M 1970 1980 | PIB Servicios Gubernamentales | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+226.1_PAGRIC_SAS_1970_0_21 R/P3M 1980 1990 | PIB Agrícola. Oleaginosas | Producto Interno Bruto Sectorial 1980-1990 | Australes
+227.1_PAGRIC_NJA_1970_0_16 R/P3M 1980 1990 | PIB Agrícola. Granja | Producto Interno Bruto Sectorial 1980-1990 | Australes
+227.1_PAGRIC_UNO_1970_0_23 R/P3M 1980 1990 | PIB Agrícola. Ganado Vacuno | Producto Interno Bruto Sectorial 1980-1990 | Australes
+220.1_PCONSTRCAS_1970_0_33 R/P3M 1980 1990 | PIB Construcciones. Obras Públicas | Producto Interno Bruto Sectorial 1980-1990 | Australes
+179.1_TVPE_PPVEIOS_0_0_17 R/P1D 2013 2020 | Cupón PIB - TVPE. Cotización | Títulos Públicos de Deuda | Pesos
+179.1_TVPY_COTIZION_0_0_15_88 R/P1D 2013 2020 | Cupón PIB - TVPY. Cotización | Títulos Públicos de Deuda | Pesos
+234.1_PIMPORTIAS_0_0_28 R/P3M 1970 1980 | PIB Importaciones. Mercancías | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+234.1_PIMPORTTAL_0_0_23 R/P3M 1970 1980 | PIB Importaciones Total | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+254.1_ACULTURAZA_0_0_16 R/P3M 1970 1980 | PIB Agricultura. Caza | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+253.1_CALESLES_0_0_8 R/P3M 1970 1980 | PIB Subtotal Agrícola. Cereales | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+232.1_PCONSTRDAS_0_0_33 R/P3M 1970 1980 | PIB Construcciones. Obras privadas | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+238.1_PAGRIC_INO_0_0_24 R/P3M 1970 1980 | PIB Agrícola. Ganado Porcino | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+213.1_PAGRIC_UNO_0_0_23 R/P3M 1970 1980 | PIB Agrícola. Ganado Vacuno | Producto Interno Bruto Sectorial 1970-1980 | Millones de pesos
+213.1_PAGRIC_RIO_0_0_27 R/P3M 1970 1980 | PIB Agrícola. Subtotal Pecuario | Producto Interno Bruto Sectorial 1970-1980 | Millones de pesos
+213.1_PAGRIC_NJA_0_0_16 R/P3M 1970 1980 | PIB Agrícola. Granja | Producto Interno Bruto Sectorial 1970-1980 | Millones de pesos
+166.2_PPIB_0_0_3 R/P3M 2006 2025 | Producto interno bruto | Ingreso nacional, Ahorro nacional y Préstamo neto. Base 2004 | Millones de Pesos
+226.1_PAGRIC_LES_1970_0_18 R/P3M 1980 1990 | PIB Agrícola. Cereales | Producto Interno Bruto Sectorial 1980-1990 | Australes
+227.1_PAGRIC_ANA_1970_0_14 R/P3M 1980 1990 | PIB Agrícola. Lana | Producto Interno Bruto Sectorial 1980-1990 | Australes
+192.1_SUBTOTAL_A_60_0_0_20 R/P3M 1970 1980 | PIB Subtotal Agrícola. Total | PIB Subtotal Agrícola en millones de pesos de 1960 | Millones de pesos
+248.1_CRCIOCIO_MERC_0_8 R/P1Y 1950 1964 | PIB Comercio | Producto Interno Bruto 1950-1964 | Millones de pesos
+247.1_ISTRIASFAC_MERC_0_18 R/P1Y 1950 1964 | PIB Industrias Manufactureras | Producto Interno Bruto 1950-1964 | Millones de pesos
+234.1_PEXPORTIOS_0_0_33 R/P3M 1970 1980 | PIB Exportaciones. Resto de Servicios | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+252.1_EOTACIORAS_0_0_26 R/P3M 1970 1980 | PIB Explotación Minas y Canteras | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+226.1_PAGRIC_RES_1970_0_23 R/P3M 1980 1990 | PIB Agrícola. Frutas y Flores | Producto Interno Bruto Sectorial 1980-1990 | Australes
+248.1_EOTACIORAS_MERC_0_26 R/P1Y 1950 1964 | PIB Explotación Minas y Canteras | Producto Interno Bruto 1950-1964 | Millones de pesos
+247.1_PCOSTO_RES_MERC_0_18 R/P1Y 1950 1964 | PIB a Costo de Factores | Producto Interno Bruto 1950-1964 | Millones de pesos
+237.1_PTRANSPNES_0_0_35 R/P3M 1970 1980 | PIB Transporte, Almacenamiento y Comunicaciones | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+226.1_PAGRIC_UMB_1970_0_22 R/P3M 1980 1990 | PIB Agrícola. Hortalizas y Legumbres | Producto Interno Bruto Sectorial 1980-1990 | Australes
+192.1_CULTIVOS_I_60_0_0_24 R/P3M 1970 1980 | PIB Subtotal Agrícola. Cultivos Industriales | PIB Subtotal Agrícola en millones de pesos de 1960 | Millones de pesos
+240.1_OTA_TOTTAL_1950_0_12 R/P1Y 1935 1962 | Precios Implícitos. PIB Oferta Total | Cuentas Nacionales 1935-1962 | Índice
+232.1_PCONSTRCAS_0_0_33 R/P3M 1970 1980 | PIB Construcciones. Obras Públicas | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+238.1_PAGRIC_NJA_0_0_16 R/P3M 1970 1980 | PIB Agrícola. Granja | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+238.1_PAGRIC_RIO_0_0_27 R/P3M 1970 1980 | PIB Agrícola. Subtotal Pecuario | Cuentas Nacionales 1970-1980. Base 1970 | Millones de pesos
+213.1_PAGRIC_INO_0_0_22 R/P3M 1970 1980 | PIB Agrícola. Ganado Ovino | Producto Interno Bruto Sectorial 1970-1980 | Millones de pesos
+226.1_PAGRIC_LES_1970_0_31 R/P3M 1980 1990 | PIB Agrícola. Cultivos Industriales | Producto Interno Bruto Sectorial 1980-1990 | Australes
