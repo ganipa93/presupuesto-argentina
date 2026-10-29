@@ -94,8 +94,20 @@ function preparar() {
   $('#corte').textContent = new Date(D.corte26 + 'T12:00:00').toLocaleDateString('es-AR', {day: 'numeric', month: 'long', year: 'numeric'});
 }
 
+// Páginas del sitio que coinciden con la búsqueda (secciones, perfiles, provincias, glosario)
+const PAGINAS = (window.PAGINAS || []).map((p) => ({...p, tt: ' ' + norm(p.t) + ' ', kk: ' ' + norm(p.t + ' ' + p.k) + ' '}));
+function enSitio(q) {
+  const caja = $('#en-sitio');
+  if (!caja) return;
+  const ps = norm(q).trim().split(' ').filter((w) => w.length >= 3).map(raiz);
+  const hits = ps.length ? PAGINAS.filter((p) => tiene(p.kk, ps)).sort((a, b) => tiene(b.tt, ps) - tiene(a.tt, ps)).slice(0, 6) : [];
+  caja.hidden = !hits.length;
+  caja.replaceChildren(...(hits.length ? [el('span', {class: 'note', text: 'En el sitio:'}), ...hits.map((p) => el('a', {href: p.u, text: p.t}))] : []));
+}
+
 function buscar() {
   const q = $('#q').value, prov = $('#prov').value;
+  enSitio(q);
   const vs = variantes(q);
   const res = [];
   if (!vs.length) {

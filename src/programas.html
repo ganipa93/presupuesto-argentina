@@ -93,6 +93,7 @@
 <button type="button" data-q="cultura">Cultura</button>
 <button type="button" data-q="deuda">Deuda</button>
 </div>
+<nav class="chips en-sitio" id="en-sitio" aria-label="Páginas del sitio" hidden></nav>
 <p class="note" id="estado" role="status">Cargando los datos…</p>
 </div>
 
@@ -115,12 +116,13 @@
 </section>
 </main>
 
-<footer class="src">
+<footer class="src">{{MAPA}}
 <p>Sitio independiente, sin relación con el Gobierno nacional. Montos en pesos corrientes.</p>
 <nav><a href="/">Volver al análisis</a><a href="/cuadros">Todos los cuadros</a><a href="/metodologia">Metodología y fuentes</a><a href="{{REPO}}/issues/new" target="_blank" rel="noopener">Avisar un error</a></nav>
 </footer>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<script>window.PAGINAS = {{PAGINAS_JS}};</script>
 <script>window.CFG = {SITE: {{SITE_JS}}, INFLP_JS: {{INFLP_JS}}, INFLP: "{{INFLP}}", INFL26: "{{INFL26}}", TC: {{TC_JS}}};</script>
 <script src="/js/buscador.js?v={{V_BUSCADOR}}"></script>
 </body>

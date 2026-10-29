@@ -97,6 +97,7 @@ class Generador:
         self.OB = datos.get("obras_provincias", {})
         self.HT = datos["programas"].get("historia_total", [])
         self.TC = {int(a): v for a, v in datos.get("dolar", {}).get("promedio", {}).items()}
+        self.pie = ""
 
     def usd(self, m, anio):
         """Millones de pesos de un año → texto en dólares al promedio oficial de ese año (o None)."""
@@ -254,15 +255,15 @@ class Generador:
 </head>
 <body>
 <div class="wrap">
-{self.cabecera("/provincias" if ruta.startswith("/provincias") else "/programas")}
+{self.cabecera(ruta)}
 <main id="contenido" style="display:flex;flex-direction:column;gap:var(--g-lg)">
 {migas_html}
 {f"<h1>{e(h1 or titulo)}</h1>" if h1 is not False else ""}
 {cuerpo}
 </main>
 <footer class="src">
+{self.pie}
 <p>Sitio independiente, sin relación con el Gobierno nacional ni con partidos políticos. Montos en pesos corrientes. Fuentes: Proyecto de Presupuesto 2027 y sus datasets (Oficina Nacional de Presupuesto), Ley 27.798 y Presupuesto Abierto (Ministerio de Economía). Datos al {self.fecha_sitio}.</p>
-<nav><a href="/">Inicio</a><a href="/programas">Buscar un gasto</a><a href="/gasto">Todos los programas</a><a href="/provincias">Por provincia</a><a href="/glosario">Glosario</a><a href="/novedades">Novedades</a><a href="/metodologia#programas">Cómo se calcula</a><a href="{self.repo}/issues/new" target="_blank" rel="noopener">Avisar un error</a></nav>
 </footer>
 </div>
 </body>
