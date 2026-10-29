@@ -25,7 +25,7 @@ jobs:
       - name: Bajar
         env:
           PRESUPUESTO_ABIERTO_TOKEN: ${{ secrets.PRESUPUESTO_ABIERTO_TOKEN }}
-          PIB_IDS: ""
+          PIB_IDS: "2.3_OGP_1993_A_17,4.3_OGP_2004_A_17"
         run: python3 scripts/bajar_historia_larga.py ${{ github.event.inputs.desde || '1995' }}
       - name: Guardar en el repositorio
         run: |

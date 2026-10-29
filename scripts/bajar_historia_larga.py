@@ -19,7 +19,7 @@ SERIES = "https://apis.datos.gob.ar/series/api"
 COLUMNAS = ["finalidad_desc", "funcion_desc", "inciso_desc", "jurisdiccion_desc",
             "credito_presupuestado", "credito_vigente", "credito_devengado"]
 # PIB a precios corrientes (millones de $). Si un id deja de existir, se buscan candidatos y se guardan para revisar.
-PIB_IDS = os.environ.get("PIB_IDS", "")
+PIB_IDS = os.environ.get("PIB_IDS") or "2.3_OGP_1993_A_17,4.3_OGP_2004_A_17"  # INDEC, bases 1993 y 2004
 BUSQUEDAS_PIB = ["producto interno bruto precios corrientes base 2004", "producto interno bruto precios corrientes base 1993",
                  "pib precios de mercado corrientes", "valor agregado bruto precios corrientes"]
 
