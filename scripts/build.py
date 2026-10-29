@@ -138,10 +138,60 @@ def secnav(actual="resumen"):
     return "<ol>" + "".join(partes) + "</ol>"
 
 
+LUPA = '<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m20 20-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>'
+
+
+def ruta_de(k):
+    return k if k.startswith("/") else SECCIONES[k]["ruta"]
+
+
+def menu_secciones(actual=""):
+    """Todas las secciones del sitio, agrupadas (menú de la cabecera y pie)."""
+    cols = []
+    for g, items in GRUPOS:
+        links = "".join(f'<li><a href="{ruta_de(k)}"' + (' aria-current="page"' if ruta_de(k) == actual else "") + f">{t}</a></li>" for k, t in items)
+        cols.append(f'<div><p class="g">{g}</p><ul>{links}</ul></div>')
+    cols.append('<div><p class="g">Más</p><ul><li><a href="/novedades">Novedades</a></li><li><a href="/metodologia">Metodología y fuentes</a></li><li><a href="/datos/">Datos abiertos</a></li>'
+                f'<li><a href="{REPO}/issues/new" target="_blank" rel="noopener">Avisar un error</a></li></ul></div>')
+    return "".join(cols)
+
+
 def cabecera(actual=""):
-    """Cabecera común a todas las páginas."""
-    links = "".join(f'<a href="{u}"' + (' aria-current="page"' if u == actual else "") + f">{t}</a>" for u, t in MENU)
-    return f'<a class="saltar" href="#contenido">Saltar al contenido</a><header class="top"><a class="brand" href="/">{LOGO}<span>Presupuesto Argentina</span></a><nav aria-label="Principal">{links}</nav></header>'
+    """Cabecera común a todas las páginas: marca, buscador (salvo en el propio buscador) y menú con todas las secciones."""
+    en_menu = any(ruta_de(k) == actual for _, items in GRUPOS for k, _ in items)
+    busca = "" if actual == "/programas" else (
+        f'<form class="top-busca" action="/programas" role="search"><label for="top-q" class="sr">Buscar en el presupuesto</label>'
+        f'<input id="top-q" name="q" type="search" placeholder="Buscar: rutas, PAMI, jubilados…" autocomplete="off"><button type="submit" aria-label="Buscar">{LUPA}</button></form>')
+    return (f'<a class="saltar" href="#contenido">Saltar al contenido</a><header class="top"><a class="brand" href="/">{LOGO}<span>Presupuesto Argentina</span></a>{busca}'
+            f'<nav aria-label="Principal"><details class="menu"><summary' + (' class="actual"' if en_menu else "") + '>Secciones</summary>'
+            f'<div class="menu-panel">{menu_secciones(actual)}</div></details>'
+            f'<a href="/provincias"' + (' aria-current="page"' if actual.startswith("/provincias") else "") + '>Por provincia</a>'
+            f'<a href="/metodologia"' + (' aria-current="page"' if actual == "/metodologia" else "") + '>Metodología</a></nav></header>'
+            "<script>document.addEventListener('click',function(e){var m=document.querySelector('.menu[open]');if(m&&!m.contains(e.target))m.open=false});"
+            "document.addEventListener('keydown',function(e){var m=document.querySelector('.menu[open]');if(e.key==='Escape'&&m){m.open=false;m.querySelector('summary').focus()}})</script>")
+
+
+def pie_mapa():
+    return f'<nav class="mapa" aria-label="Todas las secciones">{menu_secciones()}</nav>'
+
+
+def paginas_busqueda(datos):
+    """Índice de páginas del sitio para el buscador: secciones, perfiles, provincias y glosario."""
+    out = [{"t": SECCIONES[k]["h1"], "u": SECCIONES[k]["ruta"], "k": SECCIONES[k]["descripcion"]} for k in SECCIONES]
+    extra = {"/programas": ("Buscar un gasto", "programa obra organismo"), "/comparar": ("Comparar programas, organismos y provincias", "comparar lado a lado"),
+             "/evolucion": ("Qué creció y qué se achicó desde 2023", "evolución real inflación programas"),
+             "/historia": ("El presupuesto desde 1995, gobierno por gobierno", "historia gobiernos menem de la rua duhalde kirchner cristina macri alberto fernandez milei pbi 1995 prorroga"),
+             "/recaudacion": ("Recaudación mes a mes", "recaudación impuestos afip arca mensual"), "/provincias": ("Gasto nacional por provincia", "provincias por habitante obras"),
+             "/ejecucion-2026": ("Lo que no se está gastando en 2026", "ejecución subejecución atrasado"), "/cuadros": ("Todos los cuadros del proyecto y de la ley", "cuadros pdf planillas"),
+             "/glosario": ("Glosario del presupuesto", "términos definiciones"), "/metodologia": ("Metodología y fuentes", "cómo se calcula fuentes"),
+             "/novedades": ("Novedades del sitio", "novedades actualizaciones"), "/datos/": ("Datos abiertos", "json descargar datos")}
+    out += [{"t": t, "u": u, "k": k} for u, (t, k) in extra.items()]
+    out += [{"t": f"¿Qué te cambia? {p['perfil']}", "u": f"/que-me-cambia/{p['id']}", "k": QUIEN.get(p["id"], "")} for p in datos["impacto"]]
+    for f in sorted((RAIZ / "provincias").glob("*.html")) if (RAIZ / "provincias").exists() else []:
+        out.append({"t": "Provincia: " + f.stem.replace("-", " ").title(), "u": f"/provincias/{f.stem}", "k": f.stem.replace("-", " ")})
+    for t in json.loads((RAIZ / "scripts" / "glosario.json").read_text(encoding="utf-8")):
+        out.append({"t": "Glosario: " + t["t"], "u": f"/glosario#{t['id']}", "k": t["d"][:160]})
+    return out
 
 
 def copiar_js():
@@ -178,7 +228,7 @@ def main():
              "spatialCoverage": "Argentina", "temporalCoverage": "2026/2027",
              "creator": {"@type": "Organization", "name": "Presupuesto Argentina", "url": SITE + "/"},
              "distribution": [{"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": f"{SITE}/datos/{k}.json"} for k in datos]}]}
-    comunes = {"SITE": SITE, "REPO": REPO, "FECHA": FECHA, **copiar_js()}
+    comunes = {"SITE": SITE, "REPO": REPO, "FECHA": FECHA, "MAPA": pie_mapa(), **copiar_js()}
     cab = lambda u: {"CABECERA": cabecera(u)}
     (RAIZ / "index.html").write_text(reemplazar((RAIZ / "src/plantilla.html").read_text(encoding="utf-8"), {
         **comunes, **cab("/"), "SECNAV": secnav(), "SECCIONES_JS": json.dumps(SECCIONES, ensure_ascii=False),
@@ -219,11 +269,32 @@ def main():
             "LISTA": lista_de(indice, "2027"), "LISTA26": lista_de(indice26, "2026"),
             "INDICE": js(indice), "INDICE26": js(indice26)}), encoding="utf-8")
 
-    # Buscador por programa (datos/programas.json, lo arma scripts/armar_programas.py)
+    # Páginas fijas por programa, organismo y provincia
     sup = {r["clave"]: r for r in datos["supuestos"]}
+    paginas = []
+    if "programas" in datos:
+        for d in ("gasto", "provincias", "embed"):
+            shutil.rmtree(RAIZ / d, ignore_errors=True)
+        for f in ("gasto.html", "provincias.html"):
+            (RAIZ / f).unlink(missing_ok=True)
+        gen = Generador(RAIZ, SITE, REPO, FECHA, cabecera, datos, sup["infl_prom"]["proyecto2027"], sup["inflacion"]["estimado2026"])
+        gen.pie = pie_mapa()
+        paginas = gen.todo()
+        # Página para direcciones que no existen: buscador y todas las secciones
+        gen.pagina("/404", "No encontramos esa página · Presupuesto Argentina", "La página que buscás no existe o cambió de dirección.",
+                   '<p class="respuesta">La página que buscás no existe o cambió de dirección. Probá buscar lo que necesitás:</p>'
+                   '<form class="busca" action="/programas" role="search"><label for="q404" class="sr">Buscar en el presupuesto</label>'
+                   '<input id="q404" name="q" type="search" placeholder="Ej.: rutas, PAMI, jubilados, universidades"><button class="btn primary" type="submit">Buscar</button></form>'
+                   f'<section class="card"><h2>Todas las secciones</h2><nav class="mapa" aria-label="Secciones">{menu_secciones()}</nav></section>',
+                   [("Inicio", "/"), ("Página no encontrada", "/404")], h1="No encontramos esa página")
+        paginas = [u for u in paginas if u != "/404"]
+        p404 = RAIZ / "404.html"
+        p404.write_text(p404.read_text(encoding="utf-8").replace('<meta charset="utf-8">', '<meta charset="utf-8">\n<meta name="robots" content="noindex">', 1), encoding="utf-8")
+
+    # Buscador por programa (datos/programas.json, lo arma scripts/armar_programas.py)
     if "programas" in datos:
         (RAIZ / "programas.html").write_text(reemplazar((RAIZ / "src/programas.html").read_text(encoding="utf-8"), {
-            **comunes, **cab("/programas"), "SITE_JS": json.dumps(SITE), "NPROG": str(len(datos["programas"]["programas"])),
+            **comunes, **cab("/programas"), "SITE_JS": json.dumps(SITE), "PAGINAS_JS": json.dumps(paginas_busqueda(datos), ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/"), "NPROG": str(len(datos["programas"]["programas"])),
             "INFL": f'{sup["inflacion"]["proyecto2027"]:g}'.replace(".", ","),
             "INFLP": f'{sup["infl_prom"]["proyecto2027"]:g}'.replace(".", ","),
             "INFLP_JS": f'{sup["infl_prom"]["proyecto2027"]:g}',
@@ -231,15 +302,6 @@ def main():
             "TC_JS": json.dumps(datos.get("dolar", {}).get("promedio", {})),
             "TC26": miles(datos.get("dolar", {}).get("promedio", {}).get("2026", 0)),
             "TC27": miles(datos.get("dolar", {}).get("promedio", {}).get("2027", 0))}), encoding="utf-8")
-
-    # Páginas fijas por programa, organismo y provincia
-    paginas = []
-    if "programas" in datos:
-        for d in ("gasto", "provincias", "embed"):
-            shutil.rmtree(RAIZ / d, ignore_errors=True)
-        for f in ("gasto.html", "provincias.html"):
-            (RAIZ / f).unlink(missing_ok=True)
-        paginas = Generador(RAIZ, SITE, REPO, FECHA, cabecera, datos, sup["infl_prom"]["proyecto2027"], sup["inflacion"]["estimado2026"]).todo()
 
     (RAIZ / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n", encoding="utf-8")
     urls = [v["ruta"] for v in SECCIONES.values()] + [f'/que-me-cambia/{p["id"]}' for p in datos["impacto"]] + ["/programas", "/cuadros", "/metodologia", "/datos/"] + paginas
