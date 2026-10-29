@@ -126,8 +126,33 @@ def pib_serie():
     return pib, k
 
 
+def real_y_poblacion(pib):
+    """PIB a precios constantes (millones de pesos de 2004) y población.
+    PIB real: INDEC base 2004 desde 2004; antes, la base 1993 (la API la da trimestral en valores anualizados:
+    se suma el año y se divide por 4) empalmada en 2004. 2026 y 2027: crecimiento que supone el Proyecto 2027.
+    Población: INDEC (2004-2025); 1995-2003 y 2026-2027 se estiman con la tasa de crecimiento del año más cercano."""
+    v = json.loads((HL / "series.json").read_text(encoding="utf-8"))["valores"]
+    r93 = {int(a): x / 4 for a, x in v["5.2_PIBPM_1993_T_38"].items()}
+    r04 = {int(a): x for a, x in v["6.1_PIBPM_2004_A_38"].items()}
+    k = r04[2004] / r93[2004]
+    real = {a: x * k for a, x in r93.items() if a < 2004}
+    real.update(r04)
+    sup = {r["clave"]: r for r in json.loads((RAIZ / "datos" / "supuestos.json").read_text(encoding="utf-8"))}
+    real[2026] = real[2025] * (1 + sup["pbi"]["estimado2026"] / 100)
+    real[2027] = real[2026] * (1 + sup["pbi"]["proyecto2027"] / 100)
+    pob = {int(a): x for a, x in v["9.1_POB_2004_A_9"].items()}
+    g0 = pob[2005] / pob[2004]
+    for a in range(2003, 1994, -1):
+        pob[a] = pob[a + 1] / g0
+    g1 = pob[2025] / pob[2024]
+    for a in (2026, 2027):
+        pob[a] = pob[a - 1] * g1
+    return real, pob, round(k, 4), round((g0 - 1) * 100, 2)
+
+
 def main():
     pib, k_empalme = pib_serie()
+    pib_real, pob, k_real, tasa_pob = real_y_poblacion(pib)
     anios = []
     ultimo = max(int(p.stem[-4:]) for p in HL.glob("credito-*.csv"))
     for p in sorted(HL.glob("credito-*.csv")):
@@ -171,9 +196,12 @@ def main():
     S = json.loads((HL / "series.json").read_text(encoding="utf-8"))
     gpc = {"nacional": S["valores"].get("451.4_GPN_PIBPIB_0_0_7_95", {}), "consolidado": S["valores"].get("451.2_GPC_PIBPIB_0_0_7_85", {})}
 
+    for x in anios:
+        x["pib_real"] = round(pib_real[x["anio"]], 1)
+        x["poblacion"] = round(pob[x["anio"]])
     out = {"fuente": "Presupuesto Abierto (Ministerio de Economía) para 1995-2025; Proyecto de Presupuesto 2027 para 2026 (estimado) y 2027; "
                      "PIB a precios corrientes del INDEC (bases 1993 y 2004, empalmadas en 2004); Gasto Público Consolidado (Ministerio de Economía).",
-           "unidad": "millones de pesos corrientes", "empalme_pib": round(k_empalme, 4), "bajado_hasta": ultimo,
+           "unidad": "millones de pesos corrientes", "empalme_pib": round(k_empalme, 4), "empalme_pib_real": k_real, "tasa_poblacion_1995_2003": tasa_pob, "bajado_hasta": ultimo,
            "rubros": [{"id": i, "nombre": n} for i, n in RUBROS], "tipos": [{"id": i, "nombre": n} for i, n in TIPOS],
            "gobiernos": GOBIERNOS, "anios": anios, "gpc": {k: {a: round(v, 2) for a, v in s.items()} for k, s in gpc.items()}}
     (RAIZ / "datos" / "historia.json").write_text(json.dumps(out, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")

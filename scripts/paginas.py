@@ -968,6 +968,67 @@ def historia(self):
                  f'<polyline points="{pts}" fill="none" stroke="var(--c1)" stroke-width="2"/>{puntos}{etis}<line x1="{pad}" x2="{W - 8}" y1="{base}" y2="{base}" stroke="var(--axis)"/></svg></div>'
                  '<figcaption class="note">Gasto público nacional en % del PIB. Las líneas marcan el último año completo antes de cada cambio de gobierno. Fuente: Ministerio de Economía, Gasto Público Consolidado (API de Series de Tiempo, datos.gob.ar).</figcaption></figure></section>')
 
+
+    # --- contra el tamaño de la economía: PIB real, población y gasto real ---
+    def economia():
+        if not all(x.get("pib_real") and x.get("poblacion") for x in A):
+            return ""
+        ref = ult_ej
+        dref = por_a[ref]["pib"] / por_a[ref]["pib_real"]  # deflactor del PIB del año de referencia
+        greal = {a: x["gastado"] / (x["pib"] / x["pib_real"]) * dref for a, x in por_a.items()}  # millones de pesos de ref
+        ghab = {a: greal[a] * 1e6 / por_a[a]["poblacion"] for a in por_a}
+        pibhab = {a: por_a[a]["pib_real"] / por_a[a]["poblacion"] for a in por_a}
+        anios = sorted(por_a)
+        i_pib = {a: por_a[a]["pib_real"] / por_a[prim]["pib_real"] * 100 for a in anios}
+        i_gas = {a: greal[a] / greal[prim] * 100 for a in anios}
+        W, base, top, pad = 760, 240, 20, 40
+        bw = (W - pad - 8) / len(anios)
+        mx = max(max(i_pib.values()), max(i_gas.values())) * 1.08
+        y = lambda v: base - v / mx * (base - top)
+        cx = lambda i: pad + i * bw + bw / 2
+        partes = []
+        for k, g in enumerate(G):
+            ii = [i for i, a in enumerate(anios) if g["desde"] <= a <= g["hasta"]]
+            if ii and k % 2 == 0:
+                partes.append(f'<rect x="{pad + ii[0] * bw:.1f}" y="{top}" width="{len(ii) * bw:.1f}" height="{base - top}" fill="var(--panel)"/>')
+        for v in (50, 100, 150, 200, 250, 300):
+            if v < mx:
+                partes.append(f'<line x1="{pad}" x2="{W - 8}" y1="{y(v):.1f}" y2="{y(v):.1f}" stroke="var(--line)"{" stroke-dasharray=\"4 3\"" if v == 100 else ""}/><text x="{pad - 6}" y="{y(v) + 4:.1f}" text-anchor="end" font-size="11" fill="currentColor" opacity=".7">{v}</text>')
+        for serie, col, nombre in ((i_pib, "var(--acc)", "PIB real"), (i_gas, "var(--c1)", "Gasto nacional real")):
+            pts = " ".join(f"{cx(i):.1f},{y(serie[a]):.1f}" for i, a in enumerate(anios))
+            partes.append(f'<polyline points="{pts}" fill="none" stroke="{col}" stroke-width="2.5"/>')
+            partes += [f'<circle cx="{cx(i):.1f}" cy="{y(serie[a]):.1f}" r="2.5" fill="{col}"><title>{a}: {nombre} {miles(serie[a])} ({prim} = 100)</title></circle>' for i, a in enumerate(anios)]
+        partes += [f'<text x="{cx(i):.1f}" y="{base + 15}" text-anchor="middle" font-size="11" fill="currentColor" opacity=".75">{a}</text>' for i, a in enumerate(anios) if a % 5 == 0 or a == anios[-1]]
+        grafico = (f'<figure style="margin:0"><div style="overflow-x:auto"><svg viewBox="0 0 {W} {base + 22}" width="100%" role="img" aria-label="Índice {prim} = 100 del PIB real y del gasto nacional real" style="color:var(--fg);min-width:640px">{"".join(partes)}'
+                   f'<line x1="{pad}" x2="{W - 8}" y1="{base}" y2="{base}" stroke="var(--axis)"/></svg></div>'
+                   f'<figcaption class="note"><span style="color:var(--acc)">■</span> tamaño de la economía (PIB real) &nbsp; <span style="color:var(--c1)">■</span> gasto nacional real · índice {prim} = 100 · 2026 y 2027 con el crecimiento y el gasto que estima el Proyecto 2027</figcaption></figure>')
+        filas = []
+        for g in G:
+            aa = [a for a in range(g["desde"], g["hasta"] + 1) if a in por_a]
+            if not aa:
+                continue
+            ini = g["desde"] - 1 if g["desde"] - 1 in por_a else g["desde"]
+            fin = g["hasta"]
+            n = fin - ini
+            crec = ((por_a[fin]["pib_real"] / por_a[ini]["pib_real"]) ** (1 / n) - 1) * 100 if n else None
+            filas.append([f'<strong>{e(g["nombre"])}</strong><br><span class="note">{ini}→{fin}{" (est.)" if por_a[fin]["tipo"] != "gastado" else ""}</span>',
+                          (f"{'+' if crec >= 0 else '−'}{miles(abs(crec), 1)}%" if crec is not None else "—"),
+                          _signo((pibhab[fin] / pibhab[ini] - 1) * 100) if n else "—",
+                          f'<span data-n="{round(prom(aa, lambda a: ghab[a]))}">${miles(prom(aa, lambda a: ghab[a]))}</span>',
+                          _signo((ghab[fin] / ghab[ini] - 1) * 100) if n else "—"])
+        c_pib = (por_a[ref]["pib_real"] / por_a[prim]["pib_real"] - 1) * 100
+        c_hab = (pibhab[ref] / pibhab[prim] - 1) * 100
+        c_ghab = (ghab[ref] / ghab[prim] - 1) * 100
+        pico_g = max((a for a in anios if a <= ref), key=lambda a: ghab[a])
+        return (f'<section class="card" id="economia"><h2>Contra el tamaño de la economía</h2>'
+                f'<p>El % del PIB dice qué parte de la torta se lleva el Estado nacional, pero no el tamaño de la torta: no es lo mismo gastar el 15% de una economía chica que el 15% de una grande. '
+                f'Por eso acá se mira también la economía en términos reales. Entre {prim} y {ref} el PIB real creció <strong>{miles(c_pib)}%</strong>, pero la población también creció y el PIB por habitante aumentó <strong>{miles(c_hab)}%</strong>. '
+                f'Medido así, el gasto nacional por habitante de {ref} fue {miles(abs(c_ghab))}% {"más" if c_ghab >= 0 else "menos"} que el de {prim}, y su máximo fue en {pico_g}.</p>'
+                f'{grafico}'
+                f'{tabla(["Gobierno", "Crecimiento del PIB (promedio anual)", "PIB por habitante (cambio)", f"Gasto nacional por habitante (promedio, pesos de {ref})", "Gasto por habitante (cambio)"], filas, "libre")}'
+                f'<p class="note">El PIB real y el gasto real se calculan con el índice de precios implícitos del PIB del INDEC (no con el IPC), y los pesos de cada año se llevan a pesos de {ref}. «Cambio» compara el último año del gobierno anterior con el último propio; para Menem, la serie arranca en {prim}. '
+                f'El PIB mide lo que se produce en el país; no muestra cuánto de eso es industria o qué parte de lo que se consume se importa. <a href="/metodologia#historia">Cómo se calcula</a>.</p></section>')
+
     # --- frase principal (solo hechos) ---
     p27 = tot.get(2027)
     frase = (f'En {prim} el Estado nacional gastó el equivalente a <strong>{_pp(tot[prim])} del PIB</strong>. Ese número subió hasta <strong>{_pp(tot[pico])} en {pico}</strong>, '
@@ -985,8 +1046,9 @@ def historia(self):
         '<div class="stats">' + stat(f"Gasto {prim}", _pp(tot[prim]), "del PIB") + stat(f"Máximo ({pico})", _pp(tot[pico]), "del PIB")
         + stat(f"Mínimo ({minimo})", _pp(tot[minimo]), "del PIB") + stat(f"Gastado {ult_ej}", _pp(tot[ult_ej]), "del PIB", ink=True)
         + (stat("Proyecto 2027", _pp(p27), "del PIB") if p27 else "") + "</div>",
-        '<nav class="chips" aria-label="En esta página"><a href="#total">El gasto total</a><a href="#gobiernos">Gobierno por gobierno</a><a href="#rubros">En qué se gastó</a><a href="#composicion">De cada $100</a><a href="#tipo">Por tipo de gasto</a><a href="#ley">La ley contra lo gastado</a><a href="#largo">Desde 1980</a><a href="#numeros">Todos los números</a></nav>',
+        '<nav class="chips" aria-label="En esta página"><a href="#total">El gasto total</a><a href="#economia">Contra el tamaño de la economía</a><a href="#gobiernos">Gobierno por gobierno</a><a href="#rubros">En qué se gastó</a><a href="#composicion">De cada $100</a><a href="#tipo">Por tipo de gasto</a><a href="#ley">La ley contra lo gastado</a><a href="#largo">Desde 1980</a><a href="#numeros">Todos los números</a></nav>',
         f'<section class="card" id="total"><h2>Cuánto gastó el Estado nacional cada año</h2><p class="note">Gasto de la Administración Nacional en % del PIB: cuánto de todo lo que produce el país en un año pasa por el presupuesto nacional. Se usa el PIB porque permite comparar 1995 con 2025 sin discutir qué índice de inflación usar.</p>{grafico_total()}</section>',
+        economia(),
         f'<section class="card" id="gobiernos"><h2>Gobierno por gobierno</h2><p class="note">«Lo recibió» es el último año del gobierno anterior; «lo dejó», el último año completo propio. Cada año se cuenta al gobierno que lo ejecutó, aunque el presupuesto lo haya escrito el anterior.</p>'
         f'{tabla(["Gobierno", "Gasto promedio (% PIB)", "Lo recibió en", "Lo dejó en", "Cambio", "Años sin ley nueva"], filas_g, "libre")}'
         f'<details><summary class="note">Qué pasaba en cada gobierno (contexto que mueve los números)</summary><ul class="note" style="margin:8px 0 0;padding-left:18px;display:flex;flex-direction:column;gap:6px">{"".join(filas_c)}</ul></details></section>',
@@ -1003,7 +1065,7 @@ def historia(self):
         f'<section class="card" id="numeros"><h2>Todos los números, año por año</h2><details><summary class="note">Ver la tabla completa (se puede bajar en Excel)</summary>'
         f'{tabla(["Año", "Gobierno", "Gasto (pesos corrientes)", "PIB (pesos corrientes)", "Gasto % PIB"] + [n + " (% PIB)" for _, n in R], filas_a)}</details></section>',
         '<div class="caveat">Fuentes: Presupuesto Abierto (Ministerio de Economía), crédito y gasto devengado de la Administración Nacional de 1995 a 2025; Proyecto de Presupuesto 2027 para el cierre estimado de 2026 y lo pedido para 2027; '
-        f'INDEC, PIB a precios corrientes (base 2004 desde 2004; antes, la base 1993 empalmada en 2004 multiplicándola por {miles(H["empalme_pib"], 4)}); para 2026 y 2027, el PIB que usa el propio proyecto. '
+        f'INDEC, PIB a precios corrientes y constantes y población (base 2004 desde 2004; antes, la base 1993 empalmada en 2004); para 2026 y 2027, el PIB y el crecimiento que usa el propio proyecto. '
         'Leyes y prórrogas: InfoLEG, Boletín Oficial y «Cupos presupuestarios anuales» del Ministerio de Economía. No incluye coparticipación, provincias, municipios, PAMI ni empresas públicas. '
         '<a href="/metodologia#historia">Cómo se calcula</a> · <a href="/datos/historia.json">Bajar los datos (JSON)</a>.</div>',
     ]
