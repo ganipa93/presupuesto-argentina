@@ -78,7 +78,21 @@ def valores(ids, agregacion):
     return out
 
 
+# Algunas series figuran en el catálogo pero la API las devuelve vacías: se baja el CSV original.
+CSVS = {
+    "intercambio-comercial-anual.csv": "https://infra.datos.gob.ar/catalog/sspm/dataset/74/distribution/74.1/download/intercambio-comercial-argentino-anual.csv",
+    "eph-puntual.csv": "https://infra.datos.gob.ar/catalog/sspm/dataset/42/distribution/42.2/download/evolucion-principales-variables-ocupacionales-eph-puntual-valores-mensuales.csv",
+}
+
+
 def main():
+    for nombre, url in CSVS.items():
+        try:
+            with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "presupuesto-argentina"}), timeout=120) as r:
+                (DEST.parent / nombre).write_bytes(r.read())
+            print("OK", nombre)
+        except Exception as e:  # noqa: BLE001
+            print("FALLÓ", nombre, e)
     previo = json.loads(DEST.read_text(encoding="utf-8")) if DEST.exists() else {}
     candidatos = {}
     for q in BUSQUEDAS:
