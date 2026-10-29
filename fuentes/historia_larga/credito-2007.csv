@@ -1,0 +1,397 @@
+﻿finalidad_desc,funcion_desc,inciso_desc,jurisdiccion_desc,credito_presupuestado,credito_vigente,credito_devengado
+ADMINISTRACION GUBERNAMENTAL,Administración Fiscal,Activos Financieros,Ministerio de Economía y Producción,0.1,0.1,0
+ADMINISTRACION GUBERNAMENTAL,Administración Fiscal,Bienes de consumo,Ministerio de Economía y Producción,1.44984,1.95384,0.83223505
+ADMINISTRACION GUBERNAMENTAL,Administración Fiscal,Bienes de consumo,"Ministerio de Planificación Federal, Inversión Publica y Ser",0.531,0.581,0.55774669
+ADMINISTRACION GUBERNAMENTAL,Administración Fiscal,Bienes de consumo,Obligaciones a Cargo del Tesoro,1,0,0
+ADMINISTRACION GUBERNAMENTAL,Administración Fiscal,Bienes de uso,Ministerio de Economía y Producción,30.109368,32.683986,8.45382358
+ADMINISTRACION GUBERNAMENTAL,Administración Fiscal,Bienes de uso,"Ministerio de Planificación Federal, Inversión Publica y Ser",1.607,1.787,0.43548354
+ADMINISTRACION GUBERNAMENTAL,Administración Fiscal,Gastos en personal,Ministerio de Economía y Producción,62.280283,75.638064,64.63774173
+ADMINISTRACION GUBERNAMENTAL,Administración Fiscal,Gastos en personal,"Ministerio de Planificación Federal, Inversión Publica y Ser",24.511986,23.188986,21.45891863
+ADMINISTRACION GUBERNAMENTAL,Administración Fiscal,Gastos en personal,Obligaciones a Cargo del Tesoro,1.138,0,0
+ADMINISTRACION GUBERNAMENTAL,Administración Fiscal,Otros gastos,Ministerio de Economía y Producción,0,0.1,0.01473
+ADMINISTRACION GUBERNAMENTAL,Administración Fiscal,Servicios no personales,Ministerio de Economía y Producción,46.500482,45.351272,24.3259752
+ADMINISTRACION GUBERNAMENTAL,Administración Fiscal,Servicios no personales,"Ministerio de Planificación Federal, Inversión Publica y Ser",6.4499,9.086028,8.58675729
+ADMINISTRACION GUBERNAMENTAL,Administración Fiscal,Servicios no personales,Obligaciones a Cargo del Tesoro,14,0,0
+ADMINISTRACION GUBERNAMENTAL,Administración Fiscal,Transferencias,Ministerio de Economía y Producción,22.32,15.356307,2.6327258
+ADMINISTRACION GUBERNAMENTAL,Administración Fiscal,Transferencias,Obligaciones a Cargo del Tesoro,18.32,3.1205,0.39
+ADMINISTRACION GUBERNAMENTAL,Control de la Gestión Pública,Bienes de consumo,Poder Legislativo Nacional,0.338,0.398,0.35678297
+ADMINISTRACION GUBERNAMENTAL,Control de la Gestión Pública,Bienes de consumo,Presidencia de la Nación,0.32,0.37,0.35154246
+ADMINISTRACION GUBERNAMENTAL,Control de la Gestión Pública,Bienes de uso,"Ministerio de Planificación Federal, Inversión Publica y Ser",6,5.9,3.95199584
+ADMINISTRACION GUBERNAMENTAL,Control de la Gestión Pública,Bienes de uso,Poder Legislativo Nacional,0.7195,1.151465,0.69815456
+ADMINISTRACION GUBERNAMENTAL,Control de la Gestión Pública,Bienes de uso,Presidencia de la Nación,0.65,0.8,0.45264319
+ADMINISTRACION GUBERNAMENTAL,Control de la Gestión Pública,Gastos en personal,Poder Legislativo Nacional,43.639,53.491057,52.66101181
+ADMINISTRACION GUBERNAMENTAL,Control de la Gestión Pública,Gastos en personal,Presidencia de la Nación,32.939637,35.025,34.01958531
+ADMINISTRACION GUBERNAMENTAL,Control de la Gestión Pública,Servicios no personales,Poder Legislativo Nacional,7.3395,8.944417,8.28353637
+ADMINISTRACION GUBERNAMENTAL,Control de la Gestión Pública,Servicios no personales,Presidencia de la Nación,2.451002,2.651002,2.35302733
+ADMINISTRACION GUBERNAMENTAL,Control de la Gestión Pública,Transferencias,Poder Legislativo Nacional,0.033,0.027026,0.0270256
+ADMINISTRACION GUBERNAMENTAL,Dirección Superior Ejecutiva,Bienes de consumo,Jefatura de Gabinete de Ministros,1.884225,2.589225,1.68029833
+ADMINISTRACION GUBERNAMENTAL,Dirección Superior Ejecutiva,Bienes de consumo,Ministerio de Economía y Producción,3.734542,7.43964,5.6678894
+ADMINISTRACION GUBERNAMENTAL,Dirección Superior Ejecutiva,Bienes de consumo,Ministerio de Justicia  y Derechos Humanos,0.06993,0.00693,0.00663593
+ADMINISTRACION GUBERNAMENTAL,Dirección Superior Ejecutiva,Bienes de consumo,"Ministerio de Planificación Federal, Inversión Publica y Ser",0.900574,0.995154,0.85441294
+ADMINISTRACION GUBERNAMENTAL,Dirección Superior Ejecutiva,Bienes de consumo,Presidencia de la Nación,29.499955,26.946891,21.63485595
+ADMINISTRACION GUBERNAMENTAL,Dirección Superior Ejecutiva,Bienes de uso,Jefatura de Gabinete de Ministros,2.070048,4.275048,2.80787696
+ADMINISTRACION GUBERNAMENTAL,Dirección Superior Ejecutiva,Bienes de uso,Ministerio de Economía y Producción,8.189525,8.734118,3.28106264
+ADMINISTRACION GUBERNAMENTAL,Dirección Superior Ejecutiva,Bienes de uso,"Ministerio de Planificación Federal, Inversión Publica y Ser",12.906916,12.884916,2.78729101
+ADMINISTRACION GUBERNAMENTAL,Dirección Superior Ejecutiva,Bienes de uso,Presidencia de la Nación,19.959648,45.003942,27.17086475
+ADMINISTRACION GUBERNAMENTAL,Dirección Superior Ejecutiva,Gastos en personal,Jefatura de Gabinete de Ministros,81.520422,101.398922,96.06972858
+ADMINISTRACION GUBERNAMENTAL,Dirección Superior Ejecutiva,Gastos en personal,Ministerio de Economía y Producción,95.833323,110.706529,92.30386945
+ADMINISTRACION GUBERNAMENTAL,Dirección Superior Ejecutiva,Gastos en personal,Ministerio de Justicia  y Derechos Humanos,2.577817,2.577817,2.577817
+ADMINISTRACION GUBERNAMENTAL,Dirección Superior Ejecutiva,Gastos en personal,"Ministerio de Planificación Federal, Inversión Publica y Ser",24.374027,23.274027,22.16589717
+ADMINISTRACION GUBERNAMENTAL,Dirección Superior Ejecutiva,Gastos en personal,Presidencia de la Nación,55.866215,69.652555,66.36140077
+ADMINISTRACION GUBERNAMENTAL,Dirección Superior Ejecutiva,Servicios no personales,Jefatura de Gabinete de Ministros,229.316817,273.268187,257.2756987
+ADMINISTRACION GUBERNAMENTAL,Dirección Superior Ejecutiva,Servicios no personales,Ministerio de Economía y Producción,170.001365,153.478672,102.4631745
+ADMINISTRACION GUBERNAMENTAL,Dirección Superior Ejecutiva,Servicios no personales,Ministerio de Justicia  y Derechos Humanos,0.019022,0.083525,0.00017245
+ADMINISTRACION GUBERNAMENTAL,Dirección Superior Ejecutiva,Servicios no personales,"Ministerio de Planificación Federal, Inversión Publica y Ser",23.080768,24.21816,19.26227698
+ADMINISTRACION GUBERNAMENTAL,Dirección Superior Ejecutiva,Servicios no personales,Presidencia de la Nación,55.417427,67.516108,56.63438838
+ADMINISTRACION GUBERNAMENTAL,Dirección Superior Ejecutiva,Transferencias,Jefatura de Gabinete de Ministros,13.691742,15.451872,15.3685465
+ADMINISTRACION GUBERNAMENTAL,Dirección Superior Ejecutiva,Transferencias,Ministerio de Economía y Producción,10.62,11.909714,11.1
+ADMINISTRACION GUBERNAMENTAL,Dirección Superior Ejecutiva,Transferencias,Ministerio de Justicia  y Derechos Humanos,0.0945,0.0945,0.09273
+ADMINISTRACION GUBERNAMENTAL,Dirección Superior Ejecutiva,Transferencias,"Ministerio de Planificación Federal, Inversión Publica y Ser",0.82,0.9,0.89055543
+ADMINISTRACION GUBERNAMENTAL,Dirección Superior Ejecutiva,Transferencias,Presidencia de la Nación,7.847,11.4148,10.74508992
+ADMINISTRACION GUBERNAMENTAL,Información y Estadística Básicas,Bienes de consumo,Ministerio de Economía y Producción,1.906,2.106,0.93038567
+ADMINISTRACION GUBERNAMENTAL,Información y Estadística Básicas,Bienes de consumo,Ministerio del Interior,0.131284,0.296784,0.24543839
+ADMINISTRACION GUBERNAMENTAL,Información y Estadística Básicas,Bienes de uso,Ministerio de Economía y Producción,1.601,1.308,0.66865899
+ADMINISTRACION GUBERNAMENTAL,Información y Estadística Básicas,Bienes de uso,Ministerio del Interior,0.107094,0.953451,0.6636429
+ADMINISTRACION GUBERNAMENTAL,Información y Estadística Básicas,Gastos en personal,Ministerio de Economía y Producción,54.235576,63.954091,57.71202619
+ADMINISTRACION GUBERNAMENTAL,Información y Estadística Básicas,Gastos en personal,Ministerio del Interior,1.204237,1.178731,1.16095616
+ADMINISTRACION GUBERNAMENTAL,Información y Estadística Básicas,Servicios no personales,Ministerio de Economía y Producción,54.093424,54.42963,41.26953873
+ADMINISTRACION GUBERNAMENTAL,Información y Estadística Básicas,Servicios no personales,Ministerio del Interior,2.111621,1.199764,0.56046887
+ADMINISTRACION GUBERNAMENTAL,Información y Estadística Básicas,Transferencias,Ministerio de Economía y Producción,0.164,0.164,0
+ADMINISTRACION GUBERNAMENTAL,Información y Estadística Básicas,Transferencias,Ministerio del Interior,0.15,0.05,0.037128
+ADMINISTRACION GUBERNAMENTAL,Judicial,Bienes de consumo,Ministerio de Justicia  y Derechos Humanos,2.815366,3.6444,2.21521805
+ADMINISTRACION GUBERNAMENTAL,Judicial,Bienes de consumo,Ministerio Público,4.359232,4.985292,4.64536611
+ADMINISTRACION GUBERNAMENTAL,Judicial,Bienes de consumo,Poder Judicial de la Nación,23.311001,26.03042,20.19093696
+ADMINISTRACION GUBERNAMENTAL,Judicial,Bienes de consumo,Poder Legislativo Nacional,0.311,0.326,0.32599684
+ADMINISTRACION GUBERNAMENTAL,Judicial,Bienes de uso,Ministerio de Justicia  y Derechos Humanos,2.708,3.674345,1.67986703
+ADMINISTRACION GUBERNAMENTAL,Judicial,Bienes de uso,Ministerio Público,6.075133,8.806133,7.14125264
+ADMINISTRACION GUBERNAMENTAL,Judicial,Bienes de uso,Poder Judicial de la Nación,88.106001,76.745286,36.45735055
+ADMINISTRACION GUBERNAMENTAL,Judicial,Bienes de uso,Poder Legislativo Nacional,0.592,0.5035,0.49972932
+ADMINISTRACION GUBERNAMENTAL,Judicial,Gastos en personal,Ministerio de Justicia  y Derechos Humanos,50.425896,59.5015,56.99572989
+ADMINISTRACION GUBERNAMENTAL,Judicial,Gastos en personal,Ministerio Público,351.721228,371.226176,366.75493075
+ADMINISTRACION GUBERNAMENTAL,Judicial,Gastos en personal,Poder Judicial de la Nación,1365.017996,1443.84122,1409.54740479
+ADMINISTRACION GUBERNAMENTAL,Judicial,Gastos en personal,Poder Legislativo Nacional,4.589,5.833895,5.78730575
+ADMINISTRACION GUBERNAMENTAL,Judicial,Servicios no personales,Ministerio de Justicia  y Derechos Humanos,20.704053,23.510163,16.76537331
+ADMINISTRACION GUBERNAMENTAL,Judicial,Servicios no personales,Ministerio Público,20.842222,19.565602,15.88517441
+ADMINISTRACION GUBERNAMENTAL,Judicial,Servicios no personales,Obligaciones a Cargo del Tesoro,0.32,1.411182,1.161192
+ADMINISTRACION GUBERNAMENTAL,Judicial,Servicios no personales,Poder Judicial de la Nación,71.620003,81.843693,65.20775895
+ADMINISTRACION GUBERNAMENTAL,Judicial,Servicios no personales,Poder Legislativo Nacional,1.31,1.3835,1.38109177
+ADMINISTRACION GUBERNAMENTAL,Judicial,Transferencias,Ministerio de Justicia  y Derechos Humanos,18.6115,33.25965,28.77047557
+ADMINISTRACION GUBERNAMENTAL,Judicial,Transferencias,Ministerio Público,0.06,0.00054,0.00054
+ADMINISTRACION GUBERNAMENTAL,Judicial,Transferencias,Poder Judicial de la Nación,4.82988,3.090216,3.090216
+ADMINISTRACION GUBERNAMENTAL,Legislativa,Bienes de consumo,Poder Legislativo Nacional,7.428135,7.62924,6.49904283
+ADMINISTRACION GUBERNAMENTAL,Legislativa,Bienes de uso,Poder Legislativo Nacional,5.1195,6.542665,2.72820972
+ADMINISTRACION GUBERNAMENTAL,Legislativa,Gastos en personal,Poder Legislativo Nacional,487.65423,556.776556,549.32463719
+ADMINISTRACION GUBERNAMENTAL,Legislativa,Servicios no personales,Poder Legislativo Nacional,50.209971,58.531358,52.34657744
+ADMINISTRACION GUBERNAMENTAL,Legislativa,Transferencias,Poder Legislativo Nacional,6.674,12.351765,12.3212388
+ADMINISTRACION GUBERNAMENTAL,Relaciones Exteriores,Activos Financieros,Obligaciones a Cargo del Tesoro,169.183,194.045556,193.00910488
+ADMINISTRACION GUBERNAMENTAL,Relaciones Exteriores,Bienes de consumo,"Ministerio de Relac. Exteriores, Comercio Internac. y Culto",2.757345,3.191645,2.86372817
+ADMINISTRACION GUBERNAMENTAL,Relaciones Exteriores,Bienes de uso,"Ministerio de Relac. Exteriores, Comercio Internac. y Culto",8.393707,16.665512,13.20194994
+ADMINISTRACION GUBERNAMENTAL,Relaciones Exteriores,Gastos en personal,"Ministerio de Relac. Exteriores, Comercio Internac. y Culto",529.780926,564.543246,552.25831453
+ADMINISTRACION GUBERNAMENTAL,Relaciones Exteriores,Servicios no personales,"Ministerio de Relac. Exteriores, Comercio Internac. y Culto",150.134814,170.704001,165.2230333
+ADMINISTRACION GUBERNAMENTAL,Relaciones Exteriores,Transferencias,"Ministerio de Relac. Exteriores, Comercio Internac. y Culto",207.502881,269.270881,267.82808776
+ADMINISTRACION GUBERNAMENTAL,Relaciones Exteriores,Transferencias,Obligaciones a Cargo del Tesoro,11.121,10.983444,10.98174986
+ADMINISTRACION GUBERNAMENTAL,Relaciones Interiores,Activos Financieros,Ministerio del Interior,10,10,0.0936
+ADMINISTRACION GUBERNAMENTAL,Relaciones Interiores,Bienes de consumo,Ministerio del Interior,16.638969,16.761269,12.37649972
+ADMINISTRACION GUBERNAMENTAL,Relaciones Interiores,Bienes de uso,Ministerio del Interior,4.957867,11.209497,7.46373079
+ADMINISTRACION GUBERNAMENTAL,Relaciones Interiores,Gastos en personal,Ministerio del Interior,171.540827,193.379737,190.79637953
+ADMINISTRACION GUBERNAMENTAL,Relaciones Interiores,Otros gastos,Ministerio del Interior,0,0.01,0.00329063
+ADMINISTRACION GUBERNAMENTAL,Relaciones Interiores,Servicios no personales,Ministerio del Interior,121.604789,160.878603,148.65536527
+ADMINISTRACION GUBERNAMENTAL,Relaciones Interiores,Transferencias,Ministerio del Interior,176.457947,294.580172,291.31238666
+ADMINISTRACION GUBERNAMENTAL,Relaciones Interiores,Transferencias,Obligaciones a Cargo del Tesoro,719.657,959.456352,941.33004524
+DEUDA PUBLICA,Servicio de la Deuda Pública,Servicio de la deuda y disminución de otros pasivos,Ministerio de Economía y Producción,6.973,4.558,4.558
+DEUDA PUBLICA,Servicio de la Deuda Pública,Servicio de la deuda y disminución de otros pasivos,"Ministerio de Educación, Ciencia y Tecnología",4.601,4.845518,4.84551768
+DEUDA PUBLICA,Servicio de la Deuda Pública,Servicio de la deuda y disminución de otros pasivos,"Ministerio de Planificación Federal, Inversión Publica y Ser",144.451,204.615588,141.59277712
+DEUDA PUBLICA,Servicio de la Deuda Pública,Servicio de la deuda y disminución de otros pasivos,Ministerio de Salud,0.28,0.28,0
+DEUDA PUBLICA,Servicio de la Deuda Pública,Servicio de la deuda y disminución de otros pasivos,Servicio de la Deuda Pública,13977.443,17468.038,17102.33293293
+SERVICIOS DE DEFENSA Y SEGURIDAD,Defensa,Activos Financieros,Ministerio de Defensa,0.077,0.077,0.077
+SERVICIOS DE DEFENSA Y SEGURIDAD,Defensa,Bienes de consumo,Ministerio de Defensa,387.27709,454.811802,437.3280751
+SERVICIOS DE DEFENSA Y SEGURIDAD,Defensa,Bienes de uso,Ministerio de Defensa,204.594057,276.186789,228.02852264
+SERVICIOS DE DEFENSA Y SEGURIDAD,Defensa,Gastos en personal,Ministerio de Defensa,2594.094031,2933.619705,2922.52480222
+SERVICIOS DE DEFENSA Y SEGURIDAD,Defensa,Otros gastos,Ministerio de Defensa,0,2.4925,2.4925
+SERVICIOS DE DEFENSA Y SEGURIDAD,Defensa,Servicios no personales,Ministerio de Defensa,408.161194,559.492777,538.53137781
+SERVICIOS DE DEFENSA Y SEGURIDAD,Defensa,Servicios no personales,Obligaciones a Cargo del Tesoro,0,4.994996,4.9949934
+SERVICIOS DE DEFENSA Y SEGURIDAD,Defensa,Transferencias,Ministerio de Defensa,1.171,7.19561,7.12943673
+SERVICIOS DE DEFENSA Y SEGURIDAD,Inteligencia,Bienes de consumo,Ministerio de Defensa,0.202,0.1219,0.10669468
+SERVICIOS DE DEFENSA Y SEGURIDAD,Inteligencia,Bienes de consumo,Ministerio del Interior,0.996201,1.016356,1.19679502
+SERVICIOS DE DEFENSA Y SEGURIDAD,Inteligencia,Bienes de uso,Ministerio de Defensa,0.19,0.3004,0.10258443
+SERVICIOS DE DEFENSA Y SEGURIDAD,Inteligencia,Bienes de uso,Ministerio del Interior,4.255463,2.295131,0.58546594
+SERVICIOS DE DEFENSA Y SEGURIDAD,Inteligencia,Gastos en personal,Ministerio de Defensa,91.560527,136.36572,134.55954669
+SERVICIOS DE DEFENSA Y SEGURIDAD,Inteligencia,Gastos en personal,Ministerio del Interior,68.210986,80.564761,82.40101873
+SERVICIOS DE DEFENSA Y SEGURIDAD,Inteligencia,Gastos en personal,Presidencia de la Nación,111.417,111.417,109.14114
+SERVICIOS DE DEFENSA Y SEGURIDAD,Inteligencia,Servicios no personales,Ministerio de Defensa,5.1083,9.978761,9.89473624
+SERVICIOS DE DEFENSA Y SEGURIDAD,Inteligencia,Servicios no personales,Ministerio del Interior,11.914059,11.089904,9.03874854
+SERVICIOS DE DEFENSA Y SEGURIDAD,Inteligencia,Servicios no personales,Presidencia de la Nación,177.468,177.468,177.46449351
+SERVICIOS DE DEFENSA Y SEGURIDAD,Seguridad Interior,Bienes de consumo,Ministerio del Interior,251.006984,213.871796,202.71561796
+SERVICIOS DE DEFENSA Y SEGURIDAD,Seguridad Interior,Bienes de consumo,Obligaciones a Cargo del Tesoro,1.04,0,0
+SERVICIOS DE DEFENSA Y SEGURIDAD,Seguridad Interior,Bienes de uso,Ministerio del Interior,121.642803,189.978739,169.88225214
+SERVICIOS DE DEFENSA Y SEGURIDAD,Seguridad Interior,Bienes de uso,Obligaciones a Cargo del Tesoro,25.895,3.795,0
+SERVICIOS DE DEFENSA Y SEGURIDAD,Seguridad Interior,Gastos en personal,Ministerio del Interior,2493.562153,2873.1844,2846.18992269
+SERVICIOS DE DEFENSA Y SEGURIDAD,Seguridad Interior,Gastos en personal,Obligaciones a Cargo del Tesoro,10.691,0,0
+SERVICIOS DE DEFENSA Y SEGURIDAD,Seguridad Interior,Otros gastos,Ministerio del Interior,0,14.429975,14.429975
+SERVICIOS DE DEFENSA Y SEGURIDAD,Seguridad Interior,Servicios no personales,"Ministerio de Planificación Federal, Inversión Publica y Ser",26.537912,29.537912,29.460246
+SERVICIOS DE DEFENSA Y SEGURIDAD,Seguridad Interior,Servicios no personales,Ministerio del Interior,222.45662,212.8066,204.52678074
+SERVICIOS DE DEFENSA Y SEGURIDAD,Seguridad Interior,Servicios no personales,Obligaciones a Cargo del Tesoro,6.274,5.453855,0
+SERVICIOS DE DEFENSA Y SEGURIDAD,Seguridad Interior,Transferencias,Ministerio del Interior,35.39,54.31709,51.51985561
+SERVICIOS DE DEFENSA Y SEGURIDAD,Sistema Penal,Bienes de consumo,Ministerio de Justicia  y Derechos Humanos,39.528326,54.969226,46.02287091
+SERVICIOS DE DEFENSA Y SEGURIDAD,Sistema Penal,Bienes de uso,Ministerio de Justicia  y Derechos Humanos,60.948,61.978096,18.567411
+SERVICIOS DE DEFENSA Y SEGURIDAD,Sistema Penal,Gastos en personal,Ministerio de Justicia  y Derechos Humanos,287.100509,307.233509,304.16902056
+SERVICIOS DE DEFENSA Y SEGURIDAD,Sistema Penal,Servicios no personales,Ministerio de Justicia  y Derechos Humanos,140.919831,157.892831,105.49596808
+SERVICIOS DE DEFENSA Y SEGURIDAD,Sistema Penal,Transferencias,Ministerio de Justicia  y Derechos Humanos,6.272,18.472,14.48600584
+SERVICIOS ECONOMICOS,Agricultura,Bienes de consumo,Ministerio de Economía y Producción,42.962542,47.062642,32.74419836
+SERVICIOS ECONOMICOS,Agricultura,Bienes de uso,Ministerio de Economía y Producción,18.2474,21.7459,11.70448022
+SERVICIOS ECONOMICOS,Agricultura,Gastos en personal,Ministerio de Economía y Producción,224.01735,287.105225,277.35398675
+SERVICIOS ECONOMICOS,Agricultura,Servicios no personales,Ministerio de Economía y Producción,132.076816,128.917204,114.99182673
+SERVICIOS ECONOMICOS,Agricultura,Transferencias,Ministerio de Economía y Producción,97.0814,1323.539989,1286.2237384
+SERVICIOS ECONOMICOS,Agricultura,Transferencias,Obligaciones a Cargo del Tesoro,217.9,224.4,217.364
+SERVICIOS ECONOMICOS,"Comercio, Turismo y Otros Servicios",Bienes de consumo,Ministerio de Economía y Producción,0.6753,0.8708,0.60503676
+SERVICIOS ECONOMICOS,"Comercio, Turismo y Otros Servicios",Bienes de consumo,"Ministerio de Planificación Federal, Inversión Publica y Ser",0.0807,0.118667,0.07495459
+SERVICIOS ECONOMICOS,"Comercio, Turismo y Otros Servicios",Bienes de consumo,Presidencia de la Nación,6.199,3.329336,3.06135407
+SERVICIOS ECONOMICOS,"Comercio, Turismo y Otros Servicios",Bienes de uso,Ministerio de Economía y Producción,0.625,0.817946,0.36304464
+SERVICIOS ECONOMICOS,"Comercio, Turismo y Otros Servicios",Bienes de uso,"Ministerio de Planificación Federal, Inversión Publica y Ser",27.401665,23.974521,19.48852568
+SERVICIOS ECONOMICOS,"Comercio, Turismo y Otros Servicios",Bienes de uso,Presidencia de la Nación,2.0823,2.1473,1.67152602
+SERVICIOS ECONOMICOS,"Comercio, Turismo y Otros Servicios",Gastos en personal,Ministerio de Economía y Producción,20.395,33.212,25.80991886
+SERVICIOS ECONOMICOS,"Comercio, Turismo y Otros Servicios",Gastos en personal,"Ministerio de Planificación Federal, Inversión Publica y Ser",3.868807,5.166625,5.02775995
+SERVICIOS ECONOMICOS,"Comercio, Turismo y Otros Servicios",Gastos en personal,Presidencia de la Nación,21.637677,26.69912,25.3525798
+SERVICIOS ECONOMICOS,"Comercio, Turismo y Otros Servicios",Servicios no personales,Ministerio de Economía y Producción,8.6072,12.287493,7.20514771
+SERVICIOS ECONOMICOS,"Comercio, Turismo y Otros Servicios",Servicios no personales,"Ministerio de Planificación Federal, Inversión Publica y Ser",6.626956,19.922137,17.71400319
+SERVICIOS ECONOMICOS,"Comercio, Turismo y Otros Servicios",Servicios no personales,Presidencia de la Nación,91.9337,136.472489,126.28013404
+SERVICIOS ECONOMICOS,"Comercio, Turismo y Otros Servicios",Transferencias,Ministerio de Economía y Producción,3.422,34.797128,6.3627813
+SERVICIOS ECONOMICOS,"Comercio, Turismo y Otros Servicios",Transferencias,"Ministerio de Planificación Federal, Inversión Publica y Ser",5.906,14.4282,14.23453384
+SERVICIOS ECONOMICOS,"Comercio, Turismo y Otros Servicios",Transferencias,Presidencia de la Nación,4.2,5.684516,5.18792223
+SERVICIOS ECONOMICOS,Comunicaciones,Bienes de consumo,"Ministerio de Planificación Federal, Inversión Publica y Ser",5.281471,3.463471,3.04691096
+SERVICIOS ECONOMICOS,Comunicaciones,Bienes de consumo,Presidencia de la Nación,0.6088,0.83014,0.78588955
+SERVICIOS ECONOMICOS,Comunicaciones,Bienes de uso,"Ministerio de Planificación Federal, Inversión Publica y Ser",4.574986,8.739986,6.0875954
+SERVICIOS ECONOMICOS,Comunicaciones,Bienes de uso,Presidencia de la Nación,0.32,0.46851,0.46089904
+SERVICIOS ECONOMICOS,Comunicaciones,Gastos en personal,"Ministerio de Planificación Federal, Inversión Publica y Ser",52.592054,56.247929,51.73514805
+SERVICIOS ECONOMICOS,Comunicaciones,Gastos en personal,Presidencia de la Nación,17.969,23.251125,22.86688978
+SERVICIOS ECONOMICOS,Comunicaciones,Servicios no personales,"Ministerio de Planificación Federal, Inversión Publica y Ser",17.879816,27.865622,24.94059773
+SERVICIOS ECONOMICOS,Comunicaciones,Servicios no personales,Presidencia de la Nación,11.005371,12.514521,11.8517548
+SERVICIOS ECONOMICOS,Comunicaciones,Transferencias,"Ministerio de Planificación Federal, Inversión Publica y Ser",2.091057,2.091057,2.08582696
+SERVICIOS ECONOMICOS,Comunicaciones,Transferencias,Obligaciones a Cargo del Tesoro,181.7,288.5,288.496732
+SERVICIOS ECONOMICOS,Comunicaciones,Transferencias,Presidencia de la Nación,0.1,0.136,0.1328
+SERVICIOS ECONOMICOS,Ecología y Medio Ambiente,Bienes de consumo,Jefatura de Gabinete de Ministros,39.769599,4.118472,1.8947542
+SERVICIOS ECONOMICOS,Ecología y Medio Ambiente,Bienes de consumo,"Ministerio de Planificación Federal, Inversión Publica y Ser",0.024,0.001923,0.0019218
+SERVICIOS ECONOMICOS,Ecología y Medio Ambiente,Bienes de consumo,Presidencia de la Nación,9.414651,10.418029,9.55206716
+SERVICIOS ECONOMICOS,Ecología y Medio Ambiente,Bienes de uso,Jefatura de Gabinete de Ministros,29.814905,64.487973,10.87968543
+SERVICIOS ECONOMICOS,Ecología y Medio Ambiente,Bienes de uso,"Ministerio de Planificación Federal, Inversión Publica y Ser",13.09,0,0
+SERVICIOS ECONOMICOS,Ecología y Medio Ambiente,Bienes de uso,Presidencia de la Nación,21.943761,25.221603,19.21784745
+SERVICIOS ECONOMICOS,Ecología y Medio Ambiente,Gastos en personal,Jefatura de Gabinete de Ministros,16.464286,40.580993,30.29500677
+SERVICIOS ECONOMICOS,Ecología y Medio Ambiente,Gastos en personal,"Ministerio de Planificación Federal, Inversión Publica y Ser",0.815992,0,0
+SERVICIOS ECONOMICOS,Ecología y Medio Ambiente,Gastos en personal,Presidencia de la Nación,42.570838,54.161498,53.47128369
+SERVICIOS ECONOMICOS,Ecología y Medio Ambiente,Servicios no personales,Jefatura de Gabinete de Ministros,80.07365,40.171002,28.76910108
+SERVICIOS ECONOMICOS,Ecología y Medio Ambiente,Servicios no personales,"Ministerio de Planificación Federal, Inversión Publica y Ser",3.0026,0.277412,0.27740777
+SERVICIOS ECONOMICOS,Ecología y Medio Ambiente,Servicios no personales,Presidencia de la Nación,12.635675,12.754926,10.89136496
+SERVICIOS ECONOMICOS,Ecología y Medio Ambiente,Transferencias,Jefatura de Gabinete de Ministros,52.77726,79.803975,54.25002934
+SERVICIOS ECONOMICOS,Ecología y Medio Ambiente,Transferencias,Presidencia de la Nación,1.1875,1.187029,0.57209473
+SERVICIOS ECONOMICOS,"Energía, Combustibles y Minería",Activos Financieros,"Ministerio de Planificación Federal, Inversión Publica y Ser",460.178,739.061074,708.987
+SERVICIOS ECONOMICOS,"Energía, Combustibles y Minería",Activos Financieros,Obligaciones a Cargo del Tesoro,429,252.852,252.852
+SERVICIOS ECONOMICOS,"Energía, Combustibles y Minería",Bienes de consumo,"Ministerio de Planificación Federal, Inversión Publica y Ser",2.027296,2.025296,1.5198222
+SERVICIOS ECONOMICOS,"Energía, Combustibles y Minería",Bienes de consumo,Presidencia de la Nación,1.54,1.915,0.52611124
+SERVICIOS ECONOMICOS,"Energía, Combustibles y Minería",Bienes de uso,"Ministerio de Planificación Federal, Inversión Publica y Ser",6.800255,7.307798,1.78721193
+SERVICIOS ECONOMICOS,"Energía, Combustibles y Minería",Bienes de uso,Presidencia de la Nación,2.042,4.605456,1.05854452
+SERVICIOS ECONOMICOS,"Energía, Combustibles y Minería",Gastos en personal,"Ministerio de Planificación Federal, Inversión Publica y Ser",52.516169,67.522894,62.52487303
+SERVICIOS ECONOMICOS,"Energía, Combustibles y Minería",Gastos en personal,Presidencia de la Nación,24.388,25.862327,21.59080207
+SERVICIOS ECONOMICOS,"Energía, Combustibles y Minería",Otros gastos,"Ministerio de Planificación Federal, Inversión Publica y Ser",0,0.00083,0.00082975
+SERVICIOS ECONOMICOS,"Energía, Combustibles y Minería",Servicios no personales,"Ministerio de Planificación Federal, Inversión Publica y Ser",78.582286,74.316785,49.64961297
+SERVICIOS ECONOMICOS,"Energía, Combustibles y Minería",Servicios no personales,Presidencia de la Nación,12.019,19.222339,11.67114725
+SERVICIOS ECONOMICOS,"Energía, Combustibles y Minería",Transferencias,"Ministerio de Planificación Federal, Inversión Publica y Ser",3348.810901,7154.755267,7069.75461343
+SERVICIOS ECONOMICOS,"Energía, Combustibles y Minería",Transferencias,Obligaciones a Cargo del Tesoro,1261.199,1749.78337,1749.31587
+SERVICIOS ECONOMICOS,"Energía, Combustibles y Minería",Transferencias,Presidencia de la Nación,6.643,6.001205,4.57581312
+SERVICIOS ECONOMICOS,Industria,Activos Financieros,Ministerio de Economía y Producción,50,566.864074,535.32541047
+SERVICIOS ECONOMICOS,Industria,Bienes de consumo,Ministerio de Economía y Producción,3.023611,2.729077,1.96270696
+SERVICIOS ECONOMICOS,Industria,Bienes de consumo,"Ministerio de Planificación Federal, Inversión Publica y Ser",25,43.401586,42.64511689
+SERVICIOS ECONOMICOS,Industria,Bienes de uso,Ministerio de Economía y Producción,3.456449,4.057449,2.71627985
+SERVICIOS ECONOMICOS,Industria,Bienes de uso,"Ministerio de Planificación Federal, Inversión Publica y Ser",3,30.45313,26.85140881
+SERVICIOS ECONOMICOS,Industria,Gastos en personal,Ministerio de Economía y Producción,55.754174,71.169447,60.48713187
+SERVICIOS ECONOMICOS,Industria,Gastos en personal,"Ministerio de Planificación Federal, Inversión Publica y Ser",39.368,58.27015,55.07867934
+SERVICIOS ECONOMICOS,Industria,Servicios no personales,Ministerio de Economía y Producción,83.411204,49.711092,11.51094186
+SERVICIOS ECONOMICOS,Industria,Servicios no personales,"Ministerio de Planificación Federal, Inversión Publica y Ser",40.113,33.68836,31.91695322
+SERVICIOS ECONOMICOS,Industria,Transferencias,Ministerio de Economía y Producción,26.96573,28.942509,23.36681691
+SERVICIOS ECONOMICOS,Industria,Transferencias,Obligaciones a Cargo del Tesoro,31.726,224.70163,25.25108476
+SERVICIOS ECONOMICOS,Seguros y Finanzas,Activos Financieros,Obligaciones a Cargo del Tesoro,400,400,160
+SERVICIOS ECONOMICOS,Seguros y Finanzas,Bienes de consumo,Ministerio de Economía y Producción,0.716,0.6753,0.49872495
+SERVICIOS ECONOMICOS,Seguros y Finanzas,Bienes de uso,Ministerio de Economía y Producción,2.66157,5.41857,1.93626453
+SERVICIOS ECONOMICOS,Seguros y Finanzas,Gastos en personal,Ministerio de Economía y Producción,28.404429,29.904429,27.46901051
+SERVICIOS ECONOMICOS,Seguros y Finanzas,Servicios no personales,Ministerio de Economía y Producción,10.21054,10.406255,8.29504511
+SERVICIOS ECONOMICOS,Seguros y Finanzas,Servicios no personales,Obligaciones a Cargo del Tesoro,5.5,6.1,5.65654192
+SERVICIOS ECONOMICOS,Seguros y Finanzas,Transferencias,Ministerio de Economía y Producción,0.463,0.207985,0.20785085
+SERVICIOS ECONOMICOS,Seguros y Finanzas,Transferencias,Obligaciones a Cargo del Tesoro,0.25,5.044471,5.01654228
+SERVICIOS ECONOMICOS,Transporte,Bienes de consumo,Ministerio de Defensa,36.286293,31.43801,20.17000984
+SERVICIOS ECONOMICOS,Transporte,Bienes de consumo,"Ministerio de Planificación Federal, Inversión Publica y Ser",14.641991,16.027251,13.91357969
+SERVICIOS ECONOMICOS,Transporte,Bienes de uso,Ministerio de Defensa,32.863944,102.736999,96.0580211
+SERVICIOS ECONOMICOS,Transporte,Bienes de uso,"Ministerio de Planificación Federal, Inversión Publica y Ser",3412.486116,5565.55907,5062.4787732
+SERVICIOS ECONOMICOS,Transporte,Gastos en personal,Ministerio de Defensa,79.495758,87.050298,87.04667956
+SERVICIOS ECONOMICOS,Transporte,Gastos en personal,"Ministerio de Planificación Federal, Inversión Publica y Ser",190.882689,238.515233,230.13232493
+SERVICIOS ECONOMICOS,Transporte,Servicios no personales,Ministerio de Defensa,72.542626,98.137238,88.53958626
+SERVICIOS ECONOMICOS,Transporte,Servicios no personales,"Ministerio de Planificación Federal, Inversión Publica y Ser",157.296114,146.210665,108.50768291
+SERVICIOS ECONOMICOS,Transporte,Transferencias,Ministerio de Defensa,10.588918,16.979403,16.92733494
+SERVICIOS ECONOMICOS,Transporte,Transferencias,"Ministerio de Planificación Federal, Inversión Publica y Ser",1589.395789,4929.176357,4919.98641327
+SERVICIOS ECONOMICOS,Transporte,Transferencias,Obligaciones a Cargo del Tesoro,24.24,37.280619,37.280619
+SERVICIOS SOCIALES,Agua Potable y Alcantarillado,Activos Financieros,Servicio de la Deuda Pública,0,32.222207,32.22220646
+SERVICIOS SOCIALES,Agua Potable y Alcantarillado,Bienes de consumo,"Ministerio de Planificación Federal, Inversión Publica y Ser",0.33798,0.249164,0.24715934
+SERVICIOS SOCIALES,Agua Potable y Alcantarillado,Bienes de uso,"Ministerio de Planificación Federal, Inversión Publica y Ser",333.9377,437.085545,435.8622869
+SERVICIOS SOCIALES,Agua Potable y Alcantarillado,Gastos en personal,"Ministerio de Planificación Federal, Inversión Publica y Ser",10.467093,13.598705,12.87426242
+SERVICIOS SOCIALES,Agua Potable y Alcantarillado,Servicios no personales,"Ministerio de Planificación Federal, Inversión Publica y Ser",19.470204,21.989073,20.43321863
+SERVICIOS SOCIALES,Agua Potable y Alcantarillado,Transferencias,"Ministerio de Planificación Federal, Inversión Publica y Ser",282.410528,383.647445,375.60107634
+SERVICIOS SOCIALES,Agua Potable y Alcantarillado,Transferencias,Obligaciones a Cargo del Tesoro,166,216,216
+SERVICIOS SOCIALES,Ciencia y Técnica,Activos Financieros,"Ministerio de Educación, Ciencia y Tecnología",48.141,91.141,91.1405
+SERVICIOS SOCIALES,Ciencia y Técnica,Activos Financieros,"Ministerio de Relac. Exteriores, Comercio Internac. y Culto",0.15,0.15,0.15
+SERVICIOS SOCIALES,Ciencia y Técnica,Bienes de consumo,Ministerio de Defensa,48.109658,50.069998,47.14672521
+SERVICIOS SOCIALES,Ciencia y Técnica,Bienes de consumo,Ministerio de Economía y Producción,18.085,35.950837,34.8857903
+SERVICIOS SOCIALES,Ciencia y Técnica,Bienes de consumo,"Ministerio de Educación, Ciencia y Tecnología",1.399,1.33355,1.11406773
+SERVICIOS SOCIALES,Ciencia y Técnica,Bienes de consumo,"Ministerio de Planificación Federal, Inversión Publica y Ser",7.70071,13.749801,11.8406187
+SERVICIOS SOCIALES,Ciencia y Técnica,Bienes de consumo,"Ministerio de Relac. Exteriores, Comercio Internac. y Culto",16.199324,21.606148,19.2371543
+SERVICIOS SOCIALES,Ciencia y Técnica,Bienes de consumo,Ministerio de Salud,6.329,5.766322,3.46438849
+SERVICIOS SOCIALES,Ciencia y Técnica,Bienes de uso,Ministerio de Defensa,15.325289,5.134689,4.7376722
+SERVICIOS SOCIALES,Ciencia y Técnica,Bienes de uso,Ministerio de Economía y Producción,73.73395,77.32622,71.12999536
+SERVICIOS SOCIALES,Ciencia y Técnica,Bienes de uso,"Ministerio de Educación, Ciencia y Tecnología",1.915,30.636,24.73196655
+SERVICIOS SOCIALES,Ciencia y Técnica,Bienes de uso,"Ministerio de Planificación Federal, Inversión Publica y Ser",29.548205,39.457334,31.4321912
+SERVICIOS SOCIALES,Ciencia y Técnica,Bienes de uso,"Ministerio de Relac. Exteriores, Comercio Internac. y Culto",94.532186,88.911496,84.48350794
+SERVICIOS SOCIALES,Ciencia y Técnica,Bienes de uso,Ministerio de Salud,5.331999,2.598399,1.84850896
+SERVICIOS SOCIALES,Ciencia y Técnica,Gastos en personal,Ministerio de Defensa,8.058068,9.158068,8.98852118
+SERVICIOS SOCIALES,Ciencia y Técnica,Gastos en personal,Ministerio de Economía y Producción,349.748,381.466,376.67266022
+SERVICIOS SOCIALES,Ciencia y Técnica,Gastos en personal,"Ministerio de Educación, Ciencia y Tecnología",330.520965,405.196861,404.75611357
+SERVICIOS SOCIALES,Ciencia y Técnica,Gastos en personal,"Ministerio de Planificación Federal, Inversión Publica y Ser",150.474183,170.523927,168.91287361
+SERVICIOS SOCIALES,Ciencia y Técnica,Gastos en personal,"Ministerio de Relac. Exteriores, Comercio Internac. y Culto",26.081796,26.424469,22.08862608
+SERVICIOS SOCIALES,Ciencia y Técnica,Gastos en personal,Ministerio de Salud,33.57495,40.897467,40.7638104
+SERVICIOS SOCIALES,Ciencia y Técnica,Otros gastos,Ministerio de Economía y Producción,0,0.03204,0.03195358
+SERVICIOS SOCIALES,Ciencia y Técnica,Otros gastos,Ministerio de Salud,0,0.035,0
+SERVICIOS SOCIALES,Ciencia y Técnica,Servicios no personales,Ministerio de Defensa,8.867819,30.656487,29.52276306
+SERVICIOS SOCIALES,Ciencia y Técnica,Servicios no personales,Ministerio de Economía y Producción,43.639,72.219789,66.97540959
+SERVICIOS SOCIALES,Ciencia y Técnica,Servicios no personales,"Ministerio de Educación, Ciencia y Tecnología",127.9331,148.029226,141.97317794
+SERVICIOS SOCIALES,Ciencia y Técnica,Servicios no personales,"Ministerio de Planificación Federal, Inversión Publica y Ser",52.727823,56.219782,51.03528754
+SERVICIOS SOCIALES,Ciencia y Técnica,Servicios no personales,"Ministerio de Relac. Exteriores, Comercio Internac. y Culto",18.23042,26.154286,24.75937563
+SERVICIOS SOCIALES,Ciencia y Técnica,Servicios no personales,Ministerio de Salud,10.161004,10.458501,8.3457788
+SERVICIOS SOCIALES,Ciencia y Técnica,Transferencias,Ministerio de Defensa,0.619001,0.619001,0.61867233
+SERVICIOS SOCIALES,Ciencia y Técnica,Transferencias,Ministerio de Economía y Producción,46.816,71.587864,70.50640526
+SERVICIOS SOCIALES,Ciencia y Técnica,Transferencias,"Ministerio de Educación, Ciencia y Tecnología",468.560299,459.844299,434.86934479
+SERVICIOS SOCIALES,Ciencia y Técnica,Transferencias,"Ministerio de Planificación Federal, Inversión Publica y Ser",8.376,12.559683,12.24790471
+SERVICIOS SOCIALES,Ciencia y Técnica,Transferencias,"Ministerio de Relac. Exteriores, Comercio Internac. y Culto",0.766119,0.526119,0.4703635
+SERVICIOS SOCIALES,Ciencia y Técnica,Transferencias,Ministerio de Salud,0.107,0.43975,0.41226684
+SERVICIOS SOCIALES,Educación y Cultura,Activos Financieros,Presidencia de la Nación,0.781,0.981,0.967475
+SERVICIOS SOCIALES,Educación y Cultura,Bienes de consumo,Jefatura de Gabinete de Ministros,2.342228,2.881228,1.06914375
+SERVICIOS SOCIALES,Educación y Cultura,Bienes de consumo,Ministerio de Defensa,43.749428,46.084869,44.78953479
+SERVICIOS SOCIALES,Educación y Cultura,Bienes de consumo,"Ministerio de Educación, Ciencia y Tecnología",92.630431,19.630581,13.14437926
+SERVICIOS SOCIALES,Educación y Cultura,Bienes de consumo,Ministerio de Justicia  y Derechos Humanos,1.655152,1.655152,1.38021846
+SERVICIOS SOCIALES,Educación y Cultura,Bienes de consumo,"Ministerio de Planificación Federal, Inversión Publica y Ser",0.115,0.07,0.04692295
+SERVICIOS SOCIALES,Educación y Cultura,Bienes de consumo,Ministerio del Interior,8.6363,8.51621,7.85823257
+SERVICIOS SOCIALES,Educación y Cultura,Bienes de consumo,Poder Legislativo Nacional,0.539,0.323891,0.29721745
+SERVICIOS SOCIALES,Educación y Cultura,Bienes de consumo,Presidencia de la Nación,5.888149,10.535321,8.50524
+SERVICIOS SOCIALES,Educación y Cultura,Bienes de uso,Jefatura de Gabinete de Ministros,7.93097,2.11797,0.86715036
+SERVICIOS SOCIALES,Educación y Cultura,Bienes de uso,Ministerio de Defensa,53.529529,27.296653,9.90401115
+SERVICIOS SOCIALES,Educación y Cultura,Bienes de uso,"Ministerio de Educación, Ciencia y Tecnología",54.529,16.054945,15.44853094
+SERVICIOS SOCIALES,Educación y Cultura,Bienes de uso,"Ministerio de Planificación Federal, Inversión Publica y Ser",11.87,12.442079,11.88888153
+SERVICIOS SOCIALES,Educación y Cultura,Bienes de uso,Ministerio del Interior,1.01,1.01,0.27506038
+SERVICIOS SOCIALES,Educación y Cultura,Bienes de uso,Poder Legislativo Nacional,0.9,1.716648,1.68747368
+SERVICIOS SOCIALES,Educación y Cultura,Bienes de uso,Presidencia de la Nación,8.627,9.172228,5.72368559
+SERVICIOS SOCIALES,Educación y Cultura,Gastos en personal,Jefatura de Gabinete de Ministros,18.219176,23.29484,21.1858687
+SERVICIOS SOCIALES,Educación y Cultura,Gastos en personal,Ministerio de Defensa,526.132455,580.44503,578.4643075
+SERVICIOS SOCIALES,Educación y Cultura,Gastos en personal,"Ministerio de Educación, Ciencia y Tecnología",74.569609,87.099254,80.21066099
+SERVICIOS SOCIALES,Educación y Cultura,Gastos en personal,Ministerio de Justicia  y Derechos Humanos,11.856755,14.461755,13.56037843
+SERVICIOS SOCIALES,Educación y Cultura,Gastos en personal,"Ministerio de Planificación Federal, Inversión Publica y Ser",2.25937,2.386299,2.31563407
+SERVICIOS SOCIALES,Educación y Cultura,Gastos en personal,Ministerio del Interior,210.700907,209.665619,206.7929215
+SERVICIOS SOCIALES,Educación y Cultura,Gastos en personal,Poder Legislativo Nacional,54.104584,62.605832,62.59478481
+SERVICIOS SOCIALES,Educación y Cultura,Gastos en personal,Presidencia de la Nación,69.161247,84.686236,83.49006967
+SERVICIOS SOCIALES,Educación y Cultura,Servicios no personales,Jefatura de Gabinete de Ministros,25.460742,16.215942,11.59968484
+SERVICIOS SOCIALES,Educación y Cultura,Servicios no personales,Ministerio de Defensa,30.03241,40.435045,39.5139136
+SERVICIOS SOCIALES,Educación y Cultura,Servicios no personales,"Ministerio de Educación, Ciencia y Tecnología",71.305792,89.063175,83.33668603
+SERVICIOS SOCIALES,Educación y Cultura,Servicios no personales,Ministerio de Justicia  y Derechos Humanos,0.081246,0.081246,0.08104632
+SERVICIOS SOCIALES,Educación y Cultura,Servicios no personales,"Ministerio de Planificación Federal, Inversión Publica y Ser",4.251,1.928743,0.96106989
+SERVICIOS SOCIALES,Educación y Cultura,Servicios no personales,Ministerio del Interior,3.650281,3.770371,3.45157165
+SERVICIOS SOCIALES,Educación y Cultura,Servicios no personales,Poder Legislativo Nacional,0.95,1.595273,1.54103495
+SERVICIOS SOCIALES,Educación y Cultura,Servicios no personales,Presidencia de la Nación,41.223316,58.208225,54.13603579
+SERVICIOS SOCIALES,Educación y Cultura,Transferencias,Jefatura de Gabinete de Ministros,23.52153,36.329957,30.49538883
+SERVICIOS SOCIALES,Educación y Cultura,Transferencias,Ministerio de Defensa,0.53146,0.53146,0.5265145
+SERVICIOS SOCIALES,Educación y Cultura,Transferencias,"Ministerio de Educación, Ciencia y Tecnología",6880.659269,8980.164534,8972.22522292
+SERVICIOS SOCIALES,Educación y Cultura,Transferencias,Ministerio de Justicia  y Derechos Humanos,0.807,0.937,0.93089545
+SERVICIOS SOCIALES,Educación y Cultura,Transferencias,"Ministerio de Planificación Federal, Inversión Publica y Ser",330.666,697.098179,696.63158012
+SERVICIOS SOCIALES,Educación y Cultura,Transferencias,Ministerio del Interior,0.45,0.45,0.29492
+SERVICIOS SOCIALES,Educación y Cultura,Transferencias,Obligaciones a Cargo del Tesoro,58.109743,62.154401,62.1543899
+SERVICIOS SOCIALES,Educación y Cultura,Transferencias,Presidencia de la Nación,22.690729,27.353269,26.15616987
+SERVICIOS SOCIALES,Promoción y Asistencia Social,Activos Financieros,Ministerio de Desarrollo Social,4.796,4.796,4.76318
+SERVICIOS SOCIALES,Promoción y Asistencia Social,Bienes de consumo,Ministerio de Desarrollo Social,166.5346,132.379358,114.65364529
+SERVICIOS SOCIALES,Promoción y Asistencia Social,Bienes de consumo,Ministerio de Economía y Producción,0.0154,0.0154,0.00255092
+SERVICIOS SOCIALES,Promoción y Asistencia Social,Bienes de consumo,"Ministerio de Planificación Federal, Inversión Publica y Ser",0.278,0.091,0.07470817
+SERVICIOS SOCIALES,Promoción y Asistencia Social,Bienes de consumo,Ministerio de Salud,1.477,1.269,1.08623508
+SERVICIOS SOCIALES,Promoción y Asistencia Social,Bienes de consumo,Presidencia de la Nación,0.9993,0.77833,0.38932277
+SERVICIOS SOCIALES,Promoción y Asistencia Social,Bienes de uso,Ministerio de Desarrollo Social,5.695,8.78885,4.9390166
+SERVICIOS SOCIALES,Promoción y Asistencia Social,Bienes de uso,Ministerio de Economía y Producción,0.049,0.049,0
+SERVICIOS SOCIALES,Promoción y Asistencia Social,Bienes de uso,"Ministerio de Planificación Federal, Inversión Publica y Ser",2.599,0.178837,0.05115121
+SERVICIOS SOCIALES,Promoción y Asistencia Social,Bienes de uso,Ministerio de Salud,0.672999,0.412999,0.26809556
+SERVICIOS SOCIALES,Promoción y Asistencia Social,Bienes de uso,Presidencia de la Nación,0.637,1.661162,0.52367003
+SERVICIOS SOCIALES,Promoción y Asistencia Social,Gastos en personal,Ministerio de Desarrollo Social,157.259076,228.369254,222.7852083
+SERVICIOS SOCIALES,Promoción y Asistencia Social,Gastos en personal,Ministerio de Economía y Producción,0.356,0.356,0.306766
+SERVICIOS SOCIALES,Promoción y Asistencia Social,Gastos en personal,"Ministerio de Planificación Federal, Inversión Publica y Ser",4.150948,5.243948,4.23399191
+SERVICIOS SOCIALES,Promoción y Asistencia Social,Gastos en personal,Ministerio de Salud,7.369,8.18401,8.0155989
+SERVICIOS SOCIALES,Promoción y Asistencia Social,Gastos en personal,Presidencia de la Nación,13.726745,20.670673,19.70331191
+SERVICIOS SOCIALES,Promoción y Asistencia Social,Otros gastos,Ministerio de Desarrollo Social,0,0.000646,0.00064518
+SERVICIOS SOCIALES,Promoción y Asistencia Social,Servicios no personales,Ministerio de Desarrollo Social,112.205334,147.104524,130.90097334
+SERVICIOS SOCIALES,Promoción y Asistencia Social,Servicios no personales,Ministerio de Economía y Producción,2.2078,2.2078,0.39744677
+SERVICIOS SOCIALES,Promoción y Asistencia Social,Servicios no personales,"Ministerio de Planificación Federal, Inversión Publica y Ser",2.266,2.205,2.13346501
+SERVICIOS SOCIALES,Promoción y Asistencia Social,Servicios no personales,Ministerio de Salud,2.045,1.9182,1.23598295
+SERVICIOS SOCIALES,Promoción y Asistencia Social,Servicios no personales,Presidencia de la Nación,4.985294,6.429096,4.73057155
+SERVICIOS SOCIALES,Promoción y Asistencia Social,Transferencias,Ministerio de Desarrollo Social,2276.718996,2460.256709,2447.08722528
+SERVICIOS SOCIALES,Promoción y Asistencia Social,Transferencias,Ministerio de Economía y Producción,34.8386,28.052311,27.11677037
+SERVICIOS SOCIALES,Promoción y Asistencia Social,Transferencias,"Ministerio de Planificación Federal, Inversión Publica y Ser",279.406221,422.53908,412.08921611
+SERVICIOS SOCIALES,Promoción y Asistencia Social,Transferencias,Obligaciones a Cargo del Tesoro,146.763916,46.800147,0
+SERVICIOS SOCIALES,Promoción y Asistencia Social,Transferencias,Presidencia de la Nación,41.367,48.371318,44.77324195
+SERVICIOS SOCIALES,Salud,Bienes de consumo,Ministerio de Defensa,29.429598,29.812249,28.4920504
+SERVICIOS SOCIALES,Salud,Bienes de consumo,Ministerio de Salud,567.48439,603.431479,584.01941565
+SERVICIOS SOCIALES,Salud,Bienes de consumo,Ministerio del Interior,8.642148,7.930185,5.8861431
+SERVICIOS SOCIALES,Salud,Bienes de uso,Ministerio de Defensa,0.560182,2.182911,2.01711374
+SERVICIOS SOCIALES,Salud,Bienes de uso,"Ministerio de Planificación Federal, Inversión Publica y Ser",33.186178,68.936136,68.91021516
+SERVICIOS SOCIALES,Salud,Bienes de uso,Ministerio de Salud,42.499538,42.18638,20.92140421
+SERVICIOS SOCIALES,Salud,Bienes de uso,Ministerio del Interior,1.76141,1.80541,1.50537693
+SERVICIOS SOCIALES,Salud,Bienes de uso,Poder Legislativo Nacional,0.533,0.053,0.050225
+SERVICIOS SOCIALES,Salud,Gastos en personal,Ministerio de Defensa,302.018778,333.601014,333.36481412
+SERVICIOS SOCIALES,Salud,Gastos en personal,"Ministerio de Educación, Ciencia y Tecnología",0,0,0.00022729
+SERVICIOS SOCIALES,Salud,Gastos en personal,Ministerio de Salud,258.445978,353.39277,347.39620407
+SERVICIOS SOCIALES,Salud,Gastos en personal,Ministerio del Interior,116.35961,116.272287,114.90421657
+SERVICIOS SOCIALES,Salud,Gastos en personal,Poder Legislativo Nacional,24.397,26.774,26.43109881
+SERVICIOS SOCIALES,Salud,Servicios no personales,Ministerio de Defensa,20.13028,22.569464,21.92482814
+SERVICIOS SOCIALES,Salud,Servicios no personales,Ministerio de Salud,160.813842,177.114314,151.37657534
+SERVICIOS SOCIALES,Salud,Servicios no personales,Ministerio del Interior,9.247545,7.855508,6.2212402
+SERVICIOS SOCIALES,Salud,Servicios no personales,Poder Legislativo Nacional,2.566441,3.691441,3.685
+SERVICIOS SOCIALES,Salud,Transferencias,Ministerio de Defensa,0.031,0.009392,0.00930391
+SERVICIOS SOCIALES,Salud,Transferencias,"Ministerio de Educación, Ciencia y Tecnología",58.592786,58.592786,58.592786
+SERVICIOS SOCIALES,Salud,Transferencias,"Ministerio de Planificación Federal, Inversión Publica y Ser",0,38.964786,33.58148294
+SERVICIOS SOCIALES,Salud,Transferencias,Ministerio de Salud,1374.281169,1645.938318,1628.60000758
+SERVICIOS SOCIALES,Salud,Transferencias,"Ministerio de Trabajo, Empleo y Seguridad Social",1295.927,1664.239957,1622.14204415
+SERVICIOS SOCIALES,Salud,Transferencias,Ministerio del Interior,0,14.06,14.06
+SERVICIOS SOCIALES,Seguridad Social,Bienes de consumo,Ministerio de Defensa,0.276,0.289,0.23144057
+SERVICIOS SOCIALES,Seguridad Social,Bienes de consumo,Ministerio de Desarrollo Social,0.8104,0.8104,0.55226685
+SERVICIOS SOCIALES,Seguridad Social,Bienes de consumo,Ministerio de Justicia  y Derechos Humanos,0.00821,0.00821,0.0081996
+SERVICIOS SOCIALES,Seguridad Social,Bienes de consumo,"Ministerio de Trabajo, Empleo y Seguridad Social",26.709,29.131,27.88275979
+SERVICIOS SOCIALES,Seguridad Social,Bienes de consumo,Ministerio del Interior,0.2496,0.370899,0.35856708
+SERVICIOS SOCIALES,Seguridad Social,Bienes de uso,Ministerio de Defensa,0.253,0.253,0.104097
+SERVICIOS SOCIALES,Seguridad Social,Bienes de uso,Ministerio de Desarrollo Social,0,1.12,0.43782281
+SERVICIOS SOCIALES,Seguridad Social,Bienes de uso,"Ministerio de Trabajo, Empleo y Seguridad Social",26.2407,64.967725,42.10212043
+SERVICIOS SOCIALES,Seguridad Social,Bienes de uso,Ministerio del Interior,0.55,0.55,0.23149943
+SERVICIOS SOCIALES,Seguridad Social,Gastos en personal,Ministerio de Defensa,7.698,8.583631,8.54363213
+SERVICIOS SOCIALES,Seguridad Social,Gastos en personal,Ministerio de Desarrollo Social,5.515474,5.515474,5.665474
+SERVICIOS SOCIALES,Seguridad Social,Gastos en personal,Ministerio de Justicia  y Derechos Humanos,2.30917,2.30617,2.13907272
+SERVICIOS SOCIALES,Seguridad Social,Gastos en personal,"Ministerio de Trabajo, Empleo y Seguridad Social",398.811,514.674795,505.9116808
+SERVICIOS SOCIALES,Seguridad Social,Gastos en personal,Ministerio del Interior,8.468382,10.920313,10.81068304
+SERVICIOS SOCIALES,Seguridad Social,Servicios no personales,Ministerio de Defensa,1.513,1.5,1.35374883
+SERVICIOS SOCIALES,Seguridad Social,Servicios no personales,Ministerio de Desarrollo Social,7.773,7.753,6.98949453
+SERVICIOS SOCIALES,Seguridad Social,Servicios no personales,Ministerio de Justicia  y Derechos Humanos,0.054494,0.054494,0.04806728
+SERVICIOS SOCIALES,Seguridad Social,Servicios no personales,"Ministerio de Trabajo, Empleo y Seguridad Social",255.616002,332.304507,304.37403208
+SERVICIOS SOCIALES,Seguridad Social,Servicios no personales,Ministerio del Interior,2.5904,3.500067,3.48692006
+SERVICIOS SOCIALES,Seguridad Social,Transferencias,Ministerio de Defensa,1467.202,1686.644369,1671.1644384
+SERVICIOS SOCIALES,Seguridad Social,Transferencias,Ministerio de Desarrollo Social,2719.15,3325.25,3211.22001104
+SERVICIOS SOCIALES,Seguridad Social,Transferencias,Ministerio de Justicia  y Derechos Humanos,163.27,212.656924,208.13433768
+SERVICIOS SOCIALES,Seguridad Social,Transferencias,"Ministerio de Trabajo, Empleo y Seguridad Social",39905.231998,51081.660874,48949.28420331
+SERVICIOS SOCIALES,Seguridad Social,Transferencias,Ministerio del Interior,1334.452,1605.416011,1595.50396745
+SERVICIOS SOCIALES,Seguridad Social,Transferencias,Poder Judicial de la Nación,12.214,12.34127,10.69972829
+SERVICIOS SOCIALES,Seguridad Social,Transferencias,Poder Legislativo Nacional,1.17,0.82,0.76308505
+SERVICIOS SOCIALES,Seguridad Social,Transferencias,Presidencia de la Nación,1.985,1.985,1.98499994
+SERVICIOS SOCIALES,Trabajo,Bienes de consumo,"Ministerio de Trabajo, Empleo y Seguridad Social",10.691674,8.709774,4.59605458
+SERVICIOS SOCIALES,Trabajo,Bienes de uso,"Ministerio de Trabajo, Empleo y Seguridad Social",18.020042,33.430542,11.06008154
+SERVICIOS SOCIALES,Trabajo,Gastos en personal,"Ministerio de Trabajo, Empleo y Seguridad Social",109.043271,134.433229,130.46169581
+SERVICIOS SOCIALES,Trabajo,Servicios no personales,"Ministerio de Trabajo, Empleo y Seguridad Social",111.178991,104.067946,83.0806983
+SERVICIOS SOCIALES,Trabajo,Transferencias,"Ministerio de Trabajo, Empleo y Seguridad Social",2755.358,2633.952241,2406.7888628
+SERVICIOS SOCIALES,Vivienda y Urbanismo,Bienes de consumo,"Ministerio de Planificación Federal, Inversión Publica y Ser",0.4142,0.3012,0.20416809
+SERVICIOS SOCIALES,Vivienda y Urbanismo,Bienes de uso,"Ministerio de Planificación Federal, Inversión Publica y Ser",0.3531,0.225259,0.1843223
+SERVICIOS SOCIALES,Vivienda y Urbanismo,Gastos en personal,"Ministerio de Planificación Federal, Inversión Publica y Ser",8.483925,10.360525,9.22186769
+SERVICIOS SOCIALES,Vivienda y Urbanismo,Servicios no personales,"Ministerio de Planificación Federal, Inversión Publica y Ser",4.295001,4.385734,4.23993326
+SERVICIOS SOCIALES,Vivienda y Urbanismo,Transferencias,"Ministerio de Planificación Federal, Inversión Publica y Ser",2870.818198,3115.185627,3109.99038281
