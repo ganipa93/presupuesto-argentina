@@ -1,0 +1,16 @@
+name: sondeo-historia
+on:
+  push:
+    branches: [historial-largo]
+    paths: [".github/workflows/sondeo-historia.yml", "scripts/sondeo.sh"]
+permissions:
+  contents: read
+jobs:
+  s:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      - run: bash scripts/sondeo.sh > sondeo.txt 2>&1 || true
+      - uses: actions/upload-artifact@v4
+        with: {name: sondeo, path: "sondeo*"}
