@@ -295,3 +295,8 @@ mark{background:var(--accsoft);color:inherit;border-radius:2px;box-shadow:0 0 0 
 .en-sitio{align-items:center}
 .en-sitio .note{margin-right:4px}
 footer.src nav.mapa{display:grid;gap:18px}
+.hx-fis{min-width:980px;border-spacing:2px}
+.hx-fis td{padding:10px 2px;font-size:12px;border-radius:6px}
+.hx-fis thead th{font-size:11px;padding:4px 2px;text-align:center}
+.hx-fis th.gob{background:var(--panel);border-radius:6px;color:var(--fg)}
+.hx-fis tbody th{font-size:13px;line-height:1.2;min-width:150px}

@@ -150,6 +150,34 @@ def real_y_poblacion(pib):
     return real, pob, round(k, 4), round((g0 - 1) * 100, 2)
 
 
+def resultado_fiscal(pib):
+    """Resultado primario y financiero del Sector Público Nacional (base caja, Secretaría de Hacienda), en millones de $.
+    Para que los años sean comparables, el primario es «sin rentas»: sin las utilidades del BCRA ni las rentas del FGS, que
+    hasta 2014 se contaban como ingresos (desde 2015 la metodología 2017 ya las excluye). El financiero se arma igual:
+    primario sin rentas menos los intereses (intereses = primario oficial menos financiero oficial de cada metodología).
+    2026 y 2027: la cuenta de la Administración Nacional del Proyecto 2027 (pág. 92), en % del PIB."""
+    v = json.loads((HL / "series.json").read_text(encoding="utf-8"))["valores"]
+    get = lambda ids, a: next((v[i][str(a)] for i in ids if str(a) in v.get(i, {})), None)
+    prim_of = ["379.1_SUPERAVIT_006__28_89", "379.2_SUPERAVIT_014__28_63", "379.3_SUPERAVIT_017__23_25"]
+    fin_of = ["379.1_RESULTADO_006__23_58", "379.2_RESULTADO_014__23_28", "379.3_RESULTADO_017__18_83"]
+    prim_sr = ["379.4_RESULTADO_006__36_27", "379.2_RESULTADO_014__36_75"]
+    out = {}
+    for a in range(1995, 2026):
+        po, fo = get(prim_of, a), get(fin_of, a)
+        if po is None or fo is None:
+            continue
+        ps = get(prim_sr, a) if a <= 2014 else po
+        if ps is None:
+            continue
+        out[a] = {"res_prim": round(ps, 1), "res_fin": round(ps - (po - fo), 1), "res_fuente": "spn"}
+    cp = {r["concepto"]: r for r in json.loads((RAIZ / "datos" / "cuenta_pib.json").read_text(encoding="utf-8"))}
+    for a in (2026, 2027):
+        prim = cp["Resultado primario"][f"pib{a}"]
+        intereses = cp["Intereses netos y rentas"][f"pib{a}"]
+        out[a] = {"res_prim": round(prim * pib[a] / 100, 1), "res_fin": round((prim - intereses) * pib[a] / 100, 1), "res_fuente": "an"}
+    return out
+
+
 def main():
     pib, k_empalme = pib_serie()
     pib_real, pob, k_real, tasa_pob = real_y_poblacion(pib)
@@ -196,7 +224,9 @@ def main():
     S = json.loads((HL / "series.json").read_text(encoding="utf-8"))
     gpc = {"nacional": S["valores"].get("451.4_GPN_PIBPIB_0_0_7_95", {}), "consolidado": S["valores"].get("451.2_GPC_PIBPIB_0_0_7_85", {})}
 
+    res = resultado_fiscal(pib)
     for x in anios:
+        x.update(res.get(x["anio"], {}))
         x["pib_real"] = round(pib_real[x["anio"]], 1)
         x["poblacion"] = round(pob[x["anio"]])
     out = {"fuente": "Presupuesto Abierto (Ministerio de Economía) para 1995-2025; Proyecto de Presupuesto 2027 para 2026 (estimado) y 2027; "
