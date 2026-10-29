@@ -9,7 +9,7 @@ Guarda fuentes/historia_larga/estructura.json con:
 
 No necesita token. Uso: python3 scripts/bajar_estructura.py
 """
-import datetime, json, os, pathlib, urllib.parse, urllib.request
+import datetime, json, os, pathlib, time, urllib.parse, urllib.request
 
 RAIZ = pathlib.Path(__file__).resolve().parent.parent
 DEST = RAIZ / "fuentes" / "historia_larga" / "estructura.json"
@@ -42,8 +42,14 @@ BUSQUEDAS = [
 
 
 def get_json(url):
-    with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "presupuesto-argentina"}), timeout=120) as r:
-        return json.loads(r.read())
+    for intento in range(4):
+        try:
+            with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "presupuesto-argentina"}), timeout=120) as r:
+                return json.loads(r.read())
+        except Exception:  # noqa: BLE001 - la API corta por exceso de pedidos: esperar y reintentar
+            if intento == 3:
+                raise
+            time.sleep(5 * (intento + 1))
 
 
 def buscar(q, limit=100):
@@ -80,9 +86,9 @@ def main():
             candidatos[q] = buscar(q)
         except Exception as e:  # noqa: BLE001
             print("FALLÓ búsqueda", q, e)
-    vals = {**valores(SUMA, "sum"), **valores(PROMEDIO, "avg")} if (SUMA or PROMEDIO) else previo.get("valores", {})
+    vals = {**previo.get("valores", {}), **valores(SUMA, "sum"), **valores(PROMEDIO, "avg")}
     out = {"fuente": "API de Series de Tiempo, datos.gob.ar (INDEC)", "bajado": datetime.date.today().isoformat(),
-           "suma": SUMA, "promedio": PROMEDIO, "valores": vals, "candidatos": candidatos or previo.get("candidatos", {})}
+           "suma": sorted(set(previo.get("suma", [])) | set(SUMA)), "promedio": sorted(set(previo.get("promedio", [])) | set(PROMEDIO)), "valores": vals, "candidatos": candidatos or previo.get("candidatos", {})}
     DEST.parent.mkdir(parents=True, exist_ok=True)
     DEST.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
     print("OK estructura:", len(vals), "series,", sum(len(v) for v in candidatos.values()), "candidatos")
