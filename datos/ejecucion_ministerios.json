@@ -1,8 +1,8 @@
 {
  "ejercicio": 2026,
  "ultimo_mes": 10,
- "ultimo_mes_completo": 9,
- "mes_parcial": true,
+ "ultimo_mes_completo": 10,
+ "mes_parcial": false,
  "fuente": "Presupuesto Abierto (Ministerio de Economía), API de crédito",
  "unidad": "millones de pesos",
  "filas": [
@@ -10,106 +10,106 @@
    "jurisdiccion": "Ministerio de Capital Humano",
    "credito_inicial": 84953712.8,
    "credito_vigente": 89121333.0,
-   "devengado": 71141099.8,
-   "pct_ejecutado": 79.8
+   "devengado": 74859984.0,
+   "pct_ejecutado": 84.0
   },
   {
    "jurisdiccion": "Servicio de la Deuda Pública",
    "credito_inicial": 14118044.2,
    "credito_vigente": 14328044.2,
-   "devengado": 13218539.7,
+   "devengado": 13218916.4,
    "pct_ejecutado": 92.3
   },
   {
    "jurisdiccion": "Ministerio de Economía",
    "credito_inicial": 8879050.1,
    "credito_vigente": 10040251.5,
-   "devengado": 8071057.5,
-   "pct_ejecutado": 80.4
+   "devengado": 8092336.7,
+   "pct_ejecutado": 80.6
   },
   {
    "jurisdiccion": "Ministerio de Salud",
    "credito_inicial": 7402959.0,
    "credito_vigente": 8604631.1,
-   "devengado": 6304053.8,
-   "pct_ejecutado": 73.3
+   "devengado": 6347917.1,
+   "pct_ejecutado": 73.8
   },
   {
    "jurisdiccion": "Obligaciones a Cargo del Tesoro",
    "credito_inicial": 12403243.4,
    "credito_vigente": 8431243.2,
-   "devengado": 4147578.5,
-   "pct_ejecutado": 49.2
+   "devengado": 4246443.9,
+   "pct_ejecutado": 50.4
   },
   {
    "jurisdiccion": "Ministerio de Seguridad Nacional",
    "credito_inicial": 7575435.2,
    "credito_vigente": 7802024.4,
-   "devengado": 6350075.0,
-   "pct_ejecutado": 81.4
+   "devengado": 6587150.1,
+   "pct_ejecutado": 84.4
   },
   {
    "jurisdiccion": "Ministerio de Defensa",
    "credito_inicial": 5699658.5,
    "credito_vigente": 5884905.7,
-   "devengado": 5097757.7,
-   "pct_ejecutado": 86.6
+   "devengado": 5171502.1,
+   "pct_ejecutado": 87.9
   },
   {
    "jurisdiccion": "Poder Judicial de la Nación",
    "credito_inicial": 2135209.0,
    "credito_vigente": 2587730.1,
-   "devengado": 2010273.3,
-   "pct_ejecutado": 77.7
+   "devengado": 2032983.3,
+   "pct_ejecutado": 78.6
   },
   {
    "jurisdiccion": "Jefatura de Gabinete de Ministros",
    "credito_inicial": 1263912.4,
    "credito_vigente": 1418980.8,
-   "devengado": 1020872.2,
-   "pct_ejecutado": 71.9
+   "devengado": 1024314.3,
+   "pct_ejecutado": 72.2
   },
   {
    "jurisdiccion": "Ministerio Público",
    "credito_inicial": 835392.3,
    "credito_vigente": 1065852.0,
-   "devengado": 835264.9,
-   "pct_ejecutado": 78.4
+   "devengado": 842624.7,
+   "pct_ejecutado": 79.1
   },
   {
    "jurisdiccion": "Poder Legislativo Nacional",
    "credito_inicial": 674012.9,
    "credito_vigente": 923397.7,
-   "devengado": 698171.7,
-   "pct_ejecutado": 75.6
+   "devengado": 706619.5,
+   "pct_ejecutado": 76.5
   },
   {
    "jurisdiccion": "Ministerio de Relaciones Exteriores, Comercio Internacional y Culto",
    "credito_inicial": 653503.0,
    "credito_vigente": 719391.9,
-   "devengado": 521320.9,
-   "pct_ejecutado": 72.5
+   "devengado": 551043.8,
+   "pct_ejecutado": 76.6
   },
   {
    "jurisdiccion": "Ministerio del Interior",
    "credito_inicial": 835138.3,
    "credito_vigente": 628426.6,
-   "devengado": 438784.2,
-   "pct_ejecutado": 69.8
+   "devengado": 441070.1,
+   "pct_ejecutado": 70.2
   },
   {
    "jurisdiccion": "Presidencia de la Nación",
    "credito_inicial": 396555.1,
    "credito_vigente": 562589.8,
-   "devengado": 403418.5,
-   "pct_ejecutado": 71.7
+   "devengado": 406077.8,
+   "pct_ejecutado": 72.2
   },
   {
    "jurisdiccion": "Ministerio de Justicia",
    "credito_inicial": 218332.2,
    "credito_vigente": 331423.1,
-   "devengado": 195092.6,
-   "pct_ejecutado": 58.9
+   "devengado": 200780.2,
+   "pct_ejecutado": 60.6
   },
   {
    "jurisdiccion": "Ministerio de Desregulación y Transformación del Estado",
@@ -158,8 +158,8 @@
   },
   {
    "mes": 10,
-   "devengado": 4619408.3
+   "devengado": 8895812.0
   }
  ],
- "actualizado": "2026-10-29"
+ "actualizado": "2026-10-30"
 }
