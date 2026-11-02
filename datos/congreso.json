@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-10-26",
+ "actualizado": "2026-11-02",
  "etapas": [
   {
    "id": "envio",
@@ -31,31 +31,31 @@
    "fecha_texto": "13 al 27 de octubre",
    "estado": "hecho",
    "titulo": "Reuniones informativas en la Comisión de Presupuesto y Hacienda de Diputados",
-   "detalle": "El 13 de octubre el secretario de Hacienda, Carlos Guberman, defendió el proyecto ante la Comisión de Presupuesto y Hacienda: crecimiento de 4% en 2027, inflación de 18% y dólar a $1.848. El 14 expuso el secretario de Trabajo, Julio Cordero, y el 20 de octubre, en la tercera reunión informativa, el secretario de Educación, Carlos Torrendell, quien dijo que las transferencias a universidades nacionales serán el 3,88% del gasto total de la Administración Pública Nacional. Las notas oficiales no mencionan cambios al texto. Queda una última reunión informativa prevista para el martes 27 de octubre.",
+   "detalle": "El 13 de octubre el secretario de Hacienda, Carlos Guberman, defendió el proyecto ante la Comisión de Presupuesto y Hacienda: crecimiento de 4% en 2027, inflación de 18% y dólar a $1.848. El 14 expuso el secretario de Trabajo, Julio Cordero, y el 20 de octubre, en la tercera reunión informativa, el secretario de Educación, Carlos Torrendell, quien dijo que las transferencias a universidades nacionales serán el 3,88% del gasto total de la Administración Pública Nacional. La ronda informativa cerró el martes 27 de octubre con la exposición de Alejandro Cacace y Maximiliano Fariña, del Ministerio de Desregulación. Las exposiciones no trajeron cambios formales al texto.",
    "fuente": {
-    "nombre": "Honorable Cámara de Diputados de la Nación",
-    "url": "https://www.hcdn.gob.ar/prensa/noticia/PRESUPUESTO-2027-EXPUSO-EL-SECRETARIO-DE-EDUCACION-CARLOS-TORRENDELL/"
+    "nombre": "El Litoral (28 de octubre)",
+    "url": "https://www.ellitoral.com/politica/presupuesto2027-camaradediputados-negociaciones-tratamiento_0_AB2zQAYFNm.html"
    }
   },
   {
    "id": "dictamen",
-   "fecha": "2026-10-28",
-   "fecha_texto": "28 de octubre (previsto)",
+   "fecha": "2026-11-11",
+   "fecha_texto": "Postergado: se mencionan el 11 o el 17 de noviembre",
    "estado": "proximo",
    "titulo": "Dictamen de comisión",
-   "detalle": "El oficialismo sigue apuntando a firmar dictamen el miércoles 28 de octubre a las 14. Los bloques dialoguistas piden derogar el capítulo de discapacidad (arts. 36 a 41), mantener la actualización automática de la AUH y las asignaciones familiares, y más fondos para universidades; el gobierno condiciona cualquier cambio a preservar el equilibrio fiscal. Todavía no hay texto de dictamen.",
+   "detalle": "La reunión de la Comisión de Presupuesto y Hacienda convocada para firmar dictamen el miércoles 28 de octubre se suspendió porque La Libertad Avanza no reunió las firmas de sus aliados (PRO, UCR y bloques provinciales). Los aliados piden que los compromisos queden escritos en la ley: fondos de coparticipación para la Ciudad de Buenos Aires, transferencias a cajas jubilatorias provinciales, rutas e impuesto a los combustibles, baja del IVA a huevos, mantener la movilidad de la AUH (art. 17) y más fondos para universidades. El dictamen pasó a noviembre: se mencionan el 11 y el 17 como alternativas, sin convocatoria oficial todavía.",
    "fuente": {
-    "nombre": "Diario Popular (25 de octubre)",
-    "url": "https://www.diariopopular.com.ar/politica/presupuesto-2027-el-oficialismo-apura-las-negociaciones-firmar-el-dictamen-n926238"
+    "nombre": "Parlamentario (28 de octubre)",
+    "url": "https://www.parlamentario.com/2026/10/28/se-postergo-el-dictamen-del-presupuesto-2027-y-el-oficialismo-reabre-las-negociaciones-con-aliados/"
    }
   },
   {
    "id": "diputados",
    "fecha": "2026-11-18",
-   "fecha_texto": "18 de noviembre (previsto)",
+   "fecha_texto": "18 de noviembre (previsto; alternativa: 25 de noviembre)",
    "estado": "pendiente",
    "titulo": "Sesión en la Cámara de Diputados",
-   "detalle": "La Cámara de Diputados informa que la sesión en el recinto está prevista para el miércoles 18 de noviembre.",
+   "detalle": "La Cámara de Diputados había previsto la sesión en el recinto para el miércoles 18 de noviembre. Tras la postergación del dictamen, la prensa parlamentaria menciona el 25 de noviembre como alternativa si la negociación se estira.",
    "fuente": {
     "nombre": "Honorable Cámara de Diputados de la Nación",
     "url": "https://www.hcdn.gob.ar/prensa/noticia/EL-SECRETARIO-DE-HACIENDA-DEFENDIO-EL-PRESUPUESTO-GENERAL-PARA-LA-ADMINISTRACION-2027/"
@@ -67,8 +67,11 @@
    "fecha_texto": "A definir",
    "estado": "pendiente",
    "titulo": "Tratamiento en el Senado",
-   "detalle": "Si Diputados lo aprueba, pasa al Senado para su revisión.",
-   "fuente": null
+   "detalle": "Si Diputados lo aprueba, pasa al Senado para su revisión. Como el período ordinario termina el 30 de noviembre, se prevé que el Senado lo trate en sesiones extraordinarias en diciembre.",
+   "fuente": {
+    "nombre": "Parlamentario (1 de noviembre)",
+    "url": "https://www.parlamentario.com/2026/11/01/presupuesto-2027-demorado-el-dictamen-se-abre-una-discusion-sobre-el-calendario-legislativo/"
+   }
   },
   {
    "id": "ley",
@@ -85,10 +88,20 @@
    "fecha": "2026-09-18",
    "tema": "Discapacidad (arts. 36 a 41)",
    "estado": "Anunciado, sin texto formal",
-   "detalle": "Retiro de los artículos originales; compatibilidad de la pensión con un empleo registrado; nomenclador universal actualizado por inflación.",
+   "detalle": "Retiro de los artículos originales; compatibilidad de la pensión con un empleo registrado; nomenclador universal actualizado por inflación. Al 28 de octubre había principio de acuerdo para retirar los artículos que modifican el régimen vigente, pero faltaba definir las partidas y no hay texto de dictamen.",
    "fuente": {
     "nombre": "Infobae",
     "url": "https://www.infobae.com/politica/2026/09/18/presupuesto-2027-el-gobierno-cede-en-parte-del-recorte-a-discapacidad-y-hara-un-ajuste-consensuado-con-los-aliados/"
+   }
+  },
+  {
+   "fecha": "2026-10-28",
+   "tema": "AUH y asignaciones familiares (art. 17)",
+   "estado": "Reclamo de los aliados, sin texto formal",
+   "detalle": "El art. 17 del proyecto elimina la movilidad automática por inflación de la AUH; los bloques aliados piden mantenerla. No hay cambio acordado ni texto de dictamen.",
+   "fuente": {
+    "nombre": "El Litoral",
+    "url": "https://www.ellitoral.com/politica/presupuesto2027-camaradediputados-negociaciones-tratamiento_0_AB2zQAYFNm.html"
    }
   }
  ]
