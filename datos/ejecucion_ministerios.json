@@ -1,8 +1,8 @@
 {
  "ejercicio": 2026,
- "ultimo_mes": 10,
+ "ultimo_mes": 11,
  "ultimo_mes_completo": 10,
- "mes_parcial": false,
+ "mes_parcial": true,
  "fuente": "Presupuesto Abierto (Ministerio de Economía), API de crédito",
  "unidad": "millones de pesos",
  "filas": [
@@ -24,14 +24,14 @@
    "jurisdiccion": "Ministerio de Economía",
    "credito_inicial": 8879050.1,
    "credito_vigente": 10040251.5,
-   "devengado": 8151121.6,
+   "devengado": 8152213.1,
    "pct_ejecutado": 81.2
   },
   {
    "jurisdiccion": "Ministerio de Salud",
    "credito_inicial": 7402959.0,
    "credito_vigente": 8604631.1,
-   "devengado": 6806860.8,
+   "devengado": 6807178.7,
    "pct_ejecutado": 79.1
   },
   {
@@ -66,7 +66,7 @@
    "jurisdiccion": "Jefatura de Gabinete de Ministros",
    "credito_inicial": 1263912.4,
    "credito_vigente": 1418980.8,
-   "devengado": 1023823.4,
+   "devengado": 1023824.5,
    "pct_ejecutado": 72.2
   },
   {
@@ -158,8 +158,12 @@
   },
   {
    "mes": 10,
-   "devengado": 12384303.6
+   "devengado": 12385713.0
+  },
+  {
+   "mes": 11,
+   "devengado": 1.1
   }
  ],
- "actualizado": "2026-11-01"
+ "actualizado": "2026-11-03"
 }
