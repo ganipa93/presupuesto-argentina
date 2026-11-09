@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-11-02",
+ "actualizado": "2026-11-09",
  "etapas": [
   {
    "id": "envio",
@@ -39,26 +39,26 @@
   },
   {
    "id": "dictamen",
-   "fecha": "2026-11-11",
-   "fecha_texto": "Postergado: se mencionan el 11 o el 17 de noviembre",
+   "fecha": "2026-11-17",
+   "fecha_texto": "17 de noviembre (previsto, sin convocatoria oficial)",
    "estado": "proximo",
    "titulo": "Dictamen de comisión",
-   "detalle": "La reunión de la Comisión de Presupuesto y Hacienda convocada para firmar dictamen el miércoles 28 de octubre se suspendió porque La Libertad Avanza no reunió las firmas de sus aliados (PRO, UCR y bloques provinciales). Los aliados piden que los compromisos queden escritos en la ley: fondos de coparticipación para la Ciudad de Buenos Aires, transferencias a cajas jubilatorias provinciales, rutas e impuesto a los combustibles, baja del IVA a huevos, mantener la movilidad de la AUH (art. 17) y más fondos para universidades. El dictamen pasó a noviembre: se mencionan el 11 y el 17 como alternativas, sin convocatoria oficial todavía.",
+   "detalle": "La reunión convocada para firmar dictamen el 28 de octubre se suspendió porque La Libertad Avanza no reunió las firmas de sus aliados. Según la Agencia NA (7 de noviembre), el oficialismo apunta ahora a firmar el dictamen el martes 17 de noviembre; el plazo previsto para emitir dictámenes vence el 20. Todavía no hay convocatoria oficial ni acuerdo cerrado: los aliados reclaman más fondos para universidades, discapacidad, cajas jubilatorias provinciales y rutas, la coparticipación de la Ciudad, bajar el IVA de los huevos y cambios en el impuesto a los combustibles.",
    "fuente": {
-    "nombre": "Parlamentario (28 de octubre)",
-    "url": "https://www.parlamentario.com/2026/10/28/se-postergo-el-dictamen-del-presupuesto-2027-y-el-oficialismo-reabre-las-negociaciones-con-aliados/"
+    "nombre": "El Eco de Tandil, con Agencia NA (7 de noviembre)",
+    "url": "https://www.eleco.com.ar/politica/discapacidad-universidades-y-transporte-traban-el-acuerdo-por-el-presupuesto-2027"
    }
   },
   {
    "id": "diputados",
-   "fecha": "2026-11-18",
-   "fecha_texto": "18 de noviembre (previsto; alternativa: 25 de noviembre)",
+   "fecha": "2026-11-25",
+   "fecha_texto": "25 de noviembre (previsto)",
    "estado": "pendiente",
    "titulo": "Sesión en la Cámara de Diputados",
-   "detalle": "La Cámara de Diputados había previsto la sesión en el recinto para el miércoles 18 de noviembre. Tras la postergación del dictamen, la prensa parlamentaria menciona el 25 de noviembre como alternativa si la negociación se estira.",
+   "detalle": "El oficialismo había previsto la sesión para el 18 de noviembre, pero esa fecha quedó descartada por la demora del dictamen. Ahora busca llevar el proyecto al recinto el miércoles 25 de noviembre, si consigue los votos. Si no, el tratamiento pasaría a sesiones extraordinarias desde el 1 de diciembre.",
    "fuente": {
-    "nombre": "Honorable Cámara de Diputados de la Nación",
-    "url": "https://www.hcdn.gob.ar/prensa/noticia/EL-SECRETARIO-DE-HACIENDA-DEFENDIO-EL-PRESUPUESTO-GENERAL-PARA-LA-ADMINISTRACION-2027/"
+    "nombre": "Opinando San Nicolás (7 de noviembre)",
+    "url": "https://www.opinandosannicolas.ar/2026/11/presupuesto-2027-reclamos-aliados-acuerdo/"
    }
   },
   {
@@ -102,6 +102,16 @@
    "fuente": {
     "nombre": "El Litoral",
     "url": "https://www.ellitoral.com/politica/presupuesto2027-camaradediputados-negociaciones-tratamiento_0_AB2zQAYFNm.html"
+   }
+  },
+  {
+   "fecha": "2026-11-07",
+   "tema": "Universidades, provincias y combustibles",
+   "estado": "Reclamo de los aliados, sin texto formal",
+   "detalle": "El proyecto prevé $7,3 billones para universidades nacionales y los rectores piden $11 billones; la UCR pide además eliminar cuatro artículos. El PRO reclama garantizar la coparticipación de la Ciudad y bajar el IVA de los huevos del 21% al 10,5%. Los bloques provinciales piden más que los $503.000 millones previstos para las cajas jubilatorias provinciales, y hay pedidos para bajar el impuesto a los combustibles. Los aliados proponen cubrir parte con la Jurisdicción 91 (unos $14 billones). No hay cambio acordado ni texto de dictamen.",
+   "fuente": {
+    "nombre": "El Eco de Tandil, con Agencia NA",
+    "url": "https://www.eleco.com.ar/politica/discapacidad-universidades-y-transporte-traban-el-acuerdo-por-el-presupuesto-2027"
    }
   }
  ]
