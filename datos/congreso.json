@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-11-09",
+ "actualizado": "2026-11-16",
  "etapas": [
   {
    "id": "envio",
@@ -40,13 +40,13 @@
   {
    "id": "dictamen",
    "fecha": "2026-11-17",
-   "fecha_texto": "17 de noviembre (previsto, sin convocatoria oficial)",
+   "fecha_texto": "17 de noviembre, 16 h (convocado)",
    "estado": "proximo",
    "titulo": "Dictamen de comisión",
-   "detalle": "La reunión convocada para firmar dictamen el 28 de octubre se suspendió porque La Libertad Avanza no reunió las firmas de sus aliados. Según la Agencia NA (7 de noviembre), el oficialismo apunta ahora a firmar el dictamen el martes 17 de noviembre; el plazo previsto para emitir dictámenes vence el 20. Todavía no hay convocatoria oficial ni acuerdo cerrado: los aliados reclaman más fondos para universidades, discapacidad, cajas jubilatorias provinciales y rutas, la coparticipación de la Ciudad, bajar el IVA de los huevos y cambios en el impuesto a los combustibles.",
+   "detalle": "La Comisión de Presupuesto y Hacienda convocó a una reunión para el martes 17 de noviembre a las 16 en el Anexo C de la Cámara de Diputados para avanzar en la firma del dictamen. El 12 de noviembre el oficialismo acordó con el PRO incorporar sus reclamos y, según Parlamentario, cuenta con el apoyo del PRO, la UCR, el MID y Producción y Trabajo, lo que lo deja cerca de las firmas necesarias. Siguen abiertos los reclamos por fondos para discapacidad, universidades y Ciencia y Técnica. La reunión anterior para firmar dictamen, el 28 de octubre, se había suspendido por falta de acuerdo.",
    "fuente": {
-    "nombre": "El Eco de Tandil, con Agencia NA (7 de noviembre)",
-    "url": "https://www.eleco.com.ar/politica/discapacidad-universidades-y-transporte-traban-el-acuerdo-por-el-presupuesto-2027"
+    "nombre": "Parlamentario (13 de noviembre)",
+    "url": "https://www.parlamentario.com/2026/11/13/diputados-va-por-el-dictamen-del-presupuesto-2027/"
    }
   },
   {
@@ -55,10 +55,10 @@
    "fecha_texto": "25 de noviembre (previsto)",
    "estado": "pendiente",
    "titulo": "Sesión en la Cámara de Diputados",
-   "detalle": "El oficialismo había previsto la sesión para el 18 de noviembre, pero esa fecha quedó descartada por la demora del dictamen. Ahora busca llevar el proyecto al recinto el miércoles 25 de noviembre, si consigue los votos. Si no, el tratamiento pasaría a sesiones extraordinarias desde el 1 de diciembre.",
+   "detalle": "Si se firma el dictamen el 17, el oficialismo prevé debatir el Presupuesto en el recinto el miércoles 25 de noviembre. La sesión del miércoles 18 se usaría para otros temas, como la reforma de la Carta Orgánica del Banco Central y la ley de Defensa de la Soberanía Nacional. Si no se llega antes del 30 de noviembre, el tratamiento pasaría a sesiones extraordinarias.",
    "fuente": {
-    "nombre": "Opinando San Nicolás (7 de noviembre)",
-    "url": "https://www.opinandosannicolas.ar/2026/11/presupuesto-2027-reclamos-aliados-acuerdo/"
+    "nombre": "El Liberal (12 de noviembre)",
+    "url": "https://www.elliberal.com.ar/nota/97820/2026/11/acuerdo-en-diputados--cuando-se-votara-el-presupuesto-2027"
    }
   },
   {
@@ -87,11 +87,11 @@
   {
    "fecha": "2026-09-18",
    "tema": "Discapacidad (arts. 36 a 41)",
-   "estado": "Anunciado, sin texto formal",
-   "detalle": "Retiro de los artículos originales; compatibilidad de la pensión con un empleo registrado; nomenclador universal actualizado por inflación. Al 28 de octubre había principio de acuerdo para retirar los artículos que modifican el régimen vigente, pero faltaba definir las partidas y no hay texto de dictamen.",
+   "estado": "Acordado fuera del Presupuesto, ley en trámite",
+   "detalle": "El oficialismo dejó de lado los cambios de discapacidad del proyecto (fin del CUD como vía directa a beneficios, incompatibilidad entre pensión y empleo formal y derogación del arancel único del nomenclador) y los reemplazó por una ley aparte, la de Fortalecimiento, Sostenibilidad y Eficiencia Permanente del Sistema de Discapacidad. Diputados le dio media sanción el 22 de octubre (237 votos a favor): la pensión sigue en el 70% del haber mínimo y es compatible con un empleo registrado si los ingresos no superan dos salarios mínimos. El Senado le dio dictamen el 4 de noviembre y prevé tratarla el 19 de noviembre o la última semana del mes. MID y PRO advierten que no votarán el Presupuesto sin fondos suficientes para las prestaciones; todavía no hay texto de dictamen del Presupuesto.",
    "fuente": {
-    "nombre": "Infobae",
-    "url": "https://www.infobae.com/politica/2026/09/18/presupuesto-2027-el-gobierno-cede-en-parte-del-recorte-a-discapacidad-y-hara-un-ajuste-consensuado-con-los-aliados/"
+    "nombre": "El Economista (22 de octubre)",
+    "url": "https://eleconomista.com.ar/politica/giro-inesperado-diputados-milei-dio-marcha-atras-recortes-discapacidad-logro-acuerdo-kirchnerismo-n99100/amp"
    }
   },
   {
@@ -112,6 +112,16 @@
    "fuente": {
     "nombre": "El Eco de Tandil, con Agencia NA",
     "url": "https://www.eleco.com.ar/politica/discapacidad-universidades-y-transporte-traban-el-acuerdo-por-el-presupuesto-2027"
+   }
+  },
+  {
+   "fecha": "2026-11-12",
+   "tema": "Reclamos del PRO: combustibles, IVA de huevos, CABA, autopartes y billeteras virtuales",
+   "estado": "Anunciado, sin texto formal",
+   "detalle": "Según El Cronista, el oficialismo aceptó incorporar los siete pedidos del PRO: bajar el componente vial del impuesto a los combustibles a medida que el Estado deje de mantener rutas nacionales; más transparencia en las concesiones viales, con informes trimestrales al Congreso; prorrogar los regímenes de autopartes (leyes 27.263 y 27.686, hasta 2032 según El Liberal); bajar el IVA de huevos y derivados del 21% al 10,5%; contemplar la coparticipación de la Ciudad (1,55%) y reconocerle una deuda estimada en $628.197 millones; autorizar créditos a la Ciudad (CAF, Línea F del subte, Belgrano Sur); y un régimen antievasión para billeteras virtuales. Falta el texto del dictamen con los artículos.",
+   "fuente": {
+    "nombre": "El Cronista (12 de noviembre)",
+    "url": "https://www.cronista.com/economia-politica/presupuesto-2027-el-gobierno-acordo-con-el-pro-los-cambios-y-pone-fecha-para-el-dictamen/"
    }
   }
  ]
