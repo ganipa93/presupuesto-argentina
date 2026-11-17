@@ -10,7 +10,7 @@
    "jurisdiccion": "Ministerio de Capital Humano",
    "credito_inicial": 84953712.8,
    "credito_vigente": 89121333.0,
-   "devengado": 77792798.6,
+   "devengado": 77792800.4,
    "pct_ejecutado": 87.3
   },
   {
@@ -24,7 +24,7 @@
    "jurisdiccion": "Ministerio de Economía",
    "credito_inicial": 8879050.1,
    "credito_vigente": 10040251.5,
-   "devengado": 8321196.7,
+   "devengado": 8321200.2,
    "pct_ejecutado": 82.9
   },
   {
@@ -45,14 +45,14 @@
    "jurisdiccion": "Ministerio de Seguridad Nacional",
    "credito_inicial": 7575435.2,
    "credito_vigente": 7802024.4,
-   "devengado": 6978562.6,
+   "devengado": 6978767.5,
    "pct_ejecutado": 89.4
   },
   {
    "jurisdiccion": "Ministerio de Defensa",
    "credito_inicial": 5699658.5,
    "credito_vigente": 5884905.7,
-   "devengado": 5236699.4,
+   "devengado": 5237343.2,
    "pct_ejecutado": 89.0
   },
   {
@@ -162,8 +162,8 @@
   },
   {
    "mes": 11,
-   "devengado": 1412486.3
+   "devengado": 1413340.4
   }
  ],
- "actualizado": "2026-11-15"
+ "actualizado": "2026-11-17"
 }
