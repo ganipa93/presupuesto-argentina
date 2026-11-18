@@ -51,6 +51,7 @@
 .docs{display:flex;gap:6px;flex-wrap:wrap}
 .docs button{font:inherit;min-height:36px;border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;padding:6px 14px;cursor:pointer}
 .docs button[aria-pressed=true]{background:var(--c1);border-color:var(--c1);color:#fff;font-weight:600}
+@media (prefers-color-scheme:dark){.docs button[aria-pressed=true]{color:#0B1220}}
 .indice .lista[hidden]{display:none}
 .resultados .doc{display:inline-block;font-size:12px;border-radius:999px;padding:0 8px;background:var(--c1soft);margin-right:6px}
 .visor pre{white-space:pre;overflow:auto;font-size:12px;line-height:1.35;border:1px solid var(--line);border-radius:var(--r);padding:10px;background:var(--panel);max-height:36rem}

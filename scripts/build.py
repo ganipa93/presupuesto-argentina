@@ -160,7 +160,7 @@ def cabecera(actual=""):
     """Cabecera común a todas las páginas: marca, buscador (salvo en el propio buscador) y menú con todas las secciones."""
     en_menu = any(ruta_de(k) == actual for _, items in GRUPOS for k, _ in items)
     busca = "" if actual == "/programas" else (
-        f'<form class="top-busca" action="/programas" role="search"><label for="top-q" class="sr">Buscar en el presupuesto</label>'
+        f'<form class="top-busca" action="/programas" role="search" aria-label="Buscar en el presupuesto"><label for="top-q" class="sr">Buscar en el presupuesto</label>'
         f'<input id="top-q" name="q" type="search" placeholder="Buscar: rutas, PAMI, jubilados…" autocomplete="off"><button type="submit" aria-label="Buscar">{LUPA}</button></form>')
     return (f'<a class="saltar" href="#contenido">Saltar al contenido</a><header class="top"><a class="brand" href="/">{LOGO}<span>Presupuesto Argentina</span></a>{busca}'
             f'<nav aria-label="Principal"><details class="menu"><summary' + (' class="actual"' if en_menu else "") + '>Secciones</summary>'
