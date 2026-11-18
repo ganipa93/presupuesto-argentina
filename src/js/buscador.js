@@ -49,15 +49,63 @@ const SINONIMOS = {
   correo: ['correo'], comedores: ['comedor', 'alimentari'], alimentos: ['alimentari', 'comedor', 'alimento'],
   carceles: ['penitenciari', 'carcel'], justicia: ['justicia', 'judicial'], congreso: ['legislativ', 'diputados', 'senado'],
   medicamentos: ['medicamento', 'remedio', 'farmac'], vacunas: ['vacuna', 'inmunizacion'],
+  remedio: ['medicamento'], remedios: ['medicamento'],
+  maestro: ['docente'], maestros: ['docente'],
+  petroleo: ['hidrocarbur', 'combustible'], hidrocarburos: ['hidrocarbur', 'combustible'],
+  clima: ['clima', 'ambient'], climatico: ['clima', 'ambient'], 'cambio climatico': ['clima', 'ambient'],
+  afip: ['arca', 'afip'], diputados: ['diputados', 'legislativ'], senadores: ['senado', 'legislativ'],
+  jueces: ['judicial', 'justicia'], juez: ['judicial', 'justicia'],
+  cancilleria: ['cancilleria', 'relaciones exteriores'],
+  anciano: ['adultos mayores', 'pami'], ancianos: ['adultos mayores', 'pami'], viejos: ['adultos mayores', 'pami'],
+  adicciones: ['consumos problematicos', 'drogas', 'sedronar'], sedronar: ['consumos problematicos', 'sedronar'], drogas: ['drogas', 'consumos problematicos'],
+  espionaje: ['inteligencia'], side: ['inteligencia'],
+  propaganda: ['difusion de actos de gobierno', 'difusion'], publicidad: ['difusion de actos de gobierno', 'difusion'], 'publicidad oficial': ['difusion de actos de gobierno', 'difusion'],
+  'potenciar trabajo': ['potenciar'],
 };
 
 let D = null, items = [], mostrados = 30, ultimo = [];
+const VOCAB = new Map();   // palabra del presupuesto (sin tildes) → cuántas veces aparece
+// distancia de edición (con transposición) acotada: devuelve > max si se pasa
+function distancia(a, b, max) {
+  if (Math.abs(a.length - b.length) > max) return max + 1;
+  let prev2 = null, prev = Array.from({length: b.length + 1}, (_, j) => j);
+  for (let i = 1; i <= a.length; i++) {
+    const cur = [i];
+    for (let j = 1; j <= b.length; j++) {
+      let v = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      if (prev2 && i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) v = Math.min(v, prev2[j - 2] + 1);
+      cur.push(v);
+    }
+    prev2 = prev; prev = cur;
+  }
+  return prev[b.length];
+}
+function parecidas(w) {
+  const max = w.length >= 7 ? 2 : 1, r = new Map();
+  // se prueba la palabra tal cual y sin su plural, para que «unversidades» llegue a «universidad»
+  for (const c of new Set([w, raiz(w)])) {
+    for (const [v, n] of VOCAB) { const d = distancia(c, v, max); if (d >= 1 && d <= max && (!r.has(v) || r.get(v)[0] > d)) r.set(v, [d, n]); }
+  }
+  return [...r].sort((x, y) => x[1][0] - y[1][0] || y[1][1] - x[1][1]).slice(0, 3).map((x) => x[0]);
+}
+const conocida = (w) => VOCAB.has(w) || SINONIMOS[w] || SINONIMOS[raiz(w)] || [...VOCAB.keys()].some((v) => v.startsWith(raiz(w)));
+const hayResultados = (t) => { const vs = variantes(t); return vs.length > 0 && items.some((x) => algunaEn(x.ctx, vs)); };
+function sugerencias(q) {
+  const ps = norm(q).trim().split(' ').filter(Boolean);
+  if (!ps.length || ps.length > 4) return [];
+  if (ps.length === 1) return ps[0].length >= 4 ? parecidas(ps[0]).filter(hayResultados) : [];
+  // varias palabras: se corrige cada palabra que no existe y se arma una sola frase
+  const nueva = ps.map((w) => (w.length < 4 || conocida(w) ? w : (parecidas(w)[0] || w)));
+  const f = nueva.join(' ');
+  return f !== ps.join(' ') && hayResultados(f) ? [f] : [];
+}
 
 function raiz(w) { return w.length >= 5 ? w.replace(/(es|s)$/, '') : w; }
 function variantes(q) {
   const n = norm(q).trim();
   if (!n) return [];
   const palabras = n.split(' ');
+  if (SINONIMOS[n]) return SINONIMOS[n].map((v) => v.trim().split(' '));
   if (palabras.length === 1) { const r = raiz(n); return (SINONIMOS[n] || SINONIMOS[r] || [r]).map((v) => v.trim().split(' ')); }
   // varias palabras: frase completa (sin palabras vacías), cada palabra con su raíz
   const VACIAS = new Set(['de', 'del', 'la', 'las', 'los', 'el', 'y', 'en', 'para', 'por', 'con', 'que', 'a', 'al', 'n', 'nro', 'no', 'nacional']);
@@ -90,6 +138,7 @@ function preparar() {
     const esp = (x) => /^(Nacional|Interprovincial|No Clasificado|Binacional|Exterior)$/.test(x);
     return esp(a) - esp(b) || a.localeCompare(b, 'es');
   });
+  for (const x of items) for (const w of x.ctx.trim().split(' ')) if (w.length >= 4 && !/^\d+$/.test(w)) VOCAB.set(w, (VOCAB.get(w) || 0) + 1);
   $('#prov').append(...orden.map((p) => el('option', {value: p, text: p})));
   $('#corte').textContent = new Date(D.corte26 + 'T12:00:00').toLocaleDateString('es-AR', {day: 'numeric', month: 'long', year: 'numeric'});
 }
@@ -148,6 +197,14 @@ function sumaHojas(r, anio, col) {
   return (r.i26 || []).reduce((s, i) => s + p.act26[i][col || 1], 0);
 }
 
+// Búsquedas sin resultado: se cuentan (con la palabra tipeada) cuando la persona dejó de escribir, para saber qué falta
+let esperaVacia;
+function avisarVacia(q) {
+  clearTimeout(esperaVacia);
+  const t = norm(q).trim();
+  if (t.length < 4) return;
+  esperaVacia = setTimeout(() => { if (window.va && norm($('#q').value).trim() === t) window.va('event', {name: 'busqueda_vacia', data: {q: t.slice(0, 40)}}); }, 1500);
+}
 function resumen(lista, vs, q, prov, montoProv) {
   const box = $('#resumen'), est = $('#estado');
   const progs = lista.filter((r) => r.x.tipo === 'p'), entes = lista.filter((r) => r.x.tipo === 'e');
@@ -156,7 +213,9 @@ function resumen(lista, vs, q, prov, montoProv) {
     box.hidden = true; return;
   }
   if (!lista.length) {
-    est.replaceChildren('No encontré «' + q + '» en los programas. Probá con otra palabra o con el nombre del organismo, o ', el('a', {href: '/cuadros?q=' + encodeURIComponent(q), text: 'buscalo en los cuadros del PDF'}), '.');
+    const sug = sugerencias(q).map((t) => { const bt = el('button', {class: 'btn mini', type: 'button', text: t}); bt.addEventListener('click', () => { $('#q').value = t; buscar(); }); return bt; });
+    est.replaceChildren('No encontré «' + q + '» en los programas. ', ...(sug.length ? ['¿Quisiste decir ', ...sug.flatMap((b, i) => (i ? [' ', b] : [b])), '? Si no, probá '] : ['Probá ']), 'con otra palabra o con el nombre del organismo, o ', el('a', {href: '/cuadros?q=' + encodeURIComponent(q), text: 'buscalo en los cuadros del PDF'}), '.');
+    avisarVacia(q);
     box.hidden = true; return;
   }
   const s = {a27: 0, v26: 0, d26: 0};

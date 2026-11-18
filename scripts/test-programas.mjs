@@ -26,4 +26,10 @@ console.log('ley 2026:', await p.evaluate(() => [document.querySelector('#vmeta'
 await p.screenshot({ path: out + '/cuadros-2026.png' });
 await p.click('#sig'); await p.waitForTimeout(500); console.log('siguiente:', await p.evaluate(() => [document.querySelector('#vtitulo').innerText, location.hash]));
 await p.click('.docs button[data-doc="2027"]'); await p.waitForTimeout(500); console.log('volver 2027:', await p.evaluate(() => [document.querySelector('#vmeta').innerText, location.hash]));
+// Sinónimos: lo que la gente escribe tiene que encontrar algo; los errores de tipeo sugieren la palabra correcta
+for (const t of ['remedios', 'maestros', 'petróleo', 'cambio climático', 'AFIP', 'Diputados', 'jueces', 'cancillería', 'ancianos', 'adicciones', 'espionaje', 'publicidad oficial']) {
+  const r = await ver(t); if (!r.top.length) errs.push('sin resultados para «' + t + '»');
+}
+await ver('jubilasiones');
+if (!(await p.locator('#estado button', { hasText: 'jubilaciones' }).count())) errs.push('sin sugerencia para «jubilasiones»');
 const reales = errs.filter((e) => !e.includes('404')); console.log('ERRORES', JSON.stringify(reales)); await b.close(); server.close(); if (reales.length) process.exit(1);
