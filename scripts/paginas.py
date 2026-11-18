@@ -875,7 +875,7 @@ def historia(self):
             if a % 5 == 0 or a in (prim, max(anios)):
                 partes.append(f'<text x="{x0(i) + bw / 2:.1f}" y="{base + 15}" text-anchor="middle" font-size="11" fill="currentColor" opacity=".75">{a}</text>')
         desc = "; ".join(f"{a}: {_pp(tot[a])}" for a in anios)
-        return (f'<figure style="margin:0"><div style="overflow-x:auto"><svg viewBox="0 0 {W} {base + 22}" width="100%" role="img" aria-label="Gasto de la Administración Nacional en % del PIB. {e(desc)}" style="color:var(--fg);min-width:640px">{"".join(partes)}'
+        return (f'<figure style="margin:0"><div style="overflow-x:auto" tabindex="0" role="region" aria-label="Gráfico del gasto nacional en % del PIB: deslizá para ver todos los años"><svg viewBox="0 0 {W} {base + 22}" width="100%" role="img" aria-label="Gasto de la Administración Nacional en % del PIB. {e(desc)}" style="color:var(--fg);min-width:640px">{"".join(partes)}'
                 f'<line x1="{pad}" x2="{W - 8}" y1="{base}" y2="{base}" stroke="var(--axis)"/></svg></div>'
                 '<figcaption class="note"><span style="color:var(--c1)">■</span> gastado (devengado) &nbsp; <span style="color:var(--mutedbar)">■</span> 2026: cierre estimado &nbsp; '
                 '<span style="color:var(--acc)">■</span> 2027: proyecto &nbsp; <span style="color:var(--bad)">○</span> año con presupuesto prorrogado (sin ley nueva)</figcaption></figure>')
@@ -970,7 +970,7 @@ def historia(self):
         puntos = "".join(f'<circle cx="{pad + i * bw + bw / 2:.1f}" cy="{y(gpc[a]):.1f}" r="2.5" fill="var(--c1)"><title>{a}: {_pp(gpc[a])} del PIB</title></circle>' for i, a in enumerate(aa))
         largo = (f'<section class="hx-card"><h2>La mirada larga: 1980 a 2023</h2>'
                  f'<p>Para ver más atrás que 1995 hay otra serie oficial, el <strong>Gasto Público Consolidado</strong> del Ministerio de Economía. Mide algo más amplio que el presupuesto de la Administración Nacional (suma, por ejemplo, el PAMI, las obras sociales nacionales y los fondos fiduciarios), así que sus porcentajes son más altos y no se deben mezclar con los de arriba. Sirve para ver la tendencia: el gasto nacional pasó de {_pp(gpc[aa[0]])} del PIB en {aa[0]} a {_pp(gpc[aa[-1]])} en {aa[-1]}, con su mínimo en {min(gpc, key=gpc.get)} ({_pp(min(gpc.values()))}) y su máximo en {max(gpc, key=gpc.get)} ({_pp(max(gpc.values()))}).</p>'
-                 f'<figure style="margin:0"><div style="overflow-x:auto"><svg viewBox="0 0 {W} {base + 22}" width="100%" role="img" aria-label="Gasto público nacional en % del PIB, {aa[0]}-{aa[-1]}" style="color:var(--fg);min-width:640px">{ejes}{marcas}'
+                 f'<figure style="margin:0"><div style="overflow-x:auto" tabindex="0" role="region" aria-label="Gráfico del gasto público consolidado: deslizá para ver todos los años"><svg viewBox="0 0 {W} {base + 22}" width="100%" role="img" aria-label="Gasto público nacional en % del PIB, {aa[0]}-{aa[-1]}" style="color:var(--fg);min-width:640px">{ejes}{marcas}'
                  f'<polyline points="{pts}" fill="none" stroke="var(--c1)" stroke-width="2"/>{puntos}{etis}<line x1="{pad}" x2="{W - 8}" y1="{base}" y2="{base}" stroke="var(--axis)"/></svg></div>'
                  '<figcaption class="note">Gasto público nacional en % del PIB. Las líneas marcan el último año completo antes de cada cambio de gobierno. Fuente: Ministerio de Economía, Gasto Público Consolidado (API de Series de Tiempo, datos.gob.ar).</figcaption></figure></section>')
 
@@ -1005,7 +1005,7 @@ def historia(self):
             partes.append(f'<polyline points="{pts}" fill="none" stroke="{col}" stroke-width="2.5"/>')
             partes += [f'<circle cx="{cx(i):.1f}" cy="{y(serie[a]):.1f}" r="2.5" fill="{col}"><title>{a}: {nombre} {miles(serie[a])} ({prim} = 100)</title></circle>' for i, a in enumerate(anios)]
         partes += [f'<text x="{cx(i):.1f}" y="{base + 15}" text-anchor="middle" font-size="11" fill="currentColor" opacity=".75">{a}</text>' for i, a in enumerate(anios) if a % 5 == 0 or a == anios[-1]]
-        grafico = (f'<figure style="margin:0"><div style="overflow-x:auto"><svg viewBox="0 0 {W} {base + 22}" width="100%" role="img" aria-label="Índice {prim} = 100 del PIB real y del gasto nacional real" style="color:var(--fg);min-width:640px">{"".join(partes)}'
+        grafico = (f'<figure style="margin:0"><div style="overflow-x:auto" tabindex="0" role="region" aria-label="Gráfico del PIB real y el gasto real: deslizá para ver todos los años"><svg viewBox="0 0 {W} {base + 22}" width="100%" role="img" aria-label="Índice {prim} = 100 del PIB real y del gasto nacional real" style="color:var(--fg);min-width:640px">{"".join(partes)}'
                    f'<line x1="{pad}" x2="{W - 8}" y1="{base}" y2="{base}" stroke="var(--axis)"/></svg></div>'
                    f'<figcaption class="note"><span style="color:var(--acc)">■</span> tamaño de la economía (PIB real) &nbsp; <span style="color:var(--c1)">■</span> gasto nacional real · índice {prim} = 100 · 2026 y 2027 con el crecimiento y el gasto que estima el Proyecto 2027</figcaption></figure>')
         filas = []
@@ -1129,7 +1129,7 @@ def historia(self):
         return (f'<section class="hx-dark" id="economia"><div class="hx-head"><div><h2>Contra el tamaño de la economía</h2>'
                 f'<p>El % del PIB dice qué parte de la torta se lleva el Estado nacional, pero no el tamaño de la torta: no es lo mismo gastar el 15% de una economía chica que de una grande. Las dos líneas, sin inflación, con {prim} = 100.</p></div>'
                 '<div class="hx-ley"><span><i style="background:#FF8A3D"></i>Economía (PIB real)</span><span><i style="background:#7FA0FF"></i>Gasto nacional real</span></div></div>'
-                f'<figure style="margin:0" class="hx-scroll"><svg viewBox="0 0 1000 300" width="100%" style="min-width:640px;display:block" role="img" aria-label="Índice {prim} = 100 del PIB real y del gasto nacional real">{lineas}'
+                f'<figure style="margin:0" class="hx-scroll" tabindex="0" role="region" aria-label="Gráfico del PIB real y el gasto real por gobierno: deslizá para ver todos los años"><svg viewBox="0 0 1000 300" width="100%" style="min-width:640px;display:block" role="img" aria-label="Índice {prim} = 100 del PIB real y del gasto nacional real">{lineas}'
                 f'<polyline points="{pts(ip)}" fill="none" stroke="#FF8A3D" stroke-width="3" stroke-linejoin="round"/><polyline points="{pts(ig)}" fill="none" stroke="#7FA0FF" stroke-width="3" stroke-linejoin="round"/>{puntos}{etis}</svg></figure>'
                 f'<div class="hx-trio"><div><b>{sg(c_pib)}</b>creció la economía entre {prim} y {ref}</div><div><b>{sg(c_hab)}</b>el PIB por habitante, porque la población también creció</div>'
                 f'<div><b>{sg(c_g)}</b>el gasto nacional por habitante de {ref} contra {prim}; su máximo fue en {pico_g}</div></div>'
@@ -1156,7 +1156,7 @@ def historia(self):
         if n27:
             fila_gob.append(f'<th scope="colgroup" colspan="{n27}" class="gob">Proy.</th>')
         cab = "".join(f'<th scope="col">{str(a)[2:] if a % 5 else a}</th>' for a in aa)
-        tabla_h = (f'<div class="hx-scroll"><table class="hx-heat hx-fis"><thead><tr><th></th>{"".join(fila_gob)}</tr><tr><th scope="col" style="text-align:left">% del PIB</th>{cab}</tr></thead><tbody>'
+        tabla_h = (f'<div class="hx-scroll"><table class="hx-heat hx-fis"><thead><tr><th><span class="sr">Gobierno</span></th>{"".join(fila_gob)}</tr><tr><th scope="col" style="text-align:left">% del PIB</th>{cab}</tr></thead><tbody>'
                    f'<tr><th scope="row">Resultado primario<br><span class="note">sin contar intereses</span></th>{"".join(celda(rp[a]) for a in aa)}</tr>'
                    f'<tr><th scope="row">Resultado financiero<br><span class="note">con intereses de la deuda</span></th>{"".join(celda(rf[a]) for a in aa)}</tr></tbody></table></div>')
         filas = []
@@ -1229,7 +1229,7 @@ def historia(self):
                 ok = [x for x in vals if x is not None]
                 lo, hi = min(ok), max(ok)
                 cuerpo_t.append(f'<tr><th scope="row">{e(n)}<br><span class="note">{e(ac)}</span></th>' + "".join(celda(x, lo, hi, div).replace("{}", fmt(x)) if x is not None else celda(None, 0, 0, div) for x in vals) + '</tr>')
-        tabla_h = (f'<div class="hx-scroll"><table class="hx-heat hx-fis hx-prod"><thead><tr><th></th>{"".join(fila_gob)}</tr><tr><th scope="col" style="text-align:left">Indicador</th>{cab}</tr></thead>'
+        tabla_h = (f'<div class="hx-scroll"><table class="hx-heat hx-fis hx-prod"><thead><tr><th><span class="sr">Gobierno</span></th>{"".join(fila_gob)}</tr><tr><th scope="col" style="text-align:left">Indicador</th>{cab}</tr></thead>'
                    f'<tbody>{"".join(cuerpo_t)}</tbody></table></div>')
         filas = []
         for g in G:
