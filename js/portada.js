@@ -47,7 +47,8 @@ function cards(box, rows) {
     const b = el('button', {type: 'button', className: 'btn mini', textContent: 'Imagen para compartir'});
     b.dataset.placaV = r.id;
     return el('div', {className: 'v'}, el('h3', {textContent: r.tema}), el('span', {className: 'pill ' + r.semaforo, textContent: r.estado}),
-      el('p', {className: 'dato', textContent: r.dato}), el('p', {textContent: r.lectura}), b);
+      el('p', {className: 'dato'}, el('span', {className: 'etq oficial', textContent: 'Datos oficiales'}), ...(/ASAP/.test(r.dato) ? [el('span', {className: 'etq noof', textContent: 'ASAP: fuente no oficial'})] : []), r.dato),
+      el('p', {}, el('span', {className: 'etq propia', textContent: 'Lectura del sitio'}), r.lectura), b);
   }));
 }
 const fmt0 = (v) => nf0.format(v), fmt1 = (v) => nf1.format(v), bn = (v) => nf1.format(v / 1e6);
@@ -351,7 +352,7 @@ async function placa(o) {
   ctx.font = '600 30px ' + SANS; ctx.fillStyle = PL.fg; ctx.textBaseline = 'top';
   ctx.fillText(SITE.replace('https://', ''), PL.m, PL.h - pie + 48);
   ctx.font = '400 24px ' + SANS; ctx.fillStyle = PL.muted;
-  ctx.fillText(o.fuente || 'Fuentes: Proyecto de Presupuesto 2027, Ley 27.798, INDEC, BCRA, FMI y ASAP', PL.m, PL.h - pie + 92);
+  ctx.fillText(o.fuente || 'Fuentes: Proyecto de Presupuesto 2027, Ley 27.798, INDEC, BCRA y FMI', PL.m, PL.h - pie + 92);
   return c;
 }
 async function compartirPlaca(o, nombre) {
@@ -373,7 +374,8 @@ document.addEventListener('click', (e) => {
   if (bv) {
     const v = DATA.veredictos.find((x) => x.id === bv.dataset.placaV);
     compartirPlaca({kicker: v.periodo === '2026' ? 'Presupuesto 2026: ¿se cumplió?' : 'Presupuesto 2027: ¿se cumplirá?', titulo: v.tema, estado: v.estado, color: v.semaforo,
-      bloques: [{texto: v.dato, tenue: true}, {texto: v.lectura, grande: true}]}, 'presupuesto-' + v.periodo + '-' + v.id);
+      fuente: /ASAP/.test(v.dato) ? 'Fuentes: Proyecto 2027, Ley 27.798, INDEC, BCRA, FMI · ASAP (no es fuente oficial)' : undefined,
+      bloques: [{texto: v.dato, tenue: true, tag: 'Datos'}, {texto: v.lectura, grande: true, tag: 'Lectura del sitio'}]}, 'presupuesto-' + v.periodo + '-' + v.id);
   }
   if (bp) {
     const p = DATA.impacto.find((x) => x.id === bp.dataset.placaP);

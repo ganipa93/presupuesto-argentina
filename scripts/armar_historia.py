@@ -21,17 +21,17 @@ HL = RAIZ / "fuentes" / "historia_larga"
 GOBIERNOS = [
     {"id": "menem", "contexto": "Convertibilidad (1 peso = 1 dólar). Desde 1994 parte de los aportes jubilatorios fue a las AFJP privadas.", "nombre": "Carlos Menem", "periodo": "1989-1999", "desde": 1995, "hasta": 1999,
      "nota": "Gobernó desde julio de 1989; la serie con detalle empieza en 1995."},
-    {"id": "delarua", "contexto": "Recesión y suba de los intereses de la deuda. En 2001, ley de «déficit cero»: recorte del 13% en sueldos estatales y jubilaciones altas.", "nombre": "Fernando de la Rúa", "periodo": "1999-2001", "desde": 2000, "hasta": 2001,
+    {"id": "delarua", "contexto": "Recesión y aumento de los intereses de la deuda. En 2001, ley de «déficit cero»: reducción del 13% en sueldos estatales y jubilaciones altas.", "nombre": "Fernando de la Rúa", "periodo": "1999-2001", "desde": 2000, "hasta": 2001,
      "nota": "Renunció el 20 de diciembre de 2001."},
     {"id": "duhalde", "contexto": "Salida de la convertibilidad, devaluación y default de la deuda. El PIB cayó cerca de 11% en 2002.", "nombre": "Eduardo Duhalde", "periodo": "2002-2003", "desde": 2002, "hasta": 2002,
      "nota": "Gobernó de enero de 2002 a mayo de 2003; 2003 se cuenta a N. Kirchner."},
-    {"id": "nkirchner", "contexto": "Crecimiento económico. Empiezan a crecer los subsidios a la energía y el transporte. Moratoria previsional (2005-2007).", "nombre": "Néstor Kirchner", "periodo": "2003-2007", "desde": 2003, "hasta": 2007,
+    {"id": "nkirchner", "contexto": "El PIB crece todos los años del período. Aumentan los subsidios a la energía y el transporte. Moratoria previsional (2005-2007).", "nombre": "Néstor Kirchner", "periodo": "2003-2007", "desde": 2003, "hasta": 2007,
      "nota": "Asumió el 25 de mayo de 2003, con el presupuesto 2003 ya aprobado."},
     {"id": "cfk", "contexto": "Las AFJP pasan al Estado (2008) y se crea la AUH (2009). Crisis internacional de 2009. Los subsidios energéticos llegan a su máximo en 2014.", "nombre": "Cristina Fernández de Kirchner", "periodo": "2007-2015", "desde": 2008, "hasta": 2015,
      "nota": "Dos mandatos seguidos."},
-    {"id": "macri", "contexto": "Baja de subsidios energéticos con suba de tarifas. Más deuda e intereses; acuerdo con el FMI en 2018.", "nombre": "Mauricio Macri", "periodo": "2015-2019", "desde": 2016, "hasta": 2019, "nota": ""},
+    {"id": "macri", "contexto": "Reducción de subsidios energéticos y aumento de tarifas. Aumentan la deuda y los intereses; acuerdo con el FMI en 2018.", "nombre": "Mauricio Macri", "periodo": "2015-2019", "desde": 2016, "hasta": 2019, "nota": ""},
     {"id": "afernandez", "contexto": "Pandemia en 2020 (IFE, refuerzos a jubilados y planes). Acuerdo con el FMI en 2022. Diputados rechazó el presupuesto 2022.", "nombre": "Alberto Fernández", "periodo": "2019-2023", "desde": 2020, "hasta": 2023, "nota": ""},
-    {"id": "milei", "contexto": "Fuerte reducción del gasto para lograr superávit: caen la obra pública, las transferencias a provincias y los subsidios. 2024 y 2025 con el presupuesto 2023 prorrogado.", "nombre": "Javier Milei", "periodo": "2023-", "desde": 2024, "hasta": 2026,
+    {"id": "milei", "contexto": "Menor gasto en obra pública, transferencias a provincias y subsidios; resultado financiero con superávit en 2024 y 2025. Esos dos años rigió el presupuesto 2023 prorrogado.", "nombre": "Javier Milei", "periodo": "2023-", "desde": 2024, "hasta": 2026,
      "nota": "En curso: 2026 es el cierre que estima el Proyecto 2027."},
 ]
 
